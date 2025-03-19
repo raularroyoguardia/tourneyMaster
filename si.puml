@@ -1,0 +1,99 @@
+@startuml
+
+
+class Usuaris {
+   +nom_usuari: String
+   +correu: String
+   +telefon: String
+   +data_naixement: Date
+   +rol: String
+   +foto_perfil: String
+   +trofeus: Integer
+   +nivell: Integer
+   +punts_experiencia: Integer
+   +data_registre: Date
+   +TipusUsuari: TipusUsuari
+}
+
+
+class TipusUsuari {
+   +tipus: String
+   +permisos: String
+}
+
+
+class Equips {
+   +nom_equip: String
+   +regio: String
+   +foto_equip: String
+   +trofeus: Integer
+   +data_creacio: Date
+   +descripcio: String
+   +Usuaris: Usuaris
+}
+
+
+class Torneig {
+   +nom_torneig: String
+   +quantitat_jugadors: Integer
+   +tipus: String
+   +data_inici: Date
+   +data_finalitzacio: Date
+   +estat: String
+   +Premi: Premi
+   +Joc: Joc
+   +Usuaris: Usuaris
+   +Equips: Equips
+   +Partida: Partida
+}
+
+
+class Joc {
+   +foto: String
+   +nom: String
+   +categoria: String
+   +plataforma: String
+   +modes_de_joc: ModeDeJoc[]
+}
+
+
+class ModeDeJoc {
+   +nom: String
+   +descripcio: String
+   +tipus: String
+}
+
+
+class Partida {
+   +id_partida: Integer
+   +data_hora: DateTime
+   +resultat: String
+   +Ronda: Ronda
+}
+
+
+class Ronda {
+   +num_ronda: Integer
+   +descripcio: String
+}
+
+
+class Premi {
+   +tipus: String
+   +valor: String
+}
+
+
+Usuaris --> "0..1" TipusUsuari : te
+Usuaris "1" --> "*" Equips : pertany a
+Equips "1" --> "1" Usuaris : tenen
+Torneig "0..*" -right-> "1" ModeDeJoc : pertany a
+Torneig "1" -left-> "*" Equips : permet
+Torneig "1" --> "*" Partida : conté
+Partida "1" --> "2" Equips : confronta a
+Partida "1" --> "1" Ronda : pertany a
+Torneig "1" --> "3" Premi : ofereix
+Joc "1" <-- "*" ModeDeJoc : té
+
+
+@enduml
