@@ -62,6 +62,22 @@ return [
             ]) : [],
         ],
 
+        'mysql_carlos' => [
+            'driver' => 'mysql',
+            'host' => '172.16.206.29',
+            'database' => 'tourneyMaster',
+            'username' => 'root',
+            'password' => 'root'
+        ],
+
+        'mysql_raul' => [
+            'driver' => 'mysql',
+            'host' => '172.16.206.28',
+            'database' => 'tourneyMaster',
+            'username' => 'root',
+            'password' => 'root'
+        ],
+
         'mariadb' => [
             'driver' => 'mariadb',
             'url' => env('DB_URL'),
