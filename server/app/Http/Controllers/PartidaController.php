@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Partida;
 use Illuminate\Http\Request;
+use App\Models\Torneig;
 
 class PartidaController extends Controller
 {
@@ -57,5 +58,12 @@ class PartidaController extends Controller
         $partida = Partida::findOrFail($id);
         $partida->delete();
         return response()->json('La partida del torneig ' . $partida->torneig->nom . ' s\'ha eliminat');
+    }
+
+    public function addtoTorneig(Request $request, $id) {
+        $partida = Partida::findOrFail($id);
+        $torneig = Torneig::findOrFail($request->id);
+        $torneig->equips()->attach($partida->id);
+        return response()->json('Partida ' . $partida->id . ' afegit al torneig ' . $torneig->nom);
     }
 }

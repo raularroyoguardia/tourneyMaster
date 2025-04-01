@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\File;
+use App\Models\Equip;
 
 class UserController extends Controller
 {
@@ -116,5 +117,13 @@ class UserController extends Controller
         }
         $user->delete();
         return response()->json('Usuari '.$user->name.' eliminat');
-     }
+    }
+
+    public function addtoEquip($id, Request $request)
+    {
+        $user = User::findOrFail($id);
+        $equip = Equip::findOrFail($request->$id);
+        $equip->usuaris()->attach($user->id);
+        return response()->json('Usuari '.$user->name.' afegit a l\'equip '.$id);
+    }
 }

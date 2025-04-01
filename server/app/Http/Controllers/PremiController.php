@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Premi;
 use Illuminate\Http\Request;
+use App\Models\Torneig;
 
 class PremiController extends Controller
 {
@@ -60,5 +61,12 @@ class PremiController extends Controller
         $premi->delete();
 
         return response()->json('El premi ' . $premi->tipus . ' del torneig ' . $premi->torneig->nom . ' s\'ha eliminat');
+    }
+
+    public function addtoTorneig(Request $request, $id) {
+        $premi = Premi::findOrFail($id);
+        $torneig = Torneig::findOrFail($request->id);
+        $torneig->usuaris()->attach($premi->id);
+        return response()->json('Premi afegit al torneig ' . $torneig->nom);
     }
 }

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Equip;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
+use App\Models\Torneig;
 
 use function Pest\Laravel\json;
 
@@ -114,5 +116,13 @@ class EquipController extends Controller
         }
         $equip->delete();
         return response()->json('Equip ' . $equip->nom . ' eliminat');
+    }
+
+    public function addtoTorneig(Request $request, $id)
+    {
+        $equip = Equip::findOrFail($id);
+        $torneig = Torneig::findOrFail($request->id);
+        $torneig->equips()->attach($equip->id);
+        return response()->json('Equip ' . $equip->nom . ' afegit al torneig ' . $torneig->nom);
     }
 }
