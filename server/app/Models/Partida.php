@@ -13,9 +13,4 @@ class Partida extends Model
     {
         return $this->belongsTo(Torneig::class);
     }
-
-    public function rondes(): HasMany
-    {
-        return $this->hasMany(Ronda::class);
-    }
 }

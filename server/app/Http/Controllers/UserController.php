@@ -115,7 +115,6 @@ class UserController extends Controller
             File::delete(public_path('uploads/fotoUser/' . $user->foto_usuari));
         }
         $user->delete();
-
         return response()->json('Usuari '.$user->name.' eliminat');
      }
 }

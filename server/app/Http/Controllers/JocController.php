@@ -37,7 +37,7 @@ class JocController extends Controller
             if($request->hasFile('foto')) {
                 $file = $request->file('foto');
                 $extension = $file->getClientOriginalExtension();
-                $filename = strtolower($joc->name . '.' . $extension);
+                $filename = strtolower($joc->nom . '.' . $extension);
                 $file->move(public_path('uploads/fotoJocs'), $filename);
                 $joc->foto = $filename;
                 $joc->save();
@@ -47,7 +47,7 @@ class JocController extends Controller
     }
 
     public function show($id) {
-        $joc = Joc::find($id);
+        $joc = Joc::findOrFail($id);
         return response()->json($joc);
     }
 
@@ -90,7 +90,7 @@ class JocController extends Controller
     }
 
     public function delete($id) {
-        $joc = Joc::find($id);
+        $joc = Joc::findOrFail($id);
         if ($joc->foto && File::exists(public_path('uploads/fotoJocs/' . $joc->foto))) {
             File::delete(public_path('uploads/fotoJocs/' . $joc->foto));
         }

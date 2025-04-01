@@ -12,11 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('torneigs', function (Blueprint $table) {
-            //$table->foreignId('premi_id')->nullable()->constrained(table: 'premis')->cascadeOnDelete();
-            $table->foreignId('modeJoc_id')->nullable()->constrained(table: 'mode_jocs')->cascadeOnDelete();
-            //$table->foreignId('equip_id')->nullable()->constrained(table: 'equips')->cascadeOnDelete();
-            //$table->foreignId('partida_id')->nullable()->constrained(table: 'partidas')->cascadeOnDelete();
-            
+            $table->integer('quantitat_partides');
         });
     }
 

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Joc extends Model
 {
-    // protected $fillable = ['nom', ];
+    protected $fillable = ['nom', ];
 
     public function modesDeJoc(): HasMany
     {
