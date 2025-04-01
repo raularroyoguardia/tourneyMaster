@@ -17,6 +17,7 @@ class JocSeeder extends Seeder
             'nom' => 'EA FC 25',
             'categoria' => 'Futbol',
             'plataforma' => 'PS5, XBOX, PS4, PC',
+            'foto' => 'eafc25'
         ]);
 
         Joc::create([
