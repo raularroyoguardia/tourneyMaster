@@ -2,6 +2,7 @@
 
 namespace App\Models;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,5 +18,9 @@ class ModeJoc extends Model
     public function torneig(): BelongsTo
     {
         return $this->belongsTo(Torneig::class);
+    }
+
+    public function mapas(): HasMany {
+        return $this->hasMany(Mapa::class);
     }
 }

@@ -18,6 +18,16 @@ class TipusUsuari {
    +permisos: String
 }
 
+class Mapa {
+   +nom: String
+   +mapa: String
+}
+
+class mapas_modes {
+   +mapa_id: int
+   +mode_joc_id: int
+}
+
 class Equips {
    +nom: String
    +regio: String
@@ -101,6 +111,8 @@ premi_torneig "1" --> "1" Premi : te
 Torneig "1" --> "*" partida_torneig : te
 partida_torneig "1" --> "1" Partida : te
 
+Mapa "*" --> "*" mapas_modes : pertany
+mapas_modes "*" --> "*" ModeDeJoc : pertany
 
 
 

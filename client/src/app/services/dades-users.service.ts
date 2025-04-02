@@ -1,0 +1,33 @@
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { IUser } from '../interfaces/iUser';
+import { Observable } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class DadesUsersService {
+
+  constructor(private _http: HttpClient) { }
+
+  public getUsers(): Observable<HttpResponse<IUser[]>> {
+    return this._http.get<IUser[]>('http://127.0.0.1:8000/web/users', { observe: 'response' });
+  }
+
+  public getUser(id: any): Observable<HttpResponse<IUser>> {
+    return this._http.get<IUser>(`http://127.0.0.1:8000/web/user/${id}`, { observe: 'response' });
+  }
+
+  public createUser(user: any): Observable<HttpResponse<any>> {
+    return this._http.post<any>('http://127.0.0.1:8000/web/user/new', user, { observe: 'response' });
+  }
+
+  public updateUser(id: any, user: any): Observable<HttpResponse<any>> {
+    return this._http.put<any>(`http://127.0.0.1:8000/web/user/edit/${id}`, user, { observe: 'response' });
+  }
+
+  public deleteUser(id: any) {
+    return this._http.delete<any>(`http://127.0.0.1:8000/web/user/delete/${id}`);
+
+  }
+}

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Str;
 use App\Models\Joc;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -37,7 +37,7 @@ class JocController extends Controller
             if($request->hasFile('foto')) {
                 $file = $request->file('foto');
                 $extension = $file->getClientOriginalExtension();
-                $filename = strtolower($joc->nom . '.' . $extension);
+                $filename = strtolower(Str::snake($joc->nom) . '.' . $extension);
                 $file->move(public_path('uploads/fotoJocs'), $filename);
                 $joc->foto = $filename;
                 $joc->save();

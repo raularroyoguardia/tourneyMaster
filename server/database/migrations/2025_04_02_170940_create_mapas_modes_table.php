@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('mode_jocs', function (Blueprint $table) {
+        Schema::create('mapas_modes', function (Blueprint $table) {
             $table->id();
-            $table->string('nom');
-            $table->string('descripcio');
-            $table->integer('jugadors');
+            $table->foreignId('mapa_id')->nullable()->constrained(table: 'mapas')->cascadeOnDelete();
+            $table->foreignId('mode_joc_id')->nullable()->constrained(table: 'mode_jocs')->cascadeOnDelete();
             $table->timestamps();
         });
     }
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('mode_jocs');
+        Schema::dropIfExists('mapas_modes');
     }
 };

@@ -9,6 +9,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\PartidaController;
 use App\Http\Controllers\PremiController;
 use App\Http\Controllers\TipusUsuariController;
+use App\Http\Controllers\ModeDeJocController;
 
 
 Route::get('/', function () {
@@ -46,6 +47,13 @@ Route::match(['get', 'post'], '/joc/new', [JocController::class, 'new'])->name('
 Route::get('/joc/{id}', [JocController::class, 'show'])->name('joc_show');
 Route::match(['get', 'post'], '/jocs/edit/{id}', [JocController::class, 'edit'])->name('joc_edit');
 Route::get('/joc/delete/{id}', [JocController::class, 'delete'])->name('joc_delete');
+
+//MODEJOC
+Route::get('/modejocs', [ModeDeJocController::class, 'list'])->name('modejocs_list');
+Route::match(['get', 'post'], '/modejoc/new', [ModeDeJocController::class, 'new'])->name('modejoc_new');
+Route::get('/modejoc/{id}', [ModeDeJocController::class, 'show'])->name('modejoc_show');
+Route::match(['get', 'post'], '/modejoc/edit/{id}', [ModeDeJocController::class, 'edit'])->name('modejoc_edit');
+Route::get('/modejoc/delete/{id}', [ModeDeJocController::class, 'delete'])->name('modejoc_delete');
 
 //TORNEIG
 Route::get('/torneigs', [TorneigController::class, 'list']) ->name('torneigs_list');

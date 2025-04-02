@@ -38,7 +38,6 @@ class UserController extends Controller
                     'telefon.max' => 'El telèfon no pot superar els 9 caràcters',
                     'data_naixement.required' => 'La data de naixement és obligatòria',
                     'data_naixement.date' => 'La data de naixement no és vàlida',
-                    'foto_usuari.required' => 'La foto és obligatòria',
                     'tipus_usuari.required' => 'El tipus d\'usuari és obligatori',
                 ]
             );

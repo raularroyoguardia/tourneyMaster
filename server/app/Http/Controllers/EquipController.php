@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Torneig;
-
+use Illuminate\Support\Str;
 use function Pest\Laravel\json;
 
 class EquipController extends Controller
@@ -48,7 +48,7 @@ class EquipController extends Controller
             if ($request->hasFile('foto_equip')) {
                 $file = $request->file('foto_equip');
                 $extension = $file->getClientOriginalExtension();
-                $filename = strtolower($equip->nom . '.' . $extension);
+                $filename = strtolower(Str::snake($equip->nom) . '.' . $extension);
                 $file->move(public_path('uploads/fotoEquips/'), $filename);
                 $equip->foto_equip = $filename;
                 $equip->save();
