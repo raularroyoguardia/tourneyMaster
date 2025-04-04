@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('partidas', function (Blueprint $table) {
             $table->id();
             $table->dateTime('data_hora', 0);
-            $table->string('resultat');
+            $table->integer('posicio_partida');
             $table->timestamps();
         });
     }

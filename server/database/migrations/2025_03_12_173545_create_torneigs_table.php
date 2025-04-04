@@ -13,12 +13,14 @@ return new class extends Migration
     {
         Schema::create('torneigs', function (Blueprint $table) {
             $table->id();
-            $table->string('nom');
-            $table->integer('participats');
+            $table->longText('nom');
+            $table->integer('participants');
             $table->string('tipus');
             $table->dateTime('data_inici');
             $table->dateTime('data_fi');
             $table->string('estat');
+            $table->integer('quantitat_partides');
+            $table->integer('numero_equips');
             $table->timestamps();
         });
     }

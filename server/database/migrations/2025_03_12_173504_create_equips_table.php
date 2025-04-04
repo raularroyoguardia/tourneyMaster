@@ -18,9 +18,8 @@ return new class extends Migration
             $table->string('foto_equip');
             $table->integer('trofeus')->nullable();
             $table->date('data_creacio');
-            $table->string('descripcio');
+            $table->longText('descripcio');
             $table->integer('maxim_integrants');
-
             $table->timestamps();
         });
     }

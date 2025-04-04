@@ -47,15 +47,11 @@ class Torneig {
    +estat: String
    +modeJoc_id: Integer
    +quantitat_partides: Integer
+   +numero_equips: int
 }
 
 class premi_torneig {
    +premi_id: Integer
-   +torneig_id: Integer
-}
-
-class partida_torneig {
-   +partida_id: Integer
    +torneig_id: Integer
 }
 
@@ -86,13 +82,19 @@ class ModeDeJoc {
 class Partida {
    +id_partida: Integer
    +data_hora: DateTime
-   +resultat: String
+   +resultat_equip_id: int
    +posicio_partida: Integer
 }
 
 class Premi {
    +tipus: String
    +valor: String
+}
+
+class Partida_Equip {
+   +equip_id: int
+   +partida_id: int
+   +posicio_final: int
 }
 
 Users --> "0..1" TipusUsuari : te
@@ -103,17 +105,16 @@ Torneig "1" -left-> "*" equip_torneig : te
 equip_torneig "1" --> "1" Equips : te
 
 Equips "1" -right-> "*" equips_Users : te
-equips_Users "1" --> "1" Users : te
+equips_Users "*" --> "1" Users : te
 
 Torneig "1" --> "*" premi_torneig : te
 premi_torneig "1" --> "1" Premi : te
 
-Torneig "1" --> "*" partida_torneig : te
-partida_torneig "1" --> "1" Partida : te
+Torneig "1" --> "*" Partida : te
 
 Mapa "*" --> "*" mapas_modes : pertany
 mapas_modes "*" --> "*" ModeDeJoc : pertany
 
-
-
+Partida_Equip "*" --> "1" Partida : té
+Equips "1" --> "*" "Partida_Equip" : participa
 @enduml

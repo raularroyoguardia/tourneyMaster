@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class ModeJoc extends Model
 {
-    protected $fillable = ['nom', 'descripcio', 'tipus'];
+    protected $fillable = ['nom', 'descripcio', 'jugadors', 'jocId'];
+    protected $table = 'mode_jocs';
 
     public function joc(): BelongsTo
     {

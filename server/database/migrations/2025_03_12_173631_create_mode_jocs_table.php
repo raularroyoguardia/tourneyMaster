@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('mode_jocs', function (Blueprint $table) {
             $table->id();
             $table->string('nom');
-            $table->string('descripcio');
+            $table->longText('descripcio');
             $table->integer('jugadors');
             $table->timestamps();
         });

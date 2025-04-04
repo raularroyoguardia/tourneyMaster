@@ -83,4 +83,15 @@ Route::get('/tipus_usuari/{id}', [TipusUsuariController::class, 'show'])->name('
 Route::match(['get', 'post'], '/tipus_usuari/edit/{id}', [TipusUsuariController::class, 'edit'])->name('tipus_usuari_edit');
 Route::get('/tipus_usuari/delete/{id}', [TipusUsuariController::class, 'delete'])->name('tipus_usuari_delete');
 
+
+Route::middleware('auth')->group(function () {
+    // Ruta para editar el perfil (mostrar formulario)
+    Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+
+    // Ruta para actualizar el perfil y la foto
+    Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+
+    // Ruta para eliminar la cuenta del usuario
+    Route::delete('/profile/delete', [ProfileController::class, 'destroy'])->name('profile.delete');
+});
 require __DIR__ . '/auth.php';

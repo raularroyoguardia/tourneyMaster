@@ -154,143 +154,45 @@ class ModeJocSeeder extends Seeder
         ]);
 
         ModeJoc::create([
-            'nom' => '',
-            'descripcio' => '',
-            'jugadors' => 0,
-            'jocId' => 0
+            'nom' => '1vs1',
+            'descripcio' => 'Es el modo clásico de Clash Royale, donde dos jugadores compiten en un duelo uno contra uno. Cada jugador tiene tres torres (dos torres de coronas y una torre del rey) y debe destruir más torres que el oponente antes de que acabe el tiempo. Si un jugador destruye la torre del rey, gana automáticamente.',
+            'jugadors' => 2,
+            'jocId' => 6
         ]);
 
         ModeJoc::create([
-            'nom' => '',
-            'descripcio' => '',
-            'jugadors' => 0,
-            'jocId' => 0
+            'nom' => 'Touchdown',
+            'descripcio' => 'Es un modo especial en el que no hay torres, y el objetivo es llevar una de tus tropas hasta la línea de touchdown del rival. Cada vez que una tropa cruza la línea enemiga, se anota un punto. El primer jugador en marcar dos touchdowns gana la partida.',
+            'jugadors' => 2,
+            'jocId' => 6
         ]);
 
         ModeJoc::create([
-            'nom' => '',
-            'descripcio' => '',
-            'jugadors' => 0,
-            'jocId' => 0
+            'nom' => 'Juego en línea',
+            'descripcio' => 'Compite contra otros jugadores en 4 circuitos distintos escogidos por votos de los jugadores. Antes de empezar cada carrera se botará el circuito que se quiere correr. Al final de cada carrera se obtiene una puntuación dependiendo de la posición. El jugador que junte más puntos gana la partida',
+            'jugadors' => 8,
+            'jocId' => 7
         ]);
 
         ModeJoc::create([
-            'nom' => '',
-            'descripcio' => '',
-            'jugadors' => 0,
-            'jocId' => 0
+            'nom' => 'Grieta del Invocador',
+            'descripcio' => 'Dos equipos de cinco jugadores luchan para destruir el Nexo enemigo, atravesando tres líneas (top, mid, bot) y enfrentándose a torres, súbditos y monstruos de la jungla.',
+            'jugadors' => 10,
+            'jocId' => 8
         ]);
 
         ModeJoc::create([
-            'nom' => '',
-            'descripcio' => '',
-            'jugadors' => 0,
-            'jocId' => 0
+            'nom' => 'ARAM (All Random All Mid)',
+            'descripcio' => 'Un modo rápido y caótico en el Abismo de los Lamentos. Solo hay una línea, sin jungla, y los campeones son asignados aleatoriamente. Ideal para combates constantes.',
+            'jugadors' => 10,
+            'jocId' => 8
         ]);
 
         ModeJoc::create([
-            'nom' => '',
-            'descripcio' => '',
-            'jugadors' => 0,
-            'jocId' => 0
-        ]);
-
-        ModeJoc::create([
-            'nom' => '',
-            'descripcio' => '',
-            'jugadors' => 0,
-            'jocId' => 0
-        ]);
-
-        ModeJoc::create([
-            'nom' => '',
-            'descripcio' => '',
-            'jugadors' => 0,
-            'jocId' => 0
-        ]);
-
-        ModeJoc::create([
-            'nom' => '',
-            'descripcio' => '',
-            'jugadors' => 0,
-            'jocId' => 0
-        ]);
-
-        ModeJoc::create([
-            'nom' => '',
-            'descripcio' => '',
-            'jugadors' => 0,
-            'jocId' => 0
-        ]);
-
-        ModeJoc::create([
-            'nom' => '',
-            'descripcio' => '',
-            'jugadors' => 0,
-            'jocId' => 0
-        ]);
-
-        ModeJoc::create([
-            'nom' => '',
-            'descripcio' => '',
-            'jugadors' => 0,
-            'jocId' => 0
-        ]);
-
-        ModeJoc::create([
-            'nom' => '',
-            'descripcio' => '',
-            'jugadors' => 0,
-            'jocId' => 0
-        ]);
-
-        ModeJoc::create([
-            'nom' => '',
-            'descripcio' => '',
-            'jugadors' => 0,
-            'jocId' => 0
-        ]);
-
-        ModeJoc::create([
-            'nom' => '',
-            'descripcio' => '',
-            'jugadors' => 0,
-            'jocId' => 0
-        ]);
-
-        ModeJoc::create([
-            'nom' => '',
-            'descripcio' => '',
-            'jugadors' => 0,
-            'jocId' => 0
-        ]);
-
-        ModeJoc::create([
-            'nom' => '',
-            'descripcio' => '',
-            'jugadors' => 0,
-            'jocId' => 0
-        ]);
-
-        ModeJoc::create([
-            'nom' => '',
-            'descripcio' => '',
-            'jugadors' => 0,
-            'jocId' => 0
-        ]);
-
-        ModeJoc::create([
-            'nom' => '',
-            'descripcio' => '',
-            'jugadors' => 0,
-            'jocId' => 0
-        ]);
-
-        ModeJoc::create([
-            'nom' => '',
-            'descripcio' => '',
-            'jugadors' => 0,
-            'jocId' => 0
+            'nom' => 'Modo Rotativo',
+            'descripcio' => 'Modos especiales que aparecen temporalmente, como URF (Ultra Rapid Fire) con habilidades sin costo y enfriamientos reducidos.',
+            'jugadors' => 10,
+            'jocId' => 8
         ]);
     }
 }

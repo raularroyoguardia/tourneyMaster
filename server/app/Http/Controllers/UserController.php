@@ -54,7 +54,7 @@ class UserController extends Controller
             if ($request->hasFile('foto_usuari')) {
                 $file = $request->file('foto_usuari');
                 $extension = $file->getClientOriginalExtension();
-                $filename = strtolower($user->name . '.' . $extension);
+                $filename = strtolower($user->name . $user->telefon . '.' . $extension);
                 $file->move(public_path('uploads/fotoUser/'), $filename);
                 $user->foto_usuari = $filename;
                 $user->save();
