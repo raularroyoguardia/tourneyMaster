@@ -11,22 +11,22 @@ export class DadesPartidasService {
   constructor(private _http: HttpClient) { }
 
   public getPartides(): Observable<HttpResponse<IPartida[]>> {
-    return this._http.get<IPartida[]>('http://127.0.0.1:8000/web/partides', { observe: 'response' });
+    return this._http.get<IPartida[]>('http://127.0.0.1:8000/partides', { observe: 'response' });
   }
 
   public getPartida(id: any): Observable<HttpResponse<IPartida>> {
-    return this._http.get<IPartida>(`http://127.0.0.1:8000/web/partida/${id}`, { observe: 'response' });
+    return this._http.get<IPartida>(`http://127.0.0.1:8000/partida/${id}`, { observe: 'response' });
   }
 
   public createPartida(partida: any): Observable<HttpResponse<any>> {
-    return this._http.post<any>('http://127.0.0.1:8000/web/partida/new', partida, { observe: 'response' });
+    return this._http.post<any>('http://127.0.0.1:8000/partida/new', partida, { observe: 'response' });
   }
 
   public updatePartida(id: any, partida: any): Observable<HttpResponse<any>> {
-    return this._http.put<any>(`http://127.0.0.1:8000/web/partida/edit/${id}`, partida, { observe: 'response' });
+    return this._http.put<any>(`http://127.0.0.1:8000/partida/edit/${id}`, partida, { observe: 'response' });
   }
 
   public deletePartida(id: any) {
-    return this._http.delete<any>(`http://127.0.0.1:8000/web/partida/delete/${id}`);
+    return this._http.delete<any>(`http://127.0.0.1:8000/partida/delete/${id}`);
   }
 }

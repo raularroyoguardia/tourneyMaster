@@ -140,7 +140,7 @@ class ModeJocSeeder extends Seeder
         ]);
 
         ModeJoc::create([
-            'nom' => 'Snoww Day',
+            'nom' => 'Hielo',
             'descripcio' => 'Un modo inspirado en el hockey sobre hielo, donde el balón es reemplazado por un puck que se desliza sobre la superficie. Cambia la física del juego y requiere un enfoque diferente para los tiros y pases.',
             'jugadors' => 6,
             'jocId' => 5
@@ -169,7 +169,7 @@ class ModeJocSeeder extends Seeder
 
         ModeJoc::create([
             'nom' => 'Juego en línea',
-            'descripcio' => 'Compite contra otros jugadores en 4 circuitos distintos escogidos por votos de los jugadores. Antes de empezar cada carrera se botará el circuito que se quiere correr. Al final de cada carrera se obtiene una puntuación dependiendo de la posición. El jugador que junte más puntos gana la partida',
+            'descripcio' => 'Compite contra otros jugadores en los 4 circuitos distintos de cada Grand Prix. Al final de cada carrera se obtiene una puntuación dependiendo de la posición. El jugador que junte más puntos gana la partida',
             'jugadors' => 8,
             'jocId' => 7
         ]);

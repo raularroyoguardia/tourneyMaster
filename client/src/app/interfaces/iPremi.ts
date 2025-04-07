@@ -1,5 +1,5 @@
 export interface IPremi{
     id:number;
-    tipus:string;
+    posicio_premi:string;
     valor:number;
 }

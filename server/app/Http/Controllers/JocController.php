@@ -53,7 +53,7 @@ class JocController extends Controller
 
     public function edit(Request $request, $id) {
         if($request->isMethod('post')) {
-            $joc = new Joc()::find($id);
+            $joc = Joc::find($id);
             $request->validate([
                 'nom' => 'required|string',
                 'categoria' => 'required|string',

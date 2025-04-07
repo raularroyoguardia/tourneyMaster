@@ -68,7 +68,7 @@ class EquipController extends Controller
         $equip = Equip::findOrFail($id);
 
         if ($request->isMethod('post')) {
-            $equip = new Equip();
+            $equip = Equip::find($id);
             $request->validate([
                 'nom' => 'required|string|max:20',
                 'regio' => 'required|string',

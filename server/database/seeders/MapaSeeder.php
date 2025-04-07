@@ -203,5 +203,257 @@ class MapaSeeder extends Seeder
             'nom' => 'Instrucciones Sencillas',
             'mapa' => 'instruccionessencillas.webp',
         ]);
+
+        //BRAWL STARS CAZA ESTELAR
+        Mapa::create([
+            'nom' => 'Tiroteo Estelar',
+            'mapa' => 'tiroteoestelar.webp',
+        ]);
+
+        Mapa::create([
+            'nom' => 'Escondite',
+            'mapa' => 'escondite.webp',
+        ]);
+
+        Mapa::create([
+            'nom' => 'Crimen Organizado',
+            'mapa' => 'crimenorganizado.webp',
+        ]);
+
+        Mapa::create([
+            'nom' => 'Sequia Sanguinaria',
+            'mapa' => 'sequiasanguinaria.webp',
+        ]);
+
+        Mapa::create([
+            'nom' => 'Ninguna Excusa',
+            'mapa' => 'ningunaexcusa.webp',
+        ]);
+
+        Mapa::create([
+            'nom' => 'Impacto Inminente',
+            'mapa' => 'impactoinminente.webp',
+        ]);
+
+        //BRAWL STARS ZONA RESTRINGIDA
+        Mapa::create([
+            'nom' => 'Campo Abierto',
+            'mapa' => 'campoabierto.webp',
+        ]);
+
+        Mapa::create([
+            'nom' => 'Pisa Ardiente',
+            'mapa' => 'pisaardiente.webp',
+        ]);
+
+        Mapa::create([
+            'nom' => 'Duelo De Escarabajos',
+            'mapa' => 'duelodeescarabajos.webp',
+        ]);
+
+        Mapa::create([
+            'nom' => 'Zona Abierta',
+            'mapa' => 'zonaabierta.webp',
+        ]);
+
+        Mapa::create([
+            'nom' => 'Joyas Brillantes',
+            'mapa' => 'joyasbrillantes.webp',
+        ]);
+
+        Mapa::create([
+            'nom' => 'Pesca Comoda',
+            'mapa' => 'pescacomoda.webp',
+        ]);
+
+        //BRAWL STARS NOQUEO
+        Mapa::create([
+            'nom' => 'Roca De Belle',
+            'mapa' => 'rocadebelle.webp',
+        ]);
+
+        Mapa::create([
+            'nom' => 'Hasta El Fondo',
+            'mapa' => 'hastaelfondo.webp',
+        ]);
+
+        Mapa::create([
+            'nom' => 'A La Interperie',
+            'mapa' => 'alainterperie.webp',
+        ]);
+
+        Mapa::create([
+            'nom' => 'Termino Medio Sano',
+            'mapa' => 'terminomediosano.webp',
+        ]);
+
+        Mapa::create([
+            'nom' => 'Nuevos Horizontes',
+            'mapa' => 'nuevoshorizontes.webp',
+        ]);
+
+        Mapa::create([
+            'nom' => 'Cruce Musgoso',
+            'mapa' => 'crucemusgoso.webp',
+        ]);
+
+        //FORTNITE BATTLE ROYALE
+        Mapa::create([
+            'nom' => 'Capitulo 5:Temporada 2',
+            'mapa' => 'capitulo5:temporada2.webp',
+        ]);
+
+        //FORTNITE CERO CONSTRUCCIÓN
+        Mapa::create([
+            'nom' => 'Capitulo 5:Temporada 2',
+            'mapa' => 'capitulo5:temporada2.webp',
+        ]);
+
+        //ROCKET LEAGUE 1v1 2v2 3v3 4v4
+        Mapa::create([
+            'nom' => 'Champions Field',
+            'mapa' => 'championsfield.webp',
+        ]);
+
+        Mapa::create([
+            'nom' => 'Neo Tokyo',
+            'mapa' => 'neotokyo.webp',
+        ]);
+
+        Mapa::create([
+            'nom' => 'Deadeye Canyon',
+            'mapa' => 'deadeyecanyon.webp',
+        ]);
+
+        Mapa::create([
+            'nom' => 'Salty Shores',
+            'mapa' => 'saltyshores.webp',
+        ]);
+
+        Mapa::create([
+            'nom' => 'Farmstead',
+            'mapa' => 'farmstead.webp',
+        ]);
+
+        Mapa::create([
+            'nom' => 'Starbase ARC',
+            'mapa' => 'starbasearc.webp',
+        ]);
+
+        //ROCKET LEAGUE SNOWW DAY
+        Mapa::create([
+            'nom' => 'Beckwith Park',
+            'mapa' => 'beckwithpark.webp',
+        ]);
+
+        Mapa::create([
+            'nom' => 'DFH Stadium',
+            'mapa' => 'dfhstadium.webp',
+        ]);
+        
+        Mapa::create([
+            'nom' => 'Mannfield',
+            'mapa' => 'mannfield.webp',
+        ]);
+
+        Mapa::create([
+            'nom' => 'Throwback Stadium',
+            'mapa' => 'throwbackstadium.webp',
+        ]);
+
+        Mapa::create([
+            'nom' => 'Utopia Coliseum',
+            'mapa' => 'utopiacoliseum.webp',
+        ]);
+
+        //ROCKET LEAGUE HOOPS
+        Mapa::create([
+            'nom' => 'Dunk House',
+            'mapa' => 'dunkhouse.webp',
+        ]);
+
+        Mapa::create([
+            'nom' => 'The Block',
+            'mapa' => 'theblock.webp',
+        ]);
+
+        //CLASH ROYALE 1V1
+        Mapa::create([
+            'nom' => 'Arena 10',
+            'mapa' => 'arena10.webp',
+        ]);
+
+        //CLASH ROYALE TOUCHDOWN
+        Mapa::create([
+            'nom' => 'Touchdown',
+            'mapa' => 'touchdown.jpg',
+        ]);
+
+        //MARIOKART
+        Mapa::create([
+            'nom' => 'Copa Champiñón',
+            'mapa' => 'copachampiñón.webp',
+        ]);
+
+        Mapa::create([
+            'nom' => 'Copa Flor',
+            'mapa' => 'copaflor.webp',
+        ]);
+
+        Mapa::create([
+            'nom' => 'Copa Estrella',
+            'mapa' => 'copaestrella.webp',
+        ]);
+
+        Mapa::create([
+            'nom' => 'Copa Especial',
+            'mapa' => 'copaespecial.webp',
+        ]);
+
+        Mapa::create([
+            'nom' => 'Copa Caparazón',
+            'mapa' => 'copacaparazón.webp',
+        ]);
+
+        Mapa::create([
+            'nom' => 'Copa Plátano',
+            'mapa' => 'copaplátano.webp',
+        ]);
+
+        Mapa::create([
+            'nom' => 'Copa Hoja',
+            'mapa' => 'copahoja.webp',
+        ]);
+
+        Mapa::create([
+            'nom' => 'Copa Centella',
+            'mapa' => 'copacentella.webp',
+        ]);
+
+        Mapa::create([
+            'nom' => 'Copa Huevo',
+            'mapa' => 'copahuevo.png',
+        ]);
+
+        Mapa::create([
+            'nom' => 'Copa Crossing',
+            'mapa' => 'copacrossing.png',
+        ]);
+
+        Mapa::create([
+            'nom' => 'Copa Trifuerza',
+            'mapa' => 'copatrifuerza.png',
+        ]);
+
+        Mapa::create([
+            'nom' => 'Copa Campana',
+            'mapa' => 'copacampana.png',
+        ]);
+
+        //LOL
+        Mapa::create([
+            'nom' => 'Mapa LOL',
+            'mapa' => 'mapalol.webp',
+        ]);
     }
 }

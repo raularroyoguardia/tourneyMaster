@@ -8,4 +8,5 @@ export interface ITorneig{
     estat:string;
     modeJoc_id:number;
     quantitat_partides:number;
+    numero_equips:number;
 }

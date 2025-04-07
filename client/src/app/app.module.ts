@@ -24,6 +24,14 @@ import { PremiCreateComponent } from './Premi/premi-create/premi-create.componen
 import { TipusUserCreateComponent } from './TipusUser/tipus-user-create/tipus-user-create.component';
 import { TorneigCreateComponent } from './Torneig/torneig-create/torneig-create.component';
 import { UserCreateComponent } from './User/user-create/user-create.component';
+import { EquipEditComponent } from './Equip/equip-edit/equip-edit.component';
+import { JocEditComponent } from './Joc/joc-edit/joc-edit.component';
+import { ModeJocEditComponent } from './ModeJoc/mode-joc-edit/mode-joc-edit.component';
+import { PartidaEditComponent } from './Partida/partida-edit/partida-edit.component';
+import { PremiEditComponent } from './Premi/premi-edit/premi-edit.component';
+import { TipusUserEditComponent } from './TipusUser/tipus-user-edit/tipus-user-edit.component';
+import { TorneigEditComponent } from './Torneig/torneig-edit/torneig-edit.component';
+import { UserEditComponent } from './User/user-edit/user-edit.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +54,14 @@ import { UserCreateComponent } from './User/user-create/user-create.component';
     TipusUserCreateComponent,
     TorneigCreateComponent,
     UserCreateComponent,
+    EquipEditComponent,
+    JocEditComponent,
+    ModeJocEditComponent,
+    PartidaEditComponent,
+    PremiEditComponent,
+    TipusUserEditComponent,
+    TorneigEditComponent,
+    UserEditComponent,
 
 
   ],

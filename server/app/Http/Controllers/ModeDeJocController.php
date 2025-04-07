@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class ModeDeJocController extends Controller
 {
     public function list() {
-        $jocs = ModeJoc::with('joc');
+        $jocs = ModeJoc::with('joc')->get();
         return response()->json($jocs);
     }
 
