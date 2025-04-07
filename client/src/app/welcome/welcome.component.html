@@ -1,1 +1,16 @@
-<p>welcome works!</p>
+<div class="carousel-container" *ngIf="jocs.length > 0">
+    <div class="carousel-images" [style.transform]="'translateX(-' + currentIndex * 100 + '%)'">
+        <div class="carousel-item" *ngFor="let joc of jocs">
+            <img [src]="'http://localhost:8000/uploads/fotoJocs/' + joc.foto" [alt]="joc.nom || 'Joc'" />
+        </div>
+    </div>
+
+    <div class="carousel-buttons">
+        <button (click)="prev()">←</button>
+        <button (click)="next()">→</button>
+    </div>
+</div>
+
+<div *ngIf="jocs.length === 0">
+    <p>No hi ha jocs disponibles.</p>
+</div>
