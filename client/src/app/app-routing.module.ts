@@ -22,6 +22,7 @@ import { EquipCreateComponent } from './Equip/equip-create/equip-create.componen
 
 const routes: Routes = [
   {path:'welcome', component: WelcomeComponent},
+  
   {path:'equip-list', component: EquipListComponent},
   {path:'equip-create', component: EquipCreateComponent},
   {path:'equip-edit/:id', component:EquipEditComponent},

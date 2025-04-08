@@ -1,16 +1,124 @@
-<div class="carousel-container" *ngIf="jocs.length > 0">
-    <div class="carousel-images" [style.transform]="'translateX(-' + currentIndex * 100 + '%)'">
-        <div class="carousel-item" *ngFor="let joc of jocs">
-            <img [src]="'http://localhost:8000/uploads/fotoJocs/' + joc.foto" [alt]="joc.nom || 'Joc'" />
+<div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        <div *ngFor="let image of jocs; let i = index" class="carousel-item" [ngClass]="{ 'active': i === 0 }">
+            <img [src]="'uploads/fotoJocs/' + image" class="d-block w-100" [alt]="'Imagen ' + (i + 1)">
         </div>
     </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Anterior</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Siguiente</span>
+    </button>
+</div>
 
-    <div class="carousel-buttons">
-        <button (click)="prev()">←</button>
-        <button (click)="next()">→</button>
+
+<!-- <swiper-container slides-per-view="3" speed="500" loop="true" css-mode="true">
+    <swiper-slide class="swiper-slide" *ngFor="let joc of jocs">
+        <img [src]="'uploads/fotoJocs/' + joc" [alt]="'Joc'" />
+    </swiper-slide>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-pagination"></div>
+</swiper-container> -->
+
+<div class="features-container">
+    <div class="feature-card">
+        <div class="feature-icon users-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+        </div>
+        <h3>Usuaris administradors</h3>
+        <p style="color: white">Usuaris administradors podràn crear tants tornejos com ells vulguin per la resta
+            d’usuaris.</p>
+    </div>
+
+    <div class="feature-card">
+        <div class="feature-icon trophy-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+                <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+                <path d="M4 22h16"></path>
+                <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path>
+                <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path>
+                <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
+            </svg>
+        </div>
+        <h3>Varietat de tornejos</h3>
+        <p style="color: white">Si els usuaris pertanyen a un equip, podràn decidir si participar en tornejos
+            individuals o col·lectius.</p>
+    </div>
+
+    <div class="feature-card">
+        <div class="feature-icon chart-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 3v18h18"></path>
+                <path d="M18 17V9"></path>
+                <path d="M13 17V5"></path>
+                <path d="M8 17v-3"></path>
+            </svg>
+        </div>
+        <h3>Rankings</h3>
+        <p style="color: white">Depenent dels trofeus guanyats als tornejos, hi haurà una classificació individual i
+            col·lectiva global.</p>
     </div>
 </div>
 
-<div *ngIf="jocs.length === 0">
-    <p>No hi ha jocs disponibles.</p>
+<div class="card flex justify-content-center">
+    <p-accordion [value]="['0']" [multiple]="true">
+        <p-accordion-panel value="0">
+            <p-accordion-header>Header I</p-accordion-header>
+            <p-accordion-content>
+                <p class="m-0">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+                    et dolore
+                    magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+                    ea commodo
+                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                    nulla
+                    pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
+                    anim id est
+                    laborum.
+                </p>
+            </p-accordion-content>
+        </p-accordion-panel>
+        <p-accordion-panel value="1">
+            <p-accordion-header>Header II</p-accordion-header>
+            <p-accordion-content>
+                <p class="m-0">
+                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,
+                    totam rem
+                    aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt
+                    explicabo. Nemo
+                    enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni
+                    dolores eos
+                    qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.
+                </p>
+            </p-accordion-content>
+        </p-accordion-panel>
+        <p-accordion-panel value="2">
+            <p-accordion-header>Header III</p-accordion-header>
+            <p-accordion-content>
+                <p class="m-0">
+                    At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
+                    deleniti atque
+                    corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique
+                    sunt in
+                    culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum
+                    facilis est et
+                    expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit
+                    quo minus.
+                </p>
+            </p-accordion-content>
+        </p-accordion-panel>
+    </p-accordion>
 </div>

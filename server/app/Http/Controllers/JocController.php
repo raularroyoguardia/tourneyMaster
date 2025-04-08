@@ -14,8 +14,8 @@ class JocController extends Controller
     }
 
     public function new(Request $request) {
+        $joc = new Joc();
         if($request->isMethod('post')) {
-            $joc = new Joc();
             $request->validate([
                 'nom' => 'required|string',
                 'categoria' => 'required|string',

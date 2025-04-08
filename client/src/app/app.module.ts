@@ -1,7 +1,12 @@
 import { NgModule } from '@angular/core';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { BrowserModule, provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+//PRIMENG
+import { AccordionModule } from 'primeng/accordion';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -62,8 +67,6 @@ import { UserEditComponent } from './User/user-edit/user-edit.component';
     TipusUserEditComponent,
     TorneigEditComponent,
     UserEditComponent,
-
-
   ],
   imports: [
     BrowserModule,
@@ -72,6 +75,8 @@ import { UserEditComponent } from './User/user-edit/user-edit.component';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    AccordionModule,
+    BrowserAnimationsModule
   ],
   providers: [
     provideClientHydration(withEventReplay())

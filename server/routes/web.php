@@ -4,12 +4,14 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EquipController;
 use App\Http\Controllers\JocController;
+use App\Http\Controllers\MapaController;
 use App\Http\Controllers\TorneigController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PartidaController;
 use App\Http\Controllers\PremiController;
 use App\Http\Controllers\TipusUsuariController;
 use App\Http\Controllers\ModeDeJocController;
+use Illuminate\Support\Facades\File;
 
 
 Route::get('/', function () {
@@ -82,6 +84,22 @@ Route::match(['get', 'post'], '/tipus_usuari/new', [TipusUsuariController::class
 Route::get('/tipus_usuari/{id}', [TipusUsuariController::class, 'show'])->name('tipus_usuari_show');
 Route::match(['get', 'post'], '/tipus_usuari/edit/{id}', [TipusUsuariController::class, 'edit'])->name('tipus_usuari_edit');
 Route::get('/tipus_usuari/delete/{id}', [TipusUsuariController::class, 'delete'])->name('tipus_usuari_delete');
+
+//MAPA
+Route::get('/mapas', [MapaController::class, 'list'])->name('mapas_list');
+
+
+Route::get('/images', function () {
+    $directory = public_path('uploads/fotoJocs');
+    $files = File::files($directory);
+
+    $images = array_map(function ($file) {
+        return $file->getFilename();
+    }, $files);
+
+    return response()->json($images);
+});
+
 
 
 Route::middleware('auth')->group(function () {
