@@ -1,7 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { IJoc } from '../interfaces/iJoc';
 import { DadesJocsService } from '../services/dades-jocs.service';
 import { HttpClient, HttpResponse } from '@angular/common/http';
+declare var bootstrap: any;
+
 
 
 @Component({
@@ -10,33 +12,31 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
   templateUrl: './welcome.component.html',
   styleUrls: ['./welcome.component.css'] 
 })
-export class WelcomeComponent implements OnInit {
-  // jocs: IJoc[] = [];
-  currentIndex = 0;
+export class WelcomeComponent implements OnInit, AfterViewInit {
+   jocs: IJoc[] = [];
 
+  constructor(private jocService: DadesJocsService) {}
 
-  jocs: string[] = [];
-  constructor(private http: HttpClient) {}
+  ngOnInit(): void {
+    this.jocService.getJocs().subscribe({
+      next: (res) => {
+        this.jocs = res.body || [];
+        setTimeout(() => this.initCarousel(), 0.1);
+      },
+      error: err => {
+        console.error('Error al cargar los jocs:', err);
+      }
+    });
+  }
+  ngAfterViewInit() {
+    this.initCarousel();
+  }
 
-  
-
-  // constructor(private jocService: DadesJocsService) {}
-
-  // ngOnInit(): void {
-  //   this.jocService.getJocs().subscribe({
-  //     next: (res: HttpResponse<IJoc[]>) => {
-  //       this.jocs = res.body || [];
-  //     },
-  //     error: err => {
-  //       console.error('Error al cargar los jocs:', err);
-  //     }
-  //   });
-  // }
-  ngOnInit() {
-    this.http.get<string[]>('http://localhost:8000/images')
-      .subscribe((data: string[]) => {
-        this.jocs = data;
-      });
+  initCarousel() {
+    const el = document.querySelector('#carouselExample');
+    if (el) {
+      bootstrap.Carousel.getOrCreateInstance(el);
+    }
   }
 }
 

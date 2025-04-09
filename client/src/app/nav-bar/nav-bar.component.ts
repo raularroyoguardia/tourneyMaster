@@ -9,6 +9,11 @@ import { Component } from '@angular/core';
 export class NavBarComponent {
   nombreUsuario: string = 'Juan'; // ⚠️ Esto normalmente viene del login o servicio
   telefonoUsuario: string = '123456789';
+  isDropdownOpen: boolean = false;
+
+  toggleDropdown() {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
 
   defaultImage: string = 'https://f5c4537feeb2b644adaf-b9c0667778661278083bed3d7c96b2f8.ssl.cf1.rackcdn.com/artistas/perfil-usuario.png';
   userImage: string = '';

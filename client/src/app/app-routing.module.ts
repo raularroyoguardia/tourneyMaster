@@ -18,6 +18,7 @@ import { TipusUserEditComponent } from './TipusUser/tipus-user-edit/tipus-user-e
 import { TorneigEditComponent } from './Torneig/torneig-edit/torneig-edit.component';
 import { UserEditComponent } from './User/user-edit/user-edit.component';
 import { EquipCreateComponent } from './Equip/equip-create/equip-create.component';
+import { RegisterComponent } from './register/register.component';
 
 
 const routes: Routes = [
@@ -54,6 +55,8 @@ const routes: Routes = [
   {path:'user-list', component: UserListComponent},
   {path:'user-edit/:id', component: UserEditComponent},
   {path:'user-create', component: UserEditComponent},
+
+  { path: 'register', component: RegisterComponent },
 
 
 

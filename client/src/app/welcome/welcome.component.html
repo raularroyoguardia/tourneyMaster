@@ -1,28 +1,12 @@
-<div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+<div id="carouselExample" class="carousel slide carousel-fade mt-6" data-bs-ride="carousel" data-bs-interval="2500" data-bs-pause="false">
     <div class="carousel-inner">
-        <div *ngFor="let image of jocs; let i = index" class="carousel-item" [ngClass]="{ 'active': i === 0 }">
-            <img [src]="'uploads/fotoJocs/' + image" class="d-block w-100" [alt]="'Imagen ' + (i + 1)">
+        <div *ngFor="let joc of jocs; let i = index" class="carousel-item" [ngClass]="{ 'active': i === 0 }">
+            <img [src]="'uploads/fotoJocs/' + joc.foto" class="d-block w-100" [alt]="joc.nom" />
         </div>
     </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Anterior</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Siguiente</span>
-    </button>
 </div>
 
 
-<!-- <swiper-container slides-per-view="3" speed="500" loop="true" css-mode="true">
-    <swiper-slide class="swiper-slide" *ngFor="let joc of jocs">
-        <img [src]="'uploads/fotoJocs/' + joc" [alt]="'Joc'" />
-    </swiper-slide>
-    <div class="swiper-button-next"></div>
-    <div class="swiper-button-prev"></div>
-    <div class="swiper-pagination"></div>
-</swiper-container> -->
 
 <div class="features-container">
     <div class="feature-card">
@@ -79,13 +63,17 @@
             <p-accordion-header>Header I</p-accordion-header>
             <p-accordion-content>
                 <p class="m-0">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                    labore
                     et dolore
-                    magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+                    magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
+                    ex
                     ea commodo
-                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+                    fugiat
                     nulla
-                    pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
+                    pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                    mollit
                     anim id est
                     laborum.
                 </p>
@@ -95,13 +83,16 @@
             <p-accordion-header>Header II</p-accordion-header>
             <p-accordion-content>
                 <p class="m-0">
-                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium,
+                    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
+                    laudantium,
                     totam rem
                     aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt
                     explicabo. Nemo
-                    enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni
+                    enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur
+                    magni
                     dolores eos
-                    qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius modi.
+                    qui ratione voluptatem sequi nesciunt. Consectetur, adipisci velit, sed quia non numquam eius
+                    modi.
                 </p>
             </p-accordion-content>
         </p-accordion-panel>
@@ -111,11 +102,13 @@
                 <p class="m-0">
                     At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum
                     deleniti atque
-                    corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique
+                    corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident,
+                    similique
                     sunt in
                     culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum
                     facilis est et
-                    expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit
+                    expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil
+                    impedit
                     quo minus.
                 </p>
             </p-accordion-content>

@@ -37,6 +37,7 @@ import { PremiEditComponent } from './Premi/premi-edit/premi-edit.component';
 import { TipusUserEditComponent } from './TipusUser/tipus-user-edit/tipus-user-edit.component';
 import { TorneigEditComponent } from './Torneig/torneig-edit/torneig-edit.component';
 import { UserEditComponent } from './User/user-edit/user-edit.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -67,6 +68,7 @@ import { UserEditComponent } from './User/user-edit/user-edit.component';
     TipusUserEditComponent,
     TorneigEditComponent,
     UserEditComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,

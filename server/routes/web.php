@@ -12,6 +12,7 @@ use App\Http\Controllers\PremiController;
 use App\Http\Controllers\TipusUsuariController;
 use App\Http\Controllers\ModeDeJocController;
 use Illuminate\Support\Facades\File;
+use App\Http\Controllers\Auth\RegisteredUserController;
 
 
 Route::get('/', function () {
@@ -29,7 +30,7 @@ Route::middleware('auth')->group(function () {
 });
 
 //EQUIPS
-Route::get('/equips', [EquipController::class, 'list'])->name('equips_list');
+Route::get('/equips', [EquipController::class, 'list'])->name('equips_list')->middleware();
 Route::match(['get', 'post'], '/equip/new', [EquipController::class, 'new'])->name('equip_new');
 Route::get('/equip/{id}', [EquipController::class, 'show'])->name('equip_show');
 Route::match(['get', 'post'], '/equip/edit/{id}', [EquipController::class, 'edit'])->name('equip_edit');
@@ -99,6 +100,9 @@ Route::get('/images', function () {
 
     return response()->json($images);
 });
+
+Route::get('/register', [RegisteredUserController::class, 'showForm'])->name('register');
+Route::post('/register', [RegisteredUserController::class, 'submitForm']);
 
 
 
