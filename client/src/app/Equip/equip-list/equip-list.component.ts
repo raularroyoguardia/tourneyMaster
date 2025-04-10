@@ -11,19 +11,48 @@ import { DadesEquipsService } from '../../services/dades-equips.service';
 })
 export class EquipListComponent implements OnInit {
   equips: IEquip[] = [];
-  selectedEquip: IEquip | null = null; // Para almacenar el equipo seleccionado
+  individualData: any[] = [];
+  collectiveData: any[] = [];
+  selectedEquip: any | null = null; // Para un equipo seleccionado
+  showIndividual: boolean = true; // Alternar entre individual y colectivo
 
   constructor(private equipService: DadesEquipsService) { }
+
   ngOnInit() {
-    //fem servir event de creació
     console.log("Listat d'equips inicialitzat");
+
+    // Opcional: Cargar la lista de equipos si aún es necesaria
     this.equipService.getEquips().subscribe(resp => {
       if (resp.body !== null) {
         this.equips = resp.body;
       }
     });
+
+    // Cargar datos de clasificaciones individual y colectiva
+    this.loadIndividualData();
+    this.loadCollectiveData();
   }
-  // Método para seleccionar un equipo y obtener sus detalles
+
+  // Cargar clasificación individual
+  loadIndividualData(): void {
+    this.equipService.getIndividual().subscribe(data => {
+      this.individualData = data; // Guardar los datos individuales
+    });
+  }
+
+  // Cargar clasificación colectiva
+  loadCollectiveData(): void {
+    this.equipService.getCollective().subscribe(data => {
+      this.collectiveData = data; // Guardar los datos colectivos
+    });
+  }
+
+  // Alternar vista entre individual y colectivo
+  toggleView(view: string): void {
+    this.showIndividual = view === 'individual'; // Cambia la bandera para mostrar la tabla adecuada
+  }
+
+  // Método para seleccionar un equipo específico (si lo necesitas)
   onSelectEquip(id: any) {
     this.equipService.getEquip(id).subscribe((resp) => {
       if (resp.body !== null) {

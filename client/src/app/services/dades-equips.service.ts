@@ -29,4 +29,12 @@ export class DadesEquipsService {
   public deleteEquip(id: any) {
     return this._http.delete<any>(`http://127.0.0.1:8000/equip/delete/${id}`);
   }
+
+  getIndividual(): Observable<any> {
+    return this._http.get(`http://127.0.0.1:8000/classification/individual`);
+  }
+
+  getCollective(): Observable<any> {
+    return this._http.get(`http://127.0.0.1:8000/classification/collectiu`);
+  }
 }

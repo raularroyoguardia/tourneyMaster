@@ -4,8 +4,6 @@ import { DadesJocsService } from '../services/dades-jocs.service';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 declare var bootstrap: any;
 
-
-
 @Component({
   selector: 'app-welcome',
   standalone: false,
@@ -13,7 +11,8 @@ declare var bootstrap: any;
   styleUrls: ['./welcome.component.css'] 
 })
 export class WelcomeComponent implements OnInit, AfterViewInit {
-   jocs: IJoc[] = [];
+  jocs: IJoc[] = [];
+  activeIndex: number = -1; // Para controlar qué acordeón está abierto
 
   constructor(private jocService: DadesJocsService) {}
 
@@ -28,6 +27,7 @@ export class WelcomeComponent implements OnInit, AfterViewInit {
       }
     });
   }
+  
   ngAfterViewInit() {
     this.initCarousel();
   }
@@ -38,6 +38,9 @@ export class WelcomeComponent implements OnInit, AfterViewInit {
       bootstrap.Carousel.getOrCreateInstance(el);
     }
   }
+
+  // Método para controlar el acordeón
+  toggleAccordion(index: number) {
+    this.activeIndex = this.activeIndex === index ? -1 : index;
+  }
 }
-
-

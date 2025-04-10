@@ -1,32 +1,54 @@
 .logo {
-    border-radius: 50%;
-    width:70px;
-    height: auto;
-    object-fit:cover;
+  border-radius: 50%;
+  width:70px;
+  height: auto;
+  object-fit:cover;
 }
 
 .dropdown-menu {
-    position: absolute;
-    top: 100%; /* Posición debajo del botón */
-    right: 0; /* Alinear a la derecha */
-    z-index: 9999;
-    background-color: #ffffff; /* Fondo blanco */
-    border: 1px solid #e5e5e5; /* Borde ligero */
-    border-radius: 0.5rem; /* Bordes redondeados */
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra */
-    display: block;
-    width: 12rem; /* Ancho del dropdown */
-  }
-  .dropdown-menu ul {
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-  }
-  .dropdown-menu li {
-    padding: 0.5rem 1rem; /* Espaciado dentro de cada elemento */
-  }
-  .dropdown-menu li:hover {
-    background-color: #f1f5f9; /* Fondo al hacer hover */
-  }
-  
-  
+  position: absolute;
+  top: 100%; /* Posición debajo del botón */
+  right: 0; /* Alinear a la derecha */
+  z-index: 9999;
+  background-color: #ffffff; /* Fondo blanco */
+  border: 1px solid #e5e5e5; /* Borde ligero */
+  border-radius: 0.5rem; /* Bordes redondeados */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Sombra */
+  display: block;
+  width: 12rem; /* Ancho del dropdown */
+}
+
+.dropdown-menu ul {
+  z-index: 200;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.dropdown-menu li {
+  padding: 0.5rem 1rem; /* Espaciado dentro de cada elemento */
+}
+
+.dropdown-menu li:hover {
+  background-color: #f1f5f9; /* Fondo al hacer hover */
+}
+
+.navbar-user a {
+  text-decoration: none; /* Eliminar subrayado */
+  transition: all 0.3s ease; /* Transición suave */
+}
+
+.navbar-user a:hover {
+  transform: scale(1.05); /* Ligeramente más grande al hacer hover */
+  color: #ff8c00; /* Cambiar el color al hacer hover */
+}
+
+a {
+  text-decoration: none;
+}
+
+.active-link {
+  color: #3b82f6; /* azul claro (tailwind blue-500) */
+  font-weight: bold; /* Texto en negrita */
+  border: 2px solid rgb(244, 247, 250); /* Subrayado decorativo */
+}

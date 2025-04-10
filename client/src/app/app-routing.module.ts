@@ -18,51 +18,51 @@ import { TipusUserEditComponent } from './TipusUser/tipus-user-edit/tipus-user-e
 import { TorneigEditComponent } from './Torneig/torneig-edit/torneig-edit.component';
 import { UserEditComponent } from './User/user-edit/user-edit.component';
 import { EquipCreateComponent } from './Equip/equip-create/equip-create.component';
-import { RegisterComponent } from './register/register.component';
+import { AuthGuard } from './services/auth.guard';
 
 
 const routes: Routes = [
-  {path:'welcome', component: WelcomeComponent},
-  
-  {path:'equip-list', component: EquipListComponent},
-  {path:'equip-create', component: EquipCreateComponent},
-  {path:'equip-edit/:id', component:EquipEditComponent},
+  { path: 'welcome', component: WelcomeComponent},
 
-  {path:'torneig-list', component: TorneigListComponent},
-  {path:'torneig-edit/:id', component: TorneigEditComponent},
-  {path:'torneig-create', component: TorneigEditComponent},
+  { path: 'equip-list', component: EquipListComponent, /*canActivate: [AuthGuard]*/ },
+  { path: 'equip-create', component: EquipCreateComponent, /*canActivate: [AuthGuard]*/ },
+  { path: 'equip-edit/:id', component: EquipEditComponent, /*canActivate: [AuthGuard]*/ },
 
-  {path:'joc-list', component: JocListComponent},
-  {path:'joc-edit/:id', component:JocEditComponent},
-  {path:'joc-create', component: JocEditComponent},
+  { path: 'torneig-list', component: TorneigListComponent, /*canActivate: [AuthGuard]*/ },
+  { path: 'torneig-edit/:id', component: TorneigEditComponent, /*canActivate: [AuthGuard]*/ },
+  { path: 'torneig-create', component: TorneigEditComponent, /*canActivate: [AuthGuard]*/ },
 
-  {path:'mode-joc-list', component: ModeJocListComponent},
-  {path:'mode-joc-edit/:id', component: ModeJocEditComponent},
-  {path:'mode-joc-create', component: ModeJocEditComponent},
+  { path: 'joc-list', component: JocListComponent, /*canActivate: [AuthGuard]*/ },
+  { path: 'joc-edit/:id', component: JocEditComponent, /*canActivate: [AuthGuard]*/ },
+  { path: 'joc-create', component: JocEditComponent, /*canActivate: [AuthGuard]*/ },
 
-  {path:'partida-list', component: PartidaListComponent},
-  {path:'partida-edit/:id', component: PartidaEditComponent},
-  {path:'partida-create', component: PartidaEditComponent},
+  { path: 'mode-joc-list', component: ModeJocListComponent, /*canActivate: [AuthGuard]*/ },
+  { path: 'mode-joc-edit/:id', component: ModeJocEditComponent, /*canActivate: [AuthGuard]*/ },
+  { path: 'mode-joc-create', component: ModeJocEditComponent, /*canActivate: [AuthGuard]*/ },
 
-  {path:'premi-list', component: PremiListComponent},
-  {path:'premi-edit/:id', component: PremiEditComponent},
-  {path:'premi-create', component: PremiEditComponent},
+  { path: 'partida-list', component: PartidaListComponent, /*canActivate: [AuthGuard]*/ },
+  { path: 'partida-edit/:id', component: PartidaEditComponent, /*canActivate: [AuthGuard]*/ },
+  { path: 'partida-create', component: PartidaEditComponent, /*canActivate: [AuthGuard]*/ },
 
-  {path:'tipus-user-list', component: TipusUserListComponent},
-  {path:'tipus-user-edit/:id', component: TipusUserEditComponent},
-  {path:'tipus-user-create', component: TipusUserEditComponent},
+  { path: 'premi-list', component: PremiListComponent, /*canActivate: [AuthGuard]*/ },
+  { path: 'premi-edit/:id', component: PremiEditComponent, /*canActivate: [AuthGuard]*/ },
+  { path: 'premi-create', component: PremiEditComponent, /*canActivate: [AuthGuard]*/ },
 
-  {path:'user-list', component: UserListComponent},
-  {path:'user-edit/:id', component: UserEditComponent},
-  {path:'user-create', component: UserEditComponent},
+  { path: 'tipus-user-list', component: TipusUserListComponent, /*canActivate: [AuthGuard]*/ },
+  { path: 'tipus-user-edit/:id', component: TipusUserEditComponent, /*canActivate: [AuthGuard]*/ },
+  { path: 'tipus-user-create', component: TipusUserEditComponent, /*canActivate: [AuthGuard]*/ },
 
-  { path: 'register', component: RegisterComponent },
+  { path: 'user-list', component: UserListComponent, /*canActivate: [AuthGuard]*/ },
+  { path: 'user-edit/:id', component: UserEditComponent, /*canActivate: [AuthGuard]*/ },
+  { path: 'user-create', component: UserEditComponent, /*canActivate: [AuthGuard]*/ },
 
+  // Redirección por defecto a 'welcome' si el usuario está autenticado
+  { path: '', redirectTo: '/welcome', pathMatch: 'full' },
 
+  // Redirección en caso de ruta no encontrada
+  { path: '**', redirectTo: '/welcome', pathMatch: 'full' }
+];
 
-  {path:'', redirectTo:'welcome', pathMatch:'full'},
-  {path:'**', redirectTo:'welcome', pathMatch:'full'},
- ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

@@ -1,43 +1,52 @@
-<div class="panel panel-primary">
-    <div *ngIf="equips.length == 0">
-        <h4>No hi ha equip</h4>
-    </div>
-
-    <div *ngIf="equips.length > 0" class="table-responsive">
-        <!-- Aquí mostramos la información del equipo seleccionado, si existe -->
-        <div *ngIf="selectedEquip">
-            <div class="div1">
-                <div class="imatge">
-                    <img [src]="selectedEquip.foto_equip" alt="Imatge de l'equip" height="30%" width="30%">
-                </div>
-                <div class="equip">
-                    <h2>{{ selectedEquip.nom }}</h2>
-                    <h3>{{ selectedEquip.descripcio }}</h3>
-                </div>
-                <div class="trofeus">
-                    <p>Regió: {{ selectedEquip.regio }}</p>
-                    <p>Trofeus: {{ selectedEquip.trofeus }}</p>
-                    <p>Creació: {{ selectedEquip.data_creacio }}</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Tabla de todos los equipos -->
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Foto</th>
-                    <th>Usuari</th>
-                    <th>Trofeus</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let equip of equips" (click)="onSelectEquip(equip.id)">
-                    <td><img [src]="equip.foto_equip" alt="Imatge del usuari" height="30%" width="30%"></td>
-                    <td>{{ equip.nom }}</td>
-                    <td>{{ equip.trofeus }}</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
+<!-- Botones para alternar entre Individual y Col·lectiu -->
+<div class="buttons">
+    <button (click)="toggleView('individual')">Individual</button>
+    <button (click)="toggleView('collective')">Col·lectiu</button>
+  </div>
+  
+  <!-- Tabla de Clasificación Individual -->
+  <div *ngIf="showIndividual">
+    <h3>Clasificación Individual</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Posición</th>
+          <th>Nombre Usuario</th>
+          <th>Trofeos</th>
+          <th>Equipo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of individualData">
+          <td>{{ item.posicion }}</td>
+          <td>{{ item.nombre_usuario }}</td>
+          <td>{{ item.trofeos_usuario }}</td>
+          <td>{{ item.nombre_equipo }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <!-- Tabla de Clasificación Col·lectiva -->
+  <div *ngIf="!showIndividual">
+    <h3>Clasificación Col·lectiva</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Posición</th>
+          <th>Nombre Equipo</th>
+          <th>Trofeos Totales</th>
+          <th>Región</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of collectiveData">
+          <td>{{ item.posicion }}</td>
+          <td>{{ item.nombre_equipo }}</td>
+          <td>{{ item.trofeos_totales }}</td>
+          <td>{{ item.region }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

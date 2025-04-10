@@ -35,6 +35,8 @@ Route::match(['get', 'post'], '/equip/new', [EquipController::class, 'new'])->na
 Route::get('/equip/{id}', [EquipController::class, 'show'])->name('equip_show');
 Route::match(['get', 'post'], '/equip/edit/{id}', [EquipController::class, 'edit'])->name('equip_edit');
 Route::get('/equip/delete/{id}', [EquipController::class, 'delete'])->name('equip_delete');
+Route::get('/classification/individual', [EquipController::class, 'getIndividual']);
+Route::get('/classification/collectiu', [EquipController::class, 'getCollective']);
 
 
 //USER
@@ -100,10 +102,6 @@ Route::get('/images', function () {
 
     return response()->json($images);
 });
-
-Route::get('/register', [RegisteredUserController::class, 'showForm'])->name('register');
-Route::post('/register', [RegisteredUserController::class, 'submitForm']);
-
 
 
 Route::middleware('auth')->group(function () {

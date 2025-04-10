@@ -22,5 +22,15 @@ class EquipUserSeeder extends Seeder
             'equip_id' => 1,
             'user_id' => 2
         ]);
+
+        EquipUser::create([
+            'equip_id' => 2,
+            'user_id' => 3
+        ]);
+
+        EquipUser::create([
+            'equip_id' => 2,
+            'user_id' => 4
+        ]);
     }
 }

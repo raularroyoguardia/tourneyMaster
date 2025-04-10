@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Models\Torneig;
 use Illuminate\Support\Str;
 use function Pest\Laravel\json;
+use Illuminate\Support\Facades\DB;
 
 class EquipController extends Controller
 {
@@ -125,4 +126,25 @@ class EquipController extends Controller
         $torneig->equips()->attach($equip->id);
         return response()->json('Equip ' . $equip->nom . ' afegit al torneig ' . $torneig->nom);
     }
+
+    public function getIndividual()
+    {
+        $individual = DB::select("SELECT * FROM `equips` WHERE maxim_integrants = 1 ORDER BY trofeus desc;");
+        return response()->json($individual);
+    }
+
+    public function getCollective()
+    {
+        $collective = DB::select("SELECT * FROM `equips` WHERE maxim_integrants > 1 ORDER BY trofeus desc;");
+        return response()->json($collective);
+    }
+
 }
+
+
+// col·lectiu
+//SELECT * FROM `equips` WHERE maxim_integrants > 1 ORDER BY trofeus desc;
+
+
+// individual
+// SELECT * FROM `equips` WHERE maxim_integrants = 1 ORDER BY trofeus desc;

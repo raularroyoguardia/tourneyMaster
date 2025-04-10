@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav-bar',
@@ -7,9 +9,25 @@ import { Component } from '@angular/core';
   styleUrl: './nav-bar.component.css'
 })
 export class NavBarComponent {
-  nombreUsuario: string = 'Juan'; // ⚠️ Esto normalmente viene del login o servicio
-  telefonoUsuario: string = '123456789';
+  nombreUsuario: string = ''; // ⚠️ Esto normalmente viene del login o servicio
+  telefonoUsuario: string = '';
   isDropdownOpen: boolean = false;
+  isModalOpen: boolean = false;
+  isRegister: boolean = false;
+
+  constructor(private authService: AuthService, private router: Router) {}
+
+  toggleModal(isRegister: boolean) {
+    this.isRegister = isRegister;
+    this.isModalOpen = true;
+    this.isDropdownOpen = false; // Cierra el menú desplegable
+}
+  
+  
+  closeModal() {
+    this.isModalOpen = false;
+  }  
+  
 
   toggleDropdown() {
     this.isDropdownOpen = !this.isDropdownOpen;
@@ -25,4 +43,9 @@ export class NavBarComponent {
   setDefaultImage(event: any) {
     event.target.src = this.defaultImage;
   }
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/login']);
+  }
+  
 }

@@ -37,7 +37,8 @@ import { PremiEditComponent } from './Premi/premi-edit/premi-edit.component';
 import { TipusUserEditComponent } from './TipusUser/tipus-user-edit/tipus-user-edit.component';
 import { TorneigEditComponent } from './Torneig/torneig-edit/torneig-edit.component';
 import { UserEditComponent } from './User/user-edit/user-edit.component';
-import { RegisterComponent } from './register/register.component';
+import { FooterComponent } from './footer/footer.component';
+import { ModalComponent } from './modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -68,8 +69,10 @@ import { RegisterComponent } from './register/register.component';
     TipusUserEditComponent,
     TorneigEditComponent,
     UserEditComponent,
-    RegisterComponent,
+    FooterComponent,
+    ModalComponent,
   ],
+  exports: [NavBarComponent],
   imports: [
     BrowserModule,
     RouterModule,
@@ -83,6 +86,6 @@ import { RegisterComponent } from './register/register.component';
   providers: [
     provideClientHydration(withEventReplay())
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent, WelcomeComponent]
 })
 export class AppModule { }

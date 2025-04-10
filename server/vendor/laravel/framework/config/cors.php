@@ -1,4 +1,16 @@
 <?php
+// function handle( Request $request, Closure $next )
+// {
+//     $response = $next( $request );
+
+//     // Add CORS headers
+//     $response->headers->set( 'Access-Control-Allow-Origin', '*' );
+//     $response->headers->set( 'Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS' );
+//     $response->headers->set( 'Access-Control-Allow-Headers', 'Content-Type, Authorization' );
+
+//     return $response;
+
+// }
 
 return [
 
@@ -15,11 +27,11 @@ return [
     |
     */
 
-    'paths' => ['api/*', 'uploads/', 'sanctum/csrf-cookie'],
+    'paths' => ['api/*', 'sanctum/csrf-cookie'],
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => ['*'],
+    'allowed_origins' => ['http://localhost:4200'],
 
     'allowed_origins_patterns' => [],
 
