@@ -18,6 +18,7 @@ export class TorneigListComponent implements OnInit{
       if (resp.body !== null) {
         this.torneigs = resp.body;
       }
+      console.log(this.torneigs);
     });
   }
 }

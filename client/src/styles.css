@@ -1,6 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 @import "tailwindcss";
 
+html,
 body {
-    color: white;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  color: white;
 }

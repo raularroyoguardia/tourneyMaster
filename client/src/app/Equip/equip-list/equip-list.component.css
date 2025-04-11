@@ -1,0 +1,78 @@
+
+body {
+    background: linear-gradient(180deg, #000000, #b83280); 
+    color: white; 
+    font-family: Arial, sans-serif; 
+    margin: 0; 
+    padding: 0;
+  }
+  
+  
+  .buttons {
+    display: flex;
+    justify-content: center; 
+    gap: 15px; 
+    margin: 20px 0; 
+  }
+  
+  
+  .buttons button {
+    background: linear-gradient(45deg, #6200ea, #b83280); 
+    border: none; 
+    color: white; 
+    padding: 10px 20px; 
+    font-size: 16px; 
+    cursor: pointer; 
+    border-radius: 25px; 
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3); 
+    transition: all 0.3s ease; 
+  }
+  
+  
+  .buttons button:hover {
+    background: linear-gradient(45deg, #b83280, #6200ea); 
+    transform: scale(1.1); 
+  }
+  
+  
+  table {
+    width: 90%; 
+    margin: 0 auto; 
+    border-collapse: collapse; 
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4); 
+  }
+  
+  
+  thead {
+    color: white; 
+    text-align: center; 
+  }
+  
+  
+  thead th {
+    padding: 15px; 
+    font-size: 18px; 
+  }
+  
+  
+  tbody tr {
+    color: white; 
+    text-align: center; 
+  }
+  
+  
+  tbody td {
+    padding: 10px; 
+  }
+  
+  
+  tbody tr:hover {
+    transition: background-color 0.3s ease; 
+  }
+  
+  h3 {
+    text-align: center; 
+    color: #ffffff; 
+    margin-bottom: 20px; 
+  }
+  

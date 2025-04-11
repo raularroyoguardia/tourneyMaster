@@ -47,7 +47,7 @@ export class EquipListComponent implements OnInit {
     this.equipService.getCollectiu().subscribe(data => {
       this.collectiveData = data; // Guardar los datos colectivos
     });
-    console.log(this.collectiveData);
+    // console.log(this.collectiveData);
   }
 
   // Alternar vista entre individual y colectivo

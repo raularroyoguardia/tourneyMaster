@@ -65,7 +65,8 @@ class EquipController extends Controller
         return response()->json($equip);
     }
 
-    public function edit(Request $request, $id) {
+    public function edit(Request $request, $id)
+    {
         $equip = Equip::findOrFail($id);
 
         if ($request->isMethod('post')) {
@@ -127,18 +128,23 @@ class EquipController extends Controller
         return response()->json('Equip ' . $equip->nom . ' afegit al torneig ' . $torneig->nom);
     }
 
+    // public function getIndividual()
+    // {
+    //     $individual = DB::select("SELECT * FROM `equips` WHERE maxim_integrants = 1 ORDER BY trofeus desc;");
+    //     return response()->json($individual);
+    // }
+
     public function getIndividual()
     {
-        $individual = DB::select("SELECT * FROM `equips` WHERE maxim_integrants = 1 ORDER BY trofeus desc;");
+        $individual = DB::select("
+        SELECT equips.*, users.name AS user_name FROM equips JOIN equips_users ON equips.id = equips_users.equip_id JOIN users ON equips_users.user_id = users.id WHERE equips.maxim_integrants = 1 ORDER BY equips.trofeus DESC;");
         return response()->json($individual);
     }
-
     public function getCollective()
     {
         $collective = DB::select("SELECT * FROM `equips` WHERE maxim_integrants > 1 ORDER BY trofeus desc;");
         return response()->json($collective);
     }
-
 }
 
 
