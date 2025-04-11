@@ -11,22 +11,22 @@ export class DadesPremisService {
   constructor(private _http: HttpClient) { }
 
   public getPremis(): Observable<HttpResponse<IPremi[]>> {
-    return this._http.get<IPremi[]>('http://127.0.0.1:8000/premis', { observe: 'response' });
+    return this._http.get<IPremi[]>('http://127.0.0.1:8000/api/premis', { observe: 'response' });
   }
 
   public getPremi(id: any): Observable<HttpResponse<IPremi>> {
-    return this._http.get<IPremi>(`http://127.0.0.1:8000/premi/${id}`, { observe: 'response' });
+    return this._http.get<IPremi>(`http://127.0.0.1:8000/api/premi/${id}`, { observe: 'response' });
   }
 
   public createPremi(premi: any): Observable<HttpResponse<any>> {
-    return this._http.post<any>('http://127.0.0.1:8000/premi/new', premi, { observe: 'response' });
+    return this._http.post<any>('http://127.0.0.1:8000/api/premi/new', premi, { observe: 'response' });
   }
 
   public updatePremi(id: any, premi: any): Observable<HttpResponse<any>> {
-    return this._http.put<any>(`http://127.0.0.1:8000/premi/edit/${id}`, premi, { observe: 'response' });
+    return this._http.put<any>(`http://127.0.0.1:8000/api/premi/edit/${id}`, premi, { observe: 'response' });
   }
 
   public deletePremi(id: any) {
-    return this._http.delete<any>(`http://127.0.0.1:8000/premi/delete/${id}`);
+    return this._http.delete<any>(`http://127.0.0.1:8000/api/premi/delete/${id}`);
   }
 }

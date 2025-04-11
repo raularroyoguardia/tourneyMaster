@@ -26,6 +26,7 @@ export class EquipListComponent implements OnInit {
       if (resp.body !== null) {
         this.equips = resp.body;
       }
+      // console.log(this.equips);
     });
 
     // Cargar datos de clasificaciones individual y colectiva
@@ -38,13 +39,15 @@ export class EquipListComponent implements OnInit {
     this.equipService.getIndividual().subscribe(data => {
       this.individualData = data; // Guardar los datos individuales
     });
+    // console.log(this.individualData);
   }
 
   // Cargar clasificación colectiva
   loadCollectiveData(): void {
-    this.equipService.getCollective().subscribe(data => {
+    this.equipService.getCollectiu().subscribe(data => {
       this.collectiveData = data; // Guardar los datos colectivos
     });
+    console.log(this.collectiveData);
   }
 
   // Alternar vista entre individual y colectivo

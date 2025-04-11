@@ -1,58 +1,28 @@
 <nav class="backdrop-blur-md gradient-bg">
   <div class="max-w-screen-xl flex items-center justify-between mx-auto p-4">
-    <!-- Logo y enlace a documento (A la izquierda) -->
-    <a href="https://docs.google.com/document/d/1iDrELt7-S95G79MHIjdBAS8Sxi_yTybMkuydCzLkvjE/edit?tab=t.0#heading=h.49kclq888rxh"
-      target="_blank" class="flex items-center space-x-3 rtl:space-x-reverse no-underline">
+    <a href="https://docs.google.com/document/d/1iDrELt7-S95G79MHIjdBAS8Sxi_yTybMkuydCzLkvjE/edit?tab=t.0#heading=h.49kclq888rxh" target="_blank" class="flex items-center space-x-3 rtl:space-x-reverse no-underline">
       <img src="uploads/logo/logo.png" class="h-8 logo" alt="TorneyMaster Logo" />
       <p class="self-center text-2xl font-semibold whitespace-nowrap text-gray-800 dark:text-white">TorneyMaster</p>
     </a>
-
-    <!-- Botones Login y Register (Derecha) -->
-    <div class="max-w-screen-xl flex items-center justify-between mx-auto space-x-4 items-end p-4">
-      <!--<div class="flex items-center space-x-4 ml-auto">-->
-        <a href="/login" class="text-white font-semibold py-2 px-6 bg-gradient-to-r from-blue-500 to-teal-500 rounded-md shadow-lg hover:from-blue-600 hover:to-teal-600 transition duration-300 ease-in-out">
-          Login
-        </a>
-        <a href="/register" class="text-white font-semibold py-2 px-6 bg-gradient-to-r from-green-500 to-teal-500 rounded-md shadow-lg hover:from-green-600 hover:to-teal-600 transition duration-300 ease-in-out">
-          Register
-        </a>
-      </div>
-
-    <!-- Menú de navegación (Centro) -->
     <div class="flex items-center justify-center flex-grow w-full md:flex md:w-auto md:order-1" id="navbar-user">
       <ul class="flex justify-center font-medium p-4 md:p-0 mt-4 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 bg-transparent">
-        <!-- Home -->
         <li>
-          <a routerLink="/welcome" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }"
-            class="nav-link block py-2 px-3 text-gray-600 hover:text-blue-600 font-bold rounded-sm md:bg-transparent md:p-0 md:hover:text-blue-700 transition duration-300 ease-in-out">
-            Home
-          </a>
+          <a routerLink="/welcome" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }" class="nav-link block py-2 px-3 text-gray-600 hover:text-blue-600 font-bold rounded-sm md:bg-transparent md:p-0 md:hover:text-blue-700 transition duration-300 ease-in-out">Home</a>
         </li>
-
-        <!-- Torneig -->
         <li>
-          <a routerLink="/torneig-list" routerLinkActive="active-link"
-            class="nav-link block py-2 px-3 text-gray-600 hover:text-blue-600 font-bold rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 transition duration-300 ease-in-out">
-            Torneig
-          </a>
+          <a routerLink="/torneig-list" routerLinkActive="active-link" class="nav-link block py-2 px-3 text-gray-600 hover:text-blue-600 font-bold rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 transition duration-300 ease-in-out">Torneig</a>
         </li>
-
-        <!-- Classificació -->
         <li>
-          <a routerLink="/equip-list" routerLinkActive="active-link"
-            class="nav-link block py-2 px-3 text-gray-600 hover:text-blue-600 font-bold rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 transition duration-300 ease-in-out">
-            Classificació
-          </a>
+          <a routerLink="/equip-list" routerLinkActive="active-link" class="nav-link block py-2 px-3 text-gray-600 hover:text-blue-600 font-bold rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 transition duration-300 ease-in-out">Classificació</a>
         </li>
-
-        <!-- Equip -->
         <li>
-          <a routerLink="/user-list" routerLinkActive="active-link"
-            class="nav-link block py-2 px-3 text-gray-600 hover:text-blue-600 font-bold rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 transition duration-300 ease-in-out">
-            Equip
-          </a>
+          <a routerLink="/user-list" routerLinkActive="active-link" class="nav-link block py-2 px-3 text-gray-600 hover:text-blue-600 font-bold rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 transition duration-300 ease-in-out">Equip</a>
         </li>
       </ul>
+    </div>
+    <div class="max-w-screen-xl flex items-center justify-between mx-auto space-x-4 items-end p-4">
+      <a href="/login" class="text-white font-semibold py-2 px-6 bg-gradient-to-r from-blue-500 to-teal-500 rounded-md shadow-lg hover:from-blue-600 hover:to-teal-600 transition duration-300 ease-in-out">Login</a>
+      <a href="/register" class="text-white font-semibold py-2 px-6 bg-gradient-to-r from-green-500 to-teal-500 rounded-md shadow-lg hover:from-green-600 hover:to-teal-600 transition duration-300 ease-in-out">Register</a>
     </div>
   </div>
 </nav>

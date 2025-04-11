@@ -12,23 +12,23 @@ export class DadesTipusUsersService {
   constructor(private _http: HttpClient) { }
 
   public getTipusUsers(): Observable<HttpResponse<ITipusUser[]>> {
-    return this._http.get<ITipusUser[]>('http://127.0.0.1:8000/tipus_usuari', { observe: 'response' });
+    return this._http.get<ITipusUser[]>('http://127.0.0.1:8000/api/tipus_usuari', { observe: 'response' });
   }
 
   public getTipusUser(id: any): Observable<HttpResponse<ITipusUser>> {
-    return this._http.get<ITipusUser>(`http://127.0.0.1:8000/tipus_usuari/${id}`, { observe: 'response' });
+    return this._http.get<ITipusUser>(`http://127.0.0.1:8000/api/tipus_usuari/${id}`, { observe: 'response' });
   }
 
   public createTipusUser(tipusUser: any): Observable<HttpResponse<any>> {
-    return this._http.post<any>('http://127.0.0.1:8000/tipus_usuari/new', tipusUser, { observe: 'response' });
+    return this._http.post<any>('http://127.0.0.1:8000/api/tipus_usuari/new', tipusUser, { observe: 'response' });
   }
 
   public updateTipusUser(id: any, tipusUser: any): Observable<HttpResponse<any>> {
-    return this._http.put<any>(`http://127.0.0.1:8000/tipus_usuari/edit/${id}`, tipusUser, { observe: 'response' });
+    return this._http.put<any>(`http://127.0.0.1:8000/api/tipus_usuari/edit/${id}`, tipusUser, { observe: 'response' });
   }
 
   public deleteTipusUser(id: any) {
-    return this._http.delete<any>(`http://127.0.0.1:8000/tipus_usuari/delete/${id}`);
+    return this._http.delete<any>(`http://127.0.0.1:8000/api/tipus_usuari/delete/${id}`);
 
   }
 }
