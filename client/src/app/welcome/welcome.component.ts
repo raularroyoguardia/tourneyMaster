@@ -2,6 +2,9 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { IJoc } from '../interfaces/iJoc';
 import { DadesJocsService } from '../services/dades-jocs.service';
 import { HttpClient, HttpResponse } from '@angular/common/http';
+import { isPlatformBrowser } from '@angular/common';
+import { Inject, PLATFORM_ID } from '@angular/core';
+
 declare var bootstrap: any;
 
 @Component({
@@ -14,7 +17,11 @@ export class WelcomeComponent implements OnInit, AfterViewInit {
   jocs: IJoc[] = [];
   activeIndex: number = -1; // Para controlar qué acordeón está abierto
 
-  constructor(private jocService: DadesJocsService) {}
+  constructor(
+    private jocService: DadesJocsService,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
+  
 
   ngOnInit(): void {
     this.jocService.getJocs().subscribe({
@@ -33,14 +40,18 @@ export class WelcomeComponent implements OnInit, AfterViewInit {
   }
 
   initCarousel() {
-    const el = document.querySelector('#carouselExample');
-    if (el) {
-      bootstrap.Carousel.getOrCreateInstance(el);
+    if (isPlatformBrowser(this.platformId)) {
+      const el = document.querySelector('#carouselExample');
+      if (el) {
+        bootstrap.Carousel.getOrCreateInstance(el);
+      }
     }
   }
+  
 
   // Método para controlar el acordeón
   toggleAccordion(index: number) {
     this.activeIndex = this.activeIndex === index ? -1 : index;
   }
 }
+
