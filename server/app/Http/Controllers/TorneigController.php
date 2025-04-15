@@ -12,7 +12,7 @@ class TorneigController extends Controller
         // $torneigs = Torneig::all();
         $torneigs = DB::select("
         SELECT 
-            torneigs.*, 
+            torneigs.*, mode_jocs.descripcio, 
             jocs.foto AS joc_foto 
         FROM torneigs
         JOIN mode_jocs ON torneigs.modeJoc_id = mode_jocs.id

@@ -9,4 +9,7 @@ export interface ITorneig{
     modeJoc_id:number;
     quantitat_partides:number;
     numero_equips:number;
+    participants: number;
+    joc_foto: string;
+    descripcio: string;
 }
