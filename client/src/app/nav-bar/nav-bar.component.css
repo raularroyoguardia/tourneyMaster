@@ -295,7 +295,7 @@ a {
 }
 
 /* Animación continua para el botón de login */
-.login-btn {
+.login-btn:hover, .register-btn:hover {
   animation: float 3s ease-in-out infinite;
 }
 
@@ -311,7 +311,23 @@ a {
   }
 }
 
-/* Estilo específico para los botones de navegación cuando están siendo pulsados */
-.nav-button:active {
-  color: #fbbf24 !important; /* Amarillo (tailwind amber-400) */
+.gaming-link:hover {
+  background: linear-gradient(90deg, #00f0ff, #00ff94, #00f0ff);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: glowText 1.5s ease-in-out infinite;
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.6), 0 0 20px rgba(0, 255, 255, 0.4);
+}
+
+@keyframes glowText {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
