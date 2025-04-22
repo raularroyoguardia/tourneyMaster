@@ -1,0 +1,26 @@
+.equip-card {
+  background: #f5f5f5;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 20px 0;
+}
+
+img {
+  border-radius: 8px;
+  margin-right: 10px;
+}
+
+
+
+/* .imatgeEquip{
+  width: 20%;
+  height: auto;
+} */
+
+.infoEquip{
+   text-align: center;
+}
+
+.infoEquip2{
+  text-align: right;
+} 

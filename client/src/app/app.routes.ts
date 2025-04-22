@@ -14,6 +14,9 @@ export const routes: Routes = [
 
   { path: 'equip-list', component: EquipListComponent /*, canActivate: [AuthGuard]*/},
 
+  //LOGIN
+  { path: 'login', loadComponent: ()=> import('./components/authentication/login/login.component')},
+
   // Default redirection to 'welcome'
   { path: '', redirectTo: '/welcome', pathMatch: 'full' },
 

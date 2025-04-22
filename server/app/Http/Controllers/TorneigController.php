@@ -9,15 +9,13 @@ use Illuminate\Support\Facades\DB;
 class TorneigController extends Controller
 {
     public function list() {
-        // $torneigs = Torneig::all();
         $torneigs = DB::select("
         SELECT 
             torneigs.*, mode_jocs.descripcio, 
             jocs.foto AS joc_foto 
         FROM torneigs
         JOIN mode_jocs ON torneigs.modeJoc_id = mode_jocs.id
-        JOIN jocs ON mode_jocs.jocId = jocs.id
-    ");
+        JOIN jocs ON mode_jocs.jocId = jocs.id");
         return response()->json($torneigs);
     }
 
