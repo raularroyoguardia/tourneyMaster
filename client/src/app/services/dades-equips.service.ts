@@ -18,14 +18,6 @@ export class DadesEquipsService {
     return this._http.get<IEquip>(`http://127.0.0.1:8000/api/equips/${id}`, { observe: 'response' });
   }
 
-  // getEquips() {
-  //   return this._http.get<IEquip[]>('http://127.0.0.1:8000/api/equips', { observe: 'response' });
-  // }
-  
-  // getEquip(id: any) {
-  //   return this._http.get<IEquip>(`http://127.0.0.1:8000/api/equips/${id}`, { observe: 'response' });
-  // }
-
   public createEquip(equip: any): Observable<HttpResponse<any>> {
     return this._http.post<any>('http://127.0.0.1:8000/api/equip/new', equip, { observe: 'response' });
   }
