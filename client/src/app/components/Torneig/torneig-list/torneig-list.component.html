@@ -1,5 +1,5 @@
 <div class="torneig-cards">
-    <div *ngFor="let torneig of torneigs" class="torneig-card">
+    <div *ngFor="let torneig of torneigs" class="torneig-card" (click)="mostrarDetalls(torneig)">
         <!-- <img [src]="getImageForGame(torneig.modeJoc_id)" alt="Game Image" class="game-image" />  -->
         <img src="uploads/fotoJocs/{{ torneig.joc_foto }}" alt="">
         <div class="torneig-info">
@@ -8,8 +8,22 @@
             <p><strong>Partides:</strong> {{ torneig.quantitat_partides }}</p>
             <p><strong>Participants:</strong> {{ torneig.participants }}</p>
             <p><strong>Tipus:</strong> {{ torneig.tipus }}</p>
-            <p><strong>Descripcio:</strong> {{ torneig.descripcio }}</p>
-            <button class="join-btn" (click)="unirseTorneig(torneig.id)">Unir-me</button>
+            <!-- <p><strong>Descripcio:</strong> {{ torneig.descripcio }}</p> -->
+            <button class="join-btn" (click)="unirseTorneig(torneig.id); $event.stopPropagation()">Unir-me</button>
         </div>
     </div>
 </div>
+<div class="modal-backdrop" *ngIf="selectedTorneig">
+    <div class="modal-content">
+      <span class="close-btn" (click)="tancarModal()">×</span>
+      <h2>{{ selectedTorneig.nom }}</h2>
+      <img src="uploads/fotoJocs/{{ selectedTorneig.joc_foto }}" alt="" />
+      <p><strong>Estat:</strong> {{ selectedTorneig.estat }}</p>
+      <p><strong>Partides:</strong> {{ selectedTorneig.quantitat_partides }}</p>
+      <p><strong>Participants:</strong> {{ selectedTorneig.participants }}</p>
+      <p><strong>Tipus:</strong> {{ selectedTorneig.tipus }}</p>
+      <p><strong>Descripció:</strong> {{ selectedTorneig.descripcio }}</p>
+      <!-- Aquí podrías añadir más detalles -->
+    </div>
+  </div>
+  

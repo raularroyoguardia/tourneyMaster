@@ -12,6 +12,8 @@ import { CommonModule } from '@angular/common';
 })
 export class TorneigListComponent implements OnInit{
   torneigs: ITorneig[] = [];
+  selectedTorneig: ITorneig | null = null;
+
   constructor(private torneigService: DadesTornejosService) { }
   ngOnInit() {
     //fem servir event de creació
@@ -29,5 +31,11 @@ export class TorneigListComponent implements OnInit{
     // Aquí puedes hacer una petición POST o navegar a la vista del torneig
   }
 
+  mostrarDetalls(torneig: ITorneig) {
+    this.selectedTorneig = torneig;
+  }
   
+  tancarModal() {
+    this.selectedTorneig = null;
+  } 
 }
