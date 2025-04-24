@@ -38,4 +38,20 @@ export class TorneigListComponent implements OnInit{
   tancarModal() {
     this.selectedTorneig = null;
   } 
+
+  getTotalPuntos(equipId: number): number {
+    let puntos = 0;
+  
+    // Iteramos por todas las partidas
+    if (this.selectedTorneig) {
+      for (const partida of this.selectedTorneig.partides) {
+        if (partida.resultat_equip_id === equipId) {
+          puntos++;
+        }
+      }
+    }
+  
+    return puntos;
+  }
+  
 }

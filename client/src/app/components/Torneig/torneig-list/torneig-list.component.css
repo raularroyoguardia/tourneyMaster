@@ -127,16 +127,19 @@ body {
   position: absolute;
   top: 1rem;
   right: 1rem;
-  font-size: 1.8rem;
+  font-size: 2rem;
+  font-weight: bold;
   color: #fff;
   cursor: pointer;
+  z-index: 10;
   transition: transform 0.3s ease, color 0.3s ease;
 }
 
 .close-btn:hover {
-  color: #ff00ff; 
-  transform: scale(1.2); 
+  color: #ff00ff;
+  transform: scale(1.2);
 }
+
 
 @keyframes fadeIn {
   from {
@@ -196,8 +199,99 @@ body {
   .modal-content p {
     font-size: 1rem;
   }
-
-  .close-btn {
-    font-size: 1.5rem;
-  }
 }
+
+
+.marcador-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  /* background: rgba(255, 255, 255, 0.05); */
+  border-radius: 12px;
+  text-align: center;
+  flex-wrap: wrap;
+}
+
+.marcador-principal {
+  margin: 2rem auto;
+  width: 90%;
+  box-shadow: 0 0 15px rgba(255, 0, 255, 0.3); /* Box shadow aplicado aquí */
+  padding: 2rem;
+}
+
+/* Para cada partida */
+.marcador-secundario {
+  margin-bottom: 1.5rem; /* Espaciado entre las partidas */
+  border-radius: 10px; /* Bordes redondeados */
+}
+
+.contenedor-partidas {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  padding: 2rem;
+  box-shadow: 0px 0px 25px rgba(255, 0, 255, 0.2);
+}
+
+.marcador_partida {
+  width: 100%; /* Esto fuerza a que cada partida ocupe el ancho completo */
+  /* background: rgba(0, 0, 0, 0.3); */
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+.equipo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #fff;
+}
+
+.equipo .puntos {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #ff00ff;
+}
+
+.equipo .nombre {
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}
+
+.marcador-info-central {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #ccc;
+  border-left: 2px solid rgba(255, 255, 255, 0.2);
+  border-right: 2px solid rgba(255, 255, 255, 0.2);
+  padding: 0 1rem;
+}
+
+.marcador-info-central .partida-numero {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+.marcador-info-central .hora {
+  font-size: 0.9rem;
+  margin-top: 0.3rem;
+}
+
+.ganador {
+  background-color: green;  /* Fondo verde */
+  color: white;             /* Texto blanco */
+  padding: 5px 10px;        /* Un poco de relleno y un espacio más ancho */
+  border-radius: 5px;       /* Bordes redondeados */
+  display: inline-block;    /* Que no ocupe todo el espacio */
+  min-width: 60px;          /* Aseguramos que tenga un tamaño mínimo para el texto */
+  text-align: center;       /* Centra el texto */
+  font-weight: bold;        /* Hacer que el texto sea negrita */
+}
+
+
