@@ -18,41 +18,32 @@ class JocController extends Controller
     public function new(Request $request)
     {
         $joc = new Joc();
-        $pathLaravel = public_path('uploads/fotoJocs');
-        $pathAngular = base_path('../client/public/uploads/fotoJocs');
+        $request->validate([
+            'nom' => 'required|string',
+            'categoria' => 'required|string',
+            'plataforma' => 'required|string',
+            'foto' => 'required'
+        ], [
+            'nom.required' => 'El nom és obligatori',
+            'categoria.required' => 'La categoria és obligatoria',
+            'plataforma.required' => 'La plataforma és obligatoria',
+            'foto.required' => 'La foto és obligatoria'
+        ]);
 
-        if ($request->isMethod('post')) {
-            $request->validate([
-                'nom' => 'required|string',
-                'categoria' => 'required|string',
-                'plataforma' => 'required|string',
-                'foto' => 'required'
-            ], [
-                'nom.required' => 'El nom és obligatori',
-                'categoria.required' => 'La categoria és obligatoria',
-                'plataforma.required' => 'La plataforma és obligatoria',
-                'foto.required' => 'La foto és obligatoria'
-            ]);
+        $joc->nom = $request->nom;
+        $joc->categoria = $request->categoria;
+        $joc->plataforma = $request->plataforma;
+        $joc->foto = $request->foto;
 
-            $joc->nom = $request->nom;
-            $joc->categoria = $request->categoria;
-            $joc->plataforma = $request->plataforma;
+        $joc->save();
 
+        if ($request->hasFile('foto')) {
+            $file = $request->file('foto');
+            $extension = $file->getClientOriginalExtension();
+            $filename = strtolower(Str::snake($joc->nom) . '.' . $extension);
+            $file->move(public_path('uploads/fotoJocs'), $filename);
+            $joc->foto = $filename;
             $joc->save();
-
-            if ($request->hasFile('foto')) {
-                $file = $request->file('foto');
-                $extension = $file->getClientOriginalExtension();
-                $filename = strtolower(Str::snake($joc->nom) . '.' . $extension);
-                $file->move(public_path('uploads/fotoJocs'), $filename);
-                $joc->foto = $filename;
-                $joc->save();
-            }
-
-            if (!File::exists($pathAngular)) {
-                File::makeDirectory($pathAngular, 0755, true); // Crea la carpeta si no existe
-            }
-            File::copy($pathLaravel . '/' . $filename, $pathAngular . '/' . $filename);            
         }
         return response()->json($joc);
     }
@@ -65,39 +56,37 @@ class JocController extends Controller
 
     public function edit(Request $request, $id)
     {
-        if ($request->isMethod('post')) {
-            $joc = Joc::find($id);
-            $request->validate([
-                'nom' => 'required|string',
-                'categoria' => 'required|string',
-                'plataforma' => 'required|string',
-                'foto' => 'required'
-            ], [
-                'nom.required' => 'El nom és obligatori',
-                'categoria.required' => 'La categoria és obligatoria',
-                'plataforma.required' => 'La plataforma és obligatoria',
-                'foto.required' => 'La foto és obligatoria'
-            ]);
+        $joc = Joc::find($id);
+        $request->validate([
+            'nom' => 'required|string',
+            'categoria' => 'required|string',
+            'plataforma' => 'required|string',
+            'foto' => 'required'
+        ], [
+            'nom.required' => 'El nom és obligatori',
+            'categoria.required' => 'La categoria és obligatoria',
+            'plataforma.required' => 'La plataforma és obligatoria',
+            'foto.required' => 'La foto és obligatoria'
+        ]);
 
-            $joc->nom = $request->nom;
-            $joc->categoria = $request->categoria;
-            $joc->plataforma = $request->plataforma;
+        if ($joc->foto && File::exists(public_path('uploads/fotoJocs/' . $joc->foto))) {
+            File::delete(public_path('uploads/fotoJocs/' . $joc->foto));
+        }
 
+        $joc->nom = $request->nom;
+        $joc->categoria = $request->categoria;
+        $joc->plataforma = $request->plataforma;
+        $joc->foto = $request->foto;
+
+        $joc->save();
+
+        if ($request->hasFile('foto')) {
+            $file = $request->file('foto');
+            $extension = $file->getClientOriginalExtension();
+            $filename = strtolower($joc->nom . '.' . $extension);
+            $file->move(public_path('uploads/fotoJocs'), $filename);
+            $joc->foto = $filename;
             $joc->save();
-
-            if ($request->hasFile('foto')) {
-
-                if ($joc->foto && File::exists(public_path('uploads/fotoJocs/' . $joc->foto))) {
-                    File::delete(public_path('uploads/fotoJocs/' . $joc->foto));
-                }
-
-                $file = $request->file('foto');
-                $extension = $file->getClientOriginalExtension();
-                $filename = strtolower($joc->name . '.' . $extension);
-                $file->move(public_path('uploads/fotoJocs'), $filename);
-                $joc->foto = $filename;
-                $joc->save();
-            }
         }
         return response()->json($joc);
     }
