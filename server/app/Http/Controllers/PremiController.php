@@ -16,13 +16,10 @@ class PremiController extends Controller
         if($request->isMethod('post')) {
             $premi = new Premi();
             $request->validate([
-                'tipus' => 'required|string',
                 'valor' => 'required|integer'
             ], [
-                'tipus.required' => 'El guanyador es obligatòri',
                 'valor.required' => 'Indica la quantitat de trofeus obtinguda en aquest premi'
             ]);
-            $premi->tipus = $request->tipus;
             $premi->valor = $request->valor;
 
             $premi->save();

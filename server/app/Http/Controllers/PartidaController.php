@@ -23,7 +23,10 @@ class PartidaController extends Controller
                 'resultat.required' => 'El resultat de la partida es obligatòri'
             ]);
             $partida->data_hora = $request->data_hora;
-            $partida->resultat = $request->resultat;
+            $partida->posicio_partida = $request->posicio_partida;
+            $partida->resultat_equip_id= $request->resultat_equip_id;
+            $partida->torneig_id= $request->torneig_id;
+
 
             $partida->save();
         }

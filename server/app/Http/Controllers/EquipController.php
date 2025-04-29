@@ -40,6 +40,7 @@ class EquipController extends Controller
 
             $equip->nom = $request->nom;
             $equip->regio = $request->regio;
+            $equip->trofeus = $request->trofeus;
             $equip->data_creacio = now();
             $equip->descripcio = $request->descripcio;
             $equip->maxim_integrants = $request->maxim_integrants;
