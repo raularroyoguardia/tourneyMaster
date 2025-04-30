@@ -1,65 +1,489 @@
+body {
+  background: linear-gradient(to bottom, #000000, #ff00ff); 
+  font-family: 'Poppins', sans-serif; 
+  margin: 0;
+  padding: 0;
+}
+
 .torneig-cards {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 3rem;
-    padding: 4rem;
-    justify-content: flex-start;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4rem;
+  padding: 4rem;
+  justify-content: space-between;
+}
+
+.torneig-card {
+  width: 28%;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.5); 
+  border-radius: 15px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0px 4px 15px rgba(255, 0, 255, 0.3); 
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.torneig-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0px 6px 20px rgba(255, 0, 255, 0.5); 
+}
+
+.torneig-card img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1); 
+}
+
+.torneig-info {
+  padding: 1.5rem;
+  color: #fff;
+}
+
+.torneig-info h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.torneig-info p {
+  margin: 0.5rem 0;
+  font-size: 0.8rem;
+  color: #e0e0e0; 
+}
+
+.join-btn {
+  background: linear-gradient(90deg, #ff00ff, #5700ff); 
+  color: white;
+  border: none;
+  padding: 0.6rem 1.5rem;
+  border-radius: 30px;
+  margin-top: 1rem;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.join-btn:hover {
+  background: linear-gradient(90deg, #5700ff, #ff00ff); 
+  transform: scale(1.1); 
+}
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(5px); 
+}
+
+.modal-content {
+  background: linear-gradient(to bottom right, rgba(44, 0, 76, 0.8), rgba(87, 0, 255, 0.01));
+  color: #fff;
+  padding: 2.5rem;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 950px;
+  box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.6);
+  position: relative;
+  animation: fadeIn 0.4s ease;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.modal-content h2 {
+  color: #ff00ff; 
+  font-weight: 700;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.modal-content img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  margin: 1rem 0;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5); 
+}
+
+.modal-content p {
+  margin: 0.5rem 0;
+  
+  color: #e0e0e0; 
+  line-height: 1.6; 
+}
+
+.close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #fff;
+  cursor: pointer;
+  z-index: 10;
+  transition: transform 0.3s ease, color 0.3s ease;
+}
+
+.close-btn:hover {
+  color: #ff00ff;
+  transform: scale(1.2);
+}
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 1200px) {
+  .torneig-card {
+    width: 45%;
+  }
+}
+
+@media (max-width: 815px) {
+  .torneig-cards {
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    gap: 2rem;
+  }
+
+  .torneig-card {
+    width: 90%;
+  }
+
+  .torneig-info {
+    padding: 1rem;
+  }
+
+  .torneig-info h3 {
+    font-size: 1.1rem;
+  }
+
+  .torneig-info p {
+    font-size: 0.9rem;
+  }
+
+  .join-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .modal-content {
+    padding: 1.5rem;
+    width: 95%;
+  }
+
+  .modal-content h2 {
+    font-size: 1.5rem;
+  }
+
+  .modal-content p {
+    font-size: 1rem;
+  }
+}
+
+
+.marcador-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  text-align: center;
+  flex-wrap: wrap;
+}
+
+
+.marcador-secundario {
+  margin-bottom: 1.5rem; 
+  border-radius: 10px; 
+}
+
+.marcador_partida {
+  width: 100%; 
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+.equipo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #fff;
+}
+
+.equipo .puntos {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.equipo .nombre {
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}
+
+.marcador-info-central {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #ccc;
+  border-left: 2px solid rgba(255, 255, 255, 0.2);
+  border-right: 2px solid rgba(255, 255, 255, 0.2);
+  padding: 0 1rem;
+}
+
+.marcador-info-central .partida-numero {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+.marcador-info-central .hora {
+  font-size: 0.9rem;
+  margin-top: 0.3rem;
+}
+
+.ganador {
+  background-color: green;  
+  color: white;             
+  padding: 5px 10px;        
+  border-radius: 5px;       
+  display: inline-block;    
+  width: 100%;          
+  text-align: center;       
+  font-weight: bold;   
+}
+
+.modal-flex-container {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.modal-info {
+  flex: 1.2;
+  max-width: 100%;
+  font-size: 13px;
+  margin-right: 20px;
+}
+
+.modal-dreta {
+  flex: 2;
+  min-width: 250px;
+  display: flex;
+  flex-direction: column;
+}
+
+.marcador-principal {
+  margin-bottom: 1.5rem;
+}
+
+.contenedor-partidas {
+  display: flex;
+  flex-direction: column;
+
+}
+.divider {
+  height: 4px;
+  width: 100%;
+  max-width: 100%;
+  background: linear-gradient(to right, #340086, #8200be);
+  margin: 10px 0 20px;
+  border-radius: 2px;
+}
+
+@media (max-width: 768px) {
+  .torneig-cards {
+    padding: 1rem;
+    gap: 1.5rem;
   }
   
   .torneig-card {
-    width: 350px;
-    height: auto;
-    border: 1px solid #888;
-    border-radius: 10px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.3s ease;
-  }
-  
-  .torneig-card:hover {
-    transform: translateY(-5px);
-  }
-  
-  .torneig-card img {
     width: 100%;
-    /* height: 180px; */
-    height: auto;
-    object-fit: cover;
-    background-color: #999;
+    max-width: 400px;
+    margin: 0 auto;
   }
   
-  .torneig-info {
+  .modal-content {
     padding: 1rem;
-    color: #fff;
-    background-color: #0e0b2d;
+    width: 98%;
   }
   
-  .torneig-info h3 {
-    margin: 0 0 0.5rem;
+  .modal-flex-container {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .modal-info, .modal-dreta {
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  .marcador-container {
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.8rem;
+  }
+  
+  .marcador-info-central {
+    border-left: none;
+    border-right: none;
+    border-top: 1px solid rgba(255,255,255,0.2);
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    padding: 0.5rem 0;
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .classificacio li {
+    grid-template-columns: 30px 1fr 80px;
+    grid-template-areas: 
+      "position name image"
+      "position points points";
+    padding: 0.8rem;
+  }
+  
+  .position {
+    grid-area: position;
+    align-self: center;
     font-size: 1.2rem;
-    font-weight: 600;
+  }
+  
+  .team-name {
+    grid-area: name;
+    align-self: center;
+    font-size: 0.9rem;
+  }
+  
+  .team-points {
+    grid-area: points;
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-start;
+    margin-top: 0.5rem;
+  }
+  
+  .classificacio li img {
+    grid-area: image;
+    width: 80px;
+    height: 60px;
+    justify-self: end;
+  }
+}
+
+@media (max-width: 400px) {
+  .torneig-info h3 {
+    font-size: 1rem;
   }
   
   .torneig-info p {
-    margin: 0.3rem 0;
-    font-size: 0.95rem;
-    color: #e0e0e0;
+    font-size: 0.8rem;
   }
   
   .join-btn {
-    background-color: #246bff;
-    color: white;
-    border: none;
-    padding: 0.5rem 1.2rem;
-    border-radius: 20px;
-    margin: 1rem;
-    align-self: flex-start;
-    cursor: pointer;
-    transition: background 0.3s;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
   }
   
-  .join-btn:hover {
-    background-color: #1040c9;
+  .modal-content h2 {
+    font-size: 1.3rem;
+    margin-top: 1.5rem;
   }
-  
+}
+
+.classificacio li {
+  background: linear-gradient(90deg, rgba(44, 0, 76, 0.6), rgba(87, 0, 255, 0.2));
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border-radius: 10px;
+  display: grid;
+  grid-template-columns: 40px 1fr auto auto 100px;
+  align-items: center;
+  gap: 1rem;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0px 4px 15px rgba(255, 0, 255, 0.2);
+  border-left: 4px solid #ff00ff;
+}
+
+.classificacio li:hover {
+  transform: translateX(5px);
+  box-shadow: 0px 6px 20px rgba(255, 0, 255, 0.4);
+}
+
+.classificacio li img {
+  width: 100px;
+  height: 80px;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+  transition: transform 0.3s ease;
+  justify-self: end;
+}
+
+.classificacio li img:hover {
+  transform: scale(1.1);
+}
+
+.classificacio li:nth-child(1) {
+  background: linear-gradient(90deg, rgba(255, 215, 0, 0.3), rgba(87, 0, 255, 0.2));
+  border-left: 4px solid gold;
+}
+
+.classificacio li:nth-child(2) {
+  background: linear-gradient(90deg, rgba(192, 192, 192, 0.3), rgba(87, 0, 255, 0.2));
+  border-left: 4px solid silver;
+}
+
+.classificacio li:nth-child(3) {
+  background: linear-gradient(90deg, rgba(205, 127, 50, 0.3), rgba(87, 0, 255, 0.2));
+  border-left: 4px solid #cd7f32;
+}
+
+
+.position {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.team-name {
+  font-weight: 600;
+  font-size: 1rem;
+  color: white;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 0.5rem;
+}
+.team-points {
+  font-size: 1rem;
+  font-weight: bold;
+  text-align: left;
+  min-width: 50px;
+}

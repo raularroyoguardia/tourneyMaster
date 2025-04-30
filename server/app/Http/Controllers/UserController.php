@@ -6,14 +6,76 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\File;
 use App\Models\Equip;
+use Illuminate\Support\Facades\DB;
+
 
 class UserController extends Controller
 {
     public function list()
     {
-        $users = User::all();
-        return $users;
+        $rawData = DB::select("
+        SELECT 
+            e.id AS equip_id,
+            e.nom AS equip_nom,
+            e.regio,
+            e.foto_equip,
+            e.trofeus AS equip_trofeus,
+            e.data_creacio,
+            e.descripcio,
+            e.maxim_integrants,
+
+            u.id AS user_id,
+            u.name AS user_name,
+            u.email,
+            u.telefon,
+            u.foto_perfil,
+            u.trofeus AS user_trofeus,
+            u.data_naixement,
+            u.data_registre
+        FROM equips e
+        LEFT JOIN equips_users eu ON e.id = eu.equip_id
+        LEFT JOIN users u ON eu.user_id = u.id
+        ORDER BY e.id, u.name
+    ");
+
+        // Agrupar los datos por equipo
+        $equips = [];
+
+        foreach ($rawData as $row) {
+            $equipId = $row->equip_id;
+
+            if (!isset($equips[$equipId])) {
+                $equips[$equipId] = [
+                    'id' => $row->equip_id,
+                    'nom' => $row->equip_nom,
+                    'regio' => $row->regio,
+                    'foto_equip' => $row->foto_equip,
+                    'trofeus' => $row->equip_trofeus,
+                    'data_creacio' => $row->data_creacio,
+                    'descripcio' => $row->descripcio,
+                    'maxim_integrants' => $row->maxim_integrants,
+                    'jugadors' => []
+                ];
+            }
+
+            if ($row->user_id !== null) {
+                $equips[$equipId]['jugadors'][] = [
+                    'id' => $row->user_id,
+                    'name' => $row->user_name,
+                    'email' => $row->email,
+                    'telefon' => $row->telefon,
+                    'foto_perfil' => $row->foto_perfil,
+                    'trofeus' => $row->user_trofeus,
+                    'data_naixement' => $row->data_naixement,
+                    'data_registre' => $row->data_registre,
+                ];
+            }
+        }
+
+        return response()->json(array_values($equips));
     }
+
+
 
     public function new(Request $request)
     {
@@ -115,7 +177,7 @@ class UserController extends Controller
             File::delete(public_path('uploads/fotoUser/' . $user->foto_usuari));
         }
         $user->delete();
-        return response()->json('Usuari '.$user->name.' eliminat');
+        return response()->json('Usuari ' . $user->name . ' eliminat');
     }
 
     public function addtoEquip($id, Request $request)
@@ -123,6 +185,9 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $equip = Equip::findOrFail($request->$id);
         $equip->usuaris()->attach($user->id);
-        return response()->json('Usuari '.$user->name.' afegit a l\'equip '.$id);
+        return response()->json('Usuari ' . $user->name . ' afegit a l\'equip ' . $id);
     }
 }
+
+
+// necesito a que el list me pille la informacion de un propio usuario i a la vez me ponga la informacion dekl equipo, porque tengo qyue poner el nombre del equipo, la descripcion, la ragion, trofeos totales, cuando ha estado creado i una tabla con la posisicion de cada jugador, el nombre del jugador, la foto y el numero de trofeos que tiene cada jugador 

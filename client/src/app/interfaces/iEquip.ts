@@ -1,3 +1,5 @@
+import { IUser } from "./iUser";
+
 export interface IEquip{
     id:number;
     nom:string;
@@ -7,4 +9,5 @@ export interface IEquip{
     data_creacio:Date;
     descripcio:string;
     maxim_integrants:number;
+    jugadors: IUser[];
 }

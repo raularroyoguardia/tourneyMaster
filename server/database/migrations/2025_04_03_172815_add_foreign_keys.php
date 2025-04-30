@@ -17,6 +17,7 @@ return new class extends Migration
 
         Schema::table('torneigs', function (Blueprint $table) {
             $table->foreignId('modeJoc_id')->nullable()->constrained('mode_jocs')->cascadeOnDelete();
+            $table->foreignId('mapa_id')->nullable()->constrained('mapas')->cascadeOnDelete();
         });
         Schema::table('mode_jocs', function (Blueprint $table) {
             $table->foreignId('jocId')->nullable()->constrained(table: 'jocs')->cascadeOnDelete();
@@ -24,6 +25,9 @@ return new class extends Migration
         Schema::table('partidas', function (Blueprint $table) {
             $table->foreignId('resultat_equip_id')->nullable()->constrained(table: 'equips')->cascadeOnDelete();
             $table->foreignId('torneig_id')->nullable()->constrained(table: 'torneigs')->cascadeOnDelete();
+        });
+        Schema::table('premis', function (Blueprint $table) {
+            $table->foreignId('torneig_id')->nullable()->constrained('torneigs')->cascadeOnDelete();
         });
     }
 

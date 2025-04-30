@@ -21,7 +21,8 @@ class TorneigSeeder extends Seeder
             'estat' => 'No Començat',
             'quantitat_partides' => 3,
             'numero_equips' => 2,
-            'modeJoc_id' => 16
+            'modeJoc_id' => 16,
+            'mapa_id' => 59
         ]);
 
         Torneig::create([
@@ -33,7 +34,8 @@ class TorneigSeeder extends Seeder
             'estat' => 'En procès',
             'quantitat_partides' => 3,
             'numero_equips' => 2,
-            'modeJoc_id' => 16
+            'modeJoc_id' => 16,
+            'mapa_id' => 59
         ]);
 
         Torneig::create([
@@ -45,7 +47,8 @@ class TorneigSeeder extends Seeder
             'estat' => 'Finalitzat',
             'quantitat_partides' => 3,
             'numero_equips' => 2,
-            'modeJoc_id' => 16
+            'modeJoc_id' => 16,
+            'mapa_id' => 59
         ]);
 
         Torneig::create([
@@ -57,7 +60,8 @@ class TorneigSeeder extends Seeder
             'estat' => 'En procès',
             'quantitat_partides' => 3,
             'numero_equips' => 2,
-            'modeJoc_id' => 21
+            'modeJoc_id' => 21,
+            'mapa_id' => 71
         ]);
     }
 }

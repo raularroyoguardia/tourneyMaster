@@ -12,6 +12,8 @@ import { CommonModule } from '@angular/common';
 })
 export class TorneigListComponent implements OnInit{
   torneigs: ITorneig[] = [];
+  selectedTorneig: ITorneig | null = null;
+
   constructor(private torneigService: DadesTornejosService) { }
   ngOnInit() {
     //fem servir event de creació
@@ -29,5 +31,58 @@ export class TorneigListComponent implements OnInit{
     // Aquí puedes hacer una petición POST o navegar a la vista del torneig
   }
 
+  mostrarDetalls(torneig: ITorneig) {
+    this.selectedTorneig = torneig;
+  }
   
+  tancarModal() {
+    this.selectedTorneig = null;
+  } 
+
+  // getTotalPuntos(equipId: number): number {
+  //   let puntos = 0;
+  
+  //   // Iteramos por todas las partidas
+  //   if (this.selectedTorneig) {
+  //     for (const partida of this.selectedTorneig.partides) {
+  //       if (partida.resultat_equip_id === equipId) {
+  //         puntos++;
+  //       }
+  //     }
+  //   }
+  
+  //   return puntos;
+  // }
+  
+  // Cuenta cuántas partidas ha ganado el equipo por su ID
+  getTotalPuntos(equipId: number): number {
+    if (!this.selectedTorneig?.partides) return 0;
+
+    return this.selectedTorneig.partides.filter(
+      partida => partida.resultat_equip_id === equipId
+    ).length;
+  }
+
+  // Devuelve los equipos ordenados por puntos (de más a menos)
+  get equipsOrdenats(): any[] {
+    if (!this.selectedTorneig?.equips) return [];
+
+    return [...this.selectedTorneig.equips].sort(
+      (a, b) => this.getTotalPuntos(b.id) - this.getTotalPuntos(a.id)
+    );
+  }
+
+  getTrofeusPerEquip(equipId: number): number {
+    if (!this.selectedTorneig) return 0;
+  
+    const totalVictories = this.selectedTorneig.partides.length;
+    const victoriesEquip = this.getTotalPuntos(equipId);
+  
+    if (totalVictories === 0) return 0;
+  
+    const premiTotal = this.selectedTorneig.premi_valor || 0;
+    return Math.round(victoriesEquip  * premiTotal);
+  }
+  
+
 }

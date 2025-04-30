@@ -15,9 +15,9 @@ class EquipSeeder extends Seeder
     {
         /*
         Equip::create([
-            'nom' => 'Pruebas',
+            'nom' => 'PruebasTOP',
             'regio' => 'Europa',
-            'foto_equip' => 'equip.jpg',
+            'foto_equip' => 'pruebastop.jpg',
             'trofeus' => 0,
             'data_creacio' => now(),
             'descripcio' => 'Este es un equipo que se ha creado para hacer pruebas en el frontend al inicio del proyecto. Sus participantes son los creadores del proyecto.',
@@ -25,9 +25,9 @@ class EquipSeeder extends Seeder
         ]);
 
         Equip::create([
-            'nom' => 'Pruebas 2222',
+            'nom' => 'Pruebas2',
             'regio' => 'Europa',
-            'foto_equip' => 'equip.jpg',
+            'foto_equip' => 'pruebas2.jpg',
             'trofeus' => 0,
             'data_creacio' => now(),
             'descripcio' => 'Este es otro equipo que se ha creado para hacer pruebas en el frontend al inicio del proyecto. Sus participantes son los creadores del proyecto.',
@@ -38,7 +38,7 @@ class EquipSeeder extends Seeder
         Equip::create([
             'nom' => 'Carlos indiviual',
             'regio' => 'Europa',
-            'foto_equip' => 'equip.jpg',
+            'foto_equip' => 'carlosindiviual.jpg',
             'trofeus' => 0,
             'data_creacio' => now(),
             'descripcio' => 'Este es un equipo individual en el que pertenece solo un equipo.',
@@ -48,7 +48,7 @@ class EquipSeeder extends Seeder
         Equip::create([
             'nom' => 'Pere Individual',
             'regio' => 'Europa',
-            'foto_equip' => 'equip.jpg',
+            'foto_equip' => 'pereindividual.jpg',
             'trofeus' => 0,
             'data_creacio' => now(),
             'descripcio' => 'Este es un equipo individual en el que pertenece solo un equipo.',
@@ -58,7 +58,7 @@ class EquipSeeder extends Seeder
         Equip::create([
             'nom' => 'Raúl Individual',
             'regio' => 'Europa',
-            'foto_equip' => 'equip.jpg',
+            'foto_equip' => 'raulindividual.jpg',
             'trofeus' => 0,
             'data_creacio' => now(),
             'descripcio' => 'Este es un equipo individual en el que pertenece solo un equipo.',
@@ -68,7 +68,7 @@ class EquipSeeder extends Seeder
         Equip::create([
             'nom' => 'Fran',
             'regio' => 'Europa',
-            'foto_equip' => 'equip.jpg',
+            'foto_equip' => 'fran.jpg',
             'trofeus' => 0,
             'data_creacio' => now(),
             'descripcio' => 'Este es un equipo individual en el que pertenece solo un equipo.',

@@ -1,1 +1,44 @@
-<p>equip-list works!</p>
+<div *ngIf="equips && equips.length > 0; else noData">
+    <div *ngFor="let equip of equips" class="equip-card">
+        <div class="info flex ...">
+            <div class="imatgeEquip w-16 flex-auto">
+                <img [src]="'uploads/fotosEquips/' + equip.foto_equip" alt="{{ equip.foto_equip }} foto" class="equip-image">
+            </div>
+            <div class="infoEquip w-64 flex-auto">
+                <h3>{{ equip.nom }}</h3>
+                <p>{{ equip.descripcio }}</p>
+            </div>
+            <div class="infoEquip2 w-32 flex-auto">
+                <p><strong>Región:</strong> {{ equip.regio }}</p>
+                <p><strong>Trofeos:</strong> {{ equip.trofeus }}</p>
+                <p><strong>Data Creació:</strong> {{ equip.data_creacio | date }}</p>
+            </div>
+        </div>
+
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Posició</th>
+                        <th>Nom</th>
+                        <th>Trofeus</th>
+                        <th>Foto Perfil</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let jugador of equip.jugadors; let i = index">
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ jugador.name }}</td>
+                        <td>{{ jugador.trofeus }}</td>
+                        <!-- <td>{{ jugador.foto_perfil }}</td> -->
+                        <td><img [src]="'uploads/fotosUsuari/' + jugador.foto_perfil" [alt]="jugador.foto_perfil" class="imatgeUsuari"/></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<ng-template #noData>
+    <p>No hay equipos disponibles.</p>
+</ng-template>
