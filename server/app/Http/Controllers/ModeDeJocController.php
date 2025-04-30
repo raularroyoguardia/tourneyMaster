@@ -4,11 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Models\ModeJoc;
 use Illuminate\Http\Request;
+use App\Models\Joc;
 
 class ModeDeJocController extends Controller
 {
+    // public function list() {
+    //     $jocs = ModeJoc::with('joc')->get();
+    //     return response()->json($jocs);
+    // }
     public function list() {
-        $jocs = ModeJoc::with('joc')->get();
+        $jocs = Joc::with(['modeJocs' => function($query) {
+            $query->with(['mapas' => function($query) {
+                $query->select('mapas.id', 'mapas.nom');
+            }]);
+        }])->get();
+    
         return response()->json($jocs);
     }
 
