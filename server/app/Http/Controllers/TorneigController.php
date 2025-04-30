@@ -37,9 +37,9 @@ class TorneigController extends Controller
             e.foto_equip
         FROM torneigs t
         JOIN mode_jocs mj ON t.modeJoc_id = mj.id
-        JOIN jocs j ON mj.jocId = j.id
+        JOIN jocs j ON mj.joc_id = j.id
         LEFT JOIN mapas m ON t.mapa_id = m.id
-        LEFT JOIN premis p ON t.id = p.torneig_id
+        LEFT JOIN premis p ON t.premi_id = p.id
         LEFT JOIN partidas pa ON t.id = pa.torneig_id
         LEFT JOIN equips_torneigs et ON t.id = et.torneig_id
         LEFT JOIN equips e ON et.equip_id = e.id
