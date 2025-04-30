@@ -13,15 +13,14 @@ use App\Http\Controllers\TipusUsuariController;
 use App\Http\Controllers\ModeDeJocController;
 use Illuminate\Support\Facades\File;
 
-Route::get('/api/torneig/proba', [TorneigController::class, 'proba'])->name('torneig_proba');
 
- Route::get('/', function () {
-     return view('welcome');
- });
+Route::get('/', function () {
+    return view('welcome');
+});
 
- Route::get('/dashboard', function () {
-     return view('dashboard');
- })->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
  Route::middleware('auth')->group(function () {
      Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
