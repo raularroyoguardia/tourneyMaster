@@ -12,4 +12,8 @@ class Joc extends Model
     {
         return $this->hasMany(ModeJoc::class);
     }
+
+    public function modeJocs() { // Nombre correcto debería ser en plural
+        return $this->hasMany(ModeJoc::class, 'jocId'); // 'jocId' es la FK en mode_jocs
+    }
 }

@@ -3,10 +3,44 @@ import { Injectable } from '@angular/core';
 import { ITorneig } from '../interfaces/iTorneig';
 import { Observable } from 'rxjs';
 
+interface Mapa {
+  id: number;
+  nom: string;
+  pivot: {
+    mode_joc_id: number;
+    mapa_id: number;
+  };
+}
+
+interface ModeJoc {
+  id: number;
+  nom: string;
+  descripcio: string;
+  jugadors: number;
+  created_at: string;
+  updated_at: string;
+  jocId: number;
+  mapas: Mapa[];
+}
+
+interface Joc {
+  id: number;
+  nom: string;
+  categoria: string;
+  plataforma: string;
+  foto: string;
+  created_at: string;
+  updated_at: string;
+  mode_jocs: ModeJoc[];
+}
+
+
 @Injectable({
   providedIn: 'root'
 })
 export class DadesTornejosService {
+
+  
 
   constructor(private _http: HttpClient) { }
 
@@ -28,5 +62,11 @@ export class DadesTornejosService {
 
   public deleteTorneig(id: any) {
     return this._http.delete<any>(`http://127.0.0.1:8000/api/torneig/delete/${id}`);
+  }
+
+  private apiUrl = 'http://localhost:8000/api';
+
+  getJocs() {
+    return this._http.get<Joc[]>(`${this.apiUrl}/modejocs`);
   }
 }

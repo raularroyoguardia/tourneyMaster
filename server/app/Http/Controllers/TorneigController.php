@@ -115,7 +115,8 @@ class TorneigController extends Controller
             'data_fi' => 'required',
             'estat' => 'required|string',
             'modeJoc_id' => 'required|integer',
-            'quantitat_partides' => 'required|min:1|max:5'
+            'quantitat_partides' => 'required|min:1|max:5',
+            'numero_equips' => 'required|min:2|max:5',
         ], [
             'nom.required' => 'El nom és obligatori',
             'participants.required' => 'El nombre de participants és obligatori',

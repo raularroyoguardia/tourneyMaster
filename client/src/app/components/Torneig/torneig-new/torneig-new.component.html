@@ -1,1 +1,88 @@
-<p>torneig-new works!</p>
+<div class="tournament-container">
+    <form [formGroup]="myForm" (ngSubmit)="onSubmit()" style="color: white;">
+        <div>
+            <label>Nom:</label>
+            <input type="text" formControlName="nom" />
+        </div>
+
+        <div>
+            <label>Participants:</label>
+            <input type="number" formControlName="participants" />
+            <div *ngIf="myForm.get('participants')?.hasError('min') && myForm.get('participants')?.touched"
+                style="color: red;">
+                Mínim de participants: 2
+            </div>
+        </div>
+
+        <div>
+            <label>Tipus:</label>
+            <select formControlName="tipus">
+                <option value="">-- Selecciona tipus --</option>
+                <option value="col·lectiu">Col·lectiu</option>
+                <option value="individual">Individual</option>
+            </select>
+        </div>
+
+        <div>
+            <label>Data inici:</label>
+            <input type="date" formControlName="data_inici" />
+        </div>
+
+        <div>
+            <label>Data fi:</label>
+            <input type="date" formControlName="data_fi" />
+        </div>
+
+        <div>
+            <label>Estat:</label>
+            <select formControlName="estat">
+                <option value="">-- Selecciona estat --</option>
+                <option value="No començat">No començat</option>
+                <option value="En procés">En procés</option>
+                <option value="Finalitzat">Finalitzat</option>
+            </select>
+        </div>
+
+        <div>
+            <label>Joc:</label>
+            <select formControlName="joc_id">
+                <option value="">-- Selecciona un joc --</option>
+                <option *ngFor="let joc of jocs" [value]="joc.id">{{ joc.nom }}</option>
+            </select>
+        </div>
+
+        <div>
+            <label>Mode Joc:</label>
+            <select formControlName="modeJoc_id" [disabled]="modesJoc.length === 0">
+                <option value="">-- Selecciona un mode --</option>
+                <option *ngFor="let mode of modesJoc" [value]="mode.id">{{ mode.nom }}</option>
+            </select>
+        </div>
+
+        <div>
+            <label>Mapa:</label>
+            <select formControlName="mapa_id" [disabled]="mapas.length === 0">
+                <option value="">-- Selecciona un mapa --</option>
+                <option *ngFor="let mapa of mapas" [value]="mapa.id">{{ mapa.nom }}</option>
+            </select>
+        </div>
+
+        <div>
+            <label>Quantitat Partides:</label>
+            <input type="number" formControlName="quantitat_partides" [value]="3" [disabled]="true" />
+        </div>
+
+        <div>
+            <label>Nombre Equips:</label>
+            <input type="number" formControlName="numero_equips" />
+            <div *ngIf="myForm.get('numero_equips')?.hasError('min') && myForm.get('numero_equips')?.touched"
+                style="color: red;">
+                Mínim de numero de equips: 2
+            </div>
+        </div>
+
+        <button type="submit" [disabled]="myForm.invalid">Crear Torneig</button>
+    </form>
+
+    <p *ngIf="errorMessage" style="color: red;">{{ errorMessage }}</p>
+    <div class="tournament-container"></div>

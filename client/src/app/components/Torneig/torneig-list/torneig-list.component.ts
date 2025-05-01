@@ -29,6 +29,12 @@ export class TorneigListComponent implements OnInit{
   unirseTorneig(id: number) {
     console.log(`Unint-se al torneig amb id ${id}`);
     // Aquí puedes hacer una petición POST o navegar a la vista del torneig
+
+
+
+
+
+    
   }
 
   mostrarDetalls(torneig: ITorneig) {
@@ -38,23 +44,7 @@ export class TorneigListComponent implements OnInit{
   tancarModal() {
     this.selectedTorneig = null;
   } 
-
-  // getTotalPuntos(equipId: number): number {
-  //   let puntos = 0;
   
-  //   // Iteramos por todas las partidas
-  //   if (this.selectedTorneig) {
-  //     for (const partida of this.selectedTorneig.partides) {
-  //       if (partida.resultat_equip_id === equipId) {
-  //         puntos++;
-  //       }
-  //     }
-  //   }
-  
-  //   return puntos;
-  // }
-  
-  // Cuenta cuántas partidas ha ganado el equipo por su ID
   getTotalPuntos(equipId: number): number {
     if (!this.selectedTorneig?.partides) return 0;
 
@@ -63,7 +53,6 @@ export class TorneigListComponent implements OnInit{
     ).length;
   }
 
-  // Devuelve los equipos ordenados por puntos (de más a menos)
   get equipsOrdenats(): any[] {
     if (!this.selectedTorneig?.equips) return [];
 
