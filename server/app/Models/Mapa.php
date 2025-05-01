@@ -7,12 +7,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Mapa extends Model
 {
-    // public function modesDeJoc(): BelongsToMany
-    // {
-    //     return $this->belongsToMany(ModeJoc::class);
-    // }
-    public function modesJoc() {
-        return $this->belongsToMany(ModeJoc::class, 'mapas_modes', 'mapa_id', 'mode_joc_id')
-                    ->withTimestamps();
+
+    protected $table = 'mapas';
+    protected $fillable = ['nom', 'mapa'];
+
+    public function modesDeJoc(): BelongsToMany
+    {
+        return $this->belongsToMany(ModeJoc::class);
     }
 }

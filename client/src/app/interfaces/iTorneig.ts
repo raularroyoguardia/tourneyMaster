@@ -11,7 +11,7 @@ export interface ITorneig {
     numero_equips: number;
     joc_foto: string;
     mode_joc: string;
-    mapa_nom: string;
+    nom_mapa: string;
     premi_valor: number;
     partides: Array<{
         posicio_partida: number;

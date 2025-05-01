@@ -18,8 +18,8 @@ return new class extends Migration
             $table->string('tipus');
             $table->dateTime('data_inici');
             $table->dateTime('data_fi');
-            $table->string('estat');
-            $table->integer('quantitat_partides');
+            $table->string('estat')->default('No Començat');
+            $table->integer('quantitat_partides')->default(3);
             $table->integer('numero_equips');
             $table->timestamps();
         });

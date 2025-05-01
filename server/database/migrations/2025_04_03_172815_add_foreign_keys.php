@@ -11,23 +11,27 @@ return new class extends Migration
      */
     public function up(): void
     {
+        //FOREIGN KEYS USERS
         Schema::table('users', function (Blueprint $table) {
             $table->foreignId('tipus_usuari_id')->nullable()->constrained('tipus_usuaris')->cascadeOnDelete();
         });
 
+        //FOREIGN KEYS TORNEIGS
         Schema::table('torneigs', function (Blueprint $table) {
             $table->foreignId('modeJoc_id')->nullable()->constrained('mode_jocs')->cascadeOnDelete();
-            $table->foreignId('mapa_id')->nullable()->constrained('mapas')->cascadeOnDelete();
+            $table->foreignId('mapa_id')->nullable()->constrained(table: 'mapas')->cascadeOnDelete();
+            $table->foreignId('premi_id')->nullable()->constrained(table: 'premis')->cascadeOnDelete();
         });
+
+        //FOREIGN KEYS MODE DE JOCS
         Schema::table('mode_jocs', function (Blueprint $table) {
-            $table->foreignId('jocId')->nullable()->constrained(table: 'jocs')->cascadeOnDelete();
+            $table->foreignId('joc_id')->nullable()->constrained(table: 'jocs')->cascadeOnDelete();
         });
+
+        //FOREIGN KEYS PARTIDAS
         Schema::table('partidas', function (Blueprint $table) {
             $table->foreignId('resultat_equip_id')->nullable()->constrained(table: 'equips')->cascadeOnDelete();
             $table->foreignId('torneig_id')->nullable()->constrained(table: 'torneigs')->cascadeOnDelete();
-        });
-        Schema::table('premis', function (Blueprint $table) {
-            $table->foreignId('torneig_id')->nullable()->constrained('torneigs')->cascadeOnDelete();
         });
     }
 

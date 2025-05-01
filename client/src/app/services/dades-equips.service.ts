@@ -15,7 +15,7 @@ export class DadesEquipsService {
   }
 
   public getEquip(id: any): Observable<HttpResponse<IEquip>> {
-    return this._http.get<IEquip>(`http://127.0.0.1:8000/api/equips/${id}`, { observe: 'response' });
+    return this._http.get<IEquip>(`http://127.0.0.1:8000/api/equip/${id}`, { observe: 'response' });
   }
 
   public createEquip(equip: any): Observable<HttpResponse<any>> {

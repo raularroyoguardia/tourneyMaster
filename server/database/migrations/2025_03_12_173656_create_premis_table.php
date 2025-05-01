@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('premis', function (Blueprint $table) {
             $table->id();
-            $table->string('posicio_premi');
             $table->integer('valor');
             $table->timestamps();
         });

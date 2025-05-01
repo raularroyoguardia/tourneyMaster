@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 class Partida extends Model
 {
-    protected $fillable = ['data_hora', 'resultat'];
+    protected $table = 'partidas';
 
     public function torneig(): BelongsTo
     {

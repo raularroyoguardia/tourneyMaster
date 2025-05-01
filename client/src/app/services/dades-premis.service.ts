@@ -22,10 +22,6 @@ export class DadesPremisService {
     return this._http.post<any>('http://127.0.0.1:8000/api/premi/new', premi, { observe: 'response' });
   }
 
-  public updatePremi(id: any, premi: any): Observable<HttpResponse<any>> {
-    return this._http.put<any>(`http://127.0.0.1:8000/api/premi/edit/${id}`, premi, { observe: 'response' });
-  }
-
   public deletePremi(id: any) {
     return this._http.delete<any>(`http://127.0.0.1:8000/api/premi/delete/${id}`);
   }

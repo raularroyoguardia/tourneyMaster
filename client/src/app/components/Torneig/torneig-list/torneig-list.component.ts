@@ -29,12 +29,6 @@ export class TorneigListComponent implements OnInit{
   unirseTorneig(id: number) {
     console.log(`Unint-se al torneig amb id ${id}`);
     // Aquí puedes hacer una petición POST o navegar a la vista del torneig
-
-
-
-
-
-    
   }
 
   mostrarDetalls(torneig: ITorneig) {

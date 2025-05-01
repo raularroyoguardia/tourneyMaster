@@ -16,12 +16,4 @@ export default class LoginComponent {
 
   constructor(private authService: AuthService, private router: Router) { }
 
-  login(): void {
-    this.authService.login(this.email, this.password).subscribe({
-      next: ()=> this.router.navigate(['/welcome']),
-
-      error: (err) => console.error('Login failed', err)
-    })
-  }
-
 }

@@ -13,7 +13,7 @@ class ModeJoc extends Model
 
     public function joc(): BelongsTo
     {
-        return $this->belongsTo(Joc::class, 'jocId');
+        return $this->belongsTo(Joc::class);
     }
 
     public function torneig(): BelongsTo
@@ -21,10 +21,7 @@ class ModeJoc extends Model
         return $this->belongsTo(Torneig::class);
     }
 
-    // public function mapas(): HasMany {
-    //     return $this->hasMany(Mapa::class);
-    // }
-    public function mapas() {
-        return $this->belongsToMany(Mapa::class, 'mapas_modes', 'mode_joc_id', 'mapa_id');
+    public function mapas(): HasMany {
+        return $this->hasMany(Mapa::class);
     }
 }

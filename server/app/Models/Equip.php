@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Equip extends Model
 {
-    protected $fillable = ['nom', 'regio', 'foto_equip', 'trofeus', 'descripcio'];
+    protected $fillable = ['nom', 'regio', 'foto_equip', 'descripcio', 'trofeus'];
+    protected $table = 'equips';
 
 
     public function torneigs(): HasMany
@@ -16,7 +17,7 @@ class Equip extends Model
     }
     public function usuaris(): HasMany
     {
-        return $this->hasMany(Torneig::class);
+        return $this->hasMany(User::class);
     }
     
 }

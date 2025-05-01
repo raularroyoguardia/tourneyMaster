@@ -10,99 +10,64 @@ class TorneigController extends Controller
 {
     public function list()
     {
-        $rawData = DB::select("
-        SELECT 
-            t.id AS torneig_id,
-            t.nom AS torneig_nom,
-            t.participants,
-            t.tipus,
-            t.data_inici,
-            t.data_fi,
-            t.estat,
-            t.quantitat_partides,
-            t.numero_equips,
+        // Paso 1: Obtener la info principal del torneo + mapa
+        $torneigs = DB::select("
+            SELECT 
+                torneigs.*, 
+                mode_jocs.descripcio, 
+                jocs.foto AS joc_foto, 
+                jocs.nom AS joc_nom, 
+                premis.valor AS premi_valor,
+                mapas.mapa AS nom_mapa
+            FROM torneigs
+            JOIN mode_jocs ON torneigs.modeJoc_id = mode_jocs.id
+            JOIN jocs ON mode_jocs.joc_id = jocs.id
+            LEFT JOIN premis ON torneigs.premi_id = premis.id
+            LEFT JOIN mapas ON torneigs.mapa_id = mapas.id
+        ");
 
-            mj.descripcio AS mode_joc,
-            j.foto AS joc_foto,
-            m.mapa AS mapa_nom,
+        // Paso 2: Obtener los equipos relacionados
+        $equipsPorTorneig = DB::select("
+            SELECT 
+                equips_torneigs.torneig_id,
+                equips.*
+            FROM equips_torneigs
+            JOIN equips ON equips.id = equips_torneigs.equip_id
+        ");
 
-            p.valor AS premi_valor,
-
-            pa.posicio_partida,
-            pa.resultat_equip_id,
-            pa.data_hora,
-
-            et.equip_id,
-            e.nom AS equip_nom,
-            e.foto_equip
-        FROM torneigs t
-        JOIN mode_jocs mj ON t.modeJoc_id = mj.id
-        JOIN jocs j ON mj.joc_id = j.id
-        LEFT JOIN mapas m ON t.mapa_id = m.id
-        LEFT JOIN premis p ON t.premi_id = p.id
-        LEFT JOIN partidas pa ON t.id = pa.torneig_id
-        LEFT JOIN equips_torneigs et ON t.id = et.torneig_id
-        LEFT JOIN equips e ON et.equip_id = e.id
-        ORDER BY t.id
-    ");
-
-        $torneigs = [];
-
-        foreach ($rawData as $row) {
-            $tid = $row->torneig_id;
-
-            if (!isset($torneigs[$tid])) {
-                $torneigs[$tid] = [
-                    'id' => $tid,
-                    'nom' => $row->torneig_nom,
-                    'participants' => $row->participants,
-                    'tipus' => $row->tipus,
-                    'data_inici' => $row->data_inici,
-                    'data_fi' => $row->data_fi,
-                    'estat' => $row->estat,
-                    'quantitat_partides' => $row->quantitat_partides,
-                    'numero_equips' => $row->numero_equips,
-                    'mode_joc' => $row->mode_joc,
-                    'joc_foto' => $row->joc_foto,
-                    'mapa_nom' => $row->mapa_nom,
-                    'premi_valor' => $row->premi_valor,
-                    'partides' => [],
-                    'equips' => [],
-                ];
-            }
-
-            if ($row->posicio_partida !== null) {
-                $partidaId = $row->posicio_partida . '-' . $row->resultat_equip_id; 
-
-                if (!isset($torneigs[$tid]['partides'][$partidaId])) {
-                    $torneigs[$tid]['partides'][$partidaId] = [
-                        'posicio_partida' => $row->posicio_partida,
-                        'resultat_equip_id' => $row->resultat_equip_id,
-                        'data_hora' => $row->data_hora,
-                    ];
-                }
-            }
-
-            // Equips
-            if ($row->equip_id !== null) {
-                $torneigs[$tid]['equips'][$row->equip_id] = [
-                    'id' => $row->equip_id,
-                    'nom' => $row->equip_nom,
-                    'foto_equip' => $row->foto_equip
-                ];
-            }
+        // Paso 3: Agrupar equipos por torneo
+        $mapaEquips = [];
+        foreach ($equipsPorTorneig as $equip) {
+            $mapaEquips[$equip->torneig_id][] = $equip;
         }
 
+        // Paso 4: Añadir los equipos a cada torneo
         foreach ($torneigs as &$torneig) {
-            $torneig['equips'] = array_values(array_map(function ($equip) {
-                return ['id' => $equip['id'], 'nom' => $equip['nom'], 'foto_equip' => $equip['foto_equip']];
-            }, $torneig['equips']));
-
-            $torneig['partides'] = array_values($torneig['partides']);
+            $torneig->equips = $mapaEquips[$torneig->id] ?? [];
         }
 
-        return response()->json(array_values($torneigs));
+        // 🔥 Paso 5: Obtener las partidas de cada torneo
+        $partidesPorTorneig = DB::select("
+            SELECT * FROM partidas
+        ");
+
+        // Agrupar por torneig_id
+        $mapaPartides = [];
+        foreach ($partidesPorTorneig as $partida) {
+            $mapaPartides[$partida->torneig_id][] = $partida;
+        }
+
+        // Añadir a cada torneig
+        foreach ($torneigs as &$torneig) {
+            $torneig->partides = $mapaPartides[$torneig->id] ?? [];
+        }
+
+        return response()->json($torneigs);
     }
+
+
+
+
 
     public function new(Request $request)
     {
@@ -113,21 +78,21 @@ class TorneigController extends Controller
             'tipus' => 'required|string',
             'data_inici' => 'required',
             'data_fi' => 'required',
-            'estat' => 'required|string',
+            'numero_equips' => 'required',
             'modeJoc_id' => 'required|integer',
-            'quantitat_partides' => 'required|min:1|max:5',
-            'numero_equips' => 'required|min:2|max:5',
+            'mapa_id' => 'required',
+            'premi_id' => 'required'
         ], [
             'nom.required' => 'El nom és obligatori',
             'participants.required' => 'El nombre de participants és obligatori',
             'tipus.required' => 'El tipus de torneig és obligatori',
             'data_inici.required' => 'La data d\'inici és obligatòria',
             'data_fi.required' => 'La data de finalització és obligatòria',
-            'estat.required' => 'L\'estat del torneig és obligatori',
-            'modeJoc_id.reuired' => 'El mòde de joc es obligatòri',
+            'numero_equips.required' => 'S\'ha d\'assignar un número d\'equips',
+            'modeJoc_id.required' => 'El mòde de joc es obligatòri',
             'quantitat_partides.required' => 'La quantitat de partides es obligatòria',
-            'quantitat_partides.min' => 'Hi ha d\'haver almenys una partida',
-            'quantitat_partides.max' => 'No hi poden haver més de 5 partides'
+            'mapa_id.required' => 'Selecciona un mapa',
+            'premi_id.required' => 'Selecciona un premi'
         ]);
 
         $torneig->nom = $request->nom;
@@ -135,12 +100,10 @@ class TorneigController extends Controller
         $torneig->tipus = $request->tipus;
         $torneig->data_inici = $request->data_inici;
         $torneig->data_fi = $request->data_fi;
-        $torneig->estat = $request->estat;
+        $torneig->numero_equips = $request->numero_equips;
         $torneig->modeJoc_id = $request->modeJoc_id;
-        $torneig->quantitat_partides = $request->quantitat_partides;
-        $torneig->numero_equips = $request->participants;
         $torneig->mapa_id = $request->mapa_id;
-
+        $torneig->premi_id = $request->premi_id;
 
         $torneig->save();
         return response()->json($torneig);
@@ -148,48 +111,49 @@ class TorneigController extends Controller
 
     public function show($id)
     {
-        $torneig = Torneig::findOrFail($id);
+        $torneig = DB::select("
+        SELECT 
+            torneigs.*, mode_jocs.descripcio, 
+            jocs.foto AS joc_foto, jocs.nom as joc_nom
+        FROM torneigs
+        JOIN mode_jocs ON torneigs.modeJoc_id = mode_jocs.id
+        JOIN jocs ON mode_jocs.joc_id = jocs.id
+        WHERE torneigs.id = " . $id);
         return response()->json($torneig);
     }
 
     public function edit(Request $request, $id)
     {
-        if ($request->isMethod('post')) {
-            $torneig = Torneig::findOrFail($id);
-            $request->validate([
-                'nom' => 'required|string',
-                'participants' => 'required|integer',
-                'tipus' => 'required|string',
-                'data_inici' => 'required|datetime',
-                'data_fi' => 'required|datetime',
-                'estat' => 'required|string',
-                'modeJoc_id' => 'required|integer',
-                'quantitat_partides' => 'required|min:1|max:5'
-            ], [
-                'nom.required' => 'El nom és obligatori',
-                'participants.required' => 'El nombre de participants és obligatori',
-                'tipus.required' => 'El tipus de torneig és obligatori',
-                'data_inici.required' => 'La data d\'inici és obligatòria',
-                'data_fi.required' => 'La data de finalització és obligatòria',
-                'estat.required' => 'L\'estat del torneig és obligatori',
-                'modeJoc_id.reuired' => 'El mòde de joc es obligatòri',
-                'quantitat_partides.required' => 'La quantitat de partides es obligatòria',
-                'quantitat_partides.min' => 'Hi ha d\'haver almenys una partida',
-                'quantitat_partides.max' => 'No hi poden haver més de 5 partides'
-            ]);
+        $torneig = Torneig::findOrFail($id);
+        $request->validate([
+            'nom' => 'required|string',
+            'participants' => 'required|integer',
+            'tipus' => 'required|string',
+            'data_inici' => 'required',
+            'data_fi' => 'required',
+            'numero_equips' => 'required',
+            'modeJoc_id' => 'required|integer',
+        ], [
+            'nom.required' => 'El nom és obligatori',
+            'participants.required' => 'El nombre de participants és obligatori',
+            'tipus.required' => 'El tipus de torneig és obligatori',
+            'data_inici.required' => 'La data d\'inici és obligatòria',
+            'data_fi.required' => 'La data de finalització és obligatòria',
+            'numero_equips.required' => 'S\'ha d\'assignar un número d\'equips',
+            'modeJoc_id.reuired' => 'El mòde de joc es obligatòri',
+            'quantitat_partides.required' => 'La quantitat de partides es obligatòria',
+        ]);
 
-            $torneig->nom = $request->nom;
-            $torneig->participants = $request->participants;
-            $torneig->tipus = $request->tipus;
-            $torneig->data_inici = $request->data_inici;
-            $torneig->data_fi = $request->data_fi;
-            $torneig->estat = $request->estat;
-            $torneig->modeJoc_id = $request->modeJoc_id;
-            $torneig->quantitat_partides = $request->quantitat_partides;
+        $torneig->nom = $request->nom;
+        $torneig->participants = $request->participants;
+        $torneig->tipus = $request->tipus;
+        $torneig->data_inici = $request->data_inici;
+        $torneig->data_fi = $request->data_fi;
+        $torneig->numero_equips = $request->numero_equips;
+        $torneig->modeJoc_id = $request->modeJoc_id;
 
 
-            $torneig->save();
-        }
+        $torneig->save();
         return response()->json($torneig);
     }
 

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nom');
             $table->string('regio');
             $table->string('foto_equip');
-            $table->integer('trofeus')->nullable();
+            $table->integer('trofeus')->default(0);
             $table->date('data_creacio');
             $table->longText('descripcio');
             $table->integer('maxim_integrants');

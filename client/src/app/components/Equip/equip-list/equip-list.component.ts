@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IEquip } from '../../../interfaces/iEquip';
 import { DadesUsersService } from '../../../services/dades-users.service';
+import { DadesEquipsService } from '../../../services/dades-equips.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -12,7 +13,7 @@ import { CommonModule } from '@angular/common';
 export class EquipListComponent implements OnInit {
   equips: IEquip[] = [];
 
-  constructor(private dadesUsersService: DadesUsersService) {}
+  constructor(private dadesUsersService: DadesEquipsService) {}
 
   ngOnInit(): void {
     this.dadesUsersService.getEquips().subscribe({

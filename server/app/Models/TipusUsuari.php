@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class TipusUsuari extends Model
 {
     protected $fillable = ['tipus', 'permisos'];
+    protected $table = 'tipus_usuaris';
 
     public function equip(): BelongsTo
     {

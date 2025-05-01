@@ -10,7 +10,8 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Torneig extends Model
 {
-    protected $fillable = ['nom', 'participats', 'tipus', 'data_inici', 'data_fi', 'estat'];
+    protected $fillable = ['nom', 'data_inici', 'data_fi', 'modeJoc_id', 'mapa_id'];
+    protected $table = 'torneigs';
 
     public function equips(): BelongsToMany
     {

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Premi extends Model
 {
     protected $fillable = ['tipus', 'valor'];
+    protected $table = 'premis';
 
     public function torneig(): BelongsTo
     {
