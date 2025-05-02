@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { DadesTornejosService } from '../../../services/dades-tornejos.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 
 interface Mapa {
   id: number;
@@ -66,45 +65,42 @@ export class TorneigNewComponent implements OnInit {
       modeJoc_id: ['', Validators.required],
       mapa_id: ['', Validators.required],
       quantitat_partides: [{ value: 3, disabled: true }], // valor fijo
-      numero_equips: [2, [Validators.required, Validators.min(2)]]
+      numero_equips: [2, [Validators.required, Validators.min(2)]],
+      premi_id: ['', Validators.required]
+
     });
     
   }
 
   ngOnInit(): void {
-    
     this.dadesService.getJocs().subscribe({
-      next: (data) => {
+      next: (data: Joc[]) => {
         this.jocs = data;
+        console.log('Jocs carregats:', this.jocs);
       },
       error: (err) => {
         this.errorMessage = 'Error carregant els jocs.';
-        console.error('Error al cargar jocs:', err); 
+        console.error(err);
       }
     });
   
-    
     this.myForm.get('joc_id')?.valueChanges.subscribe(jocId => {
       const jocSeleccionat = this.jocs.find(j => j.id === Number(jocId));
-  
       if (jocSeleccionat) {
-        this.modesJoc = jocSeleccionat.mode_jocs || []; 
-        this.mapas = [];  
-        this.myForm.patchValue({ modeJoc_id: '', mapa_id: '' });
+        this.modesJoc = jocSeleccionat.mode_jocs || [];
       } else {
         this.modesJoc = [];
-        this.mapas = [];
       }
+      this.mapas = [];
+      this.myForm.patchValue({ modeJoc_id: '', mapa_id: '' });
     });
   
-    
     this.myForm.get('modeJoc_id')?.valueChanges.subscribe(modeId => {
       const modeSeleccionat = this.modesJoc.find(m => m.id === Number(modeId));
       this.mapas = modeSeleccionat ? modeSeleccionat.mapas : [];
       this.myForm.patchValue({ mapa_id: '' });
     });
-  }
-  
+  } 
 
   onSubmit(): void {
     console.log(this.myForm.value); 

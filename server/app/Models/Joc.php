@@ -13,4 +13,10 @@ class Joc extends Model
     {
         return $this->hasMany(ModeJoc::class);
     }
+    public function modeJocs()
+{
+    return $this->hasMany(ModeJoc::class);
+}
+
+
 }

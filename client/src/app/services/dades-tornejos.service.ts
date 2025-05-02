@@ -64,9 +64,8 @@ export class DadesTornejosService {
     return this._http.delete<any>(`http://127.0.0.1:8000/api/torneig/delete/${id}`);
   }
 
-  private apiUrl = 'http://localhost:8000/api';
-
   getJocs() {
-    return this._http.get<Joc[]>(`${this.apiUrl}/modejocs`);
+    return this._http.get<Joc[]>('http://localhost:8000/api/jocs');
   }
+  
 }

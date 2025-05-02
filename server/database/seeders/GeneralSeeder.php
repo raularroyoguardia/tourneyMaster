@@ -951,7 +951,7 @@ class GeneralSeeder extends Seeder
         $fran_equip = DB::table('equips')->insertGetId([
             'nom' => 'Fran Individual',
             'regio' => 'Europa',
-            'foto_equip' => 'fran.jpg',
+            'foto_equip' => 'franindividual.jpg',
             'data_creacio' => now(),
             'descripcio' => 'Este es un equipo individual en el que pertenece solo un equipo.',
             'maxim_integrants' => 1

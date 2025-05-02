@@ -11,7 +11,7 @@ class JocController extends Controller
 {
     public function list()
     {
-        $jocs = Joc::all();
+        $jocs = Joc::with(['modeJocs.mapas'])->get();
         return response()->json($jocs);
     }
 

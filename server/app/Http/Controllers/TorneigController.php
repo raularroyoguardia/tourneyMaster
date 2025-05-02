@@ -65,10 +65,6 @@ class TorneigController extends Controller
         return response()->json($torneigs);
     }
 
-
-
-
-
     public function new(Request $request)
     {
         $torneig = new Torneig();
@@ -81,7 +77,7 @@ class TorneigController extends Controller
             'numero_equips' => 'required',
             'modeJoc_id' => 'required|integer',
             'mapa_id' => 'required',
-            'premi_id' => 'required'
+            // 'premi_id' => 'required',
         ], [
             'nom.required' => 'El nom és obligatori',
             'participants.required' => 'El nombre de participants és obligatori',
@@ -92,7 +88,7 @@ class TorneigController extends Controller
             'modeJoc_id.required' => 'El mòde de joc es obligatòri',
             'quantitat_partides.required' => 'La quantitat de partides es obligatòria',
             'mapa_id.required' => 'Selecciona un mapa',
-            'premi_id.required' => 'Selecciona un premi'
+            // 'premi_id.required' => 'Selecciona un premi'
         ]);
 
         $torneig->nom = $request->nom;
@@ -103,7 +99,7 @@ class TorneigController extends Controller
         $torneig->numero_equips = $request->numero_equips;
         $torneig->modeJoc_id = $request->modeJoc_id;
         $torneig->mapa_id = $request->mapa_id;
-        $torneig->premi_id = $request->premi_id;
+        $torneig->premi_id = $request->premi_id ?? 1;
 
         $torneig->save();
         return response()->json($torneig);

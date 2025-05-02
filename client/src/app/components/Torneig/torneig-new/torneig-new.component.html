@@ -48,28 +48,23 @@
             <select formControlName="joc_id">
                 <option value="">-- Selecciona un joc --</option>
                 <option *ngFor="let joc of jocs" [value]="joc.id">{{ joc.nom }}</option>
-            </select>
+            </select> 
         </div>
 
         <div>
             <label>Mode Joc:</label>
-            <select formControlName="modeJoc_id" [disabled]="modesJoc.length === 0">
+             <select formControlName="modeJoc_id" [disabled]="modesJoc.length === 0">
                 <option value="">-- Selecciona un mode --</option>
                 <option *ngFor="let mode of modesJoc" [value]="mode.id">{{ mode.nom }}</option>
-            </select>
+            </select> 
         </div>
 
         <div>
             <label>Mapa:</label>
-            <select formControlName="mapa_id" [disabled]="mapas.length === 0">
+             <select formControlName="mapa_id" [disabled]="mapas.length === 0">
                 <option value="">-- Selecciona un mapa --</option>
                 <option *ngFor="let mapa of mapas" [value]="mapa.id">{{ mapa.nom }}</option>
-            </select>
-        </div>
-
-        <div>
-            <label>Quantitat Partides:</label>
-            <input type="number" formControlName="quantitat_partides" [value]="3" [disabled]="true" />
+            </select> 
         </div>
 
         <div>
@@ -79,6 +74,23 @@
                 style="color: red;">
                 Mínim de numero de equips: 2
             </div>
+        </div>
+
+        <div>
+            <label>Premi:</label>
+            <select formControlName="premi_id">
+              <option value="">-- Selecciona un premi --</option>
+              <option value="1">100</option>
+              <option value="2">75</option>
+              <option value="3">50</option>
+            </select>
+          </div>
+          
+        
+
+        <div>
+            <label>Quantitat Partides:</label>
+            <input type="number" formControlName="quantitat_partides" [value]="3" [disabled]="true" />
         </div>
 
         <button type="submit" [disabled]="myForm.invalid">Crear Torneig</button>

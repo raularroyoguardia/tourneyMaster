@@ -15,4 +15,9 @@ class Mapa extends Model
     {
         return $this->belongsToMany(ModeJoc::class);
     }
+    public function modesJoc()
+{
+    return $this->belongsToMany(ModeJoc::class, 'mapas_modes', 'mapa_id', 'mode_joc_id');
+}
+
 }
