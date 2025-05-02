@@ -4,6 +4,8 @@ import { TorneigListComponent } from './components/Torneig/torneig-list/torneig-
 import { ClassificacioListComponent } from './components/Classificacio/classificacio-list/classificacio-list.component';
 import { EquipListComponent } from './components/Equip/equip-list/equip-list.component';
 import { TorneigNewComponent } from './components/Torneig/torneig-new/torneig-new.component';
+import LoginComponent from './components/authentication/login/login.component';
+import { SignupComponent } from './components/authentication/signup/signup.component';
 // import { TorneigNewComponent } from './components/Torneig/torneig-new/torneig-new.component';
 
 export const routes: Routes = [
@@ -17,7 +19,10 @@ export const routes: Routes = [
   { path: 'equip-list', component: EquipListComponent },
 
   //LOGIN
-  { path: 'login', loadComponent: () => import('./components/authentication/login/login.component') },
+  { path: 'login', component: LoginComponent },
+
+  //SIGN UP
+  { path: 'signup', component: SignupComponent},
 
   // Default redirection to 'welcome'
   { path: '', redirectTo: '/welcome', pathMatch: 'full' },

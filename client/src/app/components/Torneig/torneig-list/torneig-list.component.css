@@ -10,7 +10,8 @@ body {
   flex-wrap: wrap;
   gap: 4rem;
   padding: 4rem;
-  justify-content: space-between;
+  justify-content:flex-start;
+  align-items: center;
 }
 
 .torneig-card {

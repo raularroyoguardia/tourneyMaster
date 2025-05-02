@@ -22,8 +22,8 @@ export class AppComponent {
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
         // Oculta nav y footer solo en /login
-        this.showLayout = !['/login'].includes(event.urlAfterRedirects);
-        // this.showLayout = !['/login', '/register', '/404'].includes(event.urlAfterRedirects);
+        // this.showLayout = !['/login'].includes(event.urlAfterRedirects);
+        this.showLayout = !['/login', '/signup', '/404'].includes(event.urlAfterRedirects);
       });
   }
 }
