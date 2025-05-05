@@ -10,6 +10,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Equip;
+use Illuminate\Support\Facades\File;
 
 class AuthController extends Controller
 {
@@ -34,7 +35,7 @@ class AuthController extends Controller
     public function register(RegisterRequest $request): JsonResponse
     {
         // Crear el usuario sin la foto inicialmente
-        $user = User::create($request->except('foto_perfil'));
+        $user = User::create($request->all());
 
         // Guardar la imagen si fue enviada
         if ($request->hasFile('foto_perfil')) {
@@ -46,11 +47,16 @@ class AuthController extends Controller
             $user->save();
         }
 
+        //Poner la foto del usuario en el equipo individual
+        $sourcePath = public_path('uploads/fotoUsuari/' . $filename);
+        $destinationPath = public_path('uploads/fotoEquips/' . $filename);
+        File::copy($sourcePath, $destinationPath);
+        
         //Crear el equipo individual para el usuario registrado
         $equip = new Equip();
         $equip->nom = $user->name . ' Individual';
         $equip->regio = 'Europa';
-        $equip->foto_equip = 'default.jpg';
+        $equip->foto_equip = $filename;
         $equip->data_creacio = now();
         $equip->descripcio = 'Equipo individual ' . $user->name;
         $equip->maxim_integrants = 1;

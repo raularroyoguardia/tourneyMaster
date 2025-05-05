@@ -134,35 +134,10 @@
                         Foto de perfil
                     </label>
                     <div>
-                        <input id="inputFotoPerfil" formControlName="foto_perfil"
+                        <input id="inputFotoPerfil" (change)="onFileSelected($event)"
                             class="w-full text-sm px-4 py-3 bg-gray-200 focus:bg-gray-100 border border-gray-200 rounded-lg focus:outline-none focus:border-purple-400"
                             type="file">
                     </div>
-
-                    <!-- IMAGEN (Etiqueta opcional) -->
-                    <!-- Foto de perfil personalizada -->
-                    <!-- <div>
-                        <label for="foto_perfil" class="block text-sm font-semibold text-purple-700 mb-2">
-                            Foto de perfil
-                        </label>
-
-                        <p-fileUpload name="foto_perfil" [customUpload]="true" [auto]="true" [multiple]="false"
-                            accept="image/*" maxFileSize="1000000" mode="basic" chooseLabel="Seleccionar imagen"
-                            (uploadHandler)="onUpload($event)" class="w-full">
-                        </p-fileUpload>
-                    </div> -->
-
-                    <!-- Vista previa del archivo -->
-                    <!-- <div *ngIf="uploadedFiles.length > 0" class="mt-3 text-center space-y-2">
-                        <img [src]="uploadedFiles[0]?.objectURL" alt="Vista previa"
-                            class="w-24 h-24 object-cover rounded-lg mx-auto" /> -->
-
-                        <!-- Botón para eliminar imagen -->
-                        <!-- <button type="button" (click)="removeImage()"
-                            class="text-sm text-red-600 hover:text-red-800 font-semibold underline transition">
-                            Eliminar imagen
-                        </button>
-                    </div> -->
 
                     <!-- Navegación paso anterior y enviar -->
                     <div class="flex justify-between items-center">
