@@ -107,4 +107,20 @@ class EquipController extends Controller
         $equip->delete();
         return response()->json($equip);
     }
+
+    public function getEquipsForAuthenticatedUser(Request $request)
+{
+    $user = $request->user(); // Usuario autenticado
+
+    // Cargar los equipos con los usuarios relacionados (Eager Loading) y ordenar los usuarios por 'trofeus' de mayor a menor
+    $equips = $user->equips()
+                   ->with(['users' => function ($query) {
+                       $query->orderBy('trofeus', 'desc');  // Ordenar usuarios por trofeus en orden descendente
+                   }])
+                   ->get();
+
+    return response()->json($equips);
+}
+
+
 }

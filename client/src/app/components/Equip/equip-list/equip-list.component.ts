@@ -11,21 +11,31 @@ import { CommonModule } from '@angular/common';
   styleUrl: './equip-list.component.css'
 })
 export class EquipListComponent implements OnInit {
-  equips: IEquip[] = [];
+  equips: IEquip[] = [];  // Cambiar a un array, no un solo objeto
 
-  constructor(private dadesUsersService: DadesEquipsService) {}
+  constructor(private dadesEquipsService: DadesEquipsService) {}
 
   ngOnInit(): void {
-    this.dadesUsersService.getEquips().subscribe({
-      next: (res) => {
-        console.log(res.body); // Verifica qué viene, pero debería ser un array de equips
-        this.equips = res.body || [];
+    this.dadesEquipsService.getUserEquips().subscribe({
+      next: (equips) => {
+        this.equips = equips;
+        console.log('Equip del usuari:', equips);
+
+        // Guardar la lista de equipos en localStorage
+        localStorage.setItem("equips", JSON.stringify(equips));
       },
       error: (err) => {
-        console.error('Error carregant equips', err);
+        console.error('Error obtenint equip:', err);
       }
     });
   }
+
+  calcularTrofeosTotales(equip: IEquip): number {
+    return equip.users.reduce((total, users) => total + Number(users.trofeus), 0);
+  }
+  
 }
+
+
 
 

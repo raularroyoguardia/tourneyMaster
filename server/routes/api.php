@@ -30,6 +30,7 @@ Route::delete('logout', [AuthController::class, 'logout'])->middleware('auth:san
 Route::get('/equips', [EquipController::class, 'list'])->name('equips_list');
 Route::post('/equip/new', [EquipController::class, 'new'])->name('equip_new');
 Route::get('/equip/{id}', [EquipController::class, 'show'])->name('equip_show');
+Route::middleware('auth:sanctum')->get('/equips/user', [EquipController::class, 'getEquipsForAuthenticatedUser']);
 Route::match(['get', 'post'], '/equip/edit/{id}', [EquipController::class, 'edit'])->name('equip_edit');
 Route::get('/equip/delete/{id}', [EquipController::class, 'delete'])->name('equip_delete');
 

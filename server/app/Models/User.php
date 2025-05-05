@@ -53,4 +53,11 @@ class User extends Authenticatable
     {
         return $this->hasOne(TipusUsuari::class);
     }
+
+    // User.php
+public function equips()
+{
+    return $this->belongsToMany(Equip::class, 'equips_users', 'user_id', 'equip_id'); 
+}
+
 }

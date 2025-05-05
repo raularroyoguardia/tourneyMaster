@@ -19,5 +19,9 @@ class Equip extends Model
     {
         return $this->hasMany(User::class);
     }
-    
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'equips_users', 'equip_id', 'user_id');
+    }
 }
