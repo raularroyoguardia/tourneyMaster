@@ -54,7 +54,7 @@ class AuthController extends Controller
         
         //Crear el equipo individual para el usuario registrado
         $equip = new Equip();
-        $equip->nom = $user->name . ' Individual';
+        $equip->name = $user->name . ' ' . mb_substr($user->apellido1, 0, 1) . ' ' . mb_substr($user->apellido2, 0, 1);
         $equip->regio = 'Europa';
         $equip->foto_equip = $filename;
         $equip->data_creacio = now();

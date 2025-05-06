@@ -33,6 +33,11 @@ export class DadesEquipsService {
     );
   }
 
+  public getEquipsDisponibles(): Observable<any> {
+    return this._http.get(`http://127.0.0.1:8000/api/equips/disponibles`);
+  }
+  
+
   public createEquip(equip: any): Observable<HttpResponse<any>> {
     return this._http.post<any>('http://127.0.0.1:8000/api/equip/new', equip, { observe: 'response' });
   }

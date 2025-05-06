@@ -1,44 +1,80 @@
 <div *ngIf="equips && equips.length > 0; else noData">
-    <div *ngFor="let equip of equips" class="equip-card">
-      <div class="info flex">
-        <div class="imatgeEquip w-16 flex-auto">
-          <img [src]="'uploads/fotosEquips/' + equip.foto_equip" alt="{{ equip.foto_equip }} foto" class="equip-image">
-        </div>
-        <div class="infoEquip w-64 flex-auto">
-          <h3>{{ equip.nom }}</h3>
-          <p>{{ equip.descripcio }}</p>
-        </div>
-        <div class="infoEquip2 w-32 flex-auto">
-          <p><strong>Región:</strong> {{ equip.regio }}</p>
-          <p><strong>Trofeos:</strong> {{ calcularTrofeosTotales(equip) }}</p>
-          <p><strong>Data Creación:</strong> {{ equip.data_creacio | date }}</p>
-        </div>
+  <div *ngFor="let equip of equips" class="equip-card">
+    <div class="info flex">
+      <div class="imatgeEquip w-16 flex-auto">
+        <img [src]="'uploads/fotosEquips/' + equip.foto_equip" alt="{{ equip.foto_equip }} foto" class="equip-image">
       </div>
-  
-      <div *ngIf="equip.users && equip.users.length > 0">
-        <table>
-          <thead>
-            <tr>
-              <th>Posición</th>
-              <th>Nombre</th>
-              <th>Trofeos</th>
-              <th>Foto Perfil</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let user of equip.users; let i = index">
-              <td>{{ i + 1 }}</td>
-              <td>{{ user.name }}</td>
-              <td>{{ user.trofeus }}</td>
-              <td><img [src]="'uploads/fotosUsuari/' + user.foto_perfil" [alt]="user.name + ' foto'" class="imatgeUsuari"/></td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="infoEquip w-64 flex-auto">
+        <h3>{{ equip.nom }}</h3>
+        <p>{{ equip.descripcio }}</p>
+      </div>
+      <div class="infoEquip2 w-32 flex-auto">
+        <p><strong>Región:</strong> {{ equip.regio }}</p>
+        <p><strong>Trofeos:</strong> {{ calcularTrofeosTotales(equip) }}</p>
+        <p><strong>Data Creación:</strong> {{ equip.data_creacio | date }}</p>
       </div>
     </div>
+
+    <div *ngIf="equip.users && equip.users.length > 0">
+      <table>
+        <thead>
+          <tr>
+            <th>Posición</th>
+            <th>Nombre</th>
+            <th>Trofeos</th>
+            <th>Foto Perfil</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of equip.users; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ user.name }}</td>
+            <td>{{ user.trofeus }}</td>
+            <td><img [src]="'uploads/fotosUsuari/' + user.foto_perfil" [alt]="user.name + ' foto'"
+                class="imatgeUsuari" /></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
-  
-  <ng-template #noData>
-    <p>No hay equipos disponibles.</p>
-  </ng-template>
-  
+</div>
+
+<ng-template #noData>
+  <div class="teams-container" *ngIf="equips.length === 0">
+    
+    <div class="teams-card" *ngIf="equipsDisponibles.length > 0">
+      <div class="teams-header">
+        <h3>Equipos disponibles</h3>
+      </div>
+      
+      <table class="teams-table" style="color: black;">
+        <thead>
+          <tr>
+            <th>Imagen</th>
+            <th>Equipo</th>
+            <th>Región</th>
+            <th>Plazas</th>
+            <th>Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let equip of equipsDisponibles">
+            <td>
+              <img [src]="'uploads/fotosEquips/' + equip.foto_equip" alt="Foto equipo" class="team-image" />
+            </td>
+            <td class="team-name">{{ equip.nom }}</td>
+            <td class="team-region">{{ equip.regio }}</td>
+            <td class="team-slots">{{ equip.users_count }} / {{equip.maxim_integrants}}</td>
+            <td>
+              <!-- <button class="join-button" (click)="unirseEquipo(equip.id)">Unirse</button> -->
+              <!-- <button class="join-button">Unirse</button> -->
+
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+</ng-template>

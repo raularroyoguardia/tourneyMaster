@@ -38,6 +38,7 @@ export default class LoginComponent {
   private handleResponse(response: any): void {
     console.log(response.message);
     this.tokenService.handleToken(response.token);
+    localStorage.setItem('user', JSON.stringify(response.user));
     this.router.navigateByUrl('/welcome');
   }
 

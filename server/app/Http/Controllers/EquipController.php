@@ -109,18 +109,55 @@ class EquipController extends Controller
     }
 
     public function getEquipsForAuthenticatedUser(Request $request)
+    {
+        $user = $request->user(); // Usuario autenticado
+
+        // Cargar los equipos con los usuarios relacionados (Eager Loading) y ordenar los usuarios por 'trofeus' de mayor a menor
+        $equips = $user->equips()
+            ->with(['users' => function ($query) {
+                $query->orderBy('trofeus');  // Ordenar usuarios por trofeus en orden descendente
+            }])
+            ->get();
+
+        return response()->json($equips);
+    }
+
+    public function equipsDisponibles()
+    {
+        $equipsDisponibles = Equip::withCount('users')
+            ->where('maxim_integrants', '>', 1)
+            ->having('users_count', '<', DB::raw('maxim_integrants'))
+            ->get();
+
+        return response()->json($equipsDisponibles);
+    }
+
+    public function unirseAEquip(Request $request)
 {
-    $user = $request->user(); // Usuario autenticado
+    $request->validate([
+        'equip_id' => 'required|exists:equips,id',
+        'torneig_id' => 'required|exists:torneigs,id'
+    ]);
 
-    // Cargar los equipos con los usuarios relacionados (Eager Loading) y ordenar los usuarios por 'trofeus' de mayor a menor
-    $equips = $user->equips()
-                   ->with(['users' => function ($query) {
-                       $query->orderBy('trofeus', 'desc');  // Ordenar usuarios por trofeus en orden descendente
-                   }])
-                   ->get();
+    $user = $request->user();
 
-    return response()->json($equips);
+    // Primero, verifica si ya pertenece a ese equipo en ese torneo
+    $existe = DB::table('equips_torneigs')
+        ->where('equip_id', $request->equip_id)
+        ->where('torneig_id', $request->torneig_id)
+        ->exists();
+
+    if ($existe) {
+        return response()->json(['message' => 'Ya estás en este equipo para este torneo.'], 409);
+    }
+
+    // Inserta el registro en la tabla pivot equips_torneigs
+    DB::table('equips_torneigs')->insert([
+        'equip_id' => $request->equip_id,
+        'torneig_id' => $request->torneig_id,
+    ]);
+
+    return response()->json(['message' => 'Te has unido al equipo correctamente.']);
 }
-
 
 }

@@ -10,4 +10,5 @@ export interface IEquip{
     descripcio:string;
     maxim_integrants:number;
     users: IUser[];
+    users_count:number;
 }

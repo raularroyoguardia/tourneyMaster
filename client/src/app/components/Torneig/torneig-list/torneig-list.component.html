@@ -7,7 +7,14 @@
       <p><strong>Partides:</strong> {{ torneig.quantitat_partides }}</p>
       <p><strong>Participants:</strong> {{ torneig.participants }}</p>
       <p><strong>Tipus:</strong> {{ torneig.tipus }}</p>
-      <button class="join-btn" (click)="unirseTorneig(torneig.id); $event.stopPropagation()">Unir-me</button>
+      <!-- <button class="join-btn" (click)="unirseTorneig(torneig.id); $event.stopPropagation()">Unir-me</button> -->
+      <button class="join-btn" [disabled]="estaTorneoDeshabilitado(torneig)" 
+        (click)="unirseTorneig(torneig.id); $event.stopPropagation()">
+        Unir-me
+      </button>
+
+
+
     </div>
   </div>
 
@@ -30,8 +37,7 @@
           <p><strong>Tipus:</strong> {{ selectedTorneig.tipus }}</p>
           <p><strong>Descripció:</strong> {{ selectedTorneig.mode_joc }}</p>
           <p><strong>Recompensa:</strong> {{ selectedTorneig.premi_valor }}
-            <img src="uploads/logo/estrella-del-trofeo.png"
-              style="width: 20px; display: inline; vertical-align: middle;" />
+            <i style="color:goldenrod" class="fi fi-sr-trophy-star"></i>
           </p>
         </div>
 
@@ -84,8 +90,7 @@
           <p><strong>Tipus:</strong> {{ selectedTorneig.tipus }}</p>
           <p><strong>Descripció:</strong> {{ selectedTorneig.mode_joc }}</p>
           <p><strong>Recompensa:</strong> {{ selectedTorneig.premi_valor }}
-            <img src="uploads/logo/estrella-del-trofeo.png"
-              style="width: 15px; display: inline; vertical-align: middle;" />
+            <i class="fi fi-rr-lock"></i>
           </p>
         </div>
 
@@ -95,13 +100,13 @@
               <span class="position">{{ i + 1 }}</span>
               <span class="team-name">{{ equip.nom }}</span>
               <span class="team-points">
-                {{ getTotalPuntos(equip.id) }} 
+                {{ getTotalPuntos(equip.id) }}
               </span>
               <span class="team-points">
                 {{ getTrofeusPerEquip(equip.id) }} <img src="uploads/logo/estrella-del-trofeo.png"
-                style="width: 20px;height: auto; display: inline; vertical-align: middle;" />
+                  style="width: 20px;height: auto; display: inline; vertical-align: middle;" />
               </span>
-              <img src="uploads/fotosEquips/{{equip.foto_equip}}" alt="{{equip.nom}}"/>
+              <img src="uploads/fotosEquips/{{equip.foto_equip}}" alt="{{equip.nom}}" />
             </li>
           </ol>
         </div>
@@ -109,3 +114,36 @@
     </ng-container>
   </div>
 </div>
+
+
+
+<!--
+
+tambien necssito que el usuario se añada a torneo 
+
+equips_users
+	1	id Primaria	bigint		UNSIGNED	No	Ninguna		AUTO_INCREMENT	Cambiar Cambiar	Eliminar Eliminar	
+Más Más
+	2	equip_id Índice	bigint		UNSIGNED	Sí	NULL			Cambiar Cambiar	Eliminar Eliminar	
+Más Más
+	3	user_id Índice	bigint		UNSIGNED	Sí	NULL			Cambiar Cambiar	Eliminar Eliminar	
+Más Más
+	4	created_at	timestamp			Sí	NULL			Cambiar Cambiar	Eliminar Eliminar	
+Más Más
+	5	updated_at	timestamp			Sí	NULL			Cambiar Cambiar	Eliminar Eliminar	
+Más Más
+Para los elementos que están marcados:  Seleccionar todo Para los elementos que están marcados:          
+Imprimir Imprimir Hacer seguimiento a la tabla Hacer seguimiento a la tabla Mover columnas Mover columnas Normalizar Normalizar
+Añadir columna  Agregar 
+1
+ columna(s)   
+después de updated_at
+ 
+Índices Documentación
+Acción	Nombre de la clave	Tipo	Único	Empaquetado	Columna	Cardinalidad	Cotejamiento	Nulo	Comentario
+Editar Editar	Rename Rename	Eliminar Eliminar	PRIMARY	BTREE	Sí	No	id	8	A	No	
+Editar Editar	Rename Rename	Eliminar Eliminar	equips_users_equip_id_foreign	BTREE	No	No	equip_id	6	A	Sí	
+Editar Editar	Rename Rename	Eliminar Eliminar	equips_users_user_id_foreign	BTREE	No	No	user_id	4	A	Sí	
+
+
+-->

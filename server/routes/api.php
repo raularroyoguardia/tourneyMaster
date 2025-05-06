@@ -14,6 +14,7 @@ use App\Http\Controllers\PremiController;
 use App\Http\Controllers\TipusUsuariController;
 use App\Http\Controllers\MapaController;
 use App\Http\Controllers\EquipUserController;
+use App\Http\Controllers\TorneigStatsController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -30,16 +31,16 @@ Route::delete('logout', [AuthController::class, 'logout'])->middleware('auth:san
 Route::get('/equips', [EquipController::class, 'list'])->name('equips_list');
 Route::post('/equip/new', [EquipController::class, 'new'])->name('equip_new');
 Route::get('/equip/{id}', [EquipController::class, 'show'])->name('equip_show');
-Route::middleware('auth:sanctum')->get('/equips/user', [EquipController::class, 'getEquipsForAuthenticatedUser']);
 Route::match(['get', 'post'], '/equip/edit/{id}', [EquipController::class, 'edit'])->name('equip_edit');
 Route::get('/equip/delete/{id}', [EquipController::class, 'delete'])->name('equip_delete');
-
-//CLASSIFICACIO
-Route::get('/classification/individual', [ClassificacioController::class, 'getIndividual'])->name('classificacio-individual');
-Route::get('/classification/collectiu', [ClassificacioController::class, 'getCollective'])->name('classificacio-colectiva');
+Route::middleware('auth:sanctum')->get('/equips/user', [EquipController::class, 'getEquipsForAuthenticatedUser']);
+Route::middleware('auth:sanctum')->post('/equips/unirse', [EquipController::class, 'unirseAEquip']);
 
 //EQUIP-USER
 Route::get('/equips/users', [EquipUserController::class, 'listEquipsWithUsers'])->name('equip-users_list');
+Route::get('/equips/disponibles', [EquipController::class, 'equipsDisponibles']);
+Route::middleware('auth:sanctum')->post('/equip/unirse', [EquipController::class, 'unirseAEquip']);
+
 
 //USER
 Route::get('/users', [UserController::class, 'list'])->name('users_list');
@@ -47,6 +48,10 @@ Route::get('/users', [UserController::class, 'list'])->name('users_list');
 Route::get('/user/{id}', [UserController::class, 'show'])->name('user_show');
 Route::match(['get', 'post'], '/user/edit/{id}', [UserController::class, 'edit'])->name('user_edit');
 Route::get('/user/delete/{id}', [UserController::class, 'delete'])->name('user_delete');
+
+//CLASSIFICACIO
+Route::get('/classification/individual', [ClassificacioController::class, 'getIndividual'])->name('classificacio-individual');
+Route::get('/classification/collectiu', [ClassificacioController::class, 'getCollective'])->name('classificacio-colectiva');
 
 //JOC
 Route::get('/jocs', [JocController::class, 'list'])->name('jocs_list');
@@ -68,6 +73,8 @@ Route::post('/torneig/new', [TorneigController::class, 'new'])->name('torneig_ne
 Route::get('/torneig/{id}', [TorneigController::class, 'show'])->name('torneig_show');
 Route::match(['get', 'post'], '/torneig/edit/{id}', [TorneigController::class, 'edit'])->name('torneig_edit');
 Route::get('/torneig/delete/{id}', [TorneigController::class, 'delete'])->name('torneig_delete');
+Route::get('/torneigs/stats', [TorneigStatsController::class, 'index']);
+
 
 //PARTIDA
 Route::get('/partides', [PartidaController::class, 'list'])->name('partides_list');
@@ -92,3 +99,6 @@ Route::get('/premi/delete/{id}', [PremiController::class, 'delete'])->name('prem
 Route::get('/mapas', [MapaController::class, 'list'])->name('mapas_list');
 Route::post('/mapa/new', [MapaController::class, 'new'])->name('mapa_new');
 Route::get('/mapa/delete/{id}', [MapaController::class, 'delete'])->name('mapa_delete');
+
+
+

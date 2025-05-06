@@ -12,12 +12,13 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent {
+  user: any = {};
 
-  constructor (
+  constructor(
     private authService: AuthService,
     public tokenService: TokenService,
     private router: Router
-  ) {}
+  ) { }
 
   logout(): void {
     this.authService.logout().subscribe(
@@ -35,5 +36,13 @@ export class NavBarComponent {
   private handleErrors(errors: any): void {
     console.log(errors.error);
   }
+
+  ngOnInit() {
+    const userData = localStorage.getItem('user');
+    if (userData) {
+      this.user = JSON.parse(userData);
+    }
+  }
+
 
 }

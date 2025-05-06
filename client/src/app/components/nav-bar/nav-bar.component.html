@@ -25,6 +25,15 @@
                     class="nav-button logout-btn text-white font-semibold py-2 px-6 bg-gradient-to-r from-blue-500 to-teal-500 rounded-md shadow-lg hover:from-blue-600 hover:to-teal-600 transition duration-300 ease-in-out">
                     Logout
                 </a>
+                <a class="text-white font-semibold py-2 px-6 rounded-md bg-gray-600/75 hover:bg-gray-700/75">
+                    {{ tokenService.getUserTrofeus() }} <i style="color:goldenrod" class="fi fi-sr-trophy-star"></i>
+                </a>
+                <a class="text-white font-semibold py-2">
+                    {{ tokenService.getUserName() }}
+                </a>
+                <img *ngIf="user.foto_perfil" [src]="'http://127.0.0.1:8000/uploads/fotoUsuari/' + user.foto_perfil"
+                    class="h-8 perfil" [alt]="user.name || 'Usuario'" />
+
             </ng-container>
         </div>
     </div>

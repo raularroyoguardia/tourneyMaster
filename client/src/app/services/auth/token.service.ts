@@ -17,6 +17,7 @@ export class TokenService {
 
   revokeToken(): void {
     localStorage.removeItem('access_token');
+    localStorage.removeItem('user');
   }
 
   isAuthenticated(): boolean {
@@ -34,5 +35,10 @@ export class TokenService {
   getUserName(): string {
     const user = this.getUser();
     return user ? user.name: '';
+  }
+
+  getUserTrofeus(): string {
+    const user = this.getUser();
+    return user ? user.trofeus: '';
   }
 }

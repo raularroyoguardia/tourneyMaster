@@ -11,7 +11,9 @@ import { CommonModule } from '@angular/common';
   styleUrl: './equip-list.component.css'
 })
 export class EquipListComponent implements OnInit {
-  equips: IEquip[] = [];  // Cambiar a un array, no un solo objeto
+  equips: IEquip[] = []; 
+  equipsDisponibles: IEquip[] = [];
+
 
   constructor(private dadesEquipsService: DadesEquipsService) {}
 
@@ -20,9 +22,10 @@ export class EquipListComponent implements OnInit {
       next: (equips) => {
         this.equips = equips;
         console.log('Equip del usuari:', equips);
-
-        // Guardar la lista de equipos en localStorage
-        localStorage.setItem("equips", JSON.stringify(equips));
+        if (equips.length === 0) {
+          this.loadEquipsDisponibles();
+        }
+        // localStorage.setItem("equips", JSON.stringify(equips));
       },
       error: (err) => {
         console.error('Error obtenint equip:', err);
@@ -34,6 +37,16 @@ export class EquipListComponent implements OnInit {
     return equip.users.reduce((total, users) => total + Number(users.trofeus), 0);
   }
   
+  loadEquipsDisponibles(): void {
+    this.dadesEquipsService.getEquipsDisponibles().subscribe({
+      next: (data) => {
+        this.equipsDisponibles = data;
+      },
+      error: (err) => {
+        console.error('Error carregant equips disponibles:', err);
+      }
+    });
+  }
 }
 
 

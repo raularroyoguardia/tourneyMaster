@@ -20,6 +20,8 @@ class GeneralSeeder extends Seeder
         //USERS
         $carlosUser = DB::table('users')->insertGetId([
             'name' => 'Carlos',
+            'apellido1' => 'Mariño',
+            'apellido2' => 'Senra',
             'email' => 'carlos_marinosenra@iescarlesvallbona.cat',
             'password' => bcrypt('123456'),
             'telefon' => 620666465,
@@ -28,6 +30,8 @@ class GeneralSeeder extends Seeder
 
         $raulUser = DB::table('users')->insertGetId([
             'name' => 'Raúl',
+            'apellido1' => 'Arroyo',
+            'apellido2' => 'Guardia',
             'email' => 'raul_arroyoguardia@iescarlesvallbona.cat',
             'password' => bcrypt('123456'),
             'telefon' => 685324360,
@@ -36,6 +40,8 @@ class GeneralSeeder extends Seeder
 
         $pereUser = DB::table('users')->insertGetId([
             'name' => 'Pere',
+            'apellido1' => 'Ferrer',
+            'apellido2' => 'Tarrascó',
             'email' => 'pere_ferertarrasco@iescarlesvallbona.cat',
             'password' => bcrypt('123456'),
             'telefon' => 684230145,
@@ -44,6 +50,8 @@ class GeneralSeeder extends Seeder
 
         $franUser = DB::table('users')->insertGetId([
             'name' => 'Fran',
+            'apellido1' => 'Romaneo',
+            'apellido2' => 'Baez',
             'email' => 'fran_romanobaez@iescarlesvallbona.cat',
             'password' => bcrypt('123456'),
             'telefon' => 635098076,

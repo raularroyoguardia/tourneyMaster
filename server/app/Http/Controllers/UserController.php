@@ -24,6 +24,8 @@ class UserController extends Controller
         $request->validate(
             [
                 'name' => 'required|string|max:10',
+                'apellido1' => 'required|string',
+                'apellido2' => 'required|string',
                 'email' => 'required|email|unique:users,email',
                 'telefon' => 'required|string|max:9',
                 'password' => 'string|required|min:6',
@@ -32,6 +34,8 @@ class UserController extends Controller
             [
                 'name.required' => 'El nom és obligatori',
                 'name.max' => 'El nom no pot superar els 10 caràcters',
+                'apellido1.required' => 'El primer apellido es obligatorio',
+                'apellido2.required' => 'El segundo apellido es obligatorio',
                 'email.required' => 'El correu és obligatori',
                 'email.email' => 'El correu no és vàlid',
                 'email.unique' => 'Aquest correu ja existeis',
