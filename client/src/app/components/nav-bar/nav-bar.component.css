@@ -46,6 +46,10 @@
   a {
     text-decoration: none;
   }
+
+  .locked-link {
+    color:dimgrey;
+  }
   
   /* Estilo gaming moderno para links activos */
   .active-link {
@@ -290,8 +294,9 @@
   }
   
   /* Animación continua para el botón de login */
-  .login-btn:hover, .register-btn:hover {
+  .login-btn:hover, .register-btn:hover, .logout-btn:hover {
     animation: float 3s ease-in-out infinite;
+    cursor: pointer;
   }
   
   @keyframes float {

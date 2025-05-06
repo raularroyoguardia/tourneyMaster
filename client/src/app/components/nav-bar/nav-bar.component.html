@@ -10,14 +10,22 @@
 
         <!-- Info de contacto y login -->
         <div class="flex items-center space-x-6 rtl:space-x-reverse">
-            <a routerLink="/signup"
-                class="nav-button register-btn text-white font-semibold py-2 px-6 bg-gradient-to-r from-blue-500 to-teal-500 rounded-md shadow-lg hover:from-blue-600 hover:to-teal-600 transition duration-300 ease-in-out">
-                Register
-            </a>
-            <a routerLink="/login"
-                class="nav-button login-btn text-white font-semibold py-2 px-6 bg-gradient-to-r from-blue-500 to-teal-500 rounded-md shadow-lg hover:from-blue-600 hover:to-teal-600 transition duration-300 ease-in-out">
-                Login
-            </a>
+            <ng-container *ngIf="!tokenService.isAuthenticated()">
+                <a routerLink="/signup"
+                    class="nav-button register-btn text-white font-semibold py-2 px-6 bg-gradient-to-r from-blue-500 to-teal-500 rounded-md shadow-lg hover:from-blue-600 hover:to-teal-600 transition duration-300 ease-in-out">
+                    Register
+                </a>
+                <a routerLink="/login"
+                    class="nav-button login-btn text-white font-semibold py-2 px-6 bg-gradient-to-r from-blue-500 to-teal-500 rounded-md shadow-lg hover:from-blue-600 hover:to-teal-600 transition duration-300 ease-in-out">
+                    Login
+                </a>
+            </ng-container>
+            <ng-container *ngIf="tokenService.isAuthenticated()">
+                <a (click)="logout()"
+                    class="nav-button logout-btn text-white font-semibold py-2 px-6 bg-gradient-to-r from-blue-500 to-teal-500 rounded-md shadow-lg hover:from-blue-600 hover:to-teal-600 transition duration-300 ease-in-out">
+                    Logout
+                </a>
+            </ng-container>
         </div>
     </div>
 </nav>
@@ -33,24 +41,46 @@
                         Home
                     </a>
                 </li>
-                <li>
-                    <a routerLink="/torneig-list" routerLinkActive="active-link"
-                        class="text-white dark:text-white font-bold transition duration-300 ease-in-out gaming-link">
-                        Torneig
-                    </a>
-                </li>
-                <li>
-                    <a routerLink="/clasificacio-list" routerLinkActive="active-link"
-                        class="text-white dark:text-white font-bold transition duration-300 ease-in-out gaming-link">
-                        Classificació
-                    </a>
-                </li>
-                <li>
-                    <a routerLink="/equip-list" routerLinkActive="active-link"
-                        class="text-white dark:text-white font-bold transition duration-300 ease-in-out gaming-link">
-                        Equip
-                    </a>
-                </li>
+                <ng-container *ngIf="!tokenService.isAuthenticated()">
+                    <li>
+                        <a routerLink="/torneig-list" routerLinkActive="active-link"
+                            class="locked-link font-bold transition duration-300 ease-in-out gaming-link">
+                            Torneig <i class="fi fi-rr-lock"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/clasificacio-list" routerLinkActive="active-link"
+                            class="locked-link font-bold transition duration-300 ease-in-out gaming-link">
+                            Classificació <i class="fi fi-rr-lock"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/equip-list" routerLinkActive="active-link"
+                            class="locked-link font-bold transition duration-300 ease-in-out gaming-link">
+                            Equip <i class="fi fi-rr-lock"></i>
+                        </a>
+                    </li>
+                </ng-container>
+                <ng-container *ngIf="tokenService.isAuthenticated()">
+                    <li>
+                        <a routerLink="/torneig-list" routerLinkActive="active-link"
+                            class="text-white dark:text-white font-bold transition duration-300 ease-in-out gaming-link">
+                            Torneig
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/clasificacio-list" routerLinkActive="active-link"
+                            class="text-white dark:text-white font-bold transition duration-300 ease-in-out gaming-link">
+                            Classificació
+                        </a>
+                    </li>
+                    <li>
+                        <a routerLink="/equip-list" routerLinkActive="active-link"
+                            class="text-white dark:text-white font-bold transition duration-300 ease-in-out gaming-link">
+                            Equip
+                        </a>
+                    </li>
+                </ng-container>
             </ul>
         </div>
     </div>

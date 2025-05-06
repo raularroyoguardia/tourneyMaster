@@ -6,17 +6,18 @@ import { EquipListComponent } from './components/Equip/equip-list/equip-list.com
 import { TorneigNewComponent } from './components/Torneig/torneig-new/torneig-new.component';
 import LoginComponent from './components/authentication/login/login.component';
 import { SignupComponent } from './components/authentication/signup/signup.component';
+import { isUserAutenticatedGuard } from './guards/auth.guard';
 // import { TorneigNewComponent } from './components/Torneig/torneig-new/torneig-new.component';
 
 export const routes: Routes = [
   { path: 'welcome', component: WelcomeComponent },
 
-  { path: 'torneig-list', component: TorneigListComponent },
-  { path: 'torneig-new', component: TorneigNewComponent },
+  { path: 'torneig-list', component: TorneigListComponent, canActivate: [isUserAutenticatedGuard] },
+  { path: 'torneig-new', component: TorneigNewComponent, canActivate: [isUserAutenticatedGuard] },
 
-  { path: 'clasificacio-list', component: ClassificacioListComponent },
+  { path: 'clasificacio-list', component: ClassificacioListComponent, canActivate: [isUserAutenticatedGuard] },
 
-  { path: 'equip-list', component: EquipListComponent },
+  { path: 'equip-list', component: EquipListComponent, canActivate: [isUserAutenticatedGuard] },
 
   //LOGIN
   { path: 'login', component: LoginComponent },

@@ -38,7 +38,6 @@ export default class LoginComponent {
   private handleResponse(response: any): void {
     console.log(response.message);
     this.tokenService.handleToken(response.token);
-    //TODO: Redirect to Welcome
     this.router.navigateByUrl('/welcome');
   }
 

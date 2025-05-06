@@ -25,4 +25,14 @@ export class TokenService {
     
     return false;
   }
+
+  getUser(): any {
+    const user = localStorage.getItem('user');
+    return user ? JSON.parse(user) : null;
+  }
+
+  getUserName(): string {
+    const user = this.getUser();
+    return user ? user.name: '';
+  }
 }
