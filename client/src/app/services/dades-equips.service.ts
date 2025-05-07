@@ -57,4 +57,8 @@ export class DadesEquipsService {
   public getCollectiu(): Observable<any> {
     return this._http.get(`http://127.0.0.1:8000/api/classification/collectiu`);
   }
+  
+  public unirseAUser(equipId: number): Observable<any> {
+    return this._http.post('http://127.0.0.1:8000/api/user/unirse', { equip_id: equipId });
+  }
 }

@@ -3,8 +3,6 @@ import { IEquip } from './iEquip';
 export interface IUser {
   id: number;
   name: string;
-  apellido1: string;
-  apellido2: string;
   email: string;
   email_verified_at: Date;
   password: string;

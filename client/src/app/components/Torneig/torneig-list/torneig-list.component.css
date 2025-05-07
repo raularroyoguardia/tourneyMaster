@@ -488,3 +488,15 @@ body {
   text-align: left;
   min-width: 50px;
 }
+
+/* Estilo cuando el botón está deshabilitado */
+.join-btn:disabled {
+  background-color: #ccc;  /* Gris claro o cualquier color que prefieras */
+  cursor: not-allowed;  /* Cambia el cursor para indicar que está deshabilitado */
+}
+
+/* Estilo normal del botón cuando no está deshabilitado */
+.join-btn {
+  background-color: #4CAF50;  /* Color verde o el que prefieras */
+  cursor: pointer;  /* Cambiar el cursor a "puntero" para indicar que es clickeable */
+}

@@ -34,12 +34,12 @@ Route::get('/equip/{id}', [EquipController::class, 'show'])->name('equip_show');
 Route::match(['get', 'post'], '/equip/edit/{id}', [EquipController::class, 'edit'])->name('equip_edit');
 Route::get('/equip/delete/{id}', [EquipController::class, 'delete'])->name('equip_delete');
 Route::middleware('auth:sanctum')->get('/equips/user', [EquipController::class, 'getEquipsForAuthenticatedUser']);
-Route::middleware('auth:sanctum')->post('/equips/unirse', [EquipController::class, 'unirseAEquip']);
 
 //EQUIP-USER
 Route::get('/equips/users', [EquipUserController::class, 'listEquipsWithUsers'])->name('equip-users_list');
 Route::get('/equips/disponibles', [EquipController::class, 'equipsDisponibles']);
-Route::middleware('auth:sanctum')->post('/equip/unirse', [EquipController::class, 'unirseAEquip']);
+Route::middleware('auth:sanctum')->post('/user/unirse', [EquipController::class, 'unirseAEquip']);
+Route::middleware('auth:sanctum')->post('/equip/unirse', [EquipController::class, 'unirseATorneig']);
 
 
 //USER

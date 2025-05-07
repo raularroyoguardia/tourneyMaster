@@ -27,9 +27,7 @@ class EquipUserController extends Controller
             u.email,
             u.telefon,
             u.foto_perfil,
-            u.trofeus AS user_trofeus,
-            u.data_naixement,
-            u.data_registre
+            u.trofeus AS user_trofeus
         FROM equips e
         LEFT JOIN equips_users eu ON e.id = eu.equip_id
         LEFT JOIN users u ON eu.user_id = u.id
@@ -52,20 +50,18 @@ class EquipUserController extends Controller
                     'data_creacio' => $row->data_creacio,
                     'descripcio' => $row->descripcio,
                     'maxim_integrants' => $row->maxim_integrants,
-                    'jugadors' => []
+                    'users' => []
                 ];
             }
 
             if ($row->user_id !== null) {
-                $equips[$equipId]['jugadors'][] = [
+                $equips[$equipId]['users'][] = [
                     'id' => $row->user_id,
                     'name' => $row->user_name,
                     'email' => $row->email,
                     'telefon' => $row->telefon,
                     'foto_perfil' => $row->foto_perfil,
                     'trofeus' => $row->user_trofeus,
-                    'data_naixement' => $row->data_naixement,
-                    'data_registre' => $row->data_registre,
                 ];
             }
         }

@@ -930,7 +930,7 @@ class GeneralSeeder extends Seeder
         ]);
 
         $carlos_equip = DB::table('equips')->insertGetId([
-            'nom' => 'Carlos indiviual',
+            'nom' => 'Carlos MS',
             'regio' => 'Europa',
             'foto_equip' => 'carlosindiviual.jpg',
             'data_creacio' => now(),
@@ -939,7 +939,7 @@ class GeneralSeeder extends Seeder
         ]);
 
         $pere_equip = DB::table('equips')->insertGetId([
-            'nom' => 'Pere Individual',
+            'nom' => 'Pere FT',
             'regio' => 'Europa',
             'foto_equip' => 'pereindividual.jpg',
             'data_creacio' => now(),
@@ -948,7 +948,7 @@ class GeneralSeeder extends Seeder
         ]);
 
         $raul_equip = DB::table('equips')->insertGetId([
-            'nom' => 'Raúl Individual',
+            'nom' => 'Raúl AG',
             'regio' => 'Europa',
             'foto_equip' => 'raulindividual.jpg',
             'data_creacio' => now(),
@@ -957,7 +957,7 @@ class GeneralSeeder extends Seeder
         ]);
 
         $fran_equip = DB::table('equips')->insertGetId([
-            'nom' => 'Fran Individual',
+            'nom' => 'Fran RB',
             'regio' => 'Europa',
             'foto_equip' => 'franindividual.jpg',
             'data_creacio' => now(),

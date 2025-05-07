@@ -35,7 +35,7 @@ class AuthController extends Controller
     public function register(RegisterRequest $request): JsonResponse
     {
         // Crear el usuario sin la foto inicialmente
-        $user = User::create($request->all());
+        $user = User::create($request->validated());
 
         // Guardar la imagen si fue enviada
         if ($request->hasFile('foto_perfil')) {
@@ -54,7 +54,8 @@ class AuthController extends Controller
         
         //Crear el equipo individual para el usuario registrado
         $equip = new Equip();
-        $equip->name = $user->name . ' ' . mb_substr($user->apellido1, 0, 1) . ' ' . mb_substr($user->apellido2, 0, 1);
+        $equip->nom = $user->name . ' Individual';
+        // $equip->name = $user->name . ' ' . mb_substr($user->apellido1, 0, 1) . ' ' . mb_substr($user->apellido2, 0, 1);
         $equip->regio = 'Europa';
         $equip->foto_equip = $filename;
         $equip->data_creacio = now();

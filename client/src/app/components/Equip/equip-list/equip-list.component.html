@@ -42,7 +42,7 @@
 <ng-template #noData>
   <div class="teams-container" *ngIf="equips.length === 0">
     
-    <div class="teams-card" *ngIf="equipsDisponibles.length > 0">
+    <div class="teams-card" *ngIf="equipsDisponibles.length > 0; else noDisponibles">
       <div class="teams-header">
         <h3>Equipos disponibles</h3>
       </div>
@@ -66,15 +66,17 @@
             <td class="team-region">{{ equip.regio }}</td>
             <td class="team-slots">{{ equip.users_count }} / {{equip.maxim_integrants}}</td>
             <td>
-              <!-- <button class="join-button" (click)="unirseEquipo(equip.id)">Unirse</button> -->
-              <!-- <button class="join-button">Unirse</button> -->
-
+              <button class="join-button" (click)="unirseEquipo(equip.id)">Unirse</button>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
+
+    <ng-template #noDisponibles>
+      <div class="no-data">
+        <p>No hi ha equips disponibles.</p>
+      </div>
+    </ng-template>
   </div>
-
-
 </ng-template>

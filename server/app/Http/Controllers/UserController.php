@@ -24,8 +24,6 @@ class UserController extends Controller
         $request->validate(
             [
                 'name' => 'required|string|max:10',
-                'apellido1' => 'required|string',
-                'apellido2' => 'required|string',
                 'email' => 'required|email|unique:users,email',
                 'telefon' => 'required|string|max:9',
                 'password' => 'string|required|min:6',
@@ -34,8 +32,6 @@ class UserController extends Controller
             [
                 'name.required' => 'El nom és obligatori',
                 'name.max' => 'El nom no pot superar els 10 caràcters',
-                'apellido1.required' => 'El primer apellido es obligatorio',
-                'apellido2.required' => 'El segundo apellido es obligatorio',
                 'email.required' => 'El correu és obligatori',
                 'email.email' => 'El correu no és vàlid',
                 'email.unique' => 'Aquest correu ja existeis',
@@ -48,19 +44,30 @@ class UserController extends Controller
             ]
         );
 
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->telefon = $request->telefon;
-        $user->password = bcrypt($request->password);
-        $user->data_naixement = $request->data_naixement;
-        $user->data_registre = now();
-        $user->save();
+        // Crear el usuario sin la foto inicialmente
+        $user = User::create($request->all());
 
-        // Crear el equipo individual asociado
+        // Guardar la imagen si fue enviada
+        if ($request->hasFile('foto_perfil')) {
+            $file = $request->file('foto_perfil');
+            $extension = $file->getClientOriginalExtension();
+            $filename = strtolower($user->name . '.' . $extension);
+            $file->move(public_path('uploads/fotoUsuari'), $filename);
+            $user->foto_perfil = $filename;
+            $user->save();
+        }
+
+        //Poner la foto del usuario en el equipo individual
+        $sourcePath = public_path('uploads/fotoUsuari/' . $filename);
+        $destinationPath = public_path('uploads/fotoEquips/' . $filename);
+        File::copy($sourcePath, $destinationPath);
+
+        //Crear el equipo individual para el usuario registrado
         $equip = new Equip();
         $equip->nom = $user->name . ' Individual';
+        // $equip->name = $user->name . ' ' . mb_substr($user->apellido1, 0, 1) . ' ' . mb_substr($user->apellido2, 0, 1);
         $equip->regio = 'Europa';
-        $equip->foto_equip = 'default.jpg';
+        $equip->foto_equip = $filename;
         $equip->data_creacio = now();
         $equip->descripcio = 'Equipo individual ' . $user->name;
         $equip->maxim_integrants = 1;
@@ -110,10 +117,22 @@ class UserController extends Controller
     }
 
     public function show($id)
-    {
-        $user = User::findOrFail($id);
-        return response()->json($user);
+{
+    $user = User::with('equips.users')->findOrFail($id);
+
+    // Buscar los equipos donde el usuario pertenece y que tengan más de 1 miembro
+    $equipCollectiu = $user->equips->first(function ($equip) {
+        return $equip->users->count() > 1;
+    });
+
+    if (!$equipCollectiu) {
+        return response()->json(['message' => 'L\'usuari no forma part de cap equip col·lectiu.'], 404);
     }
+
+    return response()->json($equipCollectiu);
+}
+
+
 
     public function delete($id)
     {

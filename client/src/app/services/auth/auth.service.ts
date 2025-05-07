@@ -25,4 +25,26 @@ export class AuthService {
   logout(): Observable<any> {
     return this.http.delete(`${this.API_URL}/logout`);
   }
+
+  setCurrentUser(user: any) {
+    localStorage.setItem('currentUser', JSON.stringify(user));
+  }
+
+  // Recupera el usuario actual
+  getCurrentUser() {
+    const user = localStorage.getItem('user');
+    console.log('User from localStorage:', user);
+    return user ? JSON.parse(user) : null;
+  }
+
+  // Devuelve el ID del usuario actual
+  getCurrentUserId(): number | null {
+    const user = this.getCurrentUser();
+    return user?.id || null;
+  }
+
+  // Para logout
+  clearUser() {
+    localStorage.removeItem('currentUser');
+  }
 }

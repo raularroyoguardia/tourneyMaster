@@ -67,5 +67,9 @@ export class DadesTornejosService {
   getJocs() {
     return this._http.get<Joc[]>('http://localhost:8000/api/jocs');
   }
+
+  public unirseATorneig(torneigId: number, equipId: number): Observable<any> {
+    return this._http.post('http://127.0.0.1:8000/api/equip/unirse', {torneigId: torneigId, equip_id: equipId });
+  }
   
 }

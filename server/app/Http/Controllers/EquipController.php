@@ -132,32 +132,61 @@ class EquipController extends Controller
         return response()->json($equipsDisponibles);
     }
 
-    public function unirseAEquip(Request $request)
-{
-    $request->validate([
-        'equip_id' => 'required|exists:equips,id',
-        'torneig_id' => 'required|exists:torneigs,id'
-    ]);
+    public function unirseATorneig(Request $request)
+    {
+        $request->validate([
+            'equip_id' => 'required|exists:equips,id',
+            'torneig_id' => 'required|exists:torneigs,id'
+        ]);
 
-    $user = $request->user();
+        $user = $request->user();
 
-    // Primero, verifica si ya pertenece a ese equipo en ese torneo
-    $existe = DB::table('equips_torneigs')
-        ->where('equip_id', $request->equip_id)
-        ->where('torneig_id', $request->torneig_id)
-        ->exists();
+        // Primero, verifica si ya pertenece a ese equipo en ese torneo
+        $existe = DB::table('equips_torneigs')
+            ->where('equip_id', $request->equip_id)
+            ->where('torneig_id', $request->torneig_id)
+            ->exists();
 
-    if ($existe) {
-        return response()->json(['message' => 'Ya estás en este equipo para este torneo.'], 409);
+        if ($existe) {
+            return response()->json(['message' => 'Ya estás en este torneo.'], 409);
+        }
+
+        // Inserta el registro en la tabla pivot equips_torneigs
+        DB::table('equips_torneigs')->insert([
+            'equip_id' => $request->equip_id,
+            'torneig_id' => $request->torneig_id,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        return response()->json(['message' => 'Te has unido al torneo correctamente.']);
     }
 
-    // Inserta el registro en la tabla pivot equips_torneigs
-    DB::table('equips_torneigs')->insert([
-        'equip_id' => $request->equip_id,
-        'torneig_id' => $request->torneig_id,
-    ]);
 
-    return response()->json(['message' => 'Te has unido al equipo correctamente.']);
-}
+    public function unirseAEquip(Request $request)
+    {
+        $request->validate([
+            'equip_id' => 'required|exists:equips,id'
+        ]);
 
+        $user = $request->user();
+
+        $yaPertenece = DB::table('equips_users')
+            ->where('user_id', $user->id)
+            ->where('equip_id', $request->equip_id)
+            ->exists();
+
+        if ($yaPertenece) {
+            return response()->json(['message' => 'Ya formas parte de este equipo.'], 409);
+        }
+
+        DB::table('equips_users')->insert([
+            'user_id' => $user->id,
+            'equip_id' => $request->equip_id,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        return response()->json(['message' => 'Te has unido al equipo correctamente.']);
+    }
 }

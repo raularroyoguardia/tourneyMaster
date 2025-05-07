@@ -9,15 +9,15 @@ class TorneigStatsController extends Controller
 {
     public function index()
     {
-        $stats = DB::table('equips_torneigs as et')
-            ->join('equips as e', 'et.equip_id', '=', 'e.id')
+        $stats = DB::table('torneigs as t')
+            ->leftJoin('equips_torneigs as et', 'et.torneig_id', '=', 't.id')
+            ->leftJoin('equips as e', 'et.equip_id', '=', 'e.id')
             ->select(
-                'et.torneig_id',
+                't.id as torneig_id',
                 DB::raw('COUNT(et.equip_id) as total_equips'),
-                DB::raw('MAX(e.maxim_integrants) as maxim_integrants_permesos'),
-                DB::raw('COUNT(et.equip_id) = MAX(e.maxim_integrants) as torneig_ple')
+                't.numero_equips'
             )
-            ->groupBy('et.torneig_id')
+            ->groupBy('t.id', 't.numero_equips')
             ->get();
 
         return response()->json($stats);

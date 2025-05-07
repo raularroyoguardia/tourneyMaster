@@ -34,6 +34,32 @@
                 <img *ngIf="user.foto_perfil" [src]="'http://127.0.0.1:8000/uploads/fotoUsuari/' + user.foto_perfil"
                     class="h-8 perfil" [alt]="user.name || 'Usuario'" />
 
+                <div class="sub-menu-wrap">
+                    <div class="sub-menu">
+                        <div class="user-info">
+                            <img class="perfil" [src]="'http://127.0.0.1:8000/uploads/fotoUsuari/' + user.foto_perfil">
+                            <h2>{{ tokenService.getUserName() }}</h2>
+                        </div>
+                        <hr/>
+
+                        <a href="#" class="sub-menu-link">
+                            <i class="fi fi-sr-user icon-user"></i>
+                            <p>Editar Cuenta</p>
+                            <span>></span>
+                        </a>
+                        <a href="#" class="sub-menu-link">
+                            <i class="fi fi-sr-settings icon-user"></i>
+                            <p>Gestionar Usuarios</p>
+                            <span>></span>
+                        </a>
+                        <a href="#" class="sub-menu-link">
+                            <i class="fi fi-br-sign-out-alt icon-user"></i>
+                            <p>Cerrar Sesión</p>
+                            <span>></span>
+                        </a>
+                    </div>
+                </div>
+
             </ng-container>
         </div>
     </div>

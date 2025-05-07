@@ -7,17 +7,19 @@
       <p><strong>Partides:</strong> {{ torneig.quantitat_partides }}</p>
       <p><strong>Participants:</strong> {{ torneig.participants }}</p>
       <p><strong>Tipus:</strong> {{ torneig.tipus }}</p>
-      <!-- <button class="join-btn" (click)="unirseTorneig(torneig.id); $event.stopPropagation()">Unir-me</button> -->
-      <button class="join-btn" [disabled]="estaTorneoDeshabilitado(torneig)" 
-        (click)="unirseTorneig(torneig.id); $event.stopPropagation()">
-        Unir-me
-      </button>
 
-
-
+      <ng-container *ngIf="estaTorneoDeshabilitado(torneig); else showJoinButton">
+        <p class="torneo-no-disponible">Torneo no disponible</p>
+      </ng-container>
+      
+      <ng-template #showJoinButton>
+        <button class="join-btn" (click)="unirseTorneig(torneig.id); $event.stopPropagation()">
+          Unir-me
+        </button>
+      </ng-template>
+      
     </div>
   </div>
-
 </div>
 
 <div class="modal-backdrop" *ngIf="selectedTorneig">
