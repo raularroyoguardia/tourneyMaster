@@ -3,7 +3,7 @@
     <div class="max-w-screen-xl flex flex-wrap justify-between items-center mx-auto p-4">
         <!-- Logo -->
         <a href="/welcome" class="flex items-center space-x-3 rtl:space-x-reverse no-underline">
-            <img src="uploads/logo/logo.png" class="h-8 logo" alt="Flowbite Logo" />
+            <img [src]="'http://127.0.0.1:8000/uploads/logo/logo.png'" class="h-8 logo" alt="Flowbite Logo" />
             <span
                 class="self-center text-2xl font-semibold whitespace-nowrap text-gray-800 dark:text-white">TorneyMaster</span>
         </a>
@@ -32,9 +32,9 @@
                     {{ tokenService.getUserName() }}
                 </a>
                 <img *ngIf="user.foto_perfil" [src]="'http://127.0.0.1:8000/uploads/fotoUsuari/' + user.foto_perfil"
-                    class="h-8 perfil" [alt]="user.name || 'Usuario'" />
+                    class="h-8 perfil" [alt]="user.name || 'Usuario'" (click)="toggleMenu()" />
 
-                <div class="sub-menu-wrap">
+                <div class="sub-menu-wrap" [ngClass]="{ 'open-menu' : isMenuOpen }" id="subMenu">
                     <div class="sub-menu">
                         <div class="user-info">
                             <img class="perfil" [src]="'http://127.0.0.1:8000/uploads/fotoUsuari/' + user.foto_perfil">
@@ -43,17 +43,17 @@
                         <hr/>
 
                         <a href="#" class="sub-menu-link">
-                            <i class="fi fi-sr-user icon-user"></i>
+                            <img [src]="'uploads/iconos/usuario.png'" />
                             <p>Editar Cuenta</p>
                             <span>></span>
                         </a>
                         <a href="#" class="sub-menu-link">
-                            <i class="fi fi-sr-settings icon-user"></i>
+                            <img [src]="'uploads/iconos/ajustes.png'" />
                             <p>Gestionar Usuarios</p>
                             <span>></span>
                         </a>
-                        <a href="#" class="sub-menu-link">
-                            <i class="fi fi-br-sign-out-alt icon-user"></i>
+                        <a href="#" style="color: #FF0000" class="sub-menu-link">
+                            <img [src]="'uploads/iconos/energia-red.png'" />
                             <p>Cerrar Sesión</p>
                             <span>></span>
                         </a>

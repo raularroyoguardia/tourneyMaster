@@ -1,6 +1,6 @@
 <div class="torneig-cards">
   <div *ngFor="let torneig of torneigs" class="torneig-card" (click)="mostrarDetalls(torneig)">
-    <img src="uploads/fotoJocs/{{ torneig.joc_foto }}" alt="">
+    <img [src]="'http://127.0.0.1:8000/uploads/fotoJocs/' + torneig.joc_foto" alt="">
     <div class="torneig-info">
       <h3>{{ torneig.nom }}</h3>
       <p><strong>Estat:</strong> {{ torneig.estat }}</p>
@@ -32,7 +32,7 @@
       <div class="modal-flex-container">
 
         <div class="modal-info">
-          <img src="uploads/mapes/{{ selectedTorneig.nom_mapa }}" alt="{{ selectedTorneig.nom_mapa }}" />
+          <img [src]="'http://127.0.0.1:8000/uploads/mapes/' + selectedTorneig.nom_mapa" alt="{{ selectedTorneig.nom_mapa }}" />
           <p><strong>Estat:</strong> {{ selectedTorneig.estat }}</p>
           <p><strong>Partides:</strong> {{ selectedTorneig.quantitat_partides }}</p>
           <p><strong>Participants:</strong> {{ selectedTorneig.participants }}</p>

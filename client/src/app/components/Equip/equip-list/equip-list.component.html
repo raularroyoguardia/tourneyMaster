@@ -2,7 +2,7 @@
   <div *ngFor="let equip of equips" class="equip-card">
     <div class="info flex">
       <div class="imatgeEquip w-16 flex-auto">
-        <img [src]="'uploads/fotosEquips/' + equip.foto_equip" alt="{{ equip.foto_equip }} foto" class="equip-image">
+        <img [src]="'http://127.0.0.1:8000/uploads/fotosEquips/' + equip.foto_equip" alt="{{ equip.foto_equip }} foto" class="equip-image">
       </div>
       <div class="infoEquip w-64 flex-auto">
         <h3>{{ equip.nom }}</h3>
@@ -30,7 +30,7 @@
             <td>{{ i + 1 }}</td>
             <td>{{ user.name }}</td>
             <td>{{ user.trofeus }}</td>
-            <td><img [src]="'uploads/fotosUsuari/' + user.foto_perfil" [alt]="user.name + ' foto'"
+            <td><img [src]="'http://127.0.0.1:8000/uploads/fotoUsuari/' + user.foto_perfil" [alt]="user.name + ' foto'"
                 class="imatgeUsuari" /></td>
           </tr>
         </tbody>

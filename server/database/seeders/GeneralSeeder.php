@@ -35,7 +35,7 @@ class GeneralSeeder extends Seeder
             'email' => 'raul_arroyoguardia@iescarlesvallbona.cat',
             'password' => bcrypt('123456'),
             'telefon' => 685324360,
-            'foto_perfil' => 'raul.jpg',
+            'foto_perfil' => 'raul.jpeg',
         ]);
 
         $pereUser = DB::table('users')->insertGetId([
@@ -45,12 +45,12 @@ class GeneralSeeder extends Seeder
             'email' => 'pere_ferertarrasco@iescarlesvallbona.cat',
             'password' => bcrypt('123456'),
             'telefon' => 684230145,
-            'foto_perfil' => 'pere.jpg',
+            'foto_perfil' => 'pere.png',
         ]);
 
         $franUser = DB::table('users')->insertGetId([
             'name' => 'Fran',
-            'apellido1' => 'Romaneo',
+            'apellido1' => 'Romano',
             'apellido2' => 'Baez',
             'email' => 'fran_romanobaez@iescarlesvallbona.cat',
             'password' => bcrypt('123456'),

@@ -40,6 +40,14 @@
                 {{errors.name}}
             </div>
 
+            <div class="alert alert-danger" *ngIf="errors?.apellido1">
+                {{errors.apellido1}}
+            </div>
+
+            <div class="alert alert-danger" *ngIf="errors?.apellido2">
+                {{errors.apellido2}}
+            </div>
+
             <div class="alert alert-danger" *ngIf="errors?.email">
                 {{errors.email}}
             </div>
@@ -83,6 +91,20 @@
                         <input id="inputName" formControlName="name"
                             class="w-full text-sm px-4 py-3 bg-gray-200 focus:bg-gray-100 border border-gray-200 rounded-lg focus:outline-none focus:border-purple-400"
                             type="text" placeholder="Nombre">
+                    </div>
+
+                    <!--APELLIDO 1-->
+                    <div>
+                        <input id="inputApellido1" formControlName="apellido1"
+                            class="w-full text-sm px-4 py-3 bg-gray-200 focus:bg-gray-100 border border-gray-200 rounded-lg focus:outline-none focus:border-purple-400"
+                            type="text" placeholder="Primer Apellido">
+                    </div>
+
+                    <!--APELLIDO 2-->
+                    <div>
+                        <input id="inputApellido2" formControlName="apellido2"
+                            class="w-full text-sm px-4 py-3 bg-gray-200 focus:bg-gray-100 border border-gray-200 rounded-lg focus:outline-none focus:border-purple-400"
+                            type="text" placeholder="Segundo Apellido">
                     </div>
 
                     <!--TELÉFONO-->

@@ -23,6 +23,8 @@ class RegisterRequest extends FormRequest
     {
         return [
             'name' => 'required',
+            'apellido1' => 'required',
+            'apellido2' => 'required',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6|confirmed',
             'telefon' => 'required|unique:users,telefon|digits:9',
@@ -34,6 +36,8 @@ class RegisterRequest extends FormRequest
     {
         return [
             'name.required' => 'El nombre es obligatorio.',
+            'apellido1.required' => 'El apellido paterno es obligatorio.',
+            'apellido2.required' => 'El apellido materno es obligatorio.',
             'email.required' => 'El correo electrónico es obligatorio.',
             'email.email' => 'El correo electrónico no es válido.',
             'email.unique' => 'Este correo electrónico ya está registrado.',

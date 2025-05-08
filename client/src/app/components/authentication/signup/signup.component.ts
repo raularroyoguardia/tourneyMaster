@@ -26,6 +26,8 @@ export class SignupComponent {
   ) {
     this.registerForm = this.fb.group({
       name: [''],
+      apellido1: [''],
+      apellido2: [''],
       email: [''],
       password: [''],
       password_confirmation: [''],
@@ -49,11 +51,8 @@ export class SignupComponent {
 
     // Agregar campos normales
     Object.entries(formValue).forEach(([key, value]) => {
-      if (value !== null && value !== undefined) {
-        formData.append(key, String(value));
-      }
-    });
-    
+      formData.append(key, String(value ?? ''));
+    });    
 
     // Agregar imagen si existe
     if (this.selectedFile) {

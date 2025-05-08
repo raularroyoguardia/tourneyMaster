@@ -14,11 +14,17 @@ import { CommonModule } from '@angular/common';
 export class NavBarComponent {
   user: any = {};
 
+  isMenuOpen: boolean = false;
+
   constructor(
     private authService: AuthService,
     public tokenService: TokenService,
     private router: Router
   ) { }
+
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
+  }
 
   logout(): void {
     this.authService.logout().subscribe(
