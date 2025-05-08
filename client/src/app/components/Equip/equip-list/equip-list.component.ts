@@ -31,10 +31,6 @@ export class EquipListComponent implements OnInit {
       }
     });
   }
-
-  calcularTrofeosTotales(equip: IEquip): number {
-    return equip.users.reduce((total, users) => total + Number(users.trofeus), 0);
-  }
   
   loadEquipsDisponibles(): void {
     this.dadesEquipsService.getEquipsDisponibles().subscribe({

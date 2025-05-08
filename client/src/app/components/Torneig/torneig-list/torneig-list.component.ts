@@ -51,10 +51,10 @@ export class TorneigListComponent implements OnInit {
       console.log('Current user ID:', currentUserId);
   
       // 🚀 Nueva llamada para obtener el equipo colectivo del usuario
-      this.http.get<any>(`http://localhost:8000/api/users/${currentUserId}`).subscribe({
-        next: (equip) => {
-          console.log('Equip col·lectiu:', equip);
-  
+      this.http.get<any>(`http://localhost:8000/api/user/${currentUserId}`).subscribe({
+        next: (equip) => {  
+          console.log('Unint-se al torneig:', torneigId);
+          console.log('ID de l\'equip:', equip.id);
           this.torneigService.unirseATorneig(torneigId, equip.id).subscribe({
             next: (response) => {
               console.log(response.message);

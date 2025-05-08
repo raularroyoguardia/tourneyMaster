@@ -5,19 +5,30 @@ namespace App\Http\Controllers;
 use App\Models\Equip;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
-use App\Models\Torneig;
 use Illuminate\Support\Str;
-use function Pest\Laravel\json;
 use Illuminate\Support\Facades\DB;
 
 class EquipController extends Controller
 {
+
     public function list()
     {
+        DB::statement("
+            UPDATE equips e
+            JOIN (
+                SELECT eu.equip_id, SUM(CAST(u.trofeus AS UNSIGNED)) AS total_trofeus
+                FROM equips_users eu
+                JOIN users u ON eu.user_id = u.id
+                GROUP BY eu.equip_id
+            ) AS resumen ON e.id = resumen.equip_id
+            SET e.trofeus = resumen.total_trofeus
+        ");
+
         $equips = Equip::all();
+
         return response()->json($equips);
     }
+
 
     public function new(Request $request)
     {
@@ -110,12 +121,24 @@ class EquipController extends Controller
 
     public function getEquipsForAuthenticatedUser(Request $request)
     {
-        $user = $request->user(); // Usuario autenticado
 
-        // Cargar los equipos con los usuarios relacionados (Eager Loading) y ordenar los usuarios por 'trofeus' de mayor a menor
+        DB::statement("
+        UPDATE equips e
+        JOIN (
+            SELECT eu.equip_id, SUM(CAST(u.trofeus AS UNSIGNED)) AS total_trofeus
+            FROM equips_users eu
+            JOIN users u ON eu.user_id = u.id
+            GROUP BY eu.equip_id
+        ) AS resumen ON e.id = resumen.equip_id
+        SET e.trofeus = resumen.total_trofeus
+    ");
+
+
+        $user = $request->user(); 
+
         $equips = $user->equips()
             ->with(['users' => function ($query) {
-                $query->orderBy('trofeus');  // Ordenar usuarios por trofeus en orden descendente
+                $query->orderBy('trofeus');
             }])
             ->get();
 

@@ -21,10 +21,6 @@
                 </a>
             </ng-container>
             <ng-container *ngIf="tokenService.isAuthenticated()">
-                <a (click)="logout()"
-                    class="nav-button logout-btn text-white font-semibold py-2 px-6 bg-gradient-to-r from-blue-500 to-teal-500 rounded-md shadow-lg hover:from-blue-600 hover:to-teal-600 transition duration-300 ease-in-out">
-                    Logout
-                </a>
                 <a class="text-white font-semibold py-2 px-6 rounded-md bg-gray-600/75 hover:bg-gray-700/75">
                     {{ tokenService.getUserTrofeus() }} <i style="color:goldenrod" class="fi fi-sr-trophy-star"></i>
                 </a>
@@ -52,7 +48,7 @@
                             <p>Gestionar Usuarios</p>
                             <span>></span>
                         </a>
-                        <a href="#" style="color: #FF0000" class="sub-menu-link">
+                        <a (click)="logout()" class="sub-menu-link logout">
                             <img [src]="'uploads/iconos/energia-red.png'" />
                             <p>Cerrar Sesión</p>
                             <span>></span>

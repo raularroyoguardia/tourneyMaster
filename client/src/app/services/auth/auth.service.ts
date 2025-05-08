@@ -33,7 +33,6 @@ export class AuthService {
   // Recupera el usuario actual
   getCurrentUser() {
     const user = localStorage.getItem('user');
-    console.log('User from localStorage:', user);
     return user ? JSON.parse(user) : null;
   }
 

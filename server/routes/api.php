@@ -40,6 +40,7 @@ Route::get('/equips/users', [EquipUserController::class, 'listEquipsWithUsers'])
 Route::get('/equips/disponibles', [EquipController::class, 'equipsDisponibles']);
 Route::middleware('auth:sanctum')->post('/user/unirse', [EquipController::class, 'unirseAEquip']);
 Route::middleware('auth:sanctum')->post('/equip/unirse', [EquipController::class, 'unirseATorneig']);
+// Route::post('/equip/unirse', [EquipController::class, 'unirseATorneig']);
 
 
 //USER

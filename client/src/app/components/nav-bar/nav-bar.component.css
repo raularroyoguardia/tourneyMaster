@@ -81,6 +81,11 @@
     text-decoration: none;
     color: #D8D8D8;
     margin: 12px 0;
+    cursor: pointer;
+  }
+
+  .logout {
+    color: #FF0000;
   }
 
   .sub-menu-link p {
