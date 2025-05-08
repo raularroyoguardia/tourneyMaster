@@ -82,6 +82,8 @@ Route::get('/partides', [PartidaController::class, 'list'])->name('partides_list
 Route::post('/partida/new', [PartidaController::class, 'new'])->name('partida_new');
 Route::get('/partida/{id}', [PartidaController::class, 'show'])->name('partida_show');
 Route::get('/partida/delete/{id}', [PartidaController::class, 'delete'])->name('partida_delete');
+Route::middleware('auth:sanctum')->put('/partides/{id}', [PartidaController::class, 'update']);
+
 
 //PREMI
 Route::get('/premis', [PremiController::class, 'list'])->name('premis_list');

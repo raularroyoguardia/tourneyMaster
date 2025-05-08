@@ -47,4 +47,12 @@ class PartidaController extends Controller
         $partida->delete();
         return response()->json('La partida ' . $partida->posicio_partida . ' del torneig ' . $partida->torneig->nom . ' s\'ha eliminat');
     }
+    public function update(Request $request, $id)
+    {
+        $partida = Partida::findOrFail($id);
+        $partida->resultat_equip_id = $request->input('resultat_equip_id');
+        $partida->save();
+
+        return response()->json(['message' => 'Resultat actualitzat correctament']);
+    }
 }

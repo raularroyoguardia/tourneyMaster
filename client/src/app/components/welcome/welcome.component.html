@@ -1,289 +1,166 @@
-<!-- <p-carousel 
-  [value]="jocs"
-  [numVisible]="1"
-  [numScroll]="1"
-  [circular]="true"
-  [autoplayInterval]="2500"
-  [showNavigators]="false"
+<!-- Hero Section -->
+<section class="hero-section">
+  <div class="hero-content">
+    <h1 class="hero-title">TourneyMaster: Domina el Torneig</h1>
+    <p class="hero-subtitle">
+      Organitza, competeix i guanya. TourneyMaster és la plataforma definitiva per a gestionar tornejos de videojocs amb
+      facilitat, precisió i estil. Porta la teva comunitat al següent nivell.
+    </p>
+  </div>
+</section>
+
+<!-- Carrusel de juegos -->
+<section class="carousel-section">
+  <div class="section-header">
+    <h2 class="section-title">Jocs Disponibles</h2>
+  </div>
+
+  <div class="carousel-container">
+    <p-carousel 
+  [value]="jocs" 
+  [numVisible]="1" 
+  [numScroll]="1" 
+  [circular]="true" 
+  [autoplayInterval]="2000"
   [showIndicators]="false"
+  [showNavigators]="false"
   class="custom-carousel">
 
   <ng-template pTemplate="item" let-joc>
-    <div class="carousel-item-fade">
-      <img [src]="'http://127.0.0.1:8000/uploads/fotoJocs/' + joc.foto" [alt]="joc.nom" class="carousel-img" />
+    <div class="carousel-item-container" [@fadeIn]>
+      <div class="carousel-item-fade">
+        <img [src]="'http://127.0.0.1:8000/uploads/fotoJocs/' + joc.foto" [alt]="joc.nom" class="carousel-img" />
+        <div class="carousel-overlay">
+          <div class="carousel-content">
+            <h3 class="carousel-title">{{joc.nom}}</h3>
+          </div>
+        </div>
+      </div>
     </div>
   </ng-template>
-
 </p-carousel>
 
 
-<div class="features-container">
-    <div class="feature-card">
-        <div class="feature-icon users-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
-                <circle cx="9" cy="7" r="4"></circle>
-                <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
-                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-            </svg>
-        </div>
-        <h3>Usuaris administradors</h3>
-        <p style="color: white">Usuaris administradors podràn crear tants tornejos com ells vulguin per la resta
-            d'usuaris.</p>
+  </div>
+</section>
+
+<!-- Características -->
+<section class="features-section">
+  <h2 class="section-title">Característiques</h2>
+
+  <div class="features-container">
+    <div class="feature-card users-card">
+      <div class="feature-icon users-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+          <circle cx="9" cy="7" r="4"></circle>
+          <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+        </svg>
+      </div>
+      <h3>Usuaris administradors</h3>
+      <p>Usuaris administradors podràn crear tants tornejos com ells vulguin per la resta d'usuaris.</p>
     </div>
 
-    <div class="feature-card">
-        <div class="feature-icon trophy-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
-                <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
-                <path d="M4 22h16"></path>
-                <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path>
-                <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path>
-                <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
-            </svg>
-        </div>
-        <h3>Varietat de tornejos</h3>
-        <p style="color: white">Si els usuaris pertanyen a un equip, podràn decidir si participar en tornejos
-            individuals o col·lectius.</p>
+    <div class="feature-card trophy-card">
+      <div class="feature-icon trophy-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+          <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+          <path d="M4 22h16"></path>
+          <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path>
+          <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path>
+          <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
+        </svg>
+      </div>
+      <h3>Varietat de tornejos</h3>
+      <p>Si els usuaris pertanyen a un equip, podràn decidir si participar en tornejos individuals o col·lectius.</p>
     </div>
 
-    <div class="feature-card">
-        <div class="feature-icon chart-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M3 3v18h18"></path>
-                <path d="M18 17V9"></path>
-                <path d="M13 17V5"></path>
-                <path d="M8 17v-3"></path>
-            </svg>
-        </div>
-        <h3>Rankings</h3>
-        <p style="color: white">Depenent dels trofeus guanyats als tornejos, hi haurà una classificació individual i
-            col·lectiva global.</p>
+    <div class="feature-card chart-card">
+      <div class="feature-icon chart-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 3v18h18"></path>
+          <path d="M18 17V9"></path>
+          <path d="M13 17V5"></path>
+          <path d="M8 17v-3"></path>
+        </svg>
+      </div>
+      <h3>Rankings</h3>
+      <p>Depenent dels trofeus guanyats als tornejos, hi haurà una classificació individual i col·lectiva global.</p>
     </div>
-</div> -->
+  </div>
+</section>
 
-<!-- Solo la parte del acordeón, el resto queda igual -->
-<!-- <div class="custom-accordion-container">
-    <h2 class="accordion-title">Preguntes freqüents</h2>
-    
+<!-- Acordeón -->
+<section class="faq-section">
+  <div class="custom-accordion-container">
+    <h2 class="section-title">Preguntes freqüents</h2>
     <div class="custom-accordion">
-        <div class="accordion-item" [ngClass]="{'active-item': activeIndex === 0}">
-            <div class="accordion-header" (click)="toggleAccordion(0)">
-                <span>Com puc crear un torneig?</span>
-                <div class="icon-container">
-                    <i class="accordion-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="6 9 12 15 18 9"></polyline>
-                        </svg>
-                    </i>
-                </div>
-            </div>
-            <div class="accordion-content" [ngClass]="{'active': activeIndex === 0}">
-                <div class="content-inner">
-                    <p>Per crear un torneig, has de ser un usuari administrador. Accedeix a la secció de "Tornejos" i fes clic al botó "Crear Torneig". Omple el formulari amb les dades necessàries i selecciona el joc i el tipus de torneig.</p>
-                </div>
-            </div>
+      <div class="accordion-item" [ngClass]="{'active-item': activeIndex === 0}">
+        <div class="accordion-header" (click)="toggleAccordion(0)">
+          <span>Com puc crear un torneig?</span>
+          <div class="icon-container">
+            <i class="accordion-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </i>
+          </div>
         </div>
-        
-        <div class="accordion-item" [ngClass]="{'active-item': activeIndex === 1}">
-            <div class="accordion-header" (click)="toggleAccordion(1)">
-                <span>Com puc unir-me a un equip?</span>
-                <div class="icon-container">
-                    <i class="accordion-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="6 9 12 15 18 9"></polyline>
-                        </svg>
-                    </i>
-                </div>
-            </div>
-            <div class="accordion-content" [ngClass]="{'active': activeIndex === 1}">
-                <div class="content-inner">
-                    <p>Per unir-te a un equip, has d'anar a la secció d'equips i buscar l'equip al qual vols unir-te. Fes clic al botó "Sol·licitar unió" i espera que l'administrador de l'equip accepti la teva sol·licitud.</p>
-                </div>
-            </div>
+        <div class="accordion-content" [ngClass]="{'active': activeIndex === 0}">
+          <div class="content-inner">
+            <p>Per crear un torneig, has de ser un usuari administrador. Accedeix a la secció de "Tornejos" i fes clic
+              al botó "Crear Torneig". Omple el formulari amb les dades necessàries i selecciona el joc i el tipus de
+              torneig.</p>
+          </div>
         </div>
-        
-        <div class="accordion-item" [ngClass]="{'active-item': activeIndex === 2}">
-            <div class="accordion-header" (click)="toggleAccordion(2)">
-                <span>Com funciona el sistema de rankings?</span>
-                <div class="icon-container">
-                    <i class="accordion-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="6 9 12 15 18 9"></polyline>
-                        </svg>
-                    </i>
-                </div>
-            </div>
-            <div class="accordion-content" [ngClass]="{'active': activeIndex === 2}">
-                <div class="content-inner">
-                    <p>El sistema de rankings es basa en els trofeus guanyats als tornejos. Cada trofeu té un valor en punts, i aquests punts s'acumulen per formar la classificació. Hi ha una classificació individual i una altra per equips.</p>
-                </div>
-            </div>
-        </div>        
-    </div>
-</div> -->
+      </div>
 
-<!-- Hero Section -->
-<section class="hero-section">
-    <div class="hero-content">
-      <h1 class="hero-title">Dominate The Arena</h1>
-      <p class="hero-subtitle">
-        Join the ultimate gaming tournament platform and compete with the best players worldwide.
-      </p>
-    </div>
-  </section>
-  
-  <!-- Carrusel de juegos -->
-  <section class="carousel-section">
-    <div class="section-header">
-      <h2 class="section-title">Featured Tournaments</h2>
-    </div>
-  
-    <div class="carousel-container">
-      <p-carousel 
-        [value]="jocs"
-        [numVisible]="1"
-        [numScroll]="1"
-        [circular]="true"
-        [autoplayInterval]="2500"
-        [showNavigators]="true"
-        [showIndicators]="true"
-        class="custom-carousel">
-  
-        <ng-template pTemplate="item" let-joc>
-          <div class="carousel-item-container">
-            <div class="carousel-item-fade">
-              <img [src]="'http://127.0.0.1:8000/uploads/fotoJocs/' + joc.foto" [alt]="joc.nom" class="carousel-img" />
-              <div class="carousel-overlay">
-                <div class="carousel-content">
-                  <h3 class="carousel-title">{{joc.nom}}</h3>
-                  <div class="carousel-details">
-                    <span class="tournament-status">Registration Open</span>
-                    <span class="prize-pool">Prize Pool: $10,000</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+      <div class="accordion-item" [ngClass]="{'active-item': activeIndex === 1}">
+        <div class="accordion-header" (click)="toggleAccordion(1)">
+          <span>Com puc unir-me a un equip?</span>
+          <div class="icon-container">
+            <i class="accordion-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </i>
           </div>
-        </ng-template>
-      </p-carousel>
-    </div>
-  </section>
-  
-  <!-- Características -->
-  <section class="features-section">
-    <h2 class="section-title">Platform Features</h2>
-    
-    <div class="features-container">
-      <div class="feature-card users-card">
-        <div class="feature-icon users-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
-            <circle cx="9" cy="7" r="4"></circle>
-            <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
-            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-          </svg>
         </div>
-        <h3>Usuaris administradors</h3>
-        <p>Usuaris administradors podràn crear tants tornejos com ells vulguin per la resta d'usuaris.</p>
+        <div class="accordion-content" [ngClass]="{'active': activeIndex === 1}">
+          <div class="content-inner">
+            <p>Per unir-te a un equip, has d'anar a la secció d'equips i buscar l'equip al qual vols unir-te. Fes clic
+              al botó "Unir-se" i entrarás automáticament a l'equip per començar a guanyar trofeus junts.</p>
+          </div>
+        </div>
       </div>
-  
-      <div class="feature-card trophy-card">
-        <div class="feature-icon trophy-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
-            <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
-            <path d="M4 22h16"></path>
-            <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path>
-            <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path>
-            <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
-          </svg>
+
+      <div class="accordion-item" [ngClass]="{'active-item': activeIndex === 2}">
+        <div class="accordion-header" (click)="toggleAccordion(2)">
+          <span>Com funciona el sistema de rankings?</span>
+          <div class="icon-container">
+            <i class="accordion-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </i>
+          </div>
         </div>
-        <h3>Varietat de tornejos</h3>
-        <p>Si els usuaris pertanyen a un equip, podràn decidir si participar en tornejos individuals o col·lectius.</p>
-      </div>
-  
-      <div class="feature-card chart-card">
-        <div class="feature-icon chart-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 3v18h18"></path>
-            <path d="M18 17V9"></path>
-            <path d="M13 17V5"></path>
-            <path d="M8 17v-3"></path>
-          </svg>
+        <div class="accordion-content" [ngClass]="{'active': activeIndex === 2}">
+          <div class="content-inner">
+            <p>El sistema de rankings es basa en els trofeus guanyats als tornejos. Cada trofeu té un valor en punts, i
+              aquests punts s'acumulen per formar la classificació. Hi ha una classificació individual i una altra per
+              equips.</p>
+          </div>
         </div>
-        <h3>Rankings</h3>
-        <p>Depenent dels trofeus guanyats als tornejos, hi haurà una classificació individual i col·lectiva global.</p>
       </div>
     </div>
-  </section>
-  
-  <!-- Acordeón -->
-  <section class="faq-section">
-    <div class="custom-accordion-container">
-      <h2 class="section-title">Preguntes freqüents</h2>
-      
-      <div class="custom-accordion">
-        <div class="accordion-item" [ngClass]="{'active-item': activeIndex === 0}">
-          <div class="accordion-header" (click)="toggleAccordion(0)">
-            <span>Com puc crear un torneig?</span>
-            <div class="icon-container">
-              <i class="accordion-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
-              </i>
-            </div>
-          </div>
-          <div class="accordion-content" [ngClass]="{'active': activeIndex === 0}">
-            <div class="content-inner">
-              <p>Per crear un torneig, has de ser un usuari administrador. Accedeix a la secció de "Tornejos" i fes clic al botó "Crear Torneig". Omple el formulari amb les dades necessàries i selecciona el joc i el tipus de torneig.</p>
-            </div>
-          </div>
-        </div>
-        
-        <div class="accordion-item" [ngClass]="{'active-item': activeIndex === 1}">
-          <div class="accordion-header" (click)="toggleAccordion(1)">
-            <span>Com puc unir-me a un equip?</span>
-            <div class="icon-container">
-              <i class="accordion-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
-              </i>
-            </div>
-          </div>
-          <div class="accordion-content" [ngClass]="{'active': activeIndex === 1}">
-            <div class="content-inner">
-              <p>Per unir-te a un equip, has d'anar a la secció d'equips i buscar l'equip al qual vols unir-te. Fes clic al botó "Sol·licitar unió" i espera que l'administrador de l'equip accepti la teva sol·licitud.</p>
-            </div>
-          </div>
-        </div>
-        
-        <div class="accordion-item" [ngClass]="{'active-item': activeIndex === 2}">
-          <div class="accordion-header" (click)="toggleAccordion(2)">
-            <span>Com funciona el sistema de rankings?</span>
-            <div class="icon-container">
-              <i class="accordion-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="6 9 12 15 18 9"></polyline>
-                </svg>
-              </i>
-            </div>
-          </div>
-          <div class="accordion-content" [ngClass]="{'active': activeIndex === 2}">
-            <div class="content-inner">
-              <p>El sistema de rankings es basa en els trofeus guanyats als tornejos. Cada trofeu té un valor en punts, i aquests punts s'acumulen per formar la classificació. Hi ha una classificació individual i una altra per equips.</p>
-            </div>
-          </div>
-        </div>        
-      </div>
-    </div>
-  </section>
+  </div>
+</section>

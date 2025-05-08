@@ -11,7 +11,7 @@
     z-index: 50;
     backdrop-filter: blur(12px);
     background-color: rgba(15, 23, 42, 0.7);
-    border-bottom: 1px solid var(--border-dark);
+    border-bottom: 1px solid #334155;
 }
 
 .main-content {
@@ -21,5 +21,5 @@
 /* Footer */
 .site-footer {
     padding: 3rem 1rem;
-    border-top: 1px solid var(--border-dark);
+    border-top: 1px solid #334155;
 }

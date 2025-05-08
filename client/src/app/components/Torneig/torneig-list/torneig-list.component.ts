@@ -121,6 +121,37 @@ export class TorneigListComponent implements OnInit {
     }
     return stat.torneig_ple;  
   }
+
+  actualitzarGuanyadorPartida(partidaId: number, equipId: number) {
+    this.http.put(`http://localhost:8000/api/partides/${partidaId}`, {
+      resultat_equip_id: equipId
+    }).subscribe({
+      next: (res) => {
+        console.log('Resultat actualitzat:', res);
+        alert('S\'ha assignat el guanyador correctament.');
+        location.reload(); // o actualitza només la vista si és possible
+      },
+      error: (err) => {
+        console.error('Error al actualitzar el resultat:', err);
+        alert('No s\'ha pogut assignar el guanyador.');
+      }
+    });
+  }
+
+  actualitzarEstatTorneig(torneig: ITorneig): string {
+    const totalPartides = torneig.partides.length;
+    const partidesAmbGuanyador = torneig.partides.filter(p => p.resultat_equip_id !== null).length;
+  
+    if (partidesAmbGuanyador === 0) {
+      return 'No Començat';
+    } else if (partidesAmbGuanyador < totalPartides) {
+      return 'En procès';
+    } else {
+      return 'Finalitzat';
+    }
+  }
+  
+  
   
   
 }

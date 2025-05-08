@@ -12,10 +12,10 @@ import { CarouselModule } from 'primeng/carousel';
   imports: [
     CommonModule,
     HttpClientModule,
-    CarouselModule
+    CarouselModule,
   ],
   templateUrl: './welcome.component.html',
-  styleUrl: './welcome.component.css'
+  styleUrl: './welcome.component.css',
 })
 
 export class WelcomeComponent implements OnInit {

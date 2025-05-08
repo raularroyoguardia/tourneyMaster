@@ -14,6 +14,7 @@ export interface ITorneig {
     nom_mapa: string;
     premi_valor: number;
     partides: Array<{
+        id: number;
         posicio_partida: number;
         resultat_equip_id: number;
         data_hora: Date;

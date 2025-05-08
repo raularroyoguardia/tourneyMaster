@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
 import { DadesTornejosService } from '../../../services/dades-tornejos.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -68,8 +68,20 @@ export class TorneigNewComponent implements OnInit {
       numero_equips: [2, [Validators.required, Validators.min(2)]],
       premi_id: ['', Validators.required]
 
-    });
+    }, { validators: this.dataFiPosteriorValidator() });
     
+  }
+
+  dataFiPosteriorValidator(): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const dataInici = control.get('data_inici')?.value;
+      const dataFi = control.get('data_fi')?.value;
+  
+      if (dataInici && dataFi && new Date(dataFi) < new Date(dataInici)) {
+        return { dataFiAnterior: true };
+      }
+      return null;
+    };
   }
 
   ngOnInit(): void {

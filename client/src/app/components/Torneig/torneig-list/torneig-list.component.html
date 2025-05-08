@@ -3,7 +3,7 @@
     <img [src]="'http://127.0.0.1:8000/uploads/fotoJocs/' + torneig.joc_foto" alt="">
     <div class="torneig-info">
       <h3>{{ torneig.nom }}</h3>
-      <p><strong>Estat:</strong> {{ torneig.estat }}</p>
+      <p><strong>Estat:</strong> {{ actualitzarEstatTorneig(torneig) }}</p>
       <p><strong>Partides:</strong> {{ torneig.quantitat_partides }}</p>
       <p><strong>Participants:</strong> {{ torneig.participants }}</p>
       <p><strong>Tipus:</strong> {{ torneig.tipus }}</p>
@@ -34,7 +34,7 @@
         <div class="modal-info">
           <img [src]="'http://127.0.0.1:8000/uploads/mapes/' + selectedTorneig.nom_mapa"
             alt="{{ selectedTorneig.nom_mapa }}" />
-          <p><strong>Estat:</strong> {{ selectedTorneig.estat }}</p>
+          <p><strong>Estat:</strong> {{ actualitzarEstatTorneig(selectedTorneig) }}</p>
           <p><strong>Partides:</strong> {{ selectedTorneig.quantitat_partides }}</p>
           <p><strong>Participants:</strong> {{ selectedTorneig.participants }}</p>
           <p><strong>Tipus:</strong> {{ selectedTorneig.tipus }}</p>
@@ -57,26 +57,37 @@
           </div>
 
           <div class="contenedor-partidas">
-            <div *ngFor="let partida of selectedTorneig.partides" class="marcador-secundario">
-              <div class="marcador-container marcador_partida">
-                <div class="equipo marcador-izquierda">
-                  <div class="puntos" [ngClass]="{'ganador': partida.resultat_equip_id === 1}">
-                    <span *ngIf="partida.resultat_equip_id === 1" style="font-size: 20px;">Ganador</span>
+            <div *ngFor="let partida of selectedTorneig.partides; let i = index">
+              <ng-container *ngIf="i === 0 || selectedTorneig.partides[i - 1]?.resultat_equip_id">
+                <div class="marcador-secundario">
+                  <div class="marcador-container marcador_partida">
+                    <div class="equipo marcador-izquierda">
+                      <div class="puntos" [ngClass]="{'ganador': partida.resultat_equip_id === 1}">
+                        <span *ngIf="partida.resultat_equip_id === 1" style="font-size: 20px;">Ganador</span>
+                        <button *ngIf="!partida.resultat_equip_id" (click)="actualitzarGuanyadorPartida(partida.id, 1)">
+                          Assignar guanyador
+                        </button>
+                      </div>
+                    </div>
+
+                    <div class="marcador-info-central">
+                      <div class="partida-numero">Partida {{ partida.posicio_partida || '-' }}</div>
+                      <div class="hora">{{ partida.data_hora || 'Hora no definida' }}</div>
+                    </div>
+
+                    <div class="equipo marcador-derecha">
+                      <div class="puntos" [ngClass]="{'ganador': partida.resultat_equip_id === 2}">
+                        <span *ngIf="partida.resultat_equip_id === 2" style="font-size: 20px;">Ganador</span>
+                        <button *ngIf="!partida.resultat_equip_id" (click)="actualitzarGuanyadorPartida(partida.id, 2)">
+                          Assignar guanyador
+                        </button>
+                      </div>
+                    </div>
                   </div>
                 </div>
-
-                <div class="marcador-info-central">
-                  <div class="partida-numero">Partida {{ partida.posicio_partida || '-' }}</div>
-                  <div class="hora">{{ partida.data_hora || 'Hora no definida' }}</div>
-                </div>
-
-                <div class="equipo marcador-derecha">
-                  <div class="puntos" [ngClass]="{'ganador': partida.resultat_equip_id === 2}">
-                    <span *ngIf="partida.resultat_equip_id === 2" style="font-size: 20px;">Ganador</span>
-                  </div>
-                </div>
-              </div>
+              </ng-container>
             </div>
+
           </div>
         </div>
       </div>
@@ -88,7 +99,7 @@
         <div class="modal-info">
           <img src="http://127.0.0.1:8000/uploads/mapes/{{ selectedTorneig.nom_mapa }}"
             alt="{{ selectedTorneig.nom_mapa }}" />
-          <p><strong>Estat:</strong> {{ selectedTorneig.estat }}</p>
+          <p><strong>Estat:</strong> {{ actualitzarEstatTorneig(selectedTorneig) }}</p>
           <p><strong>Partides:</strong> {{ selectedTorneig.quantitat_partides }}</p>
           <p><strong>Participants:</strong> {{ selectedTorneig.participants }}</p>
           <p><strong>Tipus:</strong> {{ selectedTorneig.tipus }}</p>

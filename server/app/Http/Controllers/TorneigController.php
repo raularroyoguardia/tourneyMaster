@@ -126,7 +126,7 @@ class TorneigController extends Controller
             'participants' => 'required|integer',
             'tipus' => 'required|string',
             'data_inici' => 'required',
-            'data_fi' => 'required',
+            'data_fi' => 'requireddate|after_or_equal:data_inici',
             'numero_equips' => 'required',
             'modeJoc_id' => 'required|integer',
         ], [
@@ -135,6 +135,7 @@ class TorneigController extends Controller
             'tipus.required' => 'El tipus de torneig és obligatori',
             'data_inici.required' => 'La data d\'inici és obligatòria',
             'data_fi.required' => 'La data de finalització és obligatòria',
+            'data_fi.after_or_equal' => 'La data de finalització no pot ser anterior a la d\'inici.',
             'numero_equips.required' => 'S\'ha d\'assignar un número d\'equips',
             'modeJoc_id.reuired' => 'El mòde de joc es obligatòri',
             'quantitat_partides.required' => 'La quantitat de partides es obligatòria',

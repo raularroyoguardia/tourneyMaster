@@ -49,6 +49,11 @@ export class NavBarComponent {
       this.user = JSON.parse(userData);
     }
   }
+//   isAdmin(): boolean {
+//     const user = this.getUser(); // Suponiendo que tienes un método que devuelve el usuario actual
+//     return user && user.tipus_usuari_id === 1;
+// }
+
 
 
 }
