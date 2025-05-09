@@ -1,92 +1,110 @@
-<div
-    class="bg-purple-900 absolute top-0 left-0 bg-gradient-to-b from-gray-900 via-gray-900 to-purple-800 bottom-0 leading-5 h-full w-full overflow-hidden">
-
-</div>
-<div class="relative   min-h-screen  sm:flex sm:flex-row  justify-center bg-transparent rounded-3xl shadow-xl">
-    <div class="flex-col flex  self-center lg:px-14 sm:max-w-4xl xl:max-w-md  z-10">
-        <div class="self-start hidden lg:flex flex-col  text-gray-300">
-
-            <h1 class="my-3 font-semibold text-4xl">¡Nos alegra verte de nuevo!</h1>
-            <p class="pr-3 text-sm opacity-75">
-                Accede a tu cuenta y prepárate para organizar, competir y disfrutar del mundo de los torneos. Ya seas un
-                jugador casual o un campeón en ascenso, este es tu punto de partida para vivir la emoción del gaming
-                como nunca antes.
-            </p>
-        </div>
+<!-- Fondo con gradiente y efectos -->
+<div class="login-background">
+    <div class="bg-hexagon-pattern"></div>
+    <div class="glow-circle glow-circle-1"></div>
+    <div class="glow-circle glow-circle-2"></div>
+  </div>
+  
+  <!-- Contenedor principal -->
+  <div class="login-container">
+    <!-- Columna izquierda - Mensaje de bienvenida -->
+    <div class="welcome-column">
+      <div class="welcome-content">
+        <h1 class="welcome-title">¡Nos alegra verte <span class="text-gradient">de nuevo!</span></h1>
+        <p class="welcome-text">
+          Accede a tu cuenta y prepárate para organizar, competir y disfrutar del mundo de los torneos. Ya seas un
+          jugador casual o un campeón en ascenso, este es tu punto de partida para vivir la emoción del gaming
+          como nunca antes.
+        </p>
+      </div>
     </div>
-    <div class="flex justify-center self-center  z-10">
-        <div class="p-12 bg-white mx-auto rounded-3xl w-96 relative">
-            <!-- Botón redondo dentro del contenedor blanco -->
-            <div class="absolute left-1/2 -top-8 transform -translate-x-1/2 z-50">
-                <a href="/welcome"
-                    class="bg-gradient-to-br from-purple-700 to-purple-500 hover:from-purple-600 hover:to-purple-400 text-white w-16 h-16 flex items-center justify-center rounded-full shadow-xl transition duration-300 ease-in-out">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                        class="w-6 h-6">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                    </svg>
-                </a>
-            </div>
-
-            <div class="mb-7 mt-8">
-                <h3 class="font-semibold text-2xl text-gray-800">Sign In </h3>
-                <p class="text-gray-400">Don't have an account?
-                    <a href="/signup" class="text-sm text-purple-700 hover:text-purple-700">Sign Up</a>
-                </p>
-            </div>
-
-            <div class="alert alert-danger" *ngIf="errors?.email">
-                {{ errors.email }}
-            </div>
-
-            <div class="alert alert-danger" *ngIf="errors?.password">
-                {{ errors.password }}
-            </div>
-
-            <div class="alert alert-danger" *ngIf="errors && !errors.email && !errors.password">
-                {{ errors }}
-            </div>
-
-            <!-- Login Form -->
-            <div class="space-y-6">
-                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-                    <div class="">
-                        <label for="inputEmail" class="block text-sm font-semibold text-purple-700 mb-2">
-                            Email
-                        </label>
-                        <input formControlName="email" id="inputEmail"
-                            class=" w-full text-sm  px-4 py-3 bg-gray-200 focus:bg-gray-100 border  border-gray-200 rounded-lg focus:outline-none focus:border-purple-400"
-                            type="email" placeholder="Email">
-                    </div>
-                    <label for="inputPassword" class="block text-sm font-semibold text-purple-700 mb-2 mt-8">
-                        Contrasenya
-                    </label>
-                    <div class="relative" x-data="{ show: true }">
-                        <input formControlName="password" id="inputPassword"
-                            class="w-full text-sm px-4 py-3 bg-gray-200 focus:bg-gray-100 border border-gray-200 rounded-lg focus:outline-none focus:border-purple-400"
-                            type="password" placeholder="Contraseña">
-                    </div>
-
-                    <div class="mt-8 mb-8">
-                        <div class="text-sm ml-auto text-center">
-                            <a href="#" class="text-purple-700 hover:text-purple-600 text-center">
-                                ¿Olvidaste tu contraseña?
-                            </a>
-                        </div>
-                    </div>
-
-                    <div>
-                        <button type="submit"
-                            class="w-full flex justify-center items-center bg-gradient-to-br from-purple-700 to-purple-500 hover:from-purple-600 hover:to-purple-400 text-white px-4 py-3 rounded-lg tracking-wide font-semibold cursor-pointer shadow-xl transition duration-300 ease-in-out">
-                            Iniciar sesión
-                        </button>
-                    </div>
-                </form>
-            </div>
+  
+    <!-- Columna derecha - Formulario de login -->
+    <div class="form-column">
+      <div class="form-card">
+        <!-- Botón de regreso -->
+        <div class="back-button-container">
+          <a href="/welcome" class="back-button">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+          </a>
         </div>
+  
+        <!-- Encabezado del formulario -->
+        <div class="form-header">
+          <h3 class="form-title">Sign In</h3>
+          <p class="form-subtitle">Don't have an account?
+            <a href="/signup" class="signup-link">Sign Up</a>
+          </p>
+        </div>
+  
+        <!-- Mensajes de error -->
+        <div class="error-alert" *ngIf="errors?.email">
+          {{ errors.email }}
+        </div>
+  
+        <div class="error-alert" *ngIf="errors?.password">
+          {{ errors.password }}
+        </div>
+  
+        <div class="error-alert" *ngIf="errors && !errors.email && !errors.password">
+          {{ errors }}
+        </div>
+  
+        <!-- Formulario de login -->
+        <div class="login-form-container">
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <label for="inputEmail" class="form-label">
+                Email
+              </label>
+              <input 
+                formControlName="email" 
+                id="inputEmail"
+                class="form-input"
+                type="email" 
+                placeholder="Email">
+            </div>
+            
+            <div class="form-group">
+              <label for="inputPassword" class="form-label">
+                Contrasenya
+              </label>
+              <div class="password-input-container">
+                <input 
+                  formControlName="password" 
+                  id="inputPassword"
+                  class="form-input"
+                  type="password" 
+                  placeholder="Contraseña">
+              </div>
+            </div>
+  
+            <div class="forgot-password-container">
+              <a href="#" class="forgot-password-link">
+                ¿Olvidaste tu contraseña?
+              </a>
+            </div>
+  
+            <div class="login-button-container">
+              <button 
+                type="submit"
+                class="login-button">
+                Iniciar sesión
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
-</div>
-<svg class="absolute bottom-0 left-0 " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-    <path fill="#fff" fill-opacity="1"
+  </div>
+  
+  <!-- Decoración inferior -->
+  <div class="bottom-decoration">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" class="wave-svg">
+      <path fill="rgba(30, 41, 59, 0.8)" fill-opacity="1"
         d="M0,0L40,42.7C80,85,160,171,240,197.3C320,224,400,192,480,154.7C560,117,640,75,720,74.7C800,75,880,117,960,154.7C1040,192,1120,224,1200,213.3C1280,203,1360,149,1400,122.7L1440,96L1440,320L1400,320C1360,320,1280,320,1200,320C1120,320,1040,320,960,320C880,320,800,320,720,320C640,320,560,320,480,320C400,320,320,320,240,320C160,320,80,320,40,320L0,320Z">
-    </path>
-</svg>
+      </path>
+    </svg>
+  </div>
