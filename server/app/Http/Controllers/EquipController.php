@@ -212,4 +212,15 @@ class EquipController extends Controller
 
         return response()->json(['message' => 'Te has unido al equipo correctamente.']);
     }
+
+    public function getUsuaris($id)
+{
+    $usuaris = DB::table('users')
+        ->join('equips_users', 'users.id', '=', 'equips_users.user_id')
+        ->where('equips_users.equip_id', $id)
+        ->select('users.*')
+        ->get();
+
+    return response()->json($usuaris);
+}
 }

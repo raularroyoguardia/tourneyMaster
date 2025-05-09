@@ -2,6 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ITorneig } from '../../../interfaces/iTorneig';
 import { IEquip } from '../../../interfaces/iEquip';
+import { IUser } from '../../../interfaces/iUser';
 import { DadesTornejosService } from '../../../services/dades-tornejos.service';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
@@ -122,14 +123,70 @@ export class TorneigListComponent implements OnInit {
     return stat.torneig_ple;  
   }
 
+  // actualitzarGuanyadorPartida(partidaId: number, equipId: number) {
+  //   this.http.put(`http://localhost:8000/api/partides/${partidaId}`, {
+  //     resultat_equip_id: equipId
+  //   }).subscribe({
+  //     next: (res) => {
+  //       console.log('Resultat actualitzat:', res);
+  //       alert('S\'ha assignat el guanyador correctament.');
+  //       location.reload(); // o actualitza només la vista si és possible
+  //     },
+  //     error: (err) => {
+  //       console.error('Error al actualitzar el resultat:', err);
+  //       alert('No s\'ha pogut assignar el guanyador.');
+  //     }
+  //   });
+  // }
+
   actualitzarGuanyadorPartida(partidaId: number, equipId: number) {
+    // 1. Asignar el guanyador de la partida
     this.http.put(`http://localhost:8000/api/partides/${partidaId}`, {
       resultat_equip_id: equipId
     }).subscribe({
       next: (res) => {
         console.log('Resultat actualitzat:', res);
-        alert('S\'ha assignat el guanyador correctament.');
-        location.reload(); // o actualitza només la vista si és possible
+  
+        // 2. Trobar equip guanyador
+        const equipGuanyador = this.selectedTorneig?.equips.find(e => e.id === equipId);
+        if (!equipGuanyador) {
+          alert('No s\'ha trobat l\'equip guanyador');
+          return;
+        }
+  
+        // 3. Obtenir usuaris del equip
+        this.http.get<IUser[]>(`http://localhost:8000/api/equips/${equipId}/usuaris`).subscribe({
+          next: (usuaris) => {
+            if (!usuaris || usuaris.length === 0) {
+              alert('No hi ha usuaris en aquest equip.');
+              return;
+            }
+  
+            // 4. Repartir trofeus
+            const premiTotal = this.selectedTorneig?.premi_valor || 0;
+            const trofeusPerUsuari = Math.floor(premiTotal / usuaris.length);
+  
+            usuaris.forEach(usuari => {
+              this.http.put(`http://localhost:8000/api/users/${usuari.id}/add-trofeus`, {
+                trofeus: trofeusPerUsuari
+              }).subscribe({
+                next: () => {
+                  console.log(`S'han afegit ${trofeusPerUsuari} trofeus a ${usuari.name}`);
+                },
+                error: err => {
+                  console.error(`Error afegint trofeus a ${usuari.name}:`, err);
+                }
+              });
+            });
+  
+            alert(`S\'ha assignat el guanyador i s\'han repartit ${trofeusPerUsuari} trofeus per usuari.`);
+            location.reload();
+          },
+          error: (err) => {
+            console.error('Error al obtenir usuaris del equip guanyador:', err);
+            alert('No s\'han pogut obtenir els usuaris del equip guanyador.');
+          }
+        });
       },
       error: (err) => {
         console.error('Error al actualitzar el resultat:', err);
@@ -137,7 +194,8 @@ export class TorneigListComponent implements OnInit {
       }
     });
   }
-
+  
+  
   actualitzarEstatTorneig(torneig: ITorneig): string {
     const totalPartides = torneig.partides.length;
     const partidesAmbGuanyador = torneig.partides.filter(p => p.resultat_equip_id !== null).length;

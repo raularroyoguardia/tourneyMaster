@@ -34,6 +34,8 @@ Route::get('/equip/{id}', [EquipController::class, 'show'])->name('equip_show');
 Route::match(['get', 'post'], '/equip/edit/{id}', [EquipController::class, 'edit'])->name('equip_edit');
 Route::get('/equip/delete/{id}', [EquipController::class, 'delete'])->name('equip_delete');
 Route::middleware('auth:sanctum')->get('/equips/user', [EquipController::class, 'getEquipsForAuthenticatedUser']);
+Route::get('/equips/{id}/usuaris', [EquipController::class, 'getUsuaris']);
+
 
 //EQUIP-USER
 Route::get('/equips/users', [EquipUserController::class, 'listEquipsWithUsers'])->name('equip-users_list');
@@ -42,13 +44,13 @@ Route::middleware('auth:sanctum')->post('/user/unirse', [EquipController::class,
 Route::middleware('auth:sanctum')->post('/equip/unirse', [EquipController::class, 'unirseATorneig']);
 // Route::post('/equip/unirse', [EquipController::class, 'unirseATorneig']);
 
-
 //USER
 Route::get('/users', [UserController::class, 'list'])->name('users_list');
 // Route::post('/user/new', [UserController::class, 'new'])->name('user_new');
 Route::get('/user/{id}', [UserController::class, 'show'])->name('user_show');
 Route::match(['get', 'post'], '/user/edit/{id}', [UserController::class, 'edit'])->name('user_edit');
 Route::get('/user/delete/{id}', [UserController::class, 'delete'])->name('user_delete');
+Route::put('/users/{id}/add-trofeus', [UserController::class, 'afegirTrofeus']);
 
 //CLASSIFICACIO
 Route::get('/classification/individual', [ClassificacioController::class, 'getIndividual'])->name('classificacio-individual');

@@ -117,22 +117,20 @@ class UserController extends Controller
     }
 
     public function show($id)
-{
-    $user = User::with('equips.users')->findOrFail($id);
+    {
+        $user = User::with('equips.users')->findOrFail($id);
 
-    // Buscar los equipos donde el usuario pertenece y que tengan más de 1 miembro
-    $equipCollectiu = $user->equips->first(function ($equip) {
-        return $equip->users->count() > 1;
-    });
+        // Buscar los equipos donde el usuario pertenece y que tengan más de 1 miembro
+        $equipCollectiu = $user->equips->first(function ($equip) {
+            return $equip->users->count() > 1;
+        });
 
-    if (!$equipCollectiu) {
-        return response()->json(['message' => 'L\'usuari no forma part de cap equip col·lectiu.'], 404);
+        if (!$equipCollectiu) {
+            return response()->json(['message' => 'L\'usuari no forma part de cap equip col·lectiu.'], 404);
+        }
+
+        return response()->json($equipCollectiu);
     }
-
-    return response()->json($equipCollectiu);
-}
-
-
 
     public function delete($id)
     {
@@ -155,4 +153,16 @@ class UserController extends Controller
 
         return response()->json('Usuari ' . $user->name . ' i el seu equip han estat eliminats');
     }
+
+// En UserController.php
+public function afegirTrofeus(Request $request, $id)
+{
+    $usuari = User::findOrFail($id);
+    $trofeusAFegir = intval($request->input('trofeus', 0));
+    $usuari->trofeus += $trofeusAFegir;
+    $usuari->save();
+
+    return response()->json(['message' => 'Trofeus afegits correctament.']);
+}
+
 }

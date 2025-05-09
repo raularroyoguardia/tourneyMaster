@@ -26,6 +26,8 @@ class GeneralSeeder extends Seeder
             'password' => bcrypt('123456'),
             'telefon' => 620666465,
             'foto_perfil' => 'carlos.jpg',
+            'trofeus' => 100,
+
         ]);
 
         $raulUser = DB::table('users')->insertGetId([
@@ -36,6 +38,8 @@ class GeneralSeeder extends Seeder
             'password' => bcrypt('123456'),
             'telefon' => 685324360,
             'foto_perfil' => 'raul.jpeg',
+            'trofeus' => 150,
+
         ]);
 
         $pereUser = DB::table('users')->insertGetId([
@@ -46,6 +50,8 @@ class GeneralSeeder extends Seeder
             'password' => bcrypt('123456'),
             'telefon' => 684230145,
             'foto_perfil' => 'pere.png',
+            'trofeus' => 50,
+
         ]);
 
         $franUser = DB::table('users')->insertGetId([
@@ -56,6 +62,8 @@ class GeneralSeeder extends Seeder
             'password' => bcrypt('123456'),
             'telefon' => 635098076,
             'foto_perfil' => 'fran.jpg',
+            'trofeus' => 75,
+
         ]);
 
         //JOCS
