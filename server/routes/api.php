@@ -42,6 +42,8 @@ Route::get('/equips/users', [EquipUserController::class, 'listEquipsWithUsers'])
 Route::get('/equips/disponibles', [EquipController::class, 'equipsDisponibles']);
 Route::middleware('auth:sanctum')->post('/user/unirse', [EquipController::class, 'unirseAEquip']);
 Route::middleware('auth:sanctum')->post('/equip/unirse', [EquipController::class, 'unirseATorneig']);
+Route::post('/torneigs/{torneigId}/unirse-individual', [EquipController::class, 'unirseIndividual']);
+
 // Route::post('/equip/unirse', [EquipController::class, 'unirseATorneig']);
 
 //USER
@@ -76,6 +78,7 @@ Route::post('/torneig/new', [TorneigController::class, 'new'])->name('torneig_ne
 Route::get('/torneig/{id}', [TorneigController::class, 'show'])->name('torneig_show');
 Route::match(['get', 'post'], '/torneig/edit/{id}', [TorneigController::class, 'edit'])->name('torneig_edit');
 Route::get('/torneig/delete/{id}', [TorneigController::class, 'delete'])->name('torneig_delete');
+Route::get('/torneigs/per-usuari/{usuariId}', [TorneigController::class, 'getTorneigsPerUsuari']);
 Route::get('/torneigs/stats', [TorneigStatsController::class, 'index']);
 
 

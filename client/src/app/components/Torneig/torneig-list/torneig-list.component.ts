@@ -23,56 +23,163 @@ export class TorneigListComponent implements OnInit {
   torneigsStats: { torneig_id: number, total_equips: number, numero_equips: number, torneig_ple: boolean }[] = [];
 
   constructor(private torneigService: DadesTornejosService, private http: HttpClient, private authService: AuthService) { }
-
-  ngOnInit() {
-    console.log("Listat de tornejos inicialitzat");
-
-    this.torneigService.getTornejos().subscribe(resp => {
-      if (resp.body !== null) {
-        this.torneigs = resp.body;
-      }
-    });
-
-    this.http.get<IEquip[]>('http://localhost:8000/api/equips/users').subscribe(data => {
-      this.equips = data;
-    });
+  ngOnInit(): void {
+    const usuariString = localStorage.getItem('user');
+    if (usuariString) {
+      const usuari = JSON.parse(usuariString);
+      const usuariId = usuari.id;
+      console.log('Usuari loguejat:', usuariId);
+  
+      this.torneigService.getTorneigsPerUsuari(usuariId).subscribe({
+        next: (response) => {
+          this.torneigs = response.body || [];
+          console.log('Torneigs per usuari loguejat:', this.torneigs);
+        },
+        error: (error) => {
+          console.error('Error carregant tornejos per usuari loguejat', error);
+        }
+      });
+    } else {
+      console.warn('Usuari no trobat al localStorage');
+    }
   }
 
+  // unirseTorneig(torneigId: number) {
+  //   this.http.get<any[]>('/api/torneigs/stats').subscribe(stats => {
+  //     this.torneigsStats = stats;
+  
+  //     const torneigStats = this.torneigsStats.find(t => t.torneig_id === torneigId);
+  //     if (torneigStats?.numero_equips === torneigStats?.total_equips) {
+  //       alert('Aquest torneig ja està ple i no s\'hi poden afegir més equips.');
+  //       return;
+  //     }
+  
+  //     const currentUser = this.authService.getCurrentUser();
+  //     const currentUserId = currentUser.id;
+  //     const tipusUsuariId = currentUser.tipus_usuari_id;
+  //     const equipString = localStorage.getItem('equip');
+  //     const equip = equipString ? JSON.parse(equipString) : null;
+  //     const equipId = equip.id;
+
+  //     if (tipusUsuariId === 3) {
+  //       // 🧍 Usuario individual => se une directamente con su userId
+  //       this.torneigService.unirseATorneig(torneigId, equipId).subscribe({
+  //         next: (response) => {
+  //           console.log(response.message);
+  //           alert('T\'has unit correctament al torneig com a usuari individual.');
+  //           location.reload();
+  //         },
+  //         error: (err) => {
+  //           console.error('Error al unir-se al torneig:', err);
+  //           alert(err.error.message || 'Error al unir-se al torneig');
+  //         }
+  //       });
+  //     } else {
+  //       // 👥 Usuario col·lectiu => buscar equipo col·lectiu
+  //       this.http.get<any>(`http://localhost:8000/api/user/${currentUserId}`).subscribe({
+  //         next: (equip) => {
+  //           console.log('Unint-se al torneig:', torneigId);
+  //           console.log('ID de l\'equip:', equip.id);
+  //           this.torneigService.unirseATorneig(torneigId, equip.id).subscribe({
+  //             next: (response) => {
+  //               console.log(response.message);
+  //               alert('T\'has unit correctament al torneig.');
+  //               location.reload();
+  //             },
+  //             error: (err) => {
+  //               console.error('Error al unir-se al torneig:', err);
+  //               alert(err.error.message || 'Error al unir-se al torneig');
+  //             }
+  //           });
+  //         },
+  //         error: (err) => {
+  //           console.error('No s\'ha trobat cap equip col·lectiu per aquest usuari:', err);
+  //           alert('No tens cap equip col·lectiu registrat.');
+  //         }
+  //       });
+  //     }
+  //   });
+  // }
+  
   unirseTorneig(torneigId: number) {
     this.http.get<any[]>('/api/torneigs/stats').subscribe(stats => {
       this.torneigsStats = stats;
-  
+      
       const torneigStats = this.torneigsStats.find(t => t.torneig_id === torneigId);
       if (torneigStats?.numero_equips === torneigStats?.total_equips) {
         alert('Aquest torneig ja està ple i no s\'hi poden afegir més equips.');
         return;
       }
+      
+      const currentUser = this.authService.getCurrentUser();
+      const currentUserId = currentUser.id;
+      const tipusUsuariId = currentUser.tipus_usuari_id;
   
-      const currentUserId = this.authService.getCurrentUserId();
-      console.log('Current user ID:', currentUserId);
+      // 🧍 Usuario individual => obtener equipos y filtrar el de max 1 integrante
+      if (tipusUsuariId === 3) {
+        this.http.get<any>('/api/equips/users').subscribe({
+          next: (equips) => {
+            // Filtrar los equipos donde el máximo de integrantes es 1
+            const equipIndividual = equips.find((equip: { maxim_integrants: number; users: any[]; }) => equip.maxim_integrants === 1 && equip.users.some(user => user.id === currentUserId));
   
-      // 🚀 Nueva llamada para obtener el equipo colectivo del usuario
-      this.http.get<any>(`http://localhost:8000/api/user/${currentUserId}`).subscribe({
-        next: (equip) => {  
-          console.log('Unint-se al torneig:', torneigId);
-          console.log('ID de l\'equip:', equip.id);
-          this.torneigService.unirseATorneig(torneigId, equip.id).subscribe({
-            next: (response) => {
-              console.log(response.message);
-              alert('T\'has unit correctament al torneig.');
-              location.reload();
-            },
-            error: (err) => {
-              console.error('Error al unir-se al torneig:', err);
-              alert(err.error.message || 'Error al unir-se al torneig');
+            if (!equipIndividual) {
+              console.error('No s\'ha trobat un equip individual per aquest usuari.');
+              alert('No tens cap equip individual registrat.');
+              return;
             }
-          });
-        },
-        error: (err) => {
-          console.error('No s\'ha trobat cap equip col·lectiu per aquest usuari:', err);
-          alert('No tens cap equip col·lectiu registrat.');
-        }
-      });
+            
+            const equipId = equipIndividual.id;
+            console.log('Equip individual trobat:', equipIndividual);
+  
+            // Unirse al torneo usando el equipId del equipo individual
+            this.torneigService.unirseATorneig(torneigId, equipId).subscribe({
+              next: (response) => {
+                console.log(response.message);
+                alert('T\'has unit correctament al torneig com a usuari individual.');
+                location.reload();
+              },
+              error: (err) => {
+                console.error('Error al unir-se al torneig:', err);
+                alert(err.error.message || 'Error al unir-se al torneig');
+              }
+            });
+          },
+          error: (err) => {
+            console.error('No s\'ha pogut obtenir la llista d\'equips:', err);
+            alert('No s\'han pogut obtenir els equips associats al teu usuari.');
+          }
+        });
+      } else {
+        // 👥 Usuario col·lectiu => continuar como lo tenías antes
+        this.http.get<any>(`http://localhost:8000/api/user/${currentUserId}`).subscribe({
+          next: (userData) => {
+            if (!userData || !userData.equip) {
+              console.error('No s\'ha trobat un equip per aquest usuari.');
+              alert('No tens cap equip registrat.');
+              return;
+            }
+  
+            const equipId = userData.equip.id;
+            console.log('ID de l\'equip col·lectiu:', equipId);
+  
+            this.torneigService.unirseATorneig(torneigId, equipId).subscribe({
+              next: (response) => {
+                console.log(response.message);
+                alert('T\'has unit correctament al torneig.');
+                location.reload();
+              },
+              error: (err) => {
+                console.error('Error al unir-se al torneig:', err);
+                alert(err.error.message || 'Error al unir-se al torneig');
+              }
+            });
+          },
+          error: (err) => {
+            console.error('No s\'ha pogut obtenir les dades de l\'usuari:', err);
+            alert('No s\'han pogut obtenir les dades del teu equip.');
+          }
+        });
+      }
     });
   }
   
@@ -197,19 +304,19 @@ export class TorneigListComponent implements OnInit {
   
   
   actualitzarEstatTorneig(torneig: ITorneig): string {
-    const totalPartides = torneig.partides.length;
-    const partidesAmbGuanyador = torneig.partides.filter(p => p.resultat_equip_id !== null).length;
+    const avui = new Date();
+    const dataInici = new Date(torneig.data_inici);
+    const dataFi = new Date(torneig.data_fi);
   
-    if (partidesAmbGuanyador === 0) {
+    if (avui < dataInici) {
       return 'No Començat';
-    } else if (partidesAmbGuanyador < totalPartides) {
-      return 'En procès';
-    } else {
+    }
+  
+    if (avui > dataFi) {
       return 'Finalitzat';
     }
+  
+    return 'En Procés';
   }
-  
-  
-  
   
 }

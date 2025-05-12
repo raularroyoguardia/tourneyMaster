@@ -1,126 +1,117 @@
-<!-- Navbar adaptado al estilo de TorneyMaster -->
-<nav class="backdrop-blur-md gradient-bg">
-    <div class="max-w-screen-xl flex flex-wrap justify-between items-center mx-auto p-4">
-        <!-- Logo -->
-        <a href="/welcome" class="flex items-center space-x-3 rtl:space-x-reverse no-underline">
-            <img [src]="'http://127.0.0.1:8000/uploads/logo/logo.png'" class="h-8 logo" alt="Flowbite Logo" />
-            <span
-                class="self-center text-2xl font-semibold whitespace-nowrap text-gray-800 dark:text-white">TorneyMaster</span>
-                <!-- <ng-container *ngIf="tokenService.isAuthenticated() && tokenService.isAdmin()"> -->
-                 <ng-container>
-                    <a routerLink="/torneig-new"
-                       class="mt-2 inline-block text-white font-semibold py-1.5 px-4 text-sm bg-gradient-to-r from-purple-600 to-pink-500 rounded-md shadow-md hover:from-purple-700 hover:to-pink-600 transition duration-300 ease-in-out">
-                        + Crear Torneo
-                    </a>
-                </ng-container> 
-                
-        </a>
+<header class="sticky top-0 z-50 backdrop-blur-md border-b border-slate-800">
+    <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+        <!-- Logo y título a la izquierda -->
+        <div class="flex items-center gap-3">
+            <div class="logo-container">
+                <img [src]="'http://127.0.0.1:8000/uploads/logo/logo.png'" class="logo" alt="TourneyMaster Logo" />
+            </div>
+            <span class="site-title">TourneyMaster</span>
+        </div>
 
-        <!-- Info de contacto y login -->
-        <div class="flex items-center space-x-6 rtl:space-x-reverse">
-            <ng-container *ngIf="!tokenService.isAuthenticated()">
-                <a routerLink="/signup"
-                    class="nav-button register-btn text-white font-semibold py-2 px-6 bg-gradient-to-r from-blue-500 to-teal-500 rounded-md shadow-lg hover:from-blue-600 hover:to-teal-600 transition duration-300 ease-in-out">
-                    Register
+        <!-- Navbar centrado -->
+        <ng-container *ngIf="tokenService.isAuthenticated()">
+            <nav class="hidden md:flex items-center gap-8">
+                <a routerLink="/welcome" routerLinkActive="nav-active" [routerLinkActiveOptions]="{exact: true}" class="nav-link">
+                    <span>Inici</span>
                 </a>
-                <a routerLink="/login"
-                    class="nav-button login-btn text-white font-semibold py-2 px-6 bg-gradient-to-r from-blue-500 to-teal-500 rounded-md shadow-lg hover:from-blue-600 hover:to-teal-600 transition duration-300 ease-in-out">
-                    Login
+                <a routerLink="/torneig-list" routerLinkActive="nav-active" class="nav-link">
+                    <span>Tornejos</span>
                 </a>
-            </ng-container>
-            <ng-container *ngIf="tokenService.isAuthenticated()">
-                <a class="text-white font-semibold py-2 px-6 rounded-md bg-gray-600/75 hover:bg-gray-700/75">
-                    {{ tokenService.getUserTrofeus() }} <i style="color:goldenrod" class="fi fi-sr-trophy-star"></i>
+                <a routerLink="/clasificacio-list" routerLinkActive="nav-active" class="nav-link">
+                    <span>Classificació</span>
                 </a>
-                <a class="text-white font-semibold py-2">
-                    {{ tokenService.getUserName() }}
+                <a routerLink="/equip-list" routerLinkActive="nav-active" class="nav-link">
+                    <span>Equip</span>
                 </a>
-                <img *ngIf="user.foto_perfil" [src]="'http://127.0.0.1:8000/uploads/fotoUsuari/' + user.foto_perfil"
-                    class="h-8 perfil" [alt]="user.name || 'Usuario'" (click)="toggleMenu()" />
+            </nav>
+        </ng-container>
 
-                <div class="sub-menu-wrap" [ngClass]="{ 'open-menu' : isMenuOpen }" id="subMenu">
-                    <div class="sub-menu">
-                        <div class="user-info">
-                            <img class="perfil" [src]="'http://127.0.0.1:8000/uploads/fotoUsuari/' + user.foto_perfil">
-                            <h2>{{ tokenService.getUserName() }}</h2>
+        <ng-container *ngIf="!tokenService.isAuthenticated()">
+            <nav class="hidden md:flex items-center gap-8">
+                <a routerLink="/welcome" routerLinkActive="nav-active" [routerLinkActiveOptions]="{exact: true}" class="nav-link">
+                    <span>Inici</span>
+                </a>
+                <a class="nav-link-locked">
+                    <span>Tornejos</span>
+                    <i class="fi fi-rr-lock lock-icon"></i>
+                </a>
+                <a class="nav-link-locked">
+                    <span>Classificació</span>
+                    <i class="fi fi-rr-lock lock-icon"></i>
+                </a>
+                <a class="nav-link-locked">
+                    <span>Equip</span>
+                    <i class="fi fi-rr-lock lock-icon"></i>
+                </a>
+            </nav>
+        </ng-container>
+
+        <!-- Botones de usuario -->
+        <ng-container *ngIf="!tokenService.isAuthenticated()">
+            <div class="flex items-center gap-4">
+                <a routerLink="/signup" class="auth-button">
+                    Registrar-se
+                </a>
+                <a routerLink="/login" class="auth-button">
+                    Iniciar Sessió
+                </a>
+            </div>
+        </ng-container>
+
+        <ng-container *ngIf="tokenService.isAuthenticated()">
+            <div class="flex items-center gap-4">
+                <div class="trophy-badge">
+                    <span>{{ tokenService.getUserTrofeus() }}</span>
+                    <i class="fi fi-sr-trophy-star trophy-icon"></i>
+                </div>
+                <span class="username">{{ tokenService.getUserName() }}</span>
+                <div class="profile-wrapper">
+                    <img *ngIf="user.foto_perfil" [src]="'http://127.0.0.1:8000/uploads/fotoUsuari/' + user.foto_perfil" 
+                        class="profile-img" [alt]="user.name || 'Usuario'" (click)="toggleMenu()" />
+                    
+                    <!-- Submenú -->
+                    <div class="dropdown-menu" [ngClass]="{ 'menu-active' : isMenuOpen }" id="subMenu">
+                        <div class="dropdown-content">
+                            <div class="user-info">
+                                <div class="user-avatar">
+                                    <img [src]="'http://127.0.0.1:8000/uploads/fotoUsuari/' + user.foto_perfil">
+                                </div>
+                                <h2>{{ tokenService.getUserName() }}</h2>
+                            </div>
+                            <div class="menu-divider"></div>
+
+                            <a href="#" class="menu-item">
+                                <div class="item-icon">
+                                    <img [src]="'uploads/iconos/usuario.png'" />
+                                </div>
+                                <p>Editar Cuenta</p>
+                                <span class="item-arrow">›</span>
+                            </a>
+                            <a href="#" class="menu-item">
+                                <div class="item-icon">
+                                    <img [src]="'uploads/iconos/ajustes.png'" />
+                                </div>
+                                <p>Gestionar Usuarios</p>
+                                <span class="item-arrow">›</span>
+                            </a>
+                            <a routerLink="/torneig-new" class="menu-item">
+                                <div class="item-icon">
+                                    <img [src]="'uploads/iconos/mas.png'" />
+                                </div>
+                                <p>Crear Torneo</p>
+                                <span class="item-arrow">›</span>
+                            </a>
+                            <a (click)="logout()" class="menu-item logout-item">
+                                <div class="item-icon logout-icon">
+                                    <img [src]="'uploads/iconos/energia-red.png'" />
+                                </div>
+                                <p>Cerrar Sesión</p>
+                                <span class="item-arrow">›</span>
+                            </a>
                         </div>
-                        <hr/>
-
-                        <a href="#" class="sub-menu-link">
-                            <img [src]="'uploads/iconos/usuario.png'" />
-                            <p>Editar Cuenta</p>
-                            <span>></span>
-                        </a>
-                        <a href="#" class="sub-menu-link">
-                            <img [src]="'uploads/iconos/ajustes.png'" />
-                            <p>Gestionar Usuarios</p>
-                            <span>></span>
-                        </a>
-                        <a (click)="logout()" class="sub-menu-link logout">
-                            <img [src]="'uploads/iconos/energia-red.png'" />
-                            <p>Cerrar Sesión</p>
-                            <span>></span>
-                        </a>
                     </div>
                 </div>
-
-            </ng-container>
-        </div>
+            </div>
+        </ng-container>
     </div>
-</nav>
-
-<!-- Navbar inferior adaptado con estilo gaming en hover -->
-<nav class="bg-transparent dark:bg-transparent">
-    <div class="max-w-screen-xl px-4 py-3 mx-auto">
-        <div class="flex items-center justify-center">
-            <ul class="flex flex-row font-medium mt-0 space-x-8 rtl:space-x-reverse text-sm">
-                <li>
-                    <a routerLink="/welcome" routerLinkActive="active-link" [routerLinkActiveOptions]="{ exact: true }"
-                        class="text-white dark:text-white font-bold transition duration-300 ease-in-out gaming-link active-link">
-                        Home
-                    </a>
-                </li>
-                <ng-container *ngIf="!tokenService.isAuthenticated()">
-                    <li>
-                        <a routerLink="/torneig-list" routerLinkActive="active-link"
-                            class="locked-link font-bold transition duration-300 ease-in-out gaming-link">
-                            Torneig <i class="fi fi-rr-lock"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a routerLink="/clasificacio-list" routerLinkActive="active-link"
-                            class="locked-link font-bold transition duration-300 ease-in-out gaming-link">
-                            Classificació <i class="fi fi-rr-lock"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a routerLink="/equip-list" routerLinkActive="active-link"
-                            class="locked-link font-bold transition duration-300 ease-in-out gaming-link">
-                            Equip <i class="fi fi-rr-lock"></i>
-                        </a>
-                    </li>
-                </ng-container>
-                <ng-container *ngIf="tokenService.isAuthenticated()">
-                    <li>
-                        <a routerLink="/torneig-list" routerLinkActive="active-link"
-                            class="text-white dark:text-white font-bold transition duration-300 ease-in-out gaming-link">
-                            Torneig
-                        </a>
-                    </li>
-                    <li>
-                        <a routerLink="/clasificacio-list" routerLinkActive="active-link"
-                            class="text-white dark:text-white font-bold transition duration-300 ease-in-out gaming-link">
-                            Classificació
-                        </a>
-                    </li>
-                    <li>
-                        <a routerLink="/equip-list" routerLinkActive="active-link"
-                            class="text-white dark:text-white font-bold transition duration-300 ease-in-out gaming-link">
-                            Equip
-                        </a>
-                    </li>
-                </ng-container>
-            </ul>
-        </div>
-    </div>
-</nav>
+</header>

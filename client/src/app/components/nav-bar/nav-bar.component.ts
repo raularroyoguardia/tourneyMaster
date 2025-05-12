@@ -24,7 +24,9 @@ export class NavBarComponent {
 
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
+    console.log('Toggling menu:', this.isMenuOpen); // <--- AÑADE ESTO
   }
+  
 
   logout(): void {
     this.authService.logout().subscribe(

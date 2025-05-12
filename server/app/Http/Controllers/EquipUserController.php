@@ -21,7 +21,7 @@ class EquipUserController extends Controller
             e.data_creacio,
             e.descripcio,
             e.maxim_integrants,
-
+        
             u.id AS user_id,
             u.name AS user_name,
             u.email,
@@ -31,8 +31,8 @@ class EquipUserController extends Controller
         FROM equips e
         LEFT JOIN equips_users eu ON e.id = eu.equip_id
         LEFT JOIN users u ON eu.user_id = u.id
-        ORDER BY e.id, u.name
-    ");
+        ORDER BY e.id, u.trofeus DESC
+        ");
 
         // Agrupar los datos por equipo
         $equips = [];

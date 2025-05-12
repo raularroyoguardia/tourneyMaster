@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
+use App\Models\Torneig;
 
 class EquipController extends Controller
 {
@@ -134,11 +135,11 @@ class EquipController extends Controller
     ");
 
 
-        $user = $request->user(); 
+        $user = $request->user();
 
         $equips = $user->equips()
             ->with(['users' => function ($query) {
-                $query->orderBy('trofeus');
+                $query->orderByDesc('trofeus');
             }])
             ->get();
 
@@ -185,6 +186,38 @@ class EquipController extends Controller
         return response()->json(['message' => 'Te has unido al torneo correctamente.']);
     }
 
+    public function unirseIndividual($torneigId, Request $request)
+    {
+        $usuariId = $request->input('usuari_id');
+
+        $torneig = Torneig::findOrFail($torneigId);
+
+        if ($torneig->tipus !== 'Individual') {
+            return response()->json(['message' => 'Aquest torneig no és individual.'], 400);
+        }
+
+        // Comprovem si l'usuari ja està inscrit
+        $existeix = DB::table('torneig_usuari')
+            ->where('torneig_id', $torneigId)
+            ->where('usuari_id', $usuariId)
+            ->exists();
+
+        if ($existeix) {
+            return response()->json(['message' => 'Ja estàs inscrit en aquest torneig.'], 400);
+        }
+
+        // Relacionem l'usuari amb el torneig
+        DB::table('torneig_usuari')->insert([
+            'torneig_id' => $torneigId,
+            'usuari_id' => $usuariId,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        return response()->json(['message' => 'T\'has inscrit correctament al torneig.']);
+    }
+
+
 
     public function unirseAEquip(Request $request)
     {
@@ -214,13 +247,13 @@ class EquipController extends Controller
     }
 
     public function getUsuaris($id)
-{
-    $usuaris = DB::table('users')
-        ->join('equips_users', 'users.id', '=', 'equips_users.user_id')
-        ->where('equips_users.equip_id', $id)
-        ->select('users.*')
-        ->get();
+    {
+        $usuaris = DB::table('users')
+            ->join('equips_users', 'users.id', '=', 'equips_users.user_id')
+            ->where('equips_users.equip_id', $id)
+            ->select('users.*')
+            ->get();
 
-    return response()->json($usuaris);
-}
+        return response()->json($usuaris);
+    }
 }

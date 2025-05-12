@@ -17,6 +17,27 @@ class GeneralSeeder extends Seeder
      */
     public function run(): void
     {
+        //TIPUS USUARI
+        DB::table('tipus_usuaris')->insert([
+            'tipus' => 'BOSS',
+            'permisos' => 2,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        DB::table('tipus_usuaris')->insert([
+            'tipus' => 'AdministradorEquip',
+            'permisos' => 1,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        DB::table('tipus_usuaris')->insert([
+            'tipus' => 'UsuariEquip',
+            'permisos' => 0,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        
         //USERS
         $carlosUser = DB::table('users')->insertGetId([
             'name' => 'Carlos',
@@ -27,7 +48,7 @@ class GeneralSeeder extends Seeder
             'telefon' => 620666465,
             'foto_perfil' => 'carlos.jpg',
             'trofeus' => 100,
-
+            'tipus_usuari_id' => 1,
         ]);
 
         $raulUser = DB::table('users')->insertGetId([
@@ -39,7 +60,7 @@ class GeneralSeeder extends Seeder
             'telefon' => 685324360,
             'foto_perfil' => 'raul.jpeg',
             'trofeus' => 150,
-
+            'tipus_usuari_id' => 1,
         ]);
 
         $pereUser = DB::table('users')->insertGetId([
@@ -51,7 +72,7 @@ class GeneralSeeder extends Seeder
             'telefon' => 684230145,
             'foto_perfil' => 'pere.png',
             'trofeus' => 50,
-
+            'tipus_usuari_id' => 3,
         ]);
 
         $franUser = DB::table('users')->insertGetId([
@@ -63,7 +84,7 @@ class GeneralSeeder extends Seeder
             'telefon' => 635098076,
             'foto_perfil' => 'fran.jpg',
             'trofeus' => 75,
-
+            'tipus_usuari_id' => 3,
         ]);
 
         //JOCS
@@ -1048,7 +1069,7 @@ class GeneralSeeder extends Seeder
         $torneigIndividual = DB::table('torneigs')->insertGetId([
             'nom' => 'Torneig Individual',
             'participants' => 2,
-            'tipus' => 'idividual',
+            'tipus' => 'individual',
             'data_inici' => '2025-04-01 10:00:00',
             'data_fi' => '2025-08-22 19:00:00',
             'estat' => 'En procès',

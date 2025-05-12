@@ -34,20 +34,20 @@ interface Joc {
   mode_jocs: ModeJoc[];
 }
 
-
 @Injectable({
   providedIn: 'root'
 })
 export class DadesTornejosService {
-
-  
-
   constructor(private _http: HttpClient) { }
 
   public getTornejos(): Observable<HttpResponse<ITorneig[]>> {
     return this._http.get<ITorneig[]>('http://127.0.0.1:8000/api/torneigs', { observe: 'response' });
   }
 
+  public getTorneigsPerUsuari(usuariId: number): Observable<HttpResponse<ITorneig[]>> {
+    return this._http.get<ITorneig[]>(`http://localhost:8000/api/torneigs/per-usuari/${usuariId}`, { observe: 'response' });
+  }
+  
   public getTorneig(id: any): Observable<HttpResponse<ITorneig>> {
     return this._http.get<ITorneig>(`http://127.0.0.1:8000/api/torneig/${id}`, { observe: 'response' });
   }
@@ -64,7 +64,7 @@ export class DadesTornejosService {
     return this._http.delete<any>(`http://127.0.0.1:8000/api/torneig/delete/${id}`);
   }
 
-  getJocs() {
+  public getJocs() {
     return this._http.get<Joc[]>('http://localhost:8000/api/jocs');
   }
 

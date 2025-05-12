@@ -56,6 +56,4 @@ export class EquipListComponent implements OnInit {
       }
     });
   }
-  
-  
 }

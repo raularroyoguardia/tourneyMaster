@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Torneig;
 use Illuminate\Support\Facades\DB;
+use App\Models\User;
 
 class TorneigController extends Controller
 {
@@ -161,4 +162,83 @@ class TorneigController extends Controller
 
         return response()->json('El torneig ' . $torneig->nom . ' s\'ha eliminat');
     }
+
+
+    public function listPerTipus($tipus)
+    {
+        // Paso 1: Obtener la info principal del torneo + mapa
+        $torneigs = DB::select("
+            SELECT 
+                torneigs.*, 
+                mode_jocs.descripcio, 
+                jocs.foto AS joc_foto, 
+                jocs.nom AS joc_nom, 
+                premis.valor AS premi_valor,
+                mapas.mapa AS nom_mapa
+            FROM torneigs
+            JOIN mode_jocs ON torneigs.modeJoc_id = mode_jocs.id
+            JOIN jocs ON mode_jocs.joc_id = jocs.id
+            LEFT JOIN premis ON torneigs.premi_id = premis.id
+            LEFT JOIN mapas ON torneigs.mapa_id = mapas.id
+            where torneigs.tipus = '" . $tipus . "'
+        ");
+
+        // Paso 2: Obtener los equipos relacionados
+        $equipsPorTorneig = DB::select("
+            SELECT 
+                equips_torneigs.torneig_id,
+                equips.*
+            FROM equips_torneigs
+            JOIN equips ON equips.id = equips_torneigs.equip_id
+        ");
+
+        // Paso 3: Agrupar equipos por torneo
+        $mapaEquips = [];
+        foreach ($equipsPorTorneig as $equip) {
+            $mapaEquips[$equip->torneig_id][] = $equip;
+        }
+
+        // Paso 4: Añadir los equipos a cada torneo
+        foreach ($torneigs as &$torneig) {
+            $torneig->equips = $mapaEquips[$torneig->id] ?? [];
+        }
+
+        // 🔥 Paso 5: Obtener las partidas de cada torneo
+        $partidesPorTorneig = DB::select("
+            SELECT * FROM partidas
+        ");
+
+        // Agrupar por torneig_id
+        $mapaPartides = [];
+        foreach ($partidesPorTorneig as $partida) {
+            $mapaPartides[$partida->torneig_id][] = $partida;
+        }
+
+        // Añadir a cada torneig
+        foreach ($torneigs as &$torneig) {
+            $torneig->partides = $mapaPartides[$torneig->id] ?? [];
+        }
+
+        return response()->json($torneigs);
+    }
+    public function getTorneigsPerUsuari($usuariId)
+    {
+        $usuari = User::findOrFail($usuariId);
+
+        // Obtener el tipo de usuario
+        $tipusUsuari = $usuari->tipus_usuari_id;
+
+        // Filtrar los torneos según el tipo de usuario
+        if ($tipusUsuari == 2 || $tipusUsuari == 1) {
+            // Admins de equipo -> colectivos
+            $torneigs = $this->list();
+        } elseif ($tipusUsuari == 3) {
+            // Usuarios individuales -> individuales
+            $torneigs = $this->listPerTipus('individual');
+        } else {
+            return response()->json(['message' => 'Tipo de usuario no soportado.'], 400);
+        }
+
+        return $torneigs;
+        }
 }

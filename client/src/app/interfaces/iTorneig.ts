@@ -12,6 +12,7 @@ export interface ITorneig {
     joc_foto: string;
     mode_joc: string;
     nom_mapa: string;
+    descripcio: string;
     premi_valor: number;
     partides: Array<{
         id: number;

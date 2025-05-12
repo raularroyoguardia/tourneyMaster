@@ -1,421 +1,330 @@
-.logo {
-    border-radius: 50%;
-    width: 60px;
-    height: auto;
-    object-fit: cover;
-  }
-
-.perfil {
-  border-radius: 50%;
+/* Logo y título */
+.logo-container {
+  position: relative;
   width: 60px;
   height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: linear-gradient(to right, #8b5cf6, #d946ef);
+  padding: 2px;
+  box-shadow: 0 0 10px rgba(139, 92, 246, 0.5), 0 0 20px rgba(139, 92, 246, 0.3);
+  transition: all 0.3s ease;
+}
+
+.logo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  background-color: #0f172a;
+}
+
+.site-title {
+  font-weight: 700;
+  font-size: 1.5rem;
+  background: linear-gradient(to right, #fff, #a78bfa);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+/* Enlaces de navegación */
+.nav-link {
+  position: relative;
+  color: #cbd5e1;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(to right, #8b5cf6, #d946ef);
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #f8fafc;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.nav-active {
+  color: white !important;
+  position: relative;
+}
+
+.nav-active::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, #8b5cf6, #d946ef);
+  box-shadow: 0 0 10px rgba(139, 92, 246, 0.5), 0 0 20px rgba(139, 92, 246, 0.3);
+}
+
+/* Enlaces bloqueados */
+.nav-link-locked {
+  position: relative;
+  color: #64748b;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+}
+
+.lock-icon {
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+
+/* Botones de autenticación */
+.auth-button {
+  color: white;
+  padding: 0.5rem 1.25rem;
+  background: linear-gradient(to right, #8b5cf6, #d946ef);
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+}
+
+.auth-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: all 0.5s ease;
+}
+
+.auth-button:hover::before {
+  left: 100%;
+}
+
+.auth-button:hover {
+  box-shadow: 0 0 10px rgba(139, 92, 246, 0.5), 0 0 20px rgba(139, 92, 246, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Contador de trofeos */
+.trophy-badge {
+  display: flex;
+  color: white;
+  font-weight: bold;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: rgba(30, 41, 59, 0.8);
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(51, 65, 85, 0.5);
+  transition: all 0.3s ease;
+}
+
+.trophy-badge:hover {
+  background-color: rgba(30, 41, 59, 1);
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+}
+
+.trophy-icon {
+  color: goldenrod;
+}
+
+/* Nombre de usuario */
+.username {
+  color: #f8fafc;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.username:hover {
+  color: #8b5cf6;
+  text-shadow: 0 0 5px rgba(139, 92, 246, 0.3);
+}
+
+/* Imagen de perfil */
+.profile-wrapper {
+  position: relative;
+}
+
+.profile-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+  border: 2px solid transparent;
+  background: linear-gradient(to right, #8b5cf6, #d946ef) border-box;
+  box-shadow: 0 0 10px rgba(139, 92, 246, 0.5), 0 0 20px rgba(139, 92, 246, 0.3);
+  transition: all 0.3s ease;
+  z-index: 50;
+}
+
+.profile-img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(217, 70, 239, 0.6);
+}
+
+/* Menú desplegable */
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 320px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  z-index: 100;
+  margin-top: 0.5rem;
+}
+
+.dropdown-menu.menu-active {
+  max-height: 400px;
+}
+
+.dropdown-content {
+  background-color: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(12px);
+  border: 1px solid #334155;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+/* Información del usuario en el menú */
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.user-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid #8b5cf6;
+  box-shadow: 0 0 10px rgba(139, 92, 246, 0.5), 0 0 20px rgba(139, 92, 246, 0.3);
+}
+
+.user-avatar img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
 }
-  
+
+.user-info h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #f8fafc;
+  margin: 0;
+}
+
+.menu-divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, #334155, transparent);
+  margin: 1rem 0;
+}
+
+/* Elementos del menú */
+.menu-item {
+  display: flex;
+  align-items: center;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  color: #cbd5e1;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+}
+
+.menu-item:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #f8fafc;
+}
+
+.item-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(30, 41, 59, 0.7);
+  border-radius: 50%;
+  margin-right: 1rem;
+  transition: all 0.3s ease;
+}
+
+.menu-item:hover .item-icon {
+  background-color: rgba(30, 41, 59, 0.9);
+  box-shadow: 0 0 10px rgba(139, 92, 246, 0.3);
+}
+
+.item-icon img {
+  width: 24px;
+  height: 24px;
+}
+
+.menu-item p {
+  flex: 1;
+  margin: 0;
+}
+
+.item-arrow {
+  font-size: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.menu-item:hover .item-arrow {
+  transform: translateX(5px);
+}
+
+.logout-item {
+  color: #ef4444;
+}
+
+.logout-item:hover {
+  background-color: rgba(239, 68, 68, 0.1);
+}
+
+.logout-icon {
+  background-color: rgba(239, 68, 68, 0.1);
+}
+
+.logout-item:hover .logout-icon {
+  background-color: rgba(239, 68, 68, 0.2);
+  box-shadow: 0 0 10px rgba(239, 68, 68, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .profile-wrapper {
+    position: static;
+  }
+
   .dropdown-menu {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    z-index: 9999;
-    background-color: #ffffff;
-    border: 1px solid #e5e5e5;
-    border-radius: 0.5rem;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    display: block;
-    width: 12rem;
+    right: 1rem;
+    width: 280px;
   }
-  
-  .dropdown-menu ul {
-    z-index: 200;
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-  }
-
-  .sub-menu-wrap {
-    position: absolute;
-    top: 80%;
-    right: 3%;
-    width: 320px;
-    max-height: 0px;
-    z-index: 9999;
-    overflow: hidden;
-    transition: max-height 0.5s;
-  }
-
-  .sub-menu-wrap.open-menu {
-    max-height: 400px;
-  }
-
-  .sub-menu {
-    background: #1a1a1a;
-    padding: 20px;
-    margin: 10px;
-  }
-
-  .user-info {
-    display: flex;
-    align-items: center;
-  }
-
-  .user-info h2 {
-    font-weight: 500;
-    color: #D8D8D8;
-  }
-
-  .user-info img {
-    margin-right: 15px;
-  }
-
-  .sub-menu hr {
-    border: 0;
-    height: 1px;
-    width: 100%;
-    background: #fff;
-    margin: 15px 0 10px;
-  }
-
-  .sub-menu-link {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    color: #D8D8D8;
-    margin: 12px 0;
-    cursor: pointer;
-  }
-
-  .logout {
-    color: #FF0000;
-  }
-
-  .sub-menu-link p {
-    width: 100%;
-    margin: 0;
-  }
-
-  .sub-menu-link img {
-    background: #2a2a2a;
-    border-radius: 50%;
-    padding: 8px;
-    margin-right: 15px;
-  }
-
-  .sub-menu-link span {
-    font-size: 22px;
-    transition: transform 0.5s;
-  }
-
-  .sub-menu-link:hover span {
-    transform: translateX(5px);
-  }
-
-  .sub-menu-link:hover p {
-    font-weight: 600;
-  }
-  
-  .dropdown-menu li {
-    padding: 0.5rem 1rem;
-  }
-  
-  .dropdown-menu li:hover {
-    background-color: #f1f5f9;
-  }
-  
-  .navbar-user a {
-    text-decoration: none;
-    transition: all 0.3s ease;
-  }
-  
-  .navbar-user a:hover {
-    transform: scale(1.05);
-    color: #ff8c00;
-  }
-  
-  a {
-    text-decoration: none;
-  }
-
-  .locked-link {
-    color:dimgrey;
-  }
-  
-  /* Estilo gaming moderno para links activos */
-  .active-link {
-    color: #00FFFF !important; /* Cyan neón */
-    background-color: rgba(0, 12, 32, 0.8); /* Fondo oscuro semi-transparente */
-    padding: 8px 15px;
-    font-weight: bold;
-    position: relative;
-    clip-path: polygon(
-      0 0, 
-      calc(100% - 10px) 0, 
-      100% 10px, 
-      100% 100%, 
-      10px 100%, 
-      0 calc(100% - 10px)
-    ); /* Forma angular tipo gaming */
-    box-shadow: 
-      0 0 10px rgba(0, 255, 255, 0.5), /* Glow exterior cyan */
-      inset 0 0 5px rgba(0, 255, 255, 0.3); /* Glow interior */
-    text-shadow: 0 0 5px rgba(0, 255, 255, 0.7); /* Glow en el texto */
-    border: 1px solid rgba(0, 255, 255, 0.3);
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Transición con rebote */
-    animation: pulseGaming 2s infinite alternate;
-    overflow: hidden; /* Para contener los efectos internos */
-  }
-  
-  /* Línea decorativa con efecto de energía */
-  .active-link::before {
-    content: '';
-    position: absolute;
-    bottom: 6px;
-    left: 10px;
-    right: 10px;
-    height: 2px;
-    background: linear-gradient(90deg, 
-      transparent 0%, 
-      #00FFFF 20%, 
-      #00FFFF 80%, 
-      transparent 100%
-    );
-    opacity: 0.8;
-    animation: energyFlow 2s infinite;
-  }
-  
-  /* Marcadores angulares en las esquinas */
-  .active-link::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: 
-      linear-gradient(135deg, #00FFFF 0%, transparent 10px) top left,
-      linear-gradient(-135deg, #00FFFF 0%, transparent 10px) top right,
-      linear-gradient(-45deg, #00FFFF 0%, transparent 10px) bottom right,
-      linear-gradient(45deg, #00FFFF 0%, transparent 10px) bottom left;
-    background-size: 20px 20px;
-    background-repeat: no-repeat;
-    opacity: 0.5;
-    transition: all 0.3s ease;
-  }
-  
-  /* HOVER EFFECT MEJORADO - Efecto hover para el link activo */
-  .active-link:hover {
-    color: #FFFFFF !important;
-    background-color: rgba(0, 20, 40, 0.9);
-    box-shadow: 
-      0 0 20px rgba(0, 255, 255, 0.8),
-      inset 0 0 15px rgba(0, 255, 255, 0.5);
-    transform: translateY(-3px) scale(1.05);
-    text-shadow: 0 0 8px #FFFFFF, 0 0 15px #00FFFF;
-    border-color: rgba(0, 255, 255, 0.8);
-  }
-  
-  /* Efecto de escaneo en hover */
-  .active-link:hover::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 50%;
-    height: 100%;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(255, 255, 255, 0.3),
-      transparent
-    );
-    animation: scanEffect 1s ease-out infinite;
-    z-index: 1;
-  }
-  
-  /* Efecto de esquinas brillantes en hover */
-  .active-link:hover::after {
-    opacity: 0.9;
-    background-size: 25px 25px;
-    filter: drop-shadow(0 0 5px rgba(0, 255, 255, 0.8));
-  }
-  
-  /* Efecto de partículas en hover */
-  .active-link:hover span {
-    position: relative;
-  }
-  
-  .active-link:hover span::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: 0;
-    width: 100%;
-    height: 200%;
-    background: radial-gradient(
-      circle,
-      rgba(0, 255, 255, 0.8) 0%,
-      transparent 70%
-    );
-    opacity: 0;
-    animation: particleEffect 1.5s ease-out infinite;
-  }
-  
-  /* Estilo para cuando los links activos están siendo pulsados */
-  .active-link:active {
-    color: #80FFFF !important;
-    background-color: rgba(0, 30, 60, 0.95);
-    transform: translateY(1px) scale(0.98);
-    box-shadow: 
-      0 0 8px rgba(0, 255, 255, 0.6),
-      inset 0 0 10px rgba(0, 255, 255, 0.4);
-    transition: all 0.1s ease;
-  }
-  
-  /* Animación de pulso para el efecto gaming */
-  @keyframes pulseGaming {
-    0% {
-      box-shadow: 
-        0 0 10px rgba(0, 255, 255, 0.5),
-        inset 0 0 5px rgba(0, 255, 255, 0.3);
-    }
-    100% {
-      box-shadow: 
-        0 0 15px rgba(0, 255, 255, 0.7),
-        inset 0 0 8px rgba(0, 255, 255, 0.5);
-    }
-  }
-  
-  /* Animación de flujo de energía para la línea */
-  @keyframes energyFlow {
-    0% {
-      opacity: 0.3;
-      transform: scaleX(0.8);
-    }
-    50% {
-      opacity: 1;
-      transform: scaleX(1);
-    }
-    100% {
-      opacity: 0.3;
-      transform: scaleX(0.8);
-    }
-  }
-  
-  /* Animación de escaneo para el hover */
-  @keyframes scanEffect {
-    0% {
-      left: -100%;
-    }
-    100% {
-      left: 200%;
-    }
-  }
-  
-  /* Animación de partículas para el hover */
-  @keyframes particleEffect {
-    0% {
-      opacity: 0;
-      transform: scale(0);
-    }
-    50% {
-      opacity: 0.5;
-      transform: scale(1);
-    }
-    100% {
-      opacity: 0;
-      transform: scale(1.5);
-    }
-  }
-  
-  /* Estilos y animaciones para los botones de navegación */
-  .nav-button {
-    position: relative;
-    overflow: hidden;
-    transition: all 0.4s ease;
-    z-index: 1;
-  }
-  
-  /* Efecto de brillo continuo */
-  .nav-button::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -100%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(45deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.8) 50%, rgba(255,255,255,0) 100%);
-    transform: rotate(45deg);
-    z-index: -1;
-    animation: shine 3s infinite linear;
-  }
-  
-  /* Animación de pulsación al hacer clic */
-  .nav-button:active {
-    transform: scale(0.95);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  }
-  
-  /* Animación de brillo continua */
-  @keyframes shine {
-    0% {
-      left: -100%;
-      opacity: 0;
-    }
-    20% {
-      opacity: 0.5;
-    }
-    100% {
-      left: 100%;
-      opacity: 0;
-    }
-  }
-  
-  @keyframes pulse {
-    0% {
-      box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7);
-    }
-    70% {
-      box-shadow: 0 0 0 10px rgba(59, 130, 246, 0);
-    }
-    100% {
-      box-shadow: 0 0 0 0 rgba(59, 130, 246, 0);
-    }
-  }
-  
-  /* Animación continua para el botón de login */
-  .login-btn:hover, .register-btn:hover, .logout-btn:hover {
-    animation: float 3s ease-in-out infinite;
-    cursor: pointer;
-  }
-  
-  @keyframes float {
-    0% {
-      transform: translateY(0px);
-    }
-    50% {
-      transform: translateY(-5px);
-    }
-    100% {
-      transform: translateY(0px);
-    }
-  }
-  
-  .gaming-link:hover {
-    background: linear-gradient(90deg, #00f0ff, #00ff94, #00f0ff);
-    background-size: 200% 200%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: glowText 1.5s ease-in-out infinite;
-    text-shadow: 0 0 10px rgba(0, 255, 255, 0.6), 0 0 20px rgba(0, 255, 255, 0.4);
-  }
-  
-  @keyframes glowText {
-    0% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 50%;
-    }
-  }
+}
