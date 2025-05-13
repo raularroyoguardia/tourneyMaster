@@ -31,15 +31,15 @@
                 <a routerLink="/welcome" routerLinkActive="nav-active" [routerLinkActiveOptions]="{exact: true}" class="nav-link">
                     <span>Inici</span>
                 </a>
-                <a class="nav-link-locked">
+                <a routerLink="/torneig-list" class="nav-link-locked">
                     <span>Tornejos</span>
                     <i class="fi fi-rr-lock lock-icon"></i>
                 </a>
-                <a class="nav-link-locked">
+                <a routerLink="/clasificacio-list" class="nav-link-locked">
                     <span>Classificació</span>
                     <i class="fi fi-rr-lock lock-icon"></i>
                 </a>
-                <a class="nav-link-locked">
+                <a routerLink="/equip-list" class="nav-link-locked">
                     <span>Equip</span>
                     <i class="fi fi-rr-lock lock-icon"></i>
                 </a>
@@ -70,13 +70,11 @@
                         class="profile-img" [alt]="user.name || 'Usuario'" (click)="toggleMenu()" />
                     
                     <!-- Submenú -->
-                    <div class="dropdown-menu" [ngClass]="{ 'menu-active' : isMenuOpen }" id="subMenu">
+                    <div class="sub-menu-wrap" [ngClass]="{ 'menu-active' : isMenuOpen }" id="subMenu">
                         <div class="dropdown-content">
                             <div class="user-info">
-                                <div class="user-avatar">
-                                    <img [src]="'http://127.0.0.1:8000/uploads/fotoUsuari/' + user.foto_perfil">
-                                </div>
-                                <h2>{{ tokenService.getUserName() }}</h2>
+                                <img [src]="'http://127.0.0.1:8000/uploads/fotoUsuari/' + user.foto_perfil">
+                                <h3>{{ tokenService.getUserName() }}</h3>
                             </div>
                             <div class="menu-divider"></div>
 

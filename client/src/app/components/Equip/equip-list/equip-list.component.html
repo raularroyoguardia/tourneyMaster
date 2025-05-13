@@ -1,82 +1,122 @@
-<div *ngIf="equips && equips.length > 0; else noData">
-  <div *ngFor="let equip of equips" class="equip-card">
-    <div class="info flex">
-      <div class="imatgeEquip w-16 flex-auto">
-        <img [src]="'http://127.0.0.1:8000/uploads/fotosEquips/' + equip.foto_equip" alt="{{ equip.foto_equip }} foto" class="equip-image">
+<div class="cyber-container">
+  <div *ngIf="equips && equips.length > 0; else noData" class="teams-grid">
+    <div *ngFor="let equip of equips" class="cyber-team-card">
+      <div class="card-header">
+        <div class="team-image-container">
+          <img [src]="'http://127.0.0.1:8000/uploads/fotosEquips/' + equip.foto_equip" alt="{{ equip.nom }} foto" class="team-image">
+          <div class="image-glow"></div>
+        </div>
+        <div class="team-info">
+          <h3 class="team-name">{{ equip.nom }}</h3>
+          <p class="team-description">{{ equip.descripcio }}</p>
+        </div>
+        <div class="team-stats">
+          <div class="stat-item">
+            <span class="stat-label">Región</span>
+            <span class="stat-value">{{ equip.regio }}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Trofeos</span>
+            <span class="stat-value trophy-value">{{ equip.trofeus }} <i class="trophy-icon fi fi-sr-trophy-star"></i></span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Creado</span>
+            <span class="stat-value date-value">{{ equip.data_creacio | date }}</span>
+          </div>
+        </div>
       </div>
-      <div class="infoEquip w-64 flex-auto">
-        <h3>{{ equip.nom }}</h3>
-        <p>{{ equip.descripcio }}</p>
-      </div>
-      <div class="infoEquip2 w-32 flex-auto">
-        <p><strong>Región:</strong> {{ equip.regio }}</p>
-        <p><strong>Trofeos:</strong> {{ equip.trofeus }}</p>
-        <p><strong>Data Creación:</strong> {{ equip.data_creacio | date }}</p>
-      </div>
-    </div>
 
-    <div *ngIf="equip.users && equip.users.length > 0">
-      <table>
-        <thead>
-          <tr>
-            <th>Posición</th>
-            <th>Nombre</th>
-            <th>Trofeos</th>
-            <th>Foto Perfil</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let user of equip.users; let i = index">
-            <td>{{ i + 1 }}</td>
-            <td>{{ user.name }}</td>
-            <td>{{ user.trofeus }}</td>
-            <td><img [src]="'http://127.0.0.1:8000/uploads/fotoUsuari/' + user.foto_perfil" [alt]="user.name + ' foto'"
-                class="imatgeUsuari" /></td>
-          </tr>
-        </tbody>
-      </table>
+      <div *ngIf="equip.users && equip.users.length > 0" class="team-members">
+        <div class="section-title">
+          <span>Miembros del Equipo</span>
+        </div>
+        <div class="cyber-table-container">
+          <table class="cyber-table">
+            <thead>
+              <tr>
+                <th>Posición</th>
+                <th>Nombre</th>
+                <th>Trofeos</th>
+                <th>Perfil</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let user of equip.users; let i = index" class="cyber-table-row">
+                <td class="position-cell">{{ i + 1 }}</td>
+                <td class="name-cell">{{ user.name }}</td>
+                <td class="trophy-cell">
+                  <span class="trophy-count">{{ user.trofeus }}</span>
+                  <i class="trophy-icon fi fi-sr-trophy-star"></i>
+                </td>
+                <td class="avatar-cell">
+                  <div class="avatar-frame">
+                    <img [src]="'http://127.0.0.1:8000/uploads/fotoUsuari/' + user.foto_perfil" [alt]="user.name + ' foto'" class="user-avatar" />
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
-</div>
 
-<ng-template #noData>
-  <div class="teams-container" *ngIf="equips.length === 0">
-    
-    <div class="teams-card" *ngIf="equipsDisponibles.length > 0; else noDisponibles">
-      <div class="teams-header">
-        <h3>Equipos disponibles</h3>
+  <ng-template #noData>
+    <div class="cyber-container" *ngIf="equips.length === 0">
+      <div class="section-title main-title">
+        <span>Equipos Disponibles</span>
+        <div class="title-line"></div>
       </div>
       
-      <table class="teams-table" style="color: black;">
-        <thead>
-          <tr>
-            <th>Imagen</th>
-            <th>Equipo</th>
-            <th>Región</th>
-            <th>Plazas</th>
-            <th>Acción</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let equip of equipsDisponibles">
-            <td>
-              <img [src]="'uploads/fotosEquips/' + equip.foto_equip" alt="Foto equipo" class="team-image" />
-            </td>
-            <td class="team-name">{{ equip.nom }}</td>
-            <td class="team-region">{{ equip.regio }}</td>
-            <td class="team-slots">{{ equip.users_count }} / {{equip.maxim_integrants}}</td>
-            <td>
-              <button class="join-button" (click)="unirseEquipo(equip.id)">Unirse</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <ng-template #noDisponibles>
-      <div class="no-data">
-        <p>No hi ha equips disponibles.</p>
+      <div class="available-teams-card" *ngIf="equipsDisponibles.length > 0; else noDisponibles">
+        <div class="cyber-table-container">
+          <table class="cyber-table available-teams-table">
+            <thead>
+              <tr>
+                <th>Imagen</th>
+                <th>Equipo</th>
+                <th>Región</th>
+                <th>Plazas</th>
+                <th>Acción</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let equip of equipsDisponibles" class="cyber-table-row">
+                <td class="avatar-cell">
+                  <div class="team-logo-frame">
+                    <img [src]="'http://127.0.0.1:8000/uploads/fotosEquips/' + equip.foto_equip" alt="Foto equipo" class="team-logo" />
+                  </div>
+                </td>
+                <td class="name-cell">{{ equip.nom }}</td>
+                <td class="region-cell">{{ equip.regio }}</td>
+                <td class="slots-cell">
+                  <div class="slots-display">
+                    <span class="current-slots">{{ equip.users_count }}</span>
+                    <span class="slots-separator">/</span>
+                    <span class="max-slots">{{equip.maxim_integrants}}</span>
+                  </div>
+                </td>
+                <td class="action-cell">
+                  <button class="cyber-button join-btn" (click)="unirseEquipo(equip.id)">
+                    <span class="btn-content">Unirse</span>
+                    <span class="btn-glitch"></span>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
-    </ng-template>
-  </div>
-</ng-template>
+
+      <ng-template #noDisponibles>
+        <div class="no-teams-message">
+          <div class="message-icon">
+            <i class="fi fi-rr-info"></i>
+          </div>
+          <p>No hay equipos disponibles actualmente.</p>
+          <div class="message-glow"></div>
+        </div>
+      </ng-template>
+    </div>
+  </ng-template>
+</div>
