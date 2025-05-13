@@ -29,7 +29,9 @@ Route::delete('logout', [AuthController::class, 'logout'])->middleware('auth:san
 
 //EQUIPS
 Route::get('/equips', [EquipController::class, 'list'])->name('equips_list');
-Route::post('/equip/new', [EquipController::class, 'new'])->name('equip_new');
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/equip/new', [EquipController::class, 'new']);
+});
 Route::get('/equip/{id}', [EquipController::class, 'show'])->name('equip_show');
 Route::match(['get', 'post'], '/equip/edit/{id}', [EquipController::class, 'edit'])->name('equip_edit');
 Route::get('/equip/delete/{id}', [EquipController::class, 'delete'])->name('equip_delete');
@@ -50,6 +52,7 @@ Route::post('/torneigs/{torneigId}/unirse-individual', [EquipController::class, 
 Route::get('/users', [UserController::class, 'list'])->name('users_list');
 // Route::post('/user/new', [UserController::class, 'new'])->name('user_new');
 Route::get('/user/{id}', [UserController::class, 'show'])->name('user_show');
+Route::get('/userOne/{id}', [UserController::class, 'showOne']);
 Route::match(['get', 'post'], '/user/edit/{id}', [UserController::class, 'edit'])->name('user_edit');
 Route::get('/user/delete/{id}', [UserController::class, 'delete'])->name('user_delete');
 Route::put('/users/{id}/add-trofeus', [UserController::class, 'afegirTrofeus']);

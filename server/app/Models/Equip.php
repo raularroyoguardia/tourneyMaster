@@ -9,8 +9,10 @@ class Equip extends Model
 {
     protected $fillable = ['nom', 'regio', 'foto_equip', 'descripcio', 'trofeus'];
     protected $table = 'equips';
-
-
+    protected $casts = [
+        'maxim_integrants' => 'integer',
+        'trofeus' => 'integer',
+    ];
     public function torneigs(): HasMany
     {
         return $this->hasMany(Torneig::class);

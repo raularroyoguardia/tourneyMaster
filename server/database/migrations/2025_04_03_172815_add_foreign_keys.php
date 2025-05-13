@@ -13,7 +13,7 @@ return new class extends Migration
     {
         //FOREIGN KEYS USERS
         Schema::table('users', function (Blueprint $table) {
-            $table->foreignId('tipus_usuari_id')->nullable()->constrained('tipus_usuaris')->cascadeOnDelete();
+            $table->foreignId('tipus_usuari_id')->default(3)->constrained('tipus_usuaris')->cascadeOnDelete();
         });
 
         //FOREIGN KEYS TORNEIGS

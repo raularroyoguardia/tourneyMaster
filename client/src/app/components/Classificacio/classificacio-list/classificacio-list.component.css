@@ -1,78 +1,365 @@
+/* Variables */
+:root {
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-card: rgba(30, 41, 59, 0.8);
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --accent-blue: #00f0ff;
+  --accent-purple: #8b5cf6;
+  --accent-pink: #d946ef;
+  --accent-green: #00ff9d;
+  --border-dark: #334155;
+  --glow-blue: 0 0 10px rgba(0, 240, 255, 0.7), 0 0 20px rgba(0, 240, 255, 0.4);
+  --glow-purple: 0 0 10px rgba(139, 92, 246, 0.7), 0 0 20px rgba(139, 92, 246, 0.4);
+  --glow-pink: 0 0 10px rgba(217, 70, 239, 0.7), 0 0 20px rgba(217, 70, 239, 0.4);
+  --cyber-gradient: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
+  --cyber-gradient-alt: linear-gradient(90deg, var(--accent-pink), var(--accent-blue));
+}
 
-body {
-    background: linear-gradient(180deg, #000000, #b83280); 
-    color: white; 
-    font-family: Arial, sans-serif; 
-    margin: 0; 
-    padding: 0;
+/* Contenedor principal */
+.cyber-container {
+  padding: 2rem;
+  min-height: 100vh;
+  color: var(--text-primary);
+}
+
+/* Botones de alternancia */
+.toggle-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.cyber-toggle-btn {
+  position: relative;
+  padding: 0.75rem 2rem;
+  background-color: rgba(15, 23, 42, 0.8);
+  color: var(--text-secondary);
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: 1px solid var(--border-dark);
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+}
+
+.cyber-toggle-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 240, 255, 0.1), transparent);
+  transition: all 0.5s ease;
+}
+
+.cyber-toggle-btn:hover::before {
+  left: 100%;
+}
+
+.cyber-toggle-btn:hover {
+  color: var(--text-primary);
+  background-color: rgba(30, 41, 59, 0.8);
+  transform: translateY(-2px);
+}
+
+.cyber-toggle-btn.active {
+  background-color: rgba(0, 240, 255, 0.1);
+  color: var(--accent-blue);
+  border-color: var(--accent-blue);
+  box-shadow: var(--glow-blue);
+}
+
+.btn-content {
+  position: relative;
+  z-index: 2;
+}
+
+.btn-glow {
+  position: absolute;
+  inset: 0;
+  background: transparent;
+  opacity: 0;
+  z-index: 1;
+  transition: opacity 0.3s ease;
+}
+
+.cyber-toggle-btn.active .btn-glow {
+  opacity: 0.2;
+  box-shadow: inset 0 0 15px var(--accent-blue);
+}
+
+/* Sección de clasificación */
+.classification-section {
+  margin-top: 1rem;
+}
+
+/* Tabla cyberpunk */
+.cyber-table-container {
+  overflow-x: auto;
+  border-radius: 8px;
+  background-color: rgba(15, 23, 42, 0.5);
+  border: 1px solid var(--border-dark);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.cyber-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.cyber-table thead {
+  background: linear-gradient(to right, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.9));
+}
+
+.cyber-table th {
+  text-align: left;
+  text-align: center;
+  padding: 1rem 1.5rem;
+  font-weight: 600;
+  color: var(--accent-blue);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid var(--border-dark);
+}
+
+.cyber-table td {
+  padding: 1rem 1.5rem;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  border-bottom: 1px solid rgba(51, 65, 85, 0.3);
+}
+
+.cyber-table-row {
+  transition: all 0.3s ease;
+}
+
+.cyber-table-row:hover {
+  background-color: rgba(30, 41, 59, 0.5);
+}
+
+.cyber-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Columnas específicas */
+.position-column {
+  width: 100px;
+}
+
+.trophy-column {
+  width: 120px;
+}
+
+/* Celdas específicas */
+.position-cell {
+  width: 80px;
+}
+
+.position-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: rgba(30, 41, 59, 0.7);
+  border-radius: 50%;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 auto;
+  border: 1px solid var(--border-dark);
+  transition: all 0.3s ease;
+}
+
+.first-position {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 215, 0, 0.05));
+  color: gold;
+  border-color: rgba(255, 215, 0, 0.3);
+  box-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+}
+
+.second-position {
+  background: linear-gradient(135deg, rgba(192, 192, 192, 0.2), rgba(192, 192, 192, 0.05));
+  color: silver;
+  border-color: rgba(192, 192, 192, 0.3);
+  box-shadow: 0 0 10px rgba(192, 192, 192, 0.3);
+}
+
+.third-position {
+  background: linear-gradient(135deg, rgba(205, 127, 50, 0.2), rgba(205, 127, 50, 0.05));
+  color: #cd7f32; /* Bronce */
+  border-color: rgba(205, 127, 50, 0.3);
+  box-shadow: 0 0 10px rgba(205, 127, 50, 0.3);
+}
+
+
+.cyber-table-row:hover .position-badge {
+  transform: scale(1.1);
+}
+
+.user-cell,
+.team-cell {
+  min-width: unset;
+  text-align: center;
+}
+
+.user-info,
+.team-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.avatar-frame,
+.team-logo-frame {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--cyber-gradient);
+  padding: 2px;
+  box-shadow: var(--glow-blue);
+  transition: all 0.3s ease;
+}
+
+.team-logo-frame {
+  border-radius: 8px;
+}
+
+.cyber-table-row:hover .avatar-frame,
+.cyber-table-row:hover .team-logo-frame {
+  transform: scale(1.05);
+  box-shadow: var(--glow-purple);
+}
+
+.user-avatar,
+.team-logo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.team-logo {
+  border-radius: 6px;
+}
+
+.user-name,
+.team-name {
+  font-weight: 600;
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+}
+
+.cyber-table-row:hover .user-name,
+.cyber-table-row:hover .team-name {
+  color: var(--accent-blue);
+  text-shadow: 0 0 5px rgba(0, 240, 255, 0.3);
+}
+
+.trophy-cell {
+  width: 120px;
+}
+
+.trophy-display {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: flex-start;
+}
+
+.trophy-count {
+  color: goldenrod;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.trophy-icon {
+  color: goldenrod;
+  font-size: 1.1rem;
+}
+
+.region-cell {
+  width: 150px;
+}
+
+.region-badge {
+  display: inline-block;
+  padding: 0.4rem 0.8rem;
+  background-color: rgba(0, 255, 157, 0.1);
+  color: var(--accent-green);
+  border: 1px solid rgba(0, 255, 157, 0.3);
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.cyber-table-row:hover .region-badge {
+  background-color: rgba(0, 255, 157, 0.2);
+  box-shadow: 0 0 8px rgba(0, 255, 157, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .cyber-container {
+    padding: 1.5rem;
   }
-  
-  
-  .buttons {
-    display: flex;
-    justify-content: center; 
-    gap: 15px; 
-    margin: 20px 0; 
+}
+
+@media (max-width: 768px) {
+  .cyber-container {
+    padding: 1rem;
   }
-  
-  
-  .buttons button {
-    background: linear-gradient(45deg, #6200ea, #b83280); 
-    border: none; 
-    color: white; 
-    padding: 10px 20px; 
-    font-size: 16px; 
-    cursor: pointer; 
-    border-radius: 25px; 
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3); 
-    transition: all 0.3s ease; 
+
+  .toggle-buttons {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
   }
-  
-  
-  .buttons button:hover {
-    background: linear-gradient(45deg, #b83280, #6200ea); 
-    transform: scale(1.1); 
+
+  .cyber-toggle-btn {
+    width: 80%;
   }
-  
-  
-  table {
-    width: 90%; 
-    margin: 0 auto; 
-    border-collapse: collapse; 
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4); 
+
+  .cyber-table th,
+  .cyber-table td {
+    padding: 0.75rem 1rem;
   }
-  
-  
-  thead {
-    color: white; 
-    text-align: center; 
+
+  .position-badge {
+    width: 35px;
+    height: 35px;
   }
-  
-  
-  thead th {
-    padding: 15px; 
-    font-size: 18px; 
+
+  .avatar-frame,
+  .team-logo-frame {
+    width: 40px;
+    height: 40px;
   }
-  
-  
-  tbody tr {
-    color: white; 
-    text-align: center; 
+}
+
+@media (max-width: 576px) {
+  .cyber-table {
+    min-width: 500px;
   }
-  
-  
-  tbody td {
-    padding: 10px; 
+
+  .user-info,
+  .team-info {
+    gap: 0.5rem;
   }
-  
-  
-  tbody tr:hover {
-    transition: background-color 0.3s ease; 
+
+  .user-name,
+  .team-name {
+    font-size: 0.9rem;
   }
-  
-  h3 {
-    text-align: center; 
-    color: #ffffff; 
-    margin-bottom: 20px; 
-  }
-  
+}

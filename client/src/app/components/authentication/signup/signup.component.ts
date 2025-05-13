@@ -5,6 +5,9 @@ import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { StepsModule } from 'primeng/steps';
 import { MenuItem } from 'primeng/api';
+import { AuthCredentials } from '../../../interfaces/auth-credentials.model';
+import { TokenService } from '../../../services/auth/token.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-signup',
@@ -18,11 +21,17 @@ export class SignupComponent {
   items: MenuItem[] | undefined;
   active: number = 0;
   selectedFile: File | null = null;
+  authCredentials: AuthCredentials = {
+    email: '',
+    password: ''
+  };
 
   constructor(
     private authService: AuthService,
     private router: Router,
     private fb: FormBuilder,
+    private http: HttpClient,
+    public tokenService: TokenService
   ) {
     this.registerForm = this.fb.group({
       name: [''],
@@ -32,7 +41,6 @@ export class SignupComponent {
       password: [''],
       password_confirmation: [''],
       telefon: ['']
-      // NOTA: foto_perfil se maneja por separado, no se incluye aquí
     });
   }
 
@@ -52,7 +60,7 @@ export class SignupComponent {
     // Agregar campos normales
     Object.entries(formValue).forEach(([key, value]) => {
       formData.append(key, String(value ?? ''));
-    });    
+    });
 
     // Agregar imagen si existe
     if (this.selectedFile) {
@@ -79,8 +87,23 @@ export class SignupComponent {
 
   private handleResponse(response: any): void {
     console.log(response.message);
-    // TODO: Redirigir si lo deseas
-    this.router.navigateByUrl('/welcome');
+
+    this.authCredentials.email = this.registerForm.value.email;
+    this.authCredentials.password = this.registerForm.value.password;
+
+    // Hacer login automático después del registro
+    this.authService.login(this.authCredentials).subscribe({
+      next: (loginResponse) => {
+        // Guardar token y usuario igual que en LoginComponent
+        this.authService.tokenService.handleToken(loginResponse.token);
+        localStorage.setItem('user', JSON.stringify(loginResponse.user));
+        this.router.navigateByUrl('/welcome');
+      },
+      error: (loginError) => {
+        console.error('Error al hacer login automático:', loginError);
+        this.errors = loginError.error.errors ?? { login: 'Error al iniciar sesión después del registro' };
+      }
+    });
   }
 
   private handleErrors(errors: any): void {

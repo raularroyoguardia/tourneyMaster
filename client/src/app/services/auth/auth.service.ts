@@ -7,6 +7,7 @@ import { AuthCredentials } from '../../interfaces/auth-credentials.model';
 import { UserRegister } from '../../interfaces/user-register.model';
 import { IUser } from '../../interfaces/iUser';
 import { IEquip } from '../../interfaces/iEquip';
+import { TokenService } from './token.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,9 @@ import { IEquip } from '../../interfaces/iEquip';
 export class AuthService {
   private readonly API_URL = environment.apiURL;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,
+    public tokenService: TokenService
+  ) {}
 
   login(credentials: AuthCredentials): Observable<any> {
     return this.http.post(`${this.API_URL}/login`, credentials);
@@ -47,10 +50,6 @@ export class AuthService {
   clearUser() {
     localStorage.removeItem('currentUser');
   }
-
-  
-
-
 
 
 }

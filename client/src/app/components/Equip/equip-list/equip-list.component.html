@@ -12,15 +12,15 @@
         </div>
         <div class="team-stats">
           <div class="stat-item">
-            <span class="stat-label">Región</span>
+            <span class="stat-label">Regió</span>
             <span class="stat-value">{{ equip.regio }}</span>
           </div>
           <div class="stat-item">
-            <span class="stat-label">Trofeos</span>
+            <span class="stat-label">Trofeus</span>
             <span class="stat-value trophy-value">{{ equip.trofeus }} <i class="trophy-icon fi fi-sr-trophy-star"></i></span>
           </div>
           <div class="stat-item">
-            <span class="stat-label">Creado</span>
+            <span class="stat-label">Creat</span>
             <span class="stat-value date-value">{{ equip.data_creacio | date }}</span>
           </div>
         </div>
@@ -28,15 +28,15 @@
 
       <div *ngIf="equip.users && equip.users.length > 0" class="team-members">
         <div class="section-title">
-          <span>Miembros del Equipo</span>
+          <span>Miembres del Equip</span>
         </div>
         <div class="cyber-table-container">
           <table class="cyber-table">
             <thead>
               <tr>
-                <th>Posición</th>
-                <th>Nombre</th>
-                <th>Trofeos</th>
+                <th>Posició</th>
+                <th>Nom</th>
+                <th>Trofeus</th>
                 <th>Perfil</th>
               </tr>
             </thead>
@@ -44,9 +44,8 @@
               <tr *ngFor="let user of equip.users; let i = index" class="cyber-table-row">
                 <td class="position-cell">{{ i + 1 }}</td>
                 <td class="name-cell">{{ user.name }}</td>
-                <td class="trophy-cell">
-                  <span class="trophy-count">{{ user.trofeus }}</span>
-                  <i class="trophy-icon fi fi-sr-trophy-star"></i>
+                <td class="trophy-count">
+                  <span class="trophy-value">{{ user.trofeus }} <i class="trophy-icon fi fi-sr-trophy-star"></i></span>
                 </td>
                 <td class="avatar-cell">
                   <div class="avatar-frame">
@@ -64,7 +63,7 @@
   <ng-template #noData>
     <div class="cyber-container" *ngIf="equips.length === 0">
       <div class="section-title main-title">
-        <span>Equipos Disponibles</span>
+        <span>Equips Disponibles</span>
         <div class="title-line"></div>
       </div>
       
@@ -73,11 +72,10 @@
           <table class="cyber-table available-teams-table">
             <thead>
               <tr>
-                <th>Imagen</th>
-                <th>Equipo</th>
-                <th>Región</th>
-                <th>Plazas</th>
-                <th>Acción</th>
+                <th colspan="2">Equip</th>
+                <th>Regió</th>
+                <th>Places</th>
+                <th>Acció</th>
               </tr>
             </thead>
             <tbody>
@@ -113,7 +111,7 @@
           <div class="message-icon">
             <i class="fi fi-rr-info"></i>
           </div>
-          <p>No hay equipos disponibles actualmente.</p>
+          <p>No hi ha equips disponibles actualment.</p>
           <div class="message-glow"></div>
         </div>
       </ng-template>

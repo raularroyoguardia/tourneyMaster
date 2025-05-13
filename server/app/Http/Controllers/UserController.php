@@ -132,6 +132,12 @@ class UserController extends Controller
         return response()->json($equipCollectiu);
     }
 
+    public function showOne($id)
+    {
+        $user = User::findOrFail($id);
+        return response()->json($user);
+    }
+
     public function delete($id)
     {
         $user = User::findOrFail($id);

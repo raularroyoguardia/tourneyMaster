@@ -23,14 +23,16 @@ export class DadesEquipsService {
 
   public getUserEquips(): Observable<any> {
     const token = this.tokenService.getToken();
-    console.log('Token:', token);
+    // console.log('Token:', token);
     const headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
 
-    return this._http.get<any[]>(`http://127.0.0.1:8000/api/equips/user`, { headers }).pipe(
-      map((equips: any[]) => {
-        return equips.filter(equip => equip.maxim_integrants >= 2);
-      })
-    );
+    // return this._http.get<any[]>(`http://127.0.0.1:8000/api/equips/user`, { headers }).pipe(
+    //   map((equips: any[]) => {
+    //     return equips.filter(equip => equip.maxim_integrants >= 2);
+    //   })
+    // );
+    return this._http.get<any[]>(`http://127.0.0.1:8000/api/equips/user`, { headers });
+
   }
 
   public getEquipsDisponibles(): Observable<any> {

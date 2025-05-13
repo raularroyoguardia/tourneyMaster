@@ -37,6 +37,13 @@ export class TokenService {
     return user ? user.name: '';
   }
 
+  getFullName(): string {
+    const user = this.getUser();
+    const apellido1 = user.apellido1;
+    const apellido2 = user.apellido2;
+    return user.name + ' ' + apellido1.charAt(0) + apellido2.charAt(0); 
+  }
+
   getUserTrofeus(): string {
     const user = this.getUser();
     return user ? user.trofeus: '';

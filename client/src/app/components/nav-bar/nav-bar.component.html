@@ -11,7 +11,8 @@
         <!-- Navbar centrado -->
         <ng-container *ngIf="tokenService.isAuthenticated()">
             <nav class="hidden md:flex items-center gap-8">
-                <a routerLink="/welcome" routerLinkActive="nav-active" [routerLinkActiveOptions]="{exact: true}" class="nav-link">
+                <a routerLink="/welcome" routerLinkActive="nav-active" [routerLinkActiveOptions]="{exact: true}"
+                    class="nav-link">
                     <span>Inici</span>
                 </a>
                 <a routerLink="/torneig-list" routerLinkActive="nav-active" class="nav-link">
@@ -28,7 +29,8 @@
 
         <ng-container *ngIf="!tokenService.isAuthenticated()">
             <nav class="hidden md:flex items-center gap-8">
-                <a routerLink="/welcome" routerLinkActive="nav-active" [routerLinkActiveOptions]="{exact: true}" class="nav-link">
+                <a routerLink="/welcome" routerLinkActive="nav-active" [routerLinkActiveOptions]="{exact: true}"
+                    class="nav-link">
                     <span>Inici</span>
                 </a>
                 <a routerLink="/torneig-list" class="nav-link-locked">
@@ -61,24 +63,26 @@
         <ng-container *ngIf="tokenService.isAuthenticated()">
             <div class="flex items-center gap-4">
                 <div class="trophy-badge">
-                    <span>{{ tokenService.getUserTrofeus() }}</span>
+                    <!-- <span>{{ tokenService.getUserTrofeus() }}</span> -->
+                    <span>{{ trofeus }}</span>
+
                     <i class="fi fi-sr-trophy-star trophy-icon"></i>
                 </div>
                 <span class="username">{{ tokenService.getUserName() }}</span>
                 <div class="profile-wrapper">
-                    <img *ngIf="user.foto_perfil" [src]="'http://127.0.0.1:8000/uploads/fotoUsuari/' + user.foto_perfil" 
+                    <img *ngIf="user.foto_perfil" [src]="'http://127.0.0.1:8000/uploads/fotoUsuari/' + user.foto_perfil"
                         class="profile-img" [alt]="user.name || 'Usuario'" (click)="toggleMenu()" />
-                    
+
                     <!-- Submenú -->
                     <div class="sub-menu-wrap" [ngClass]="{ 'menu-active' : isMenuOpen }" id="subMenu">
                         <div class="dropdown-content">
                             <div class="user-info">
                                 <img [src]="'http://127.0.0.1:8000/uploads/fotoUsuari/' + user.foto_perfil">
-                                <h3>{{ tokenService.getUserName() }}</h3>
+                                <h3>{{ tokenService.getFullName() }}</h3>
                             </div>
                             <div class="menu-divider"></div>
 
-                            <a href="#" class="menu-item">
+                            <a routerLink="/user-edit" class="menu-item">
                                 <div class="item-icon">
                                     <img [src]="'uploads/iconos/usuario.png'" />
                                 </div>
@@ -99,6 +103,14 @@
                                 <p>Crear Torneo</p>
                                 <span class="item-arrow">›</span>
                             </a>
+                            <a routerLink="/equip-new" class="menu-item" *ngIf="trofeus >= 1000 && !equip">
+                                <div class="item-icon">
+                                    <img [src]="'uploads/iconos/mas.png'" />
+                                </div>
+                                <p>Crear Equip</p>
+                                <span class="item-arrow">›</span>
+                            </a>
+
                             <a (click)="logout()" class="menu-item logout-item">
                                 <div class="item-icon logout-icon">
                                     <img [src]="'uploads/iconos/energia-red.png'" />

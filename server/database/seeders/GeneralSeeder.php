@@ -961,7 +961,7 @@ class GeneralSeeder extends Seeder
         $carlos_equip = DB::table('equips')->insertGetId([
             'nom' => 'Carlos MS',
             'regio' => 'Europa',
-            'foto_equip' => 'carlosindiviual.jpg',
+            'foto_equip' => 'carlos_ms.jpg',
             'data_creacio' => now(),
             'descripcio' => 'Este es un equipo individual en el que pertenece solo un equipo.',
             'maxim_integrants' => 1
@@ -970,7 +970,7 @@ class GeneralSeeder extends Seeder
         $pere_equip = DB::table('equips')->insertGetId([
             'nom' => 'Pere FT',
             'regio' => 'Europa',
-            'foto_equip' => 'pereindividual.jpg',
+            'foto_equip' => 'pere_ft.jpg',
             'data_creacio' => now(),
             'descripcio' => 'Este es un equipo individual en el que pertenece solo un equipo.',
             'maxim_integrants' => 1
@@ -979,7 +979,7 @@ class GeneralSeeder extends Seeder
         $raul_equip = DB::table('equips')->insertGetId([
             'nom' => 'Raúl AG',
             'regio' => 'Europa',
-            'foto_equip' => 'raulindividual.jpg',
+            'foto_equip' => 'raul_ag.jpeg',
             'data_creacio' => now(),
             'descripcio' => 'Este es un equipo individual en el que pertenece solo un equipo.',
             'maxim_integrants' => 1
@@ -988,7 +988,7 @@ class GeneralSeeder extends Seeder
         $fran_equip = DB::table('equips')->insertGetId([
             'nom' => 'Fran RB',
             'regio' => 'Europa',
-            'foto_equip' => 'franindividual.jpg',
+            'foto_equip' => 'fran_rb.jpg',
             'data_creacio' => now(),
             'descripcio' => 'Este es un equipo individual en el que pertenece solo un equipo.',
             'maxim_integrants' => 1

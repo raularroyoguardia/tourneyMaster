@@ -33,12 +33,16 @@ class EquipController extends Controller
 
     public function new(Request $request)
     {
+        $user = $request->user();
         $equip = new Equip();
         $request->validate([
             'nom' => 'required|string|max:20',
             'regio' => 'required|string',
             'descripcio' => 'required|string|max:255',
-            'maxim_integrants' => 'required|integer|max:5'
+            'maxim_integrants' => 'required|integer|max:5',
+            'foto_equip' => 'required|image',
+            'data_creacio' => 'required|date',
+            'trofeus' => 'required|integer'
         ], [
             'nom.required' => 'El nom és obligatòri',
             'nom.max' => 'El nom de l\'equip no pot superar els 20 caràcters.',
@@ -46,7 +50,10 @@ class EquipController extends Controller
             'descripcio.required' => 'La descripció és obligatòria',
             'descripcio.max' => 'La descripció no pot superar els 255 caràcters.',
             'maxim_integrants.required' => 'El màxim d\'integrants és obligatori',
-            'maxim_integrants.max' => 'El màxim d\'integrants no pot superar 5 persones.'
+            'maxim_integrants.max' => 'El màxim d\'integrants no pot superar 5 persones.',
+            'foto_equip.required' => 'La foto de l\'equip és obligatòria',
+            'foto_equip.image' => 'El fitxer ha de ser una imatge',
+            'data_creacio.required' => 'La data de creació és obligatòria',
         ]);
 
         $equip->nom = $request->nom;
@@ -55,17 +62,26 @@ class EquipController extends Controller
         $equip->data_creacio = now();
         $equip->descripcio = $request->descripcio;
         $equip->maxim_integrants = $request->maxim_integrants;
-
-        $equip->save();
+        $equip->trofeus = $request->trofeus;
 
         if ($request->hasFile('foto_equip')) {
             $file = $request->file('foto_equip');
             $extension = $file->getClientOriginalExtension();
             $filename = strtolower(Str::snake($equip->nom) . '.' . $extension);
-            $file->move(public_path('uploads/fotoEquips/'), $filename);
+            $file->move(public_path('uploads/fotosEquips/'), $filename);
             $equip->foto_equip = $filename;
-            $equip->save();
         }
+
+        $equip->save();
+
+        DB::table('equips_users')->insert([
+            'user_id' => $user->id,
+            'equip_id' => $equip->id,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+
         return response()->json($equip);
     }
 
@@ -120,10 +136,37 @@ class EquipController extends Controller
         return response()->json($equip);
     }
 
-    public function getEquipsForAuthenticatedUser(Request $request)
-    {
+    // public function getEquipsForAuthenticatedUser(Request $request)
+    // {
 
-        DB::statement("
+    //     DB::statement("
+    //     UPDATE equips e
+    //     JOIN (
+    //         SELECT eu.equip_id, SUM(CAST(u.trofeus AS UNSIGNED)) AS total_trofeus
+    //         FROM equips_users eu
+    //         JOIN users u ON eu.user_id = u.id
+    //         GROUP BY eu.equip_id
+    //     ) AS resumen ON e.id = resumen.equip_id
+    //     SET e.trofeus = resumen.total_trofeus
+    // ");
+
+
+    //     $user = $request->user();
+
+    //     $equips = $user->equips()
+    //         ->with(['users' => function ($query) {
+    //             $query->orderBy('trofeus', 'desc'); // orden descendente
+    //         }])
+    //         ->orderBy('trofeus', 'desc') // <-- aquí se ordenan los equips
+    //         ->get();
+
+
+    //     return response()->json($equips);
+    // }
+
+    public function getEquipsForAuthenticatedUser(Request $request)
+{
+    DB::statement("
         UPDATE equips e
         JOIN (
             SELECT eu.equip_id, SUM(CAST(u.trofeus AS UNSIGNED)) AS total_trofeus
@@ -134,17 +177,14 @@ class EquipController extends Controller
         SET e.trofeus = resumen.total_trofeus
     ");
 
+    $user = $request->user();
 
-        $user = $request->user();
+    $equips = $user->equips()
+        ->with(['users']) // Eliminamos la ordenación aquí
+        ->get();
 
-        $equips = $user->equips()
-            ->with(['users' => function ($query) {
-                $query->orderByDesc('trofeus');
-            }])
-            ->get();
-
-        return response()->json($equips);
-    }
+    return response()->json($equips);
+}
 
     public function equipsDisponibles()
     {

@@ -1,0 +1,40 @@
+<div class="tournament-container">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div>
+      <label>Nom del Equip</label>
+      <input type="text" formControlName="nom" />
+      <div *ngIf="form.get('nom')?.invalid && form.get('nom')?.touched">Aquest camp és obligatori.</div>
+    </div>
+
+    <div>
+      <label>Regió</label>
+      <select formControlName="regio">
+        <option value="" disabled selected>Selecciona una regió</option>
+        <option *ngFor="let r of regiones" [value]="r">{{ r }}</option>
+      </select>
+      <div *ngIf="form.get('regio')?.invalid && form.get('regio')?.touched">Selecciona una regió.</div>
+    </div>
+
+    <div>
+      <label>Descripció</label>
+      <textarea formControlName="descripcio" rows="3"></textarea>
+    </div>
+
+    <div>
+      <label>Màxim Integrants (2 - 5)</label>
+      <input type="number" formControlName="maxim_integrants" min="2" max="5" />
+      <div *ngIf="form.get('maxim_integrants')?.invalid && form.get('maxim_integrants')?.touched">
+        Ha de ser un número entre 2 i 5.
+      </div>
+    </div>
+
+    <div>
+      <label>Foto del Equip</label>
+      <input type="file" (change)="onFileSelected($event)" />
+    </div>
+
+    <div *ngIf="errorMessage">{{ errorMessage }}</div>
+
+    <button type="submit" [disabled]="form.invalid">Crear Equip</button>
+  </form>
+</div>
