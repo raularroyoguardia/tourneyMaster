@@ -200,8 +200,8 @@
 }
 
 .dropdown-content {
-  background-color: rgba(15, 23, 42, 0.95);
   backdrop-filter: blur(12px);
+  background-color: rgba(15, 23, 42, 0.95);
   border: 1px solid #334155;
   border-radius: 0.75rem;
   padding: 1.5rem;
@@ -311,14 +311,228 @@
   box-shadow: 0 0 10px rgba(239, 68, 68, 0.3);
 }
 
-/* Responsive */
+/* Mobile Menu Button */
+.mobile-menu-button {
+  display: none;
+  color: white;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Mobile Menu */
+.mobile-menu {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  backdrop-filter: blur(12px);
+}
+
+.mobile-menu-active {
+  max-height: 800px;
+}
+
+.mobile-nav-link {
+  color: #cbd5e1;
+  font-weight: 600;
+  padding: 0.75rem 0;
+  display: block;
+  border-bottom: 1px solid rgba(51, 65, 85, 0.5);
+  transition: color 0.3s ease;
+  text-decoration: none;
+}
+
+.mobile-nav-link:hover,
+.mobile-nav-active {
+  color: white;
+  text-decoration: none;
+}
+
+.mobile-nav-locked {
+  color: #64748b;
+  font-weight: 600;
+  padding: 0.75rem 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(51, 65, 85, 0.5);
+}
+
+.mobile-nav-locked a {
+  color: #64748b;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.mobile-user-section {
+  margin-top: 1rem;
+}
+
+.mobile-user-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.mobile-user-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.mobile-user-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #8b5cf6;
+}
+
+.mobile-username {
+  color: white;
+  font-weight: 600;
+}
+
+.mobile-trophy-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: rgba(30, 41, 59, 0.8);
+  padding: 0.3rem 0.6rem;
+  border-radius: 0.5rem;
+  color: white;
+  font-weight: bold;
+}
+
+.mobile-trophy-badge i {
+  color: goldenrod;
+}
+
+.mobile-menu-items {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.mobile-menu-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  background-color: rgba(30, 41, 59, 0.5);
+  border-radius: 0.5rem;
+  color: #cbd5e1;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.mobile-menu-item:hover {
+  background-color: rgba(30, 41, 59, 0.8);
+  color: white;
+}
+
+.mobile-logout-item {
+  color: #ef4444;
+  background-color: rgba(239, 68, 68, 0.1);
+}
+
+.mobile-logout-item:hover {
+  background-color: rgba(239, 68, 68, 0.2);
+}
+
+.mobile-auth-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.mobile-auth-button {
+  display: block;
+  text-decoration: none;
+  text-align: center;
+  color: white;
+  padding: 0.75rem;
+  background: linear-gradient(to right, #8b5cf6, #d946ef);
+  border-radius: 0.5rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.mobile-auth-button:hover {
+  box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+}
+
+/* Responsive Styles */
 @media (max-width: 768px) {
+  .mobile-menu-button {
+    display: block;
+  }
+  
+  .logo-container {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .site-title {
+    font-size: 1.25rem;
+  }
+  
   .profile-wrapper {
     position: static;
   }
-
+  
   .sub-menu-wrap {
-    right: 1rem;
-    width: 280px;
+    position: fixed;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    border-radius: 1rem 1rem 0 0;
+    margin-top: 0;
+  }
+  
+  .dropdown-content {
+    border-radius: 1rem 1rem 0 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo-container {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .site-title {
+    font-size: 1.1rem;
+  }
+  
+  .mobile-user-img {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .mobile-trophy-badge {
+    padding: 0.2rem 0.4rem;
+    font-size: 0.85rem;
+  }
+  
+  .mobile-menu-item {
+    padding: 0.6rem;
+  }
+}
+
+/* Fix for small screens */
+@media (max-width: 360px) {
+  .container {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+  
+  .site-title {
+    font-size: 1rem;
   }
 }

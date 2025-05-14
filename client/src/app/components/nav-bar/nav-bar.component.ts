@@ -14,11 +14,16 @@ import { HttpClient } from '@angular/common/http';
 })
 export class NavBarComponent implements OnInit, OnDestroy {
   user: any = {};
-  equip: any = {};
   isMenuOpen: boolean = false;
+  isMobileMenuOpen: boolean = false;
   usuariId: number = 0;
-  trofeus: number = this.user.trofeus;
+  equips: any[] = [];
+  tipusUsuariId: number = 0;
+  trofeus: number = 0;
   private trofeusInterval: any;
+  canCreateTeam: boolean = true;
+  apiBaseUrl: string = 'http://localhost:8000/api';
+  BaseUrl: string = 'http://localhost:8000';
 
   constructor(
     private authService: AuthService,
@@ -30,6 +35,10 @@ export class NavBarComponent implements OnInit, OnDestroy {
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
     console.log('Toggling menu:', this.isMenuOpen);
+  }
+
+  toggleMobileMenu(): void {
+    this.isMobileMenuOpen = !this.isMobileMenuOpen;
   }
   
   logout(): void {
@@ -57,20 +66,27 @@ export class NavBarComponent implements OnInit, OnDestroy {
 
     const usuari = JSON.parse(localStorage.getItem('user') || '{}');
     this.usuariId = usuari.id;
-    const Equip = this.equip = JSON.parse(localStorage.getItem('equip') || '{}');
+    this.tipusUsuariId = usuari.tipus_usuari_id;
+    this.trofeus = usuari.trofeus || 0;
+    
     this.getUserOne();
+    this.getUserEquips();
 
+    // Set up interval to refresh data
     this.trofeusInterval = setInterval(() => {
       this.getUserOne();
+      this.getUserEquips();
     }, 1000);
   }
 
   public getUserOne() {
-    this.http.get(`http://localhost:8000/api/userOne/${this.usuariId}`)
+    this.http.get(`${this.apiBaseUrl}/userOne/${this.usuariId}`)
       .subscribe({
         next: (response: any) => {
           this.user = response;             
           this.trofeus = response.trofeus;
+          // Update localStorage with the latest user data
+          localStorage.setItem('user', JSON.stringify(this.user));
         },
         error: (error) => {
           console.error('Error al obtener el usuario:', error);
@@ -78,11 +94,24 @@ export class NavBarComponent implements OnInit, OnDestroy {
       });
   }
 
+  public getUserEquips() {
+    this.http.get<any[]>(`${this.apiBaseUrl}/user/${this.usuariId}/equips`)
+      .subscribe({
+        next: (response: any[]) => {
+          this.equips = response;
+          // Si el usuario pertenece a algún equipo con maxim_integrants >= 2, NO puede crear otro
+          this.canCreateTeam = !this.equips.some(equip => equip.maxim_integrants >= 2);
+        },
+        error: (error) => {
+          console.error('Error al obtener equips del usuari:', error);
+          this.canCreateTeam = true; // Fallback por si falla la petición
+        }
+      });
+  }
+  
   ngOnDestroy(): void {
     if (this.trofeusInterval) {
       clearInterval(this.trofeusInterval);
     }
   }
-  
-
 }

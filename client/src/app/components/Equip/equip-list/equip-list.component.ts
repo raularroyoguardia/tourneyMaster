@@ -9,62 +9,6 @@ import { CommonModule } from '@angular/common';
   templateUrl: './equip-list.component.html',
   styleUrl: './equip-list.component.css'
 })
-// export class EquipListComponent implements OnInit {
-//   equips: IEquip[] = []; 
-//   equipsDisponibles: IEquip[] = [];
-
-
-//   constructor(private dadesEquipsService: DadesEquipsService) {}
-
-//   ngOnInit(): void {
-//     this.dadesEquipsService.getUserEquips().subscribe({
-//       next: (equips) => {
-//         this.equips = equips
-//           .filter((equip: IEquip): boolean => equip.maxim_integrants >= 2)
-//           .sort((a: IEquip, b: IEquip): number => b.trofeus - a.trofeus);
-//         this.equips.forEach(equip => {
-//           if (equip.users) {
-//             equip.users.sort((a, b) => b.trofeus - a.trofeus);
-//           }
-//         });
-//         console.log('Equip del usuari:', this.equips);
-//         if (equips.length === 0) {
-//           this.loadEquipsDisponibles();
-//         }
-//         localStorage.setItem("equips", JSON.stringify(equips));
-//       },
-//       error: (err) => {
-//         console.error('Error obtenint equip:', err);
-//       }
-//     });
-//   }
-  
-//   loadEquipsDisponibles(): void {
-//     this.dadesEquipsService.getEquipsDisponibles().subscribe({
-//       next: (data) => {
-//         this.equipsDisponibles = data;
-//       },
-//       error: (err) => {
-//         console.error('Error carregant equips disponibles:', err);
-//       }
-//     });
-//   }
-
-//   unirseEquipo(equipId: number): void {
-//     this.dadesEquipsService.unirseAUser(equipId).subscribe({
-//       next: (response) => {
-//         console.log(response.message);
-//         alert('Te has unido al equipo correctamente.');
-//         location.reload();
-//       },
-//       error: (err) => {
-//         console.error('Error al unirse al equipo:', err);
-//         alert(err.error.message || 'Error al unirse al equipo');
-//       }
-//     });
-//   }
-// }
-
 export class EquipListComponent implements OnInit, OnDestroy {
   equips: IEquip[] = []; 
   equipsDisponibles: IEquip[] = [];
@@ -75,7 +19,6 @@ export class EquipListComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.loadEquips();
 
-    // 🔁 Refrescar cada 5 segundos (ajusta si lo necesitas)
     this.refreshInterval = setInterval(() => {
       this.loadEquips();
     }, 1000);
@@ -83,33 +26,39 @@ export class EquipListComponent implements OnInit, OnDestroy {
 
   loadEquips(): void {
     this.dadesEquipsService.getUserEquips().subscribe({
-      next: (equips) => {
-        this.equips = equips
-          .filter((equip: IEquip): boolean => equip.maxim_integrants >= 2)
-          .sort((a: IEquip, b: IEquip): number => b.trofeus - a.trofeus);
+      next: (response) => {
+        const userEquips = response
+          .filter((equip: IEquip) => equip.maxim_integrants >= 2)
+          .sort((a: IEquip, b: IEquip) => b.trofeus - a.trofeus);
 
-        this.equips.forEach(equip => {
+        userEquips.forEach((equip: { users: any[]; }) => {
           if (equip.users) {
-            equip.users.sort((a, b) => b.trofeus - a.trofeus);
+            equip.users.sort((a: { trofeus: number; }, b: { trofeus: number; }) => b.trofeus - a.trofeus);
           }
         });
 
-        if (equips.length === 0) {
+        this.equips = userEquips;
+
+        if (userEquips.length === 0) {
           this.loadEquipsDisponibles();
+        } else {
+          this.equipsDisponibles = [];
         }
 
-        localStorage.setItem("equips", JSON.stringify(equips));
+        localStorage.setItem('equips', JSON.stringify(userEquips));
       },
       error: (err) => {
-        console.error('Error obtenint equip:', err);
+        console.error('Error obtenint equips:', err);
       }
     });
   }
+
 
   loadEquipsDisponibles(): void {
     this.dadesEquipsService.getEquipsDisponibles().subscribe({
       next: (data) => {
         this.equipsDisponibles = data;
+        console.log('Equips disponibles:', this.equipsDisponibles);
       },
       error: (err) => {
         console.error('Error carregant equips disponibles:', err);
@@ -122,7 +71,7 @@ export class EquipListComponent implements OnInit, OnDestroy {
       next: (response) => {
         console.log(response.message);
         alert('T\'has unit al equip correctament.');
-        location.reload();
+        this.loadEquips();
       },
       error: (err) => {
         console.error('Error al unir-se:', err);
@@ -131,8 +80,8 @@ export class EquipListComponent implements OnInit, OnDestroy {
     });
   }
 
+
   ngOnDestroy(): void {
-    // 🧼 Limpiar el intervalo al destruir el componente
     if (this.refreshInterval) {
       clearInterval(this.refreshInterval);
     }

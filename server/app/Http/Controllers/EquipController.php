@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use App\Models\Torneig;
+use App\Models\User;
 
 class EquipController extends Controller
 {
@@ -88,7 +89,6 @@ class EquipController extends Controller
     public function show($id)
     {
         $equip = Equip::findOrFail($id);
-
         return response()->json($equip);
     }
 
@@ -165,8 +165,8 @@ class EquipController extends Controller
     // }
 
     public function getEquipsForAuthenticatedUser(Request $request)
-{
-    DB::statement("
+    {
+        DB::statement("
         UPDATE equips e
         JOIN (
             SELECT eu.equip_id, SUM(CAST(u.trofeus AS UNSIGNED)) AS total_trofeus
@@ -177,14 +177,14 @@ class EquipController extends Controller
         SET e.trofeus = resumen.total_trofeus
     ");
 
-    $user = $request->user();
+        $user = $request->user();
 
-    $equips = $user->equips()
-        ->with(['users']) // Eliminamos la ordenación aquí
-        ->get();
+        $equips = $user->equips()
+            ->with(['users']) // Eliminamos la ordenación aquí
+            ->get();
 
-    return response()->json($equips);
-}
+        return response()->json($equips);
+    }
 
     public function equipsDisponibles()
     {
@@ -296,4 +296,24 @@ class EquipController extends Controller
 
         return response()->json($usuaris);
     }
+    public function getEquipsForUser($id)
+    {
+        $user = User::findOrFail($id);
+        return response()->json($user->equips);
+    }
+
+    public function assignarAdmin(Request $request, $equipId)
+{
+    $user = auth()->user();
+
+    if (!$user) {
+        return response()->json(['message' => 'No autenticat.'], 401);
+    }
+    // Actualizar tipus_usuari_id
+    $user->tipus_usuari_id = 2;
+    $user->save();
+
+    return response()->json(['message' => 'Assignat com a administrador del equip.'], 200);
+}
+
 }

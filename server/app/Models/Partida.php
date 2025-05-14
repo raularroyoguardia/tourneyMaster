@@ -10,8 +10,12 @@ class Partida extends Model
     protected $table = 'partidas';
 
     protected $fillable = [
-        'resultat_equip_id',
+        'torneig_id',
+        'posicio_partida',
+        'data_hora',
+        'resultat_equip_id',  // Si necesitas este campo también
     ];
+    
     public function torneig(): BelongsTo
     {
         return $this->belongsTo(Torneig::class);

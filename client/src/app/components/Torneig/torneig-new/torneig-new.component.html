@@ -88,12 +88,24 @@
             </select>
         </div>
 
-
-
         <div>
             <label>Quantitat Partides:</label>
             <input type="number" formControlName="quantitat_partides" [value]="3" [disabled]="true" />
         </div>
+  <!-- PARTIDES -->
+  <div formArrayName="partides">
+    <h3>Horaris de les Partides</h3>
+    <div *ngFor="let partida of partides.controls; let i = index" [formGroupName]="i">
+      <label>Partida {{ i + 1 }} - Hora:</label>
+      <input type="datetime-local" formControlName="hora" />
+  
+      <!-- Error individual de fora de rang -->
+      <div *ngIf="partida.get('hora')?.errors?.['foraDeRang'] && partida.get('hora')?.touched" style="color: red;">
+        La data de la partida {{ i + 1 }} ha d'estar dins del rang seleccionat.
+      </div>
+    </div>
+  </div>
+  
 
         <button type="submit" [disabled]="myForm.invalid">Crear Torneig</button>
     </form>

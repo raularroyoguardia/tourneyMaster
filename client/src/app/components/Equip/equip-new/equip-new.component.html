@@ -1,40 +1,87 @@
-<div class="tournament-container">
-  <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <div>
-      <label>Nom del Equip</label>
-      <input type="text" formControlName="nom" />
-      <div *ngIf="form.get('nom')?.invalid && form.get('nom')?.touched">Aquest camp és obligatori.</div>
+<div class="cyber-container">
+  <div class="section-title main-title">
+    <span>Crear Equip</span>
+    <div class="title-line"></div>
+  </div>
+
+  <div class="cyber-card">
+    <div class="card-content">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="form-grid">
+          <!-- Nombre del Equipo -->
+          <div class="cyber-form-group">
+            <label for="nom" class="cyber-label">Nom del Equip</label>
+            <div class="cyber-input-wrapper">
+              <input type="text" class="cyber-input" id="nom" formControlName="nom">
+              <div class="input-glow"></div>
+            </div>
+            <div *ngIf="form.get('nom')?.invalid && form.get('nom')?.touched" class="cyber-error">
+              <span>Aquest camp és obligatori.</span>
+            </div>
+          </div>
+
+          <!-- Región -->
+          <div class="cyber-form-group">
+            <label for="regio" class="cyber-label">Regió</label>
+            <div class="cyber-input-wrapper">
+              <select class="cyber-input cyber-select" id="regio" formControlName="regio">
+                <option value="" disabled selected>Selecciona una regió</option>
+                <option *ngFor="let r of regiones" [value]="r">{{ r }}</option>
+              </select>
+              <div class="input-glow"></div>
+            </div>
+            <div *ngIf="form.get('regio')?.invalid && form.get('regio')?.touched" class="cyber-error">
+              <span>Selecciona una regió.</span>
+            </div>
+          </div>
+
+          <!-- Descripción -->
+          <div class="cyber-form-group full-width">
+            <label for="descripcio" class="cyber-label">Descripció</label>
+            <div class="cyber-input-wrapper">
+              <textarea class="cyber-input cyber-textarea" id="descripcio" formControlName="descripcio" rows="3"></textarea>
+              <div class="input-glow"></div>
+            </div>
+          </div>
+
+          <!-- Máximo Integrantes -->
+          <div class="cyber-form-group">
+            <label for="maxim_integrants" class="cyber-label">Màxim Integrants (2 - 5)</label>
+            <div class="cyber-input-wrapper">
+              <input type="number" class="cyber-input" id="maxim_integrants" formControlName="maxim_integrants" min="2" max="5">
+              <div class="input-glow"></div>
+            </div>
+            <div *ngIf="form.get('maxim_integrants')?.invalid && form.get('maxim_integrants')?.touched" class="cyber-error">
+              <span>Ha de ser un número entre 2 i 5.</span>
+            </div>
+          </div>
+
+          <!-- Foto del Equipo -->
+          <div class="cyber-form-group">
+            <label for="foto_equip" class="cyber-label">Foto del Equip</label>
+            <div class="cyber-input-wrapper">
+              <input type="file" class="cyber-input file-input" id="foto_equip" (change)="onFileSelected($event)">
+              <div class="input-glow"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mensaje de error general -->
+        <div *ngIf="errorMessage" class="cyber-error-message">
+          <div class="error-icon">
+            <i class="fi fi-rr-exclamation"></i>
+          </div>
+          <span>{{ errorMessage }}</span>
+        </div>
+
+        <!-- Botón de envío -->
+        <div class="button-container">
+          <button type="submit" class="cyber-button submit-btn" [disabled]="form.invalid">
+            <span class="btn-content">Crear Equip</span>
+            <span class="btn-glitch"></span>
+          </button>
+        </div>
+      </form>
     </div>
-
-    <div>
-      <label>Regió</label>
-      <select formControlName="regio">
-        <option value="" disabled selected>Selecciona una regió</option>
-        <option *ngFor="let r of regiones" [value]="r">{{ r }}</option>
-      </select>
-      <div *ngIf="form.get('regio')?.invalid && form.get('regio')?.touched">Selecciona una regió.</div>
-    </div>
-
-    <div>
-      <label>Descripció</label>
-      <textarea formControlName="descripcio" rows="3"></textarea>
-    </div>
-
-    <div>
-      <label>Màxim Integrants (2 - 5)</label>
-      <input type="number" formControlName="maxim_integrants" min="2" max="5" />
-      <div *ngIf="form.get('maxim_integrants')?.invalid && form.get('maxim_integrants')?.touched">
-        Ha de ser un número entre 2 i 5.
-      </div>
-    </div>
-
-    <div>
-      <label>Foto del Equip</label>
-      <input type="file" (change)="onFileSelected($event)" />
-    </div>
-
-    <div *ngIf="errorMessage">{{ errorMessage }}</div>
-
-    <button type="submit" [disabled]="form.invalid">Crear Equip</button>
-  </form>
+  </div>
 </div>

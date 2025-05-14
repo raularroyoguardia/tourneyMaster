@@ -37,6 +37,9 @@ Route::match(['get', 'post'], '/equip/edit/{id}', [EquipController::class, 'edit
 Route::get('/equip/delete/{id}', [EquipController::class, 'delete'])->name('equip_delete');
 Route::middleware('auth:sanctum')->get('/equips/user', [EquipController::class, 'getEquipsForAuthenticatedUser']);
 Route::get('/equips/{id}/usuaris', [EquipController::class, 'getUsuaris']);
+Route::get('/user/{id}/equips', [EquipController::class, 'getEquipsForUser']);
+Route::middleware('auth:sanctum')->post('/equip/{id}/assignar-admin', [EquipController::class, 'assignarAdmin']);
+
 
 
 //EQUIP-USER
@@ -46,7 +49,6 @@ Route::middleware('auth:sanctum')->post('/user/unirse', [EquipController::class,
 Route::middleware('auth:sanctum')->post('/equip/unirse', [EquipController::class, 'unirseATorneig']);
 Route::post('/torneigs/{torneigId}/unirse-individual', [EquipController::class, 'unirseIndividual']);
 
-// Route::post('/equip/unirse', [EquipController::class, 'unirseATorneig']);
 
 //USER
 Route::get('/users', [UserController::class, 'list'])->name('users_list');

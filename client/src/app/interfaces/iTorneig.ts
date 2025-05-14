@@ -21,6 +21,7 @@ export interface ITorneig {
         data_hora: Date;
     }>;
     equips: Array<{
+        maxim_integrants: number;
         id: number;
         nom: string;
         foto_equip: string;
