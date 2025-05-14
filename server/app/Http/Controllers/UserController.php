@@ -77,44 +77,47 @@ class UserController extends Controller
     }
 
     public function edit(Request $request, $id)
-    {
-        $user = User::findOrFail($id);
-        $request->validate(
-            [
-                'name' => 'string',
-                'email' => 'email',
-                'telefon' => 'string|max:9',
-            ],
-            [
-                'email.email' => 'El correu no és vàlid',
-                'telefon.max' => 'El telèfon no pot superar els 9 caràcters',
-            ]
-        );
+{
+    $user = User::findOrFail($id);
 
-        if ($user->foto_perfil && File::exists(public_path('uploads/fotoUser/' . $user->foto_perfil))) {
-            File::delete(public_path('uploads/fotoUser/' . $user->foto_perfil));
+    $request->validate(
+        [
+            'name' => 'string',
+            'email' => 'email',
+            'telefon' => 'string|max:9',
+        ],
+        [
+            'email.email' => 'El correu no és vàlid',
+            'telefon.max' => 'El telèfon no pot superar els 9 caràcters',
+        ]
+    );
+
+    // Datos básicos
+    $user->name = $request->name;
+    $user->apellido1 = $request->apellido1;
+    $user->apellido2 = $request->apellido2;
+    $user->email = $request->email;
+    $user->telefon = $request->telefon;
+
+    // Imagen nueva subida
+    if ($request->hasFile('foto_perfil')) {
+        // Elimina la anterior si existe
+        if ($user->foto_perfil && File::exists(public_path('uploads/fotoUsuari/' . $user->foto_perfil))) {
+            File::delete(public_path('uploads/fotoUsuari/' . $user->foto_perfil));
         }
 
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->telefon = $request->telefon;
-        $user->foto_perfil = $request->foto_perfil;
-        $user->save();
-
-        if ($request->hasFile('foto_perfil')) {
-            if ($user->foto_perfil && File::exists(public_path('uploads/fotoUser/' . $user->foto_perfil))) {
-                File::delete(public_path('uploads/fotoUser/' . $user->foto_perfil));
-            }
-
-            $file = $request->file('foto_perfil');
-            $extension = $file->getClientOriginalExtension();
-            $filename = strtolower($user->name . '.' . $extension);
-            $file->move(public_path('uploads/fotoUser/'), $filename);
-            $user->foto_perfil = $filename;
-            $user->save();
-        }
-        return response()->json($user);
+        $file = $request->file('foto_perfil');
+        $extension = $file->getClientOriginalExtension();
+        $filename = strtolower($user->name . '.' . $extension);
+        $file->move(public_path('uploads/fotoUsuari/'), $filename);
+        $user->foto_perfil = $filename;
     }
+
+    $user->save();
+
+    return response()->json($user);
+}
+
 
     public function show($id)
     {

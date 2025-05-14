@@ -1,0 +1,462 @@
+/* Variables */
+:root {
+    --bg-primary: #0f172a;
+    --bg-secondary: #1e293b;
+    --bg-card: rgba(30, 41, 59, 0.8);
+    --text-primary: #f8fafc;
+    --text-secondary: #cbd5e1;
+    --accent-blue: #00f0ff;
+    --accent-purple: #8b5cf6;
+    --accent-pink: #d946ef;
+    --accent-green: #00ff9d;
+    --border-dark: #334155;
+    --glow-blue: 0 0 10px rgba(0, 240, 255, 0.7), 0 0 20px rgba(0, 240, 255, 0.4);
+    --glow-purple: 0 0 10px rgba(139, 92, 246, 0.7), 0 0 20px rgba(139, 92, 246, 0.4);
+    --glow-pink: 0 0 10px rgba(217, 70, 239, 0.7), 0 0 20px rgba(217, 70, 239, 0.4);
+    --cyber-gradient: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
+    --cyber-gradient-alt: linear-gradient(90deg, var(--accent-pink), var(--accent-blue));
+  }
+  
+  /* Contenedor principal */
+  .cyber-container {
+    padding: 2rem;
+    min-height: 100vh;
+    color: var(--text-primary);
+  }
+  
+  /* Títulos de sección */
+  .section-title {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    position: relative;
+  }
+  
+  .section-title span {
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--accent-blue);
+    margin-right: 1rem;
+    text-shadow: 0 0 5px rgba(0, 240, 255, 0.5);
+  }
+  
+  .title-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, var(--accent-blue), transparent);
+  }
+  
+  .main-title {
+    margin-bottom: 2rem;
+  }
+  
+  .main-title span {
+    font-size: 1.75rem;
+  }
+  
+  /* Tarjeta del formulario */
+  .cyber-card {
+    background-color: var(--bg-card);
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border-dark);
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  
+  .cyber-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--cyber-gradient);
+    z-index: 1;
+  }
+  
+  .card-content {
+    padding: 2rem;
+  }
+  
+  /* Grid del formulario */
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+  
+  .cyber-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .cyber-form-group.full-width {
+    grid-column: 1 / -1;
+  }
+  
+  /* Etiquetas */
+  .cyber-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--accent-blue);
+  }
+  
+  /* Inputs */
+  .cyber-input-wrapper {
+    position: relative;
+  }
+  
+  .cyber-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background-color: rgba(15, 23, 42, 0.7);
+    border: 1px solid var(--border-dark);
+    border-radius: 4px;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+  }
+  
+  .cyber-input:focus {
+    outline: none;
+    border-color: var(--accent-blue);
+    background-color: rgba(15, 23, 42, 0.9);
+  }
+  
+  .cyber-input.readonly {
+    background-color: rgba(15, 23, 42, 0.5);
+    color: var(--text-secondary);
+    cursor: not-allowed;
+  }
+  
+  .input-glow {
+    position: absolute;
+    inset: 0;
+    border-radius: 4px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .cyber-input:focus + .input-glow {
+    opacity: 1;
+    box-shadow: var(--glow-blue);
+  }
+  
+  /* Input de archivo */
+  .cyber-file-input {
+    position: relative;
+    width: 100%;
+  }
+
+  .file-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .file-input {
+    display: none; /* Ocultamos el input real */
+  }
+  
+  .custom-file-button {
+    color: #fff;
+    padding: 12px 16px;
+    border-radius: 4px;
+    border: 1px solid var(--border-dark);
+    cursor: pointer;
+    font-weight: bold;
+    transition: transform 0.2s, background-color 0.3s;
+  }
+  
+  .custom-file-button:hover {
+    background-color: rgba(94, 92, 92, 0.4);
+  }
+  
+  .file-name {
+    color: #fff;
+    font-style: italic;
+    font-size: 0.9rem;
+  }
+  
+  
+  .file-input {
+    position: relative;
+    width: 100%;
+    overflow: visible;
+    display: flex;
+    align-items: center;
+    background-color: rgba(15, 23, 42, 0.7);
+    border: 1px solid var(--border-dark);
+    border-radius: 4px;
+    padding: 0.75rem 1rem;
+  }
+  
+  .file-input-ui {
+    display: flex;
+    align-items: center;
+    background-color: rgba(15, 23, 42, 0.7);
+    border: 1px solid var(--border-dark);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  
+  .file-name {
+    flex: 1;
+    padding: 0.75rem 1rem;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .browse-btn {
+    background-color: rgba(0, 240, 255, 0.1);
+    color: var(--accent-blue);
+    border: none;
+    border-left: 1px solid var(--border-dark);
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .browse-btn:hover {
+    background-color: rgba(0, 240, 255, 0.2);
+  }
+  
+  /* Contenedor de imágenes */
+  .images-container {
+    display: flex;
+    gap: 2rem;
+    margin: 2rem 0;
+    justify-content: center;
+  }
+  
+  .image-preview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  
+  .preview-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-secondary);
+  }
+  
+  .image-frame {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--cyber-gradient);
+    padding: 3px;
+  }
+  
+  .image-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 7px;
+  }
+  
+  .image-glow {
+    position: absolute;
+    inset: 0;
+    border-radius: 10px;
+    box-shadow: var(--glow-blue);
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  
+  .current-image .image-glow {
+    box-shadow: var(--glow-blue);
+  }
+  
+  .new-image .image-glow {
+    box-shadow: var(--glow-purple);
+  }
+  
+  /* Grupo de botones */
+  .button-group {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+  }
+  
+  /* Botón cyberpunk */
+  .cyber-button {
+    position: relative;
+    padding: 0.75rem 1.5rem;
+    background-color: rgba(0, 240, 255, 0.1);
+    color: var(--accent-blue);
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border: 1px solid var(--accent-blue);
+    border-radius: 2px;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 150px;
+    clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+  }
+  
+  .cyber-button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 240, 255, 0.2), transparent);
+    transition: all 0.5s ease;
+  }
+  
+  .cyber-button:hover::before {
+    left: 100%;
+  }
+  
+  .cyber-button:hover {
+    background-color: rgba(0, 240, 255, 0.2);
+    color: white;
+    box-shadow: var(--glow-blue);
+    transform: translateY(-2px);
+  }
+  
+  .btn-content {
+    position: relative;
+    z-index: 2;
+  }
+  
+  .btn-glitch {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 240, 255, 0.5);
+    opacity: 0;
+    z-index: 1;
+  }
+  
+  .cyber-button:hover .btn-glitch {
+    opacity: 0;
+    animation: glitch 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+  }
+  
+  .submit-btn {
+    background-color: rgba(139, 92, 246, 0.1);
+    border-color: var(--accent-purple);
+    color: var(--accent-purple);
+  }
+  
+  .submit-btn:hover {
+    background-color: rgba(139, 92, 246, 0.2);
+    box-shadow: var(--glow-purple);
+  }
+  
+  .cancel-btn {
+    background-color: rgba(100, 116, 139, 0.1);
+    border-color: var(--text-secondary);
+    color: var(--text-secondary);
+  }
+  
+  .cancel-btn:hover {
+    background-color: rgba(100, 116, 139, 0.2);
+    box-shadow: 0 0 10px rgba(203, 213, 225, 0.4);
+  }
+  
+  /* Animaciones */
+  @keyframes glitch {
+    0% {
+      transform: translate(0);
+    }
+    20% {
+      transform: translate(-5px, 5px);
+    }
+    40% {
+      transform: translate(-5px, -5px);
+    }
+    60% {
+      transform: translate(5px, 5px);
+    }
+    80% {
+      transform: translate(5px, -5px);
+    }
+    100% {
+      transform: translate(0);
+    }
+  }
+  
+  /* Responsive */
+  @media (max-width: 768px) {
+    .cyber-container {
+      padding: 1.5rem;
+    }
+  
+    .form-grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .images-container {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .button-group {
+      flex-direction: column;
+    }
+  
+    .cyber-button {
+      width: 100%;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .cyber-container {
+      padding: 1rem;
+    }
+  
+    .card-content {
+      padding: 1.5rem 1rem;
+    }
+  
+    .image-frame {
+      width: 150px;
+      height: 150px;
+    }
+  }
+  
+  /* Script para manejar el input de archivo */
+  /* Esto debe implementarse en el componente TypeScript */
+  /* 
+  document.querySelector('.file-input').addEventListener('change', function(e) {
+    const fileName = e.target.files[0]?.name || 'Seleccionar archivo';
+    document.querySelector('.file-name').textContent = fileName;
+  });
+  
+  document.querySelector('.browse-btn').addEventListener('click', function() {
+    document.querySelector('.file-input').click();
+  });
+  */
+  

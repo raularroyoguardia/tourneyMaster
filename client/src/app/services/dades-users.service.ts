@@ -14,6 +14,10 @@ export class DadesUsersService {
   public getUsers(): Observable<HttpResponse<IUser[]>> {
     return this._http.get<IUser[]>('http://127.0.0.1:8000/api/users', { observe: 'response' });
   }
+
+  public getOneUser(id: any): Observable<HttpResponse<IUser>> {
+    return this._http.get<IUser>(`http://127.0.0.1:8000/api/userOne/${id}`, { observe: 'response' });
+  }
   
   public getEquips(): Observable<HttpResponse<IEquip[]>> {
     return this._http.get<IEquip[]>('http://127.0.0.1:8000/api/users', { observe: 'response' });
@@ -28,7 +32,7 @@ export class DadesUsersService {
   }
 
   public updateUser(id: any, user: any): Observable<HttpResponse<any>> {
-    return this._http.put<any>(`http://127.0.0.1:8000/api/user/edit/${id}`, user, { observe: 'response' });
+    return this._http.post<any>(`http://127.0.0.1:8000/api/user/edit/${id}`, user, { observe: 'response' });
   }
 
   public deleteUser(id: any) {

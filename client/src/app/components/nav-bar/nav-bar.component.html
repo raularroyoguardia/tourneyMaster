@@ -70,7 +70,7 @@
                 </div>
                 <span class="username">{{ tokenService.getUserName() }}</span>
                 <div class="profile-wrapper">
-                    <img *ngIf="user.foto_perfil" [src]="'http://127.0.0.1:8000/uploads/fotoUsuari/' + user.foto_perfil"
+                    <img [src]="'http://127.0.0.1:8000/uploads/fotoUsuari/' + user.foto_perfil"
                         class="profile-img" [alt]="user.name || 'Usuario'" (click)="toggleMenu()" />
 
                     <!-- Submenú -->

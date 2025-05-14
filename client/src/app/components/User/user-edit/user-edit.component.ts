@@ -1,12 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { DadesUsersService } from '../../../services/dades-users.service';
+import { TokenService } from '../../../services/auth/token.service';
 
 @Component({
   selector: 'app-user-edit',
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, RouterLink],
   templateUrl: './user-edit.component.html',
   styleUrl: './user-edit.component.css'
 })
@@ -14,54 +15,85 @@ export class UserEditComponent implements OnInit {
   id: string | null | undefined;
   myForm: FormGroup;
   selectedFile: File | null = null;
+  imagenActualUrl: string | null = null;
+  previewImageUrl: string | null = null;
 
   constructor(
-    private fb: FormBuilder,
-    private ruta: ActivatedRoute,
+    private tokenService: TokenService,
     private userService: DadesUsersService,
-    private router: Router,
+    private formBuilder: FormBuilder,
+    private router: Router
   ) {
     this.myForm = new FormGroup({
     });
   }
 
-
   ngOnInit(): void {
-    this.id = this.ruta.snapshot.paramMap.get('id');
+    this.id = this.tokenService.getUserId();
 
-    this.myForm = this.fb.group({
+    this.myForm = this.formBuilder.group({
       id: [{ value: this.id, disabled: true }],
       name: [null],
       apellido1: [null],
       apellido2: [null],
       email: [null],
-      password: [null],
       telefon: [null],
       foto_perfil: [null],
-      trofeus: [null],
     });
 
-    this.userService.getUser(this.id).subscribe({
+    this.userService.getOneUser(this.id).subscribe({
       next: (data) => {
         if (data.body) {
-          this.myForm.setValue({
-            id: data.body?.id,
-            name: data.body?.name,
-            apellido1: data.body?.apellido1,
-            apellido2: data.body?.apellido2,
-            email: data.body?.email,
-            password: data.body?.password,
-            telefon: data.body?.telefon,
-            foto_perfil: data.body?.foto_perfil,
-            trofeus: data.body?.trofeus,
-          });
-        }else {
-          alert('No s\'han trobat dades del usuari');
+          console.log(data.body);
+          this.myForm.patchValue(data.body);
+          this.imagenActualUrl = `http://127.0.0.1:8000/uploads/fotoUsuari/${data.body.foto_perfil}`;
+          this.imagenActualUrl = data.body.foto_perfil;
+        } else {
+          alert("No s'han trobat dades del usuari");
         }
       },
       error: (error) => {
         alert(error.message);
       }
     });
+  }
+
+  onSubmit(): void {
+    const formData = new FormData();
+    formData.append('name', this.myForm.get('name')?.value);
+    formData.append('apellido1', this.myForm.get('apellido1')?.value);
+    formData.append('apellido2', this.myForm.get('apellido2')?.value);
+    formData.append('email', this.myForm.get('email')?.value);
+    formData.append('telefon', this.myForm.get('telefon')?.value);
+
+    if (this.selectedFile) {
+      formData.append('foto_perfil', this.selectedFile, this.selectedFile.name);
+    } else if (this.imagenActualUrl) {
+      formData.append('foto_perfil', this.imagenActualUrl);
+    }
+
+    this.userService.updateUser(this.id, formData).subscribe({
+      next: () => {
+        alert("Usuari actualitzar correctament");
+        this.router.navigate(['/welcome']);
+      },
+      error: (error) => {
+        alert("No s'ha pogut actualitzar el teu usuari\n" + error.message);
+      }
+    })
+  }
+
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
+
+      // Mostrar vista previa
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.previewImageUrl = e.target.result;
+      };
+      reader.readAsDataURL(this.selectedFile);
+    }
   }
 }
