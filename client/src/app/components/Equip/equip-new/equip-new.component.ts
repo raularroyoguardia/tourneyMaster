@@ -17,6 +17,7 @@ export class EquipNewComponent implements OnInit {
   errorMessage = '';
   selectedImage: File | null = null;
   regiones: string[] = ['Europa', 'Amèrica', 'Àsia', 'Àfrica', 'Oceania'];
+  previewImageUrl: string | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -36,11 +37,34 @@ export class EquipNewComponent implements OnInit {
 
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
-    if (input.files && input.files[0]) {
+    if (input.files && input.files.length > 0) {
       this.selectedImage = input.files[0];
+
+      //Mostrar vista previa
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.previewImageUrl = e.target.result;
+      };
+      reader.readAsDataURL(this.selectedImage);
       this.form.get('foto_equip')?.setValue(this.selectedImage);
     }
   }
+
+  /*
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
+
+      // Mostrar vista previa
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.previewImageUrl = e.target.result;
+      };
+      reader.readAsDataURL(this.selectedFile);
+    }
+  }
+  */
 
   onSubmit(): void {
     if (this.form.invalid || !this.selectedImage) {

@@ -66,17 +66,26 @@
           </div>
         </div>
 
+        <!-- Imágenes -->
+        <div class="images-container">
+          <!-- Vista previa -->
+          <div *ngIf="previewImageUrl" class="image-preview new-image">
+            <div class="preview-label">Vista prèvia</div>
+            <div class="image-frame">
+              <img [src]="previewImageUrl" alt="Vista prèvia">
+              <div class="image-glow"></div>
+            </div>
+          </div>
+        </div>
+
         <!-- Mensaje de error general -->
         <div *ngIf="errorMessage" class="cyber-error-message">
-          <div class="error-icon">
-            <i class="fi fi-rr-exclamation"></i>
-          </div>
           <span>{{ errorMessage }}</span>
         </div>
 
         <!-- Botón de envío -->
         <div class="button-container">
-          <button type="submit" class="cyber-button submit-btn" [disabled]="form.invalid">
+          <button type="submit" class="cyber-button submit-btn">
             <span class="btn-content">Crear Equip</span>
             <span class="btn-glitch"></span>
           </button>

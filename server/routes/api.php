@@ -58,6 +58,8 @@ Route::get('/userOne/{id}', [UserController::class, 'showOne']);
 Route::match(['get', 'post'], '/user/edit/{id}', [UserController::class, 'edit'])->name('user_edit');
 Route::get('/user/delete/{id}', [UserController::class, 'delete'])->name('user_delete');
 Route::put('/users/{id}/add-trofeus', [UserController::class, 'afegirTrofeus']);
+Route::get('/users/{id}/equips', [UserController::class, 'getEquips']);
+
 
 //CLASSIFICACIO
 Route::get('/classification/individual', [ClassificacioController::class, 'getIndividual'])->name('classificacio-individual');
@@ -85,6 +87,7 @@ Route::match(['get', 'post'], '/torneig/edit/{id}', [TorneigController::class, '
 Route::get('/torneig/delete/{id}', [TorneigController::class, 'delete'])->name('torneig_delete');
 Route::get('/torneigs/per-usuari/{usuariId}', [TorneigController::class, 'getTorneigsPerUsuari']);
 Route::get('/torneigs/stats', [TorneigStatsController::class, 'index']);
+Route::put('/torneigs/{id}/estat', [TorneigController::class, 'updateEstat']);
 
 
 //PARTIDA

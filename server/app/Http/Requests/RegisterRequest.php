@@ -28,7 +28,7 @@ class RegisterRequest extends FormRequest
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6|confirmed',
             'telefon' => 'required|unique:users,telefon|digits:9',
-            'foto_perfil' => 'required'
+            'foto_perfil' => 'required|image|max:2048',
         ];
     }
 
@@ -47,7 +47,9 @@ class RegisterRequest extends FormRequest
             'password.required' => 'La contraseña es obligatoria.',
             'password.min' => 'La contraseña debe tener al menos 6 caracteres.',
             'password.confirmed' => 'La confirmación de la contraseña no coincide.',
-            'foto_perfil.required' => 'La foto de perfil es obligatoria.'
+            'foto_perfil.required' => 'La foto de perfil es obligatoria.',
+            'foto_perfil.image' => 'El archivo subido no es una imagen',
+            'foto_perfil.max' => 'Selecciona otra imagen menos pesada'
         ];
     }
 }

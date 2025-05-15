@@ -256,4 +256,17 @@ class TorneigController extends Controller
 
         return $torneigs;
     }
+
+    public function updateEstat(Request $request, $id)
+{
+    $request->validate([
+        'estat' => 'required|string|in:No Començat,En Procès,Finalitzat',
+    ]);
+
+    $torneig = Torneig::findOrFail($id);
+    $torneig->estat = $request->estat;
+    $torneig->save();
+
+    return response()->json(['message' => 'Estat actualitzat correctament.']);
+}
 }

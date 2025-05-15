@@ -23,6 +23,20 @@
     opacity: 0.5;
     z-index: -1;
   }
+
+  .cyber-error,
+.cyber-error-message {
+  animation: shake 0.3s ease-in-out;
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  50% { transform: translateX(4px); }
+  75% { transform: translateX(-4px); }
+  100% { transform: translateX(0); }
+}
+
   
   .glow-circle {
     position: absolute;
@@ -186,16 +200,84 @@
     text-decoration: underline;
   }
   
-  /* Alertas de error */
-  .error-alert {
-    padding: 0.75rem;
-    margin-bottom: 1rem;
-    background-color: rgba(239, 68, 68, 0.2);
-    border-left: 3px solid #ef4444;
-    color: #fca5a5;
-    border-radius: 0.25rem;
-    font-size: 0.875rem;
-  }
+/* Mensajes de error */
+.cyber-error {
+  font-size: 0.8rem;
+  color: #ef4444;
+  margin-top: 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cyber-error::before {
+  content: "!";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  background-color: rgba(239, 68, 68, 0.2);
+  border-radius: 50%;
+  font-weight: bold;
+  font-size: 0.7rem;
+  border: 1px solid #ef4444;
+}
+
+.cyber-error-message {
+  font-size: 1rem;
+  border-radius: 4px;
+  padding: 1rem;
+  margin: 1.5rem 0;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: #ef4444;
+}
+
+.cyber-error-message::before {
+  content: "!";
+  color: #ef4444;
+  font-size: 1rem;
+  font-weight: bold;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background-color: rgba(239, 68, 68, 0.2);
+  border-radius: 50%;
+  border: 2px solid #ef4444;
+}
+
+.form-group {
+  position: relative;
+  min-height: 4.5rem;
+}
+
+.error {
+  display: block;
+  color: #ff4d4d;
+  font-size: 0.75rem;
+  position: absolute;
+  bottom: -1.5rem;
+  left: 0;
+  width: 100%;
+}
+
+.error-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: rgba(239, 68, 68, 0.2);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.error-icon i {
+  color: #ef4444;
+  font-size: 1.2rem;
+}
   
   /* Formulario */
   .login-form-container {
@@ -212,6 +294,10 @@
     font-weight: 600;
     color: #a78bfa;
     margin-bottom: 0.5rem;
+  }
+
+  .password-icon {
+    color: #a78bfa;
   }
   
   .form-input {

@@ -13,6 +13,6 @@ export interface IUser {
   foto_perfil: string | null;
   trofeus: number;
   data_registre: Date;
-  tipus_usuariID: number;
+  tipus_usuari_id: number;
   equip?: IEquip;
 }

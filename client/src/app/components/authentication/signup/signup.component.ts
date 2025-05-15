@@ -25,6 +25,8 @@ export class SignupComponent {
     email: '',
     password: ''
   };
+  showPassword = false;
+  showPasswordConfirmation = false;
 
   constructor(
     private authService: AuthService,
@@ -42,6 +44,14 @@ export class SignupComponent {
       password_confirmation: [''],
       telefon: ['']
     });
+  }
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
+
+  togglePasswordConfirmationVisibility() {
+    this.showPasswordConfirmation = !this.showPasswordConfirmation;
   }
 
   onFileSelected(event: Event): void {

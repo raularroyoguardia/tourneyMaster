@@ -1,0 +1,27 @@
+<h2>Llistat d'usuaris</h2>
+
+<ul *ngIf="usuaris.length > 0; else noUsuaris">
+  <li *ngFor="let usuari of usuaris" class="usuari-item">
+    <img 
+      *ngIf="usuari.foto_perfil" 
+      [src]="'http://127.0.0.1:8000/uploads/fotoUsuari/' + usuari.foto_perfil" 
+      alt="Foto de {{ usuari.name }}" 
+    />
+    <div class="usuari-info">
+      <strong>{{ usuari.name }} {{ usuari.apellido1 }} {{ usuari.apellido2 }}</strong><br>
+      Correo electronico: {{ usuari.email }}
+      Telefon: {{ usuari.telefon }}
+      Trofeos: {{ usuari.trofeus }}
+      <div [ngSwitch]="usuari.tipus_usuari_id">
+        Tipus d'usuari: 
+        <span *ngSwitchCase="1">BOSS</span>
+        <span *ngSwitchCase="2">Admin del equipo</span>
+        <span *ngSwitchCase="3">Usuario del equipo</span>
+      </div>
+          </div>
+  </li>
+</ul>
+
+<ng-template #noUsuaris>
+  <p>No s'han trobat altres usuaris.</p>
+</ng-template>

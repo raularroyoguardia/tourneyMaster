@@ -77,46 +77,46 @@ class UserController extends Controller
     }
 
     public function edit(Request $request, $id)
-{
-    $user = User::findOrFail($id);
+    {
+        $user = User::findOrFail($id);
 
-    $request->validate(
-        [
-            'name' => 'string',
-            'email' => 'email',
-            'telefon' => 'string|max:9',
-        ],
-        [
-            'email.email' => 'El correu no és vàlid',
-            'telefon.max' => 'El telèfon no pot superar els 9 caràcters',
-        ]
-    );
+        $request->validate(
+            [
+                'name' => 'string',
+                'email' => 'email',
+                'telefon' => 'string|max:9',
+            ],
+            [
+                'email.email' => 'El correu no és vàlid',
+                'telefon.max' => 'El telèfon no pot superar els 9 caràcters',
+            ]
+        );
 
-    // Datos básicos
-    $user->name = $request->name;
-    $user->apellido1 = $request->apellido1;
-    $user->apellido2 = $request->apellido2;
-    $user->email = $request->email;
-    $user->telefon = $request->telefon;
+        // Datos básicos
+        $user->name = $request->name;
+        $user->apellido1 = $request->apellido1;
+        $user->apellido2 = $request->apellido2;
+        $user->email = $request->email;
+        $user->telefon = $request->telefon;
 
-    // Imagen nueva subida
-    if ($request->hasFile('foto_perfil')) {
-        // Elimina la anterior si existe
-        if ($user->foto_perfil && File::exists(public_path('uploads/fotoUsuari/' . $user->foto_perfil))) {
-            File::delete(public_path('uploads/fotoUsuari/' . $user->foto_perfil));
+        // Imagen nueva subida
+        if ($request->hasFile('foto_perfil')) {
+            // Elimina la anterior si existe
+            if ($user->foto_perfil && File::exists(public_path('uploads/fotoUsuari/' . $user->foto_perfil))) {
+                File::delete(public_path('uploads/fotoUsuari/' . $user->foto_perfil));
+            }
+
+            $file = $request->file('foto_perfil');
+            $extension = $file->getClientOriginalExtension();
+            $filename = strtolower($user->name . '.' . $extension);
+            $file->move(public_path('uploads/fotoUsuari/'), $filename);
+            $user->foto_perfil = $filename;
         }
 
-        $file = $request->file('foto_perfil');
-        $extension = $file->getClientOriginalExtension();
-        $filename = strtolower($user->name . '.' . $extension);
-        $file->move(public_path('uploads/fotoUsuari/'), $filename);
-        $user->foto_perfil = $filename;
+        $user->save();
+
+        return response()->json($user);
     }
-
-    $user->save();
-
-    return response()->json($user);
-}
 
 
     public function show($id)
@@ -163,15 +163,20 @@ class UserController extends Controller
         return response()->json('Usuari ' . $user->name . ' i el seu equip han estat eliminats');
     }
 
-// En UserController.php
-public function afegirTrofeus(Request $request, $id)
-{
-    $usuari = User::findOrFail($id);
-    $trofeusAFegir = intval($request->input('trofeus', 0));
-    $usuari->trofeus += $trofeusAFegir;
-    $usuari->save();
+    // En UserController.php
+    public function afegirTrofeus(Request $request, $id)
+    {
+        $usuari = User::findOrFail($id);
+        $trofeusAFegir = intval($request->input('trofeus', 0));
+        $usuari->trofeus += $trofeusAFegir;
+        $usuari->save();
 
-    return response()->json(['message' => 'Trofeus afegits correctament.']);
-}
+        return response()->json(['message' => 'Trofeus afegits correctament.']);
+    }
 
+    public function getEquips($id)
+    {
+        $user = User::with('equips')->findOrFail($id);
+        return response()->json($user->equips);
+    }
 }

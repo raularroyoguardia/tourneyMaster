@@ -63,7 +63,7 @@
                   <p>Editar Cuenta</p>
                   <span class="item-arrow">›</span>
                 </a>
-                <a href="#" class="menu-item">
+                <a routerLink="/user-list" class="menu-item" *ngIf="tipusUsuariId === 1">
                   <div class="item-icon"><img src="/uploads/iconos/ajustes.png" /></div>
                   <p>Gestionar Usuarios</p>
                   <span class="item-arrow">›</span>
@@ -140,7 +140,7 @@
                 <span>Editar Cuenta</span>
                 <i class="fi fi-rr-angle-right"></i>
               </a>
-              <a href="#" class="mobile-menu-item" (click)="isMobileMenuOpen = false">
+              <a routerLink="/user-list" class="mobile-menu-item" *ngIf="tipusUsuariId === 1" (click)="isMobileMenuOpen = false">
                 <span>Gestionar Usuarios</span>
                 <i class="fi fi-rr-angle-right"></i>
               </a>

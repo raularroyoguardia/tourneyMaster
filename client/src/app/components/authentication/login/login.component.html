@@ -1,110 +1,117 @@
 <!-- Fondo con gradiente y efectos -->
 <div class="login-background">
-    <div class="bg-hexagon-pattern"></div>
-    <div class="glow-circle glow-circle-1"></div>
-    <div class="glow-circle glow-circle-2"></div>
+  <div class="bg-hexagon-pattern"></div>
+  <div class="glow-circle glow-circle-1"></div>
+  <div class="glow-circle glow-circle-2"></div>
+</div>
+
+<!-- Contenedor principal -->
+<div class="login-container">
+  <!-- Columna izquierda - Mensaje de bienvenida -->
+  <div class="welcome-column">
+    <div class="welcome-content">
+      <h1 class="welcome-title">Ens alegra veure’t <span class="text-gradient">de nou!</span></h1>
+      <p class="welcome-text">
+        Accedeix al teu compte i prepara’t per organitzar, competir i gaudir del món dels tornejos. Tant si ets un
+        jugador ocasional com un campió en ascens, aquest és el teu punt de partida per viure l’emoció del gaming
+        com mai abans.
+      </p>
+    </div>
   </div>
-  
-  <!-- Contenedor principal -->
-  <div class="login-container">
-    <!-- Columna izquierda - Mensaje de bienvenida -->
-    <div class="welcome-column">
-      <div class="welcome-content">
-        <h1 class="welcome-title">¡Nos alegra verte <span class="text-gradient">de nuevo!</span></h1>
-        <p class="welcome-text">
-          Accede a tu cuenta y prepárate para organizar, competir y disfrutar del mundo de los torneos. Ya seas un
-          jugador casual o un campeón en ascenso, este es tu punto de partida para vivir la emoción del gaming
-          como nunca antes.
+
+  <!-- Columna derecha - Formulario de login -->
+  <div class="form-column">
+    <div class="form-card">
+      <!-- Botón de regreso -->
+      <div class="back-button-container">
+        <a href="/welcome" class="back-button">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+        </a>
+      </div>
+
+      <!-- Encabezado del formulario -->
+      <div class="form-header">
+        <h3 class="form-title">Iniciar Sessió</h3>
+        <p class="form-subtitle">No tens compte?
+          <a href="/signup" class="signup-link">Registra't</a>
         </p>
       </div>
-    </div>
-  
-    <!-- Columna derecha - Formulario de login -->
-    <div class="form-column">
-      <div class="form-card">
-        <!-- Botón de regreso -->
-        <div class="back-button-container">
-          <a href="/welcome" class="back-button">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-            </svg>
-          </a>
-        </div>
-  
-        <!-- Encabezado del formulario -->
-        <div class="form-header">
-          <h3 class="form-title">Sign In</h3>
-          <p class="form-subtitle">Don't have an account?
-            <a href="/signup" class="signup-link">Sign Up</a>
-          </p>
-        </div>
-  
-        <!-- Mensajes de error -->
-        <div class="error-alert" *ngIf="errors?.email">
-          {{ errors.email }}
-        </div>
-  
-        <div class="error-alert" *ngIf="errors?.password">
-          {{ errors.password }}
-        </div>
-  
-        <div class="error-alert" *ngIf="errors && !errors.email && !errors.password">
-          {{ errors }}
-        </div>
-  
-        <!-- Formulario de login -->
-        <div class="login-form-container">
-          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-            <div class="form-group">
-              <label for="inputEmail" class="form-label">
-                Email
-              </label>
-              <input 
-                formControlName="email" 
-                id="inputEmail"
-                class="form-input"
-                type="email" 
-                placeholder="Email">
+
+      <!-- Formulario de login -->
+      <div class="login-form-container">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label for="inputEmail" class="form-label">
+              Email
+            </label>
+            <input formControlName="email" id="inputEmail" class="form-input" type="email" placeholder="Email">
+            <div class="cyber-error" *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+              <span *ngIf="loginForm.get('email')?.errors?.['required']">El correu electronic es obligatori.</span>
+              <span *ngIf="loginForm.get('email')?.errors?.['email']">El correu electronic no es valid.</span>
+              <span *ngIf="loginForm.get('email')?.errors?.['server']">{{ loginForm.get('email')?.errors?.['server']
+                }}</span>
             </div>
-            
-            <div class="form-group">
-              <label for="inputPassword" class="form-label">
-                Contrasenya
-              </label>
-              <div class="password-input-container">
-                <input 
-                  formControlName="password" 
-                  id="inputPassword"
-                  class="form-input"
-                  type="password" 
-                  placeholder="Contraseña">
+          </div>
+
+          <div class="form-group">
+            <label for="inputPassword" class="form-label">
+              Contrasenya
+            </label>
+            <div class="relative">
+              <input [type]="showPassword ? 'text' : 'password'" formControlName="password" id="password"
+                placeholder="Contrasenya" class="form-input pr-10" />
+              <!-- Añadido pr-10 para que el icono no se monte -->
+
+              <!-- Icono del ojo con posición absoluta fija -->
+              <button type="button" (click)="togglePasswordVisibility()"
+                class="absolute right-2 top-1/2 -translate-y-1/2 text-cyberpunk-yellow z-10">
+                <ng-container *ngIf="showPassword; else hiddenIcon">
+                  <i class="fas fa-eye password-icon"></i>
+                </ng-container>
+                <ng-template #hiddenIcon>
+                  <i class="fas fa-eye-slash password-icon"></i>
+                </ng-template>
+              </button>
+
+              <!-- Mensaje de error separado -->
+              <div class="cyber-error absolute mt-1" style="position: absolute;"
+                *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+                <span *ngIf="loginForm.get('password')?.errors?.['required']">La contrasenya es obligatoria.</span>
+                <span *ngIf="loginForm.get('password')?.errors?.['server']">{{
+                  loginForm.get('password')?.errors?.['server'] }}</span>
               </div>
             </div>
-  
-            <div class="forgot-password-container">
-              <a href="#" class="forgot-password-link">
-                ¿Olvidaste tu contraseña?
-              </a>
-            </div>
-  
-            <div class="login-button-container">
-              <button 
-                type="submit"
-                class="login-button">
-                Iniciar sesión
-              </button>
-            </div>
-          </form>
-        </div>
+          </div>
+
+
+          <!-- Mensaje de error general -->
+          <div class="cyber-error-message" *ngIf="errors?.general">
+            <span>{{ errors.general }}</span>
+          </div>
+          <div class="forgot-password-container">
+            <a href="#" class="forgot-password-link">
+              Has oblidat la contrasenya?
+            </a>
+          </div>
+
+          <div class="login-button-container">
+            <button type="submit" class="login-button">
+              Inicia sessió
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
-  
-  <!-- Decoración inferior -->
-  <div class="bottom-decoration">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" class="wave-svg">
-      <path fill="rgba(30, 41, 59, 0.8)" fill-opacity="1"
-        d="M0,0L40,42.7C80,85,160,171,240,197.3C320,224,400,192,480,154.7C560,117,640,75,720,74.7C800,75,880,117,960,154.7C1040,192,1120,224,1200,213.3C1280,203,1360,149,1400,122.7L1440,96L1440,320L1400,320C1360,320,1280,320,1200,320C1120,320,1040,320,960,320C880,320,800,320,720,320C640,320,560,320,480,320C400,320,320,320,240,320C160,320,80,320,40,320L0,320Z">
-      </path>
-    </svg>
-  </div>
+</div>
+
+<!-- Decoración inferior -->
+<div class="bottom-decoration">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" class="wave-svg">
+    <path fill="rgba(30, 41, 59, 0.8)" fill-opacity="1"
+      d="M0,0L40,42.7C80,85,160,171,240,197.3C320,224,400,192,480,154.7C560,117,640,75,720,74.7C800,75,880,117,960,154.7C1040,192,1120,224,1200,213.3C1280,203,1360,149,1400,122.7L1440,96L1440,320L1400,320C1360,320,1280,320,1200,320C1120,320,1040,320,960,320C880,320,800,320,720,320C640,320,560,320,480,320C400,320,320,320,240,320C160,320,80,320,40,320L0,320Z">
+    </path>
+  </svg>
+</div>

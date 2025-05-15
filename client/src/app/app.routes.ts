@@ -9,6 +9,7 @@ import { SignupComponent } from './components/authentication/signup/signup.compo
 import { isUserAutenticatedGuard } from './guards/auth.guard';
 import { EquipNewComponent } from './components/Equip/equip-new/equip-new.component';
 import { UserEditComponent } from './components/User/user-edit/user-edit.component';
+import { UserListComponent } from './components/User/user-list/user-list.component';
 
 export const routes: Routes = [
   { path: 'welcome', component: WelcomeComponent },
@@ -22,6 +23,7 @@ export const routes: Routes = [
   { path: 'equip-new', component: EquipNewComponent, canActivate: [isUserAutenticatedGuard] },
 
   { path: 'user-edit', component: UserEditComponent, canActivate: [isUserAutenticatedGuard] },
+  { path: 'user-list', component: UserListComponent, canActivate: [isUserAutenticatedGuard] },
 
   //LOGIN
   { path: 'login', component: LoginComponent },

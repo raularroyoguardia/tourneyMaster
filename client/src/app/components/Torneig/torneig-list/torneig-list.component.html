@@ -14,7 +14,7 @@
         <div class="card-info">
           <div class="info-item">
             <span class="info-label">Estat</span>
-            <span class="info-value">{{ actualitzarEstatTorneig(torneig) }}</span>
+            <span class="info-value">{{ torneig.estat }}</span>
           </div>
           <div class="info-item">
             <span class="info-label">Partides</span>
@@ -49,7 +49,6 @@
     </div>
   </div>
 
-  <!-- Modal de detalles -->
   <div class="cyber-modal-backdrop" *ngIf="selectedTorneig" (click)="tancarModal()">
     <div class="cyber-modal" (click)="$event.stopPropagation()">
       <button class="close-button" (click)="tancarModal()">
@@ -64,10 +63,8 @@
         <div class="title-underline"></div>
       </div>
 
-      <!-- Contenido para torneos de 2 equipos -->
       <ng-container *ngIf="selectedTorneig.numero_equips === 2">
         <div class="modal-content-grid">
-          <!-- Información del torneo -->
           <div class="tournament-info">
             <div class="map-container">
               <img [src]="'http://127.0.0.1:8000/uploads/mapes/' + selectedTorneig.nom_mapa"
@@ -76,7 +73,7 @@
             <div class="info-grid">
               <div class="info-item">
                 <span class="info-label">Estat</span>
-                <span class="info-value">{{ actualitzarEstatTorneig(selectedTorneig) }}</span>
+                <span class="info-value">{{ selectedTorneig.estat }}</span>
               </div>
               <div class="info-item">
                 <span class="info-label">Partides</span>
@@ -104,7 +101,6 @@
             </div>
           </div>
 
-          <!-- Marcadores y partidas -->
           <div class="tournament-matches">
             <div class="main-scoreboard">
               <div class="team team-left">
@@ -156,10 +152,8 @@
         </div>
       </ng-container>
 
-      <!-- Contenido para torneos de más de 2 equipos -->
       <ng-container *ngIf="selectedTorneig.numero_equips > 2">
         <div class="modal-content-grid">
-          <!-- Información del torneo -->
           <div class="tournament-info">
             <div class="map-container">
               <img [src]="'http://127.0.0.1:8000/uploads/mapes/' + selectedTorneig.nom_mapa"
@@ -168,7 +162,7 @@
             <div class="info-grid">
               <div class="info-item">
                 <span class="info-label">Estat</span>
-                <span class="info-value">{{ actualitzarEstatTorneig(selectedTorneig) }}</span>
+                <span class="info-value">{{ selectedTorneig.estat }}</span>
               </div>
               <div class="info-item">
                 <span class="info-label">Partides</span>
@@ -196,7 +190,6 @@
             </div>
           </div>
 
-          <!-- Clasificación de equipos -->
           <div class="tournament-ranking">
             <div class="ranking-title">
               <span>Clasificación</span>

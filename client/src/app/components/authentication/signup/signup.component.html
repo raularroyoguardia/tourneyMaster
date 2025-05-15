@@ -1,231 +1,204 @@
 <!-- Fondo con gradiente y efectos -->
 <div class="register-background">
-    <div class="bg-hexagon-pattern"></div>
-    <div class="glow-circle glow-circle-1"></div>
-    <div class="glow-circle glow-circle-2"></div>
-    <div class="glow-circle glow-circle-3"></div>
+  <div class="bg-hexagon-pattern"></div>
+  <div class="glow-circle glow-circle-1"></div>
+  <div class="glow-circle glow-circle-2"></div>
+  <div class="glow-circle glow-circle-3"></div>
+</div>
+
+<!-- Contenedor principal -->
+<div class="register-container">
+  <!-- Columna izquierda - Mensaje de bienvenida -->
+  <div class="welcome-column">
+    <div class="welcome-content">
+      <h1 class="welcome-title">Benvingut al <span class="text-gradient">futur del gaming!</span></h1>
+      <p class="welcome-text">
+        Registra't ara i forma part de la comunitat gamer definitiva. Crea el teu perfil, organitza tornejos,
+        competeix amb jugadors d’arreu del món i demostra el teu talent. La teva aventura comença aquí!
+      </p>
+    </div>
   </div>
-  
-  <!-- Contenedor principal -->
-  <div class="register-container">
-    <!-- Columna izquierda - Mensaje de bienvenida -->
-    <div class="welcome-column">
-      <div class="welcome-content">
-        <h1 class="welcome-title">¡Bienvenido al <span class="text-gradient">futuro del gaming!</span></h1>
-        <p class="welcome-text">
-          Regístrate ahora y forma parte de la comunidad gamer definitiva. Crea tu perfil, organiza torneos,
-          compite con jugadores de todo el mundo y demuestra tu talento. ¡Tu aventura comienza aquí!
+
+  <!-- Columna derecha - Formulario de registro -->
+  <div class="form-column">
+    <div class="form-card">
+      <!-- Botón de regreso -->
+      <div class="back-button-container">
+        <a href="/welcome" class="back-button">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+        </a>
+      </div>
+
+      <!-- Encabezado del formulario -->
+      <div class="form-header">
+        <h3 class="form-title">Crear compte</h3>
+        <p class="form-subtitle">Ja tens un compte?
+          <a href="/login" class="login-link">Inicia sessió</a>
         </p>
       </div>
-    </div>
-  
-    <!-- Columna derecha - Formulario de registro -->
-    <div class="form-column">
-      <div class="form-card">
-        <!-- Botón de regreso -->
-        <div class="back-button-container">
-          <a href="/welcome" class="back-button">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-            </svg>
-          </a>
+
+      <!-- Mensajes de error -->
+      <div class="error-container">
+        <div class="error-alert" *ngIf="errors?.name">
+          {{errors.name}}
         </div>
-  
-        <!-- Encabezado del formulario -->
-        <div class="form-header">
-          <h3 class="form-title">Crear cuenta</h3>
-          <p class="form-subtitle">¿Ya tienes una cuenta?
-            <a href="/login" class="login-link">Inicia sesión</a>
-          </p>
+        <div class="error-alert" *ngIf="errors?.apellido1">
+          {{errors.apellido1}}
         </div>
-  
-        <!-- Mensajes de error -->
-        <div class="error-container">
-          <div class="error-alert" *ngIf="errors?.name">
-            {{errors.name}}
-          </div>
-  
-          <div class="error-alert" *ngIf="errors?.apellido1">
-            {{errors.apellido1}}
-          </div>
-  
-          <div class="error-alert" *ngIf="errors?.apellido2">
-            {{errors.apellido2}}
-          </div>
-  
-          <div class="error-alert" *ngIf="errors?.email">
-            {{errors.email}}
-          </div>
-  
-          <div class="error-alert" *ngIf="errors?.telefon">
-            {{errors.telefon}}
-          </div>
-  
-          <div class="error-alert" *ngIf="errors?.password">
-            {{errors.password}}
-          </div>
-  
-          <div class="error-alert" *ngIf="errors?.password_confirmation">
-            {{errors.password_confirmation}}
-          </div>
-  
-          <div class="error-alert" *ngIf="errors?.foto_perfil">
-            {{errors.foto_perfil}}
-          </div>
+        <div class="error-alert" *ngIf="errors?.apellido2">
+          {{errors.apellido2}}
         </div>
-  
-        <!-- Indicador de pasos -->
-        <div class="steps-indicator">
-          <div class="step" [ngClass]="{'active-step': active === 0}">
-            <div class="step-circle">
-              <div class="step-inner-circle"></div>
+        <div class="error-alert" *ngIf="errors?.email">
+          {{errors.email}}
+        </div>
+        <div class="error-alert" *ngIf="errors?.telefon">
+          {{errors.telefon}}
+        </div>
+        <div class="error-alert" *ngIf="errors?.password">
+          {{errors.password}}
+        </div>
+        <div class="error-alert" *ngIf="errors?.password_confirmation">
+          {{errors.password_confirmation}}
+        </div>
+        <div class="error-alert" *ngIf="errors?.foto_perfil">
+          {{errors.foto_perfil}}
+        </div>
+      </div>
+
+      <!-- Indicador de pasos -->
+      <div class="steps-indicator">
+        <div class="step" [ngClass]="{'active-step': active === 0}">
+          <div class="step-circle">
+            <div class="step-inner-circle"></div>
+          </div>
+          <span class="step-label">Informació personal</span>
+        </div>
+        <div class="step-connector"></div>
+        <div class="step" [ngClass]="{'active-step': active === 1}">
+          <div class="step-circle">
+            <div class="step-inner-circle"></div>
+          </div>
+          <span class="step-label">Detalls d'accés</span>
+        </div>
+      </div>
+
+      <!-- Formulario de registro -->
+      <div class="register-form-container">
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+          <!-- Paso 0: Información personal -->
+          <div *ngIf="active === 0" class="form-step">
+            <div class="form-group">
+              <input id="inputName" formControlName="name" class="form-input" type="text" placeholder="Nom">
             </div>
-            <span class="step-label">Información personal</span>
-          </div>
-          <div class="step-connector"></div>
-          <div class="step" [ngClass]="{'active-step': active === 1}">
-            <div class="step-circle">
-              <div class="step-inner-circle"></div>
+            <div class="form-group">
+              <input id="inputApellido1" formControlName="apellido1" class="form-input" type="text"
+                placeholder="Primer cognom">
             </div>
-            <span class="step-label">Detalles de acceso</span>
+            <div class="form-group">
+              <input id="inputApellido2" formControlName="apellido2" class="form-input" type="text"
+                placeholder="Segon cognom">
+            </div>
+            <div class="form-group">
+              <input id="inputTel" formControlName="telefon" class="form-input" type="tel" placeholder="Telèfon">
+            </div>
+
+            <!-- Botón siguiente -->
+            <div class="next-button-container">
+              <button type="button" (click)="active = 1" class="next-button">
+                <span>Següent</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            </div>
           </div>
-        </div>
-  
-        <!-- Formulario de registro -->
-        <div class="register-form-container">
-          <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-            <!-- Paso 0: Información personal -->
-            <div *ngIf="active === 0" class="form-step">
-              <div class="form-group">
-                <input 
-                  id="inputName" 
-                  formControlName="name"
-                  class="form-input"
-                  type="text" 
-                  placeholder="Nombre">
-              </div>
-  
-              <div class="form-group">
-                <input 
-                  id="inputApellido1" 
-                  formControlName="apellido1"
-                  class="form-input"
-                  type="text" 
-                  placeholder="Primer Apellido">
-              </div>
-  
-              <div class="form-group">
-                <input 
-                  id="inputApellido2" 
-                  formControlName="apellido2"
-                  class="form-input"
-                  type="text" 
-                  placeholder="Segundo Apellido">
-              </div>
-  
-              <div class="form-group">
-                <input 
-                  id="inputTel" 
-                  formControlName="telefon"
-                  class="form-input"
-                  type="tel" 
-                  placeholder="Teléfono">
-              </div>
-  
-              <!-- Botón siguiente -->
-              <div class="next-button-container">
-                <button 
-                  type="button" 
-                  (click)="active = 1"
-                  class="next-button">
-                  <span>Siguiente</span>
-                  <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                  </svg>
+
+          <!-- Paso 1: Detalles de acceso -->
+          <div *ngIf="active === 1" class="form-step">
+            <div class="form-group">
+              <input id="inputEmail" formControlName="email" class="form-input" type="email" placeholder="Correu electrònic">
+            </div>
+            <div class="form-group">
+              <div class="form-group relative">
+                <div class="password-input-container">
+                  <input [type]="showPassword ? 'text' : 'password'" formControlName="password" id="password"
+                    placeholder="Contrasenya" class="form-input" />
+                </div>
+                <button type="button" (click)="togglePasswordVisibility()"
+                  class="absolute right-2 top-1/2 transform -translate-y-1/2 text-cyberpunk-yellow">
+                  <ng-container *ngIf="showPassword; else hiddenIcon">
+                    <i class="fas fa-eye password-icon"></i>
+                  </ng-container>
+                  <ng-template #hiddenIcon>
+                    <i class="fas fa-eye-slash password-icon"></i>
+                  </ng-template>
                 </button>
               </div>
             </div>
-  
-            <!-- Paso 1: Detalles de acceso -->
-            <div *ngIf="active === 1" class="form-step">
-              <div class="form-group">
-                <input 
-                  id="inputEmail" 
-                  formControlName="email"
-                  class="form-input"
-                  type="email" 
-                  placeholder="Email">
+            <div class="form-group">
+              <div class="form-group relative">
+                <div class="password-input-container">
+                  <input [type]="showPasswordConfirmation ? 'text' : 'password'" formControlName="password_confirmation"
+                    id="password" placeholder="Confirmar contrasenya" class="form-input" />
+                </div>
+                <button type="button" (click)="togglePasswordConfirmationVisibility()"
+                  class="absolute right-2 top-1/2 transform -translate-y-1/2 text-cyberpunk-yellow">
+                  <ng-container *ngIf="showPasswordConfirmation; else hiddenIcon">
+                    <i class="fas fa-eye password-icon"></i>
+                  </ng-container>
+                  <ng-template #hiddenIcon>
+                    <i class="fas fa-eye-slash password-icon"></i>
+                  </ng-template>
+                </button>
               </div>
-  
-              <div class="form-group">
-                <input 
-                  id="inputPassword" 
-                  formControlName="password"
-                  class="form-input"
-                  type="password" 
-                  placeholder="Contraseña">
-              </div>
-  
-              <div class="form-group">
-                <input 
-                  id="inputPasswordConfirmation" 
-                  formControlName="password_confirmation"
-                  class="form-input"
-                  type="password" 
-                  placeholder="Confirmar Contraseña">
-              </div>
-  
-              <div class="form-group">
-                <label for="inputFotoPerfil" class="file-input-label">
-                  Foto de perfil
-                </label>
-                <div class="file-input-container">
-                  <input 
-                    id="inputFotoPerfil" 
-                    (change)="onFileSelected($event)"
-                    class="file-input"
-                    type="file">
-                  <div class="file-input-overlay">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                      <polyline points="17 8 12 3 7 8"></polyline>
-                      <line x1="12" y1="3" x2="12" y2="15"></line>
-                    </svg>
-                    <span>Seleccionar archivo</span>
-                  </div>
+            </div>
+            <div class="form-group">
+              <label for="inputFotoPerfil" class="file-input-label">
+                Foto de perfil
+              </label>
+              <div class="file-input-container">
+                <input id="inputFotoPerfil" (change)="onFileSelected($event)" class="file-input" type="file">
+                <div class="file-input-overlay">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="17 8 12 3 7 8"></polyline>
+                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                  </svg>
+                  <span>Selecciona un fitxer</span>
                 </div>
               </div>
-  
-              <!-- Navegación paso anterior y enviar -->
-              <div class="form-navigation">
-                <button 
-                  type="button" 
-                  (click)="active = 0"
-                  class="prev-button">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                  </svg>
-                  <span>Anterior</span>
-                </button>
-  
-                <button 
-                  type="submit"
-                  class="submit-button">
-                  Crear Cuenta
-                </button>
-              </div>
             </div>
-          </form>
-        </div>
+
+            <!-- Navegación paso anterior y enviar -->
+            <div class="form-navigation">
+              <button type="button" (click)="active = 0" class="prev-button">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+                <span>Anterior</span>
+              </button>
+
+              <button type="submit" class="submit-button">
+                Crear compte
+              </button>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
   </div>
-  
-  <!-- Decoración inferior -->
-  <div class="bottom-decoration">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" class="wave-svg">
-      <path fill="rgba(30, 41, 59, 0.8)" fill-opacity="1"
-        d="M0,0L40,42.7C80,85,160,171,240,197.3C320,224,400,192,480,154.7C560,117,640,75,720,74.7C800,75,880,117,960,154.7C1040,192,1120,224,1200,213.3C1280,203,1360,149,1400,122.7L1440,96L1440,320L1400,320C1360,320,1280,320,1200,320C1120,320,1040,320,960,320C880,320,800,320,720,320C640,320,560,320,480,320C400,320,320,320,240,320C160,320,80,320,40,320L0,320Z">
-      </path>
-    </svg>
-  </div>
+</div>
+
+<!-- Decoración inferior -->
+<div class="bottom-decoration">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" class="wave-svg">
+    <path fill="rgba(30, 41, 59, 0.8)" fill-opacity="1"
+      d="M0,0L40,42.7C80,85,160,171,240,197.3C320,224,400,192,480,154.7C560,117,640,75,720,74.7C800,75,880,117,960,154.7C1040,192,1120,224,1200,213.3C1280,203,1360,149,1400,122.7L1440,96L1440,320L1400,320C1360,320,1280,320,1200,320C1120,320,1040,320,960,320C880,320,800,320,720,320C640,320,560,320,480,320C400,320,320,320,240,320C160,320,80,320,40,320L0,320Z">
+    </path>
+  </svg>
+</div>

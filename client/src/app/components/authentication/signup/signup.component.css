@@ -1,6 +1,6 @@
 /* Estilos para la página de registro con tema gaming */
 
-/* Fondo y contenedor principal */
+/* Contenedor principal */
 .register-background {
     position: absolute;
     top: 0;
@@ -340,6 +340,10 @@
     opacity: 0;
     cursor: pointer;
     z-index: 2;
+  }
+
+  .password-icon {
+    color: #a78bfa;
   }
   
   .file-input-overlay {
