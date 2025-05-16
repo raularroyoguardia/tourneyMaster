@@ -1,6 +1,6 @@
 <div class="cyber-container">
   <div class="section-title main-title">
-    <span>Torneos Disponibles</span>
+    <span>Tornejos Disponibles</span>
     <div class="title-line"></div>
   </div>
 
@@ -33,7 +33,7 @@
         <div class="card-action">
           <ng-container *ngIf="estaTorneoDeshabilitado(torneig); else showJoinButton">
             <div class="disabled-message">
-              <span>Torneo no disponible</span>
+              <span>Torneig no disponible</span>
             </div>
           </ng-container>
 
@@ -120,7 +120,7 @@
                   <div class="match-card">
                     <div class="team-side left-side">
                       <div class="team-result" [ngClass]="{'winner': partida.resultat_equip_id === 1}">
-                        <span *ngIf="partida.resultat_equip_id === 1" class="winner-label">Ganador</span>
+                        <span *ngIf="partida.resultat_equip_id === 1" class="winner-label">Guanyador</span>
                         <button *ngIf="!partida.resultat_equip_id && tipusUsuariId === 1" 
                           class="cyber-button small-btn" 
                           (click)="actualitzarGuanyadorPartida(partida.id, 1)">
@@ -136,7 +136,7 @@
 
                     <div class="team-side right-side">
                       <div class="team-result" [ngClass]="{'winner': partida.resultat_equip_id === 2}">
-                        <span *ngIf="partida.resultat_equip_id === 2" class="winner-label">Ganador</span>
+                        <span *ngIf="partida.resultat_equip_id === 2" class="winner-label">Guanyador</span>
                         <button *ngIf="!partida.resultat_equip_id && tipusUsuariId === 1" 
                           class="cyber-button small-btn" 
                           (click)="actualitzarGuanyadorPartida(partida.id, 2)">
@@ -192,7 +192,7 @@
 
           <div class="tournament-ranking">
             <div class="ranking-title">
-              <span>Clasificación</span>
+              <span>Classificació</span>
               <div class="title-line"></div>
             </div>
             

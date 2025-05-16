@@ -251,6 +251,7 @@
 .form-group {
   position: relative;
   min-height: 4.5rem;
+  margin: 3rem 0;
 }
 
 .error {
@@ -329,7 +330,7 @@
   /* Enlace de contraseña olvidada */
   .forgot-password-container {
     text-align: center;
-    margin: 1.5rem 0;
+    margin: 2.5rem 0;
   }
   
   .forgot-password-link {

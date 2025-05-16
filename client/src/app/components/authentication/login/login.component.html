@@ -47,7 +47,7 @@
               Email
             </label>
             <input formControlName="email" id="inputEmail" class="form-input" type="email" placeholder="Email">
-            <div class="cyber-error" *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+            <div class="cyber-error absolute mt-1" style="position: absolute;" *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
               <span *ngIf="loginForm.get('email')?.errors?.['required']">El correu electronic es obligatori.</span>
               <span *ngIf="loginForm.get('email')?.errors?.['email']">El correu electronic no es valid.</span>
               <span *ngIf="loginForm.get('email')?.errors?.['server']">{{ loginForm.get('email')?.errors?.['server']
@@ -55,12 +55,20 @@
             </div>
           </div>
 
+          <!--
+          <div class="cyber-error absolute mt-1" style="position: absolute;"
+                *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+                <span *ngIf="loginForm.get('password')?.errors?.['required']">La contrasenya es obligatoria.</span>
+                <span *ngIf="loginForm.get('password')?.errors?.['server']">{{
+                  loginForm.get('password')?.errors?.['server'] }}</span>
+              </div>-->
+
           <div class="form-group">
             <label for="inputPassword" class="form-label">
               Contrasenya
             </label>
             <div class="relative">
-              <input [type]="showPassword ? 'text' : 'password'" formControlName="password" id="password"
+              <input [type]="showPassword ? 'text' : 'password'" formControlName="password" id="inputPassword"
                 placeholder="Contrasenya" class="form-input pr-10" />
               <!-- Añadido pr-10 para que el icono no se monte -->
 
@@ -98,7 +106,7 @@
 
           <div class="login-button-container">
             <button type="submit" class="login-button">
-              Inicia sessió
+              Iniciar sessió
             </button>
           </div>
         </form>
