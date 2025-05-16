@@ -1,27 +1,72 @@
-<h2>Llistat d'usuaris</h2>
+<div class="cyber-container">
+  <div class="section-title main-title">
+    <span>Llistat d'usuaris</span>
+    <div class="title-line"></div>
+  </div>
 
-<ul *ngIf="usuaris.length > 0; else noUsuaris">
-  <li *ngFor="let usuari of usuaris" class="usuari-item">
-    <img 
-      *ngIf="usuari.foto_perfil" 
-      [src]="'http://127.0.0.1:8000/uploads/fotoUsuari/' + usuari.foto_perfil" 
-      alt="Foto de {{ usuari.name }}" 
-    />
-    <div class="usuari-info">
-      <strong>{{ usuari.name }} {{ usuari.apellido1 }} {{ usuari.apellido2 }}</strong><br>
-      Correo electronico: {{ usuari.email }}
-      Telefon: {{ usuari.telefon }}
-      Trofeos: {{ usuari.trofeus }}
-      <div [ngSwitch]="usuari.tipus_usuari_id">
-        Tipus d'usuari: 
-        <span *ngSwitchCase="1">BOSS</span>
-        <span *ngSwitchCase="2">Admin del equipo</span>
-        <span *ngSwitchCase="3">Usuario del equipo</span>
-      </div>
+  <div class="cyber-card" *ngIf="usuaris.length > 0; else noUsuaris">
+    <div class="users-grid">
+      <div *ngFor="let usuari of usuaris" class="user-card">
+        <div class="user-header">
+          <div class="avatar-frame">
+            <img 
+              *ngIf="usuari.foto_perfil" 
+              [src]="'http://127.0.0.1:8000/uploads/fotoUsuari/' + usuari.foto_perfil" 
+              [alt]="'Foto de ' + usuari.name" 
+              class="user-avatar"
+            />
+            <div *ngIf="!usuari.foto_perfil" class="no-avatar">
+              {{ getInitials(usuari.name) }}
+            </div>
+            <div class="avatar-glow"></div>
           </div>
-  </li>
-</ul>
+          <div class="user-type" [ngClass]="'type-' + usuari.tipus_usuari_id">
+            <span *ngIf="usuari.tipus_usuari_id === 1">Admin</span>
+            <span *ngIf="usuari.tipus_usuari_id === 2">Capità</span>
+            <span *ngIf="usuari.tipus_usuari_id === 3">Jugador</span>
+          </div>
+        </div>
+        
+        <div class="user-body">
+          <h3 class="user-name">{{ usuari.name }} {{ usuari.apellido1 }} {{ usuari.apellido2 }}</h3>
+          
+          <div class="user-info-grid">
+            <div class="info-item">
+              <div class="info-label">
+                <i class="fi fi-rr-envelope"></i>
+                <span>Email</span>
+              </div>
+              <div class="info-value">{{ usuari.email }}</div>
+            </div>
+            
+            <div class="info-item">
+              <div class="info-label">
+                <i class="fi fi-rr-smartphone"></i>
+                <span>Telèfon</span>
+              </div>
+              <div class="info-value">{{ usuari.telefon || 'No disponible' }}</div>
+            </div>
+            
+            <div class="info-item trophies">
+              <div class="info-label">
+                <i class="fi fi-rr-trophy-star"></i>
+                <span>Trofeus</span>
+              </div>
+              <div class="info-value trophy-count">{{ usuari.trofeus }} <i class="fi fi-sr-trophy-star"></i></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-<ng-template #noUsuaris>
-  <p>No s'han trobat altres usuaris.</p>
-</ng-template>
+  <ng-template #noUsuaris>
+    <div class="empty-state">
+      <div class="empty-icon">
+        <i class="fi fi-rr-users-alt"></i>
+      </div>
+      <p>No s'han trobat altres usuaris.</p>
+      <div class="empty-glow"></div>
+    </div>
+  </ng-template>
+</div>

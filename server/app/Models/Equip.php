@@ -17,8 +17,13 @@ class Equip extends Model
     {
         return $this->hasMany(Torneig::class);
     }
+    public function torneig()
+{
+    return $this->belongsToMany(Torneig::class, 'torneig_equip');
+}
+
     public function usuaris(): HasMany
-    {
+    {   
         return $this->hasMany(User::class);
     }
 

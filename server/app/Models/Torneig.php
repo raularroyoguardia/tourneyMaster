@@ -15,7 +15,7 @@ class Torneig extends Model
 
     public function equips(): BelongsToMany
     {
-        return $this->belongsToMany(Equip::class);
+        return $this->belongsToMany(Equip::class, 'equips_torneigs', 'torneig_id', 'equip_id');
     }
 
     public function modesDeJoc(): HasOne

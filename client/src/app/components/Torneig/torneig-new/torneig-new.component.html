@@ -1,114 +1,232 @@
-<div class="tournament-container">
-    <form [formGroup]="myForm" (ngSubmit)="onSubmit()" style="color: white;">
-        <div>
-            <label>Nom:</label>
-            <input type="text" formControlName="nom" />
-        </div>
-
-        <div>
-            <label>Participants:</label>
-            <input type="number" formControlName="participants" />
-            <div *ngIf="myForm.get('participants')?.hasError('min') && myForm.get('participants')?.touched"
-                style="color: red;">
-                Mínim de participants: 2
-            </div>
-        </div>
-
-        <div>
-            <label>Tipus:</label>
-            <select formControlName="tipus">
-                <option value="">-- Selecciona tipus --</option>
-                <option value="col·lectiu">Col·lectiu</option>
-                <option value="individual">Individual</option>
-            </select>
-        </div>
-
-        <div>
-            <label>Data inici:</label>
-            <input type="date" formControlName="data_inici" />
-        </div>
-
-        <div>
-            <label>Data fi:</label>
-            <input type="date" formControlName="data_fi" />
-        </div>
-        <div *ngIf="myForm.errors?.['dataFiAnterior']" style="color: red;">
-            La data de finalització no pot ser anterior a la data d'inici.
-        </div>
-        <div>
-            <label>Estat:</label>
-            <select formControlName="estat">
-                <option value="">-- Selecciona estat --</option>
-                <option value="No començat">No començat</option>
-                <option value="En procés">En procès</option>
-                <option value="Finalitzat">Finalitzat</option>
-            </select>
-        </div>
-
-        <div>
-            <label>Joc:</label>
-            <select formControlName="joc_id">
-                <option value="">-- Selecciona un joc --</option>
-                <option *ngFor="let joc of jocs" [value]="joc.id">{{ joc.nom }}</option>
-            </select>
-        </div>
-
-        <div>
-            <label>Mode Joc:</label>
-            <select formControlName="modeJoc_id" [disabled]="modesJoc.length === 0">
-                <option value="">-- Selecciona un mode --</option>
-                <option *ngFor="let mode of modesJoc" [value]="mode.id">{{ mode.nom }}</option>
-            </select>
-        </div>
-
-        <div>
-            <label>Mapa:</label>
-            <select formControlName="mapa_id" [disabled]="mapas.length === 0">
-                <option value="">-- Selecciona un mapa --</option>
-                <option *ngFor="let mapa of mapas" [value]="mapa.id">{{ mapa.nom }}</option>
-            </select>
-        </div>
-
-        <div>
-            <label>Nombre Equips:</label>
-            <input type="number" formControlName="numero_equips" />
-            <div *ngIf="myForm.get('numero_equips')?.hasError('min') && myForm.get('numero_equips')?.touched"
-                style="color: red;">
-                Mínim de numero de equips: 2
-            </div>
-        </div>
-
-        <div>
-            <label>Premi:</label>
-            <select formControlName="premi_id">
-                <option value="">-- Selecciona un premi --</option>
-                <option value="1">100</option>
-                <option value="2">75</option>
-                <option value="3">50</option>
-            </select>
-        </div>
-
-        <div>
-            <label>Quantitat Partides:</label>
-            <input type="number" formControlName="quantitat_partides" [value]="3" [disabled]="true" />
-        </div>
-  <!-- PARTIDES -->
-  <div formArrayName="partides">
-    <h3>Horaris de les Partides</h3>
-    <div *ngFor="let partida of partides.controls; let i = index" [formGroupName]="i">
-      <label>Partida {{ i + 1 }} - Hora:</label>
-      <input type="datetime-local" formControlName="hora" />
-  
-      <!-- Error individual de fora de rang -->
-      <div *ngIf="partida.get('hora')?.errors?.['foraDeRang'] && partida.get('hora')?.touched" style="color: red;">
-        La data de la partida {{ i + 1 }} ha d'estar dins del rang seleccionat.
-      </div>
+<div class="cyber-container">
+    <div class="section-title main-title">
+        <span>Crear Torneig</span>
+        <div class="title-line"></div>
     </div>
-  </div>
-  
 
-        <button type="submit" [disabled]="myForm.invalid">Crear Torneig</button>
-    </form>
+    <div class="cyber-card">
+        <div class="card-content">
+            <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+                <!-- Información básica del torneo -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <span>Informació Bàsica</span>
+                        <div class="section-line"></div>
+                    </div>
 
-    <p *ngIf="errorMessage" style="color: red;">{{ errorMessage }}</p>
-    <div class="tournament-container"></div>
+                    <div class="form-grid">
+                        <!-- Nombre del torneo -->
+                        <div class="cyber-form-group">
+                            <label for="nom" class="cyber-label">Nom del Torneig</label>
+                            <div class="cyber-input-wrapper">
+                                <input type="text" class="cyber-input" id="nom" formControlName="nom">
+                                <div class="input-glow"></div>
+                            </div>
+                        </div>
+
+                        <!-- Tipo de torneo -->
+                        <div class="cyber-form-group">
+                            <label for="tipus" class="cyber-label">Tipus</label>
+                            <div class="cyber-input-wrapper">
+                                <select class="cyber-input cyber-select" id="tipus" formControlName="tipus">
+                                    <option value="">-- Selecciona tipus --</option>
+                                    <option value="col·lectiu">Col·lectiu</option>
+                                    <option value="individual">Individual</option>
+                                </select>
+                                <div class="input-glow"></div>
+                            </div>
+                        </div>
+
+                        <!-- Participantes -->
+                        <div class="cyber-form-group">
+                            <label for="participants" class="cyber-label">Participants</label>
+                            <div class="cyber-input-wrapper">
+                                <input type="number" class="cyber-input" id="participants"
+                                    formControlName="participants">
+                                <div class="input-glow"></div>
+                            </div>
+                            <div *ngIf="myForm.get('participants')?.hasError('min') && myForm.get('participants')?.touched"
+                                class="cyber-error">
+                                Mínim de participants: 2
+                            </div>
+                        </div>
+
+                        <!-- Número de equipos -->
+                        <div class="cyber-form-group">
+                            <label for="numero_equips" class="cyber-label">Nombre Equips</label>
+                            <div class="cyber-input-wrapper">
+                                <input type="number" class="cyber-input" id="numero_equips"
+                                    formControlName="numero_equips">
+                                <div class="input-glow"></div>
+                            </div>
+                            <div *ngIf="myForm.get('numero_equips')?.hasError('min') && myForm.get('numero_equips')?.touched"
+                                class="cyber-error">
+                                Mínim de numero de equips: 2
+                            </div>
+                        </div>
+
+                        <!-- Estado del torneo -->
+                        <div class="cyber-form-group">
+                            <label for="estat" class="cyber-label">Estat</label>
+                            <div class="cyber-input-wrapper">
+                                <input type="text" class="cyber-input" id="estat" formControlName="estat" [disabled]="true">
+                                <div class="input-glow"></div>
+                            </div>
+                        </div>
+
+                        <!-- Premio -->
+                        <div class="cyber-form-group">
+                            <label for="premi_id" class="cyber-label">Premi (Trofeus)</label>
+                            <div class="cyber-input-wrapper">
+                                <select class="cyber-input cyber-select" id="premi_id" formControlName="premi_id">
+                                    <option value="">-- Selecciona un premi --</option>
+                                    <option value="1">100</option>
+                                    <option value="2">75</option>
+                                    <option value="3">50</option>
+                                </select>
+                                <div class="input-glow"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fechas del torneo -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <span>Dates del Torneig</span>
+                        <div class="section-line"></div>
+                    </div>
+
+                    <div class="form-grid">
+                        <!-- Fecha de inicio -->
+                        <div class="cyber-form-group">
+                            <label for="data_inici" class="cyber-label">Data Inici</label>
+                            <div class="cyber-input-wrapper">
+                                <input type="date" class="cyber-input" id="data_inici" formControlName="data_inici">
+                                <div class="input-glow"></div>
+                            </div>
+                        </div>
+
+                        <!-- Fecha de fin -->
+                        <div class="cyber-form-group">
+                            <label for="data_fi" class="cyber-label">Data Fi</label>
+                            <div class="cyber-input-wrapper">
+                                <input type="date" class="cyber-input" id="data_fi" formControlName="data_fi">
+                                <div class="input-glow"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Error de fechas -->
+                    <div *ngIf="myForm.errors?.['dataFiAnterior']" class="cyber-error-message">
+                        <div class="error-icon">
+                            <i class="fi fi-rr-exclamation"></i>
+                        </div>
+                        <span>La data de finalització no pot ser anterior a la data d'inici.</span>
+                    </div>
+                </div>
+
+                <!-- Configuración del juego -->
+                <div class="form-section">
+                    <div class="section-header">
+                        <span>Configuració del Joc</span>
+                        <div class="section-line"></div>
+                    </div>
+
+                    <div class="form-grid">
+                        <!-- Juego -->
+                        <div class="cyber-form-group">
+                            <label for="joc_id" class="cyber-label">Joc</label>
+                            <div class="cyber-input-wrapper">
+                                <select class="cyber-input cyber-select" id="joc_id" formControlName="joc_id">
+                                    <option value="">-- Selecciona un joc --</option>
+                                    <option *ngFor="let joc of jocs" [value]="joc.id">{{ joc.nom }}</option>
+                                </select>
+                                <div class="input-glow"></div>
+                            </div>
+                        </div>
+
+                        <!-- Modo de juego -->
+                        <div class="cyber-form-group">
+                            <label for="modeJoc_id" class="cyber-label">Mode Joc</label>
+                            <div class="cyber-input-wrapper">
+                                <select class="cyber-input cyber-select" id="modeJoc_id" formControlName="modeJoc_id"
+                                    [disabled]="modesJoc.length === 0">
+                                    <option value="">-- Selecciona un mode --</option>
+                                    <option *ngFor="let mode of modesJoc" [value]="mode.id">{{ mode.nom }}</option>
+                                </select>
+                                <div class="input-glow"></div>
+                            </div>
+                        </div>
+
+                        <!-- Mapa -->
+                        <div class="cyber-form-group">
+                            <label for="mapa_id" class="cyber-label">Mapa</label>
+                            <div class="cyber-input-wrapper">
+                                <select class="cyber-input cyber-select" id="mapa_id" formControlName="mapa_id"
+                                    [disabled]="mapas.length === 0">
+                                    <option value="">-- Selecciona un mapa --</option>
+                                    <option *ngFor="let mapa of mapas" [value]="mapa.id">{{ mapa.nom }}</option>
+                                </select>
+                                <div class="input-glow"></div>
+                            </div>
+                        </div>
+
+                        <!-- Cantidad de partidas -->
+                        <div class="cyber-form-group">
+                            <label for="quantitat_partides" class="cyber-label">Quantitat Partides</label>
+                            <div class="cyber-input-wrapper">
+                                <input type="number" class="cyber-input" id="quantitat_partides"
+                                    formControlName="quantitat_partides" [value]="3" [disabled]="true">
+                                <div class="input-glow"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Horarios de partidas -->
+                <div class="form-section" formArrayName="partides">
+                    <div class="section-header">
+                        <span>Horaris de les Partides</span>
+                        <div class="section-line"></div>
+                    </div>
+
+                    <div class="matches-grid">
+                        <div *ngFor="let partida of partides.controls; let i = index" [formGroupName]="i"
+                            class="match-item">
+                            <div class="cyber-form-group">
+                                <label [for]="'partida-' + i" class="cyber-label">Partida {{ i + 1 }}</label>
+                                <div class="cyber-input-wrapper">
+                                    <input type="datetime-local" class="cyber-input" [id]="'partida-' + i"
+                                        formControlName="hora">
+                                    <div class="input-glow"></div>
+                                </div>
+                                <!-- Error individual de fora de rang -->
+                                <div *ngIf="partida.get('hora')?.errors?.['foraDeRang'] && partida.get('hora')?.touched"
+                                    class="cyber-error">
+                                    La data de la partida {{ i + 1 }} ha d'estar dins del rang seleccionat.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mensaje de error general -->
+                <div *ngIf="errorMessage" class="cyber-error-message">
+                    <div class="error-icon">
+                        <i class="fi fi-rr-exclamation"></i>
+                    </div>
+                    <span>{{ errorMessage }}</span>
+                </div>
+
+                <!-- Botón de envío -->
+                <div class="button-container">
+                    <button type="submit" class="cyber-button submit-btn" [disabled]="myForm.invalid">
+                        <span class="btn-content">Crear Torneig</span>
+                        <span class="btn-glitch"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

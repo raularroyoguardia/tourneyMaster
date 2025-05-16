@@ -324,13 +324,12 @@
 }
 
 .slots-cell {
-  width: 100px;
+  width: 200px;
 }
 
 .slots-display {
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 0.25rem;
 }
 
@@ -349,7 +348,7 @@
 }
 
 .action-cell {
-  width: 120px;
+  width: 200px;
 }
 
 /* Botón cyberpunk */

@@ -44,6 +44,10 @@ export class DadesTornejosService {
     return this._http.get<ITorneig[]>('http://127.0.0.1:8000/api/torneigs', { observe: 'response' });
   }
 
+  public getTorneigsPerEstat(estat: string) {
+    return this._http.get<ITorneig[]>(`http://127.0.0.1:8000/api/torneigs/estat/${estat}`);
+  }
+  
   public getTorneigsPerUsuari(usuariId: number): Observable<HttpResponse<ITorneig[]>> {
     return this._http.get<ITorneig[]>(`http://localhost:8000/api/torneigs/per-usuari/${usuariId}`, { observe: 'response' });
   }

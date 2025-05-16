@@ -21,23 +21,24 @@ export class TorneigListComponent implements OnInit {
   equips: IEquip[] = [];
   torneigsStats: { torneig_id: number, total_equips: number, numero_equips: number, torneig_ple: boolean }[] = [];
   tipusUsuariId: number = 0;
+  filtreTorneigs: string = 'tots';
 
   constructor(
     private torneigService: DadesTornejosService,
     private http: HttpClient,
     private authService: AuthService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     setInterval(() => {
       this.actualitzarEstatTotsElsTorneigs();
-    
+
       this.http.get<any[]>('/api/torneigs/stats').subscribe(stats => {
         this.torneigsStats = stats;
       });
     }, 1000);
-    
-    
+
+
     const usuariString = localStorage.getItem('user');
     if (usuariString) {
       const usuari = JSON.parse(usuariString);
@@ -74,38 +75,38 @@ export class TorneigListComponent implements OnInit {
         alert('Aquest torneig ja està ple i no s\'hi poden afegir més equips.');
         return;
       }
-  
+
       const torneig = this.torneigs.find(t => t.id === torneigId);
       if (!torneig) {
         alert('No s\'ha trobat el torneig.');
         return;
       }
-  
+
       const currentUser = this.authService.getCurrentUser();
       const currentUserId = currentUser.id;
-  
+
       const esTorneigIndividual = torneig.tipus === 'individual';
       const esTorneigCollectiu = torneig.tipus === 'col·lectiu';
-  
+
       this.http.get<IEquip[]>(`http://localhost:8000/api/users/${currentUserId}/equips`).subscribe({
         next: (equipsUsuari) => {
           let equipAdequat: IEquip | undefined;
-  
+
           if (esTorneigIndividual) {
             equipAdequat = equipsUsuari.find(e =>
-              e.maxim_integrants === 1             
+              e.maxim_integrants === 1
             );
           } else if (esTorneigCollectiu) {
             equipAdequat = equipsUsuari.find(e =>
               e.maxim_integrants > 1
             );
           }
-        
+
           if (!equipAdequat) {
             alert('No tens un equip adequat per unir-te a aquest torneig.');
             return;
           }
-  
+
           this.torneigService.unirseATorneig(torneigId, equipAdequat.id).subscribe({
             next: (response) => {
               alert('T\'has unit correctament al torneig.');
@@ -124,7 +125,27 @@ export class TorneigListComponent implements OnInit {
       });
     });
   }
-  
+
+  filtrarTorneigs(filtre: string): void {
+    this.filtreTorneigs = filtre;
+    if (filtre === 'tots') {
+      this.torneigService.getTornejos().subscribe(response => {
+        this.torneigs = response.body || [];
+      });
+    } else if (filtre === 'En procès' || filtre === 'No Començat') {
+
+      this.torneigService.getTorneigsPerEstat(filtre).subscribe(response => {
+        this.torneigs = response;
+        console.log('Tornejos filtrats:', this.torneigs);
+      });
+    } else if (filtre === 'per_inscrits') {
+      const currentUser = this.authService.getCurrentUser();
+      this.torneigService.getTorneigsPerUsuari(currentUser.id).subscribe(response => {
+        this.torneigs = response.body || [];
+      });
+    }
+  }
+
 
   mostrarDetalls(torneig: ITorneig) {
     this.selectedTorneig = torneig;
@@ -167,7 +188,7 @@ export class TorneigListComponent implements OnInit {
     const stat = this.torneigsStats.find(s => s.torneig_id === torneigId);
     if (!stat) return false;
     return stat.torneig_ple;
-  }  
+  }
 
   actualitzarGuanyadorPartida(partidaId: number, equipId: number) {
     this.http.put(`http://localhost:8000/api/partides/${partidaId}`, {
@@ -224,12 +245,12 @@ export class TorneigListComponent implements OnInit {
       const avui = new Date();
       const dataInici = new Date(torneig.data_inici);
       const dataFi = new Date(torneig.data_fi);
-  
+
       let nouEstat = '';
       if (avui < dataInici) nouEstat = 'No Començat';
       else if (avui > dataFi) nouEstat = 'Finalitzat';
       else nouEstat = 'En Procès';
-  
+
       if (torneig.estat !== nouEstat) {
         this.http.put(`http://localhost:8000/api/torneigs/${torneig.id}/estat`, {
           estat: nouEstat
@@ -245,5 +266,46 @@ export class TorneigListComponent implements OnInit {
       }
     });
   }
-  
+
+  getEstatIcon(estat: string): string {
+    if (!estat) return "fi fi-rr-info"
+
+    const estatLower = estat.toLowerCase()
+
+    if (estatLower.includes("no començat")) {
+      return "fi fi-rr-hourglass-start"
+    } else if (estatLower.includes("en procés") || estatLower.includes("en proces")) {
+      return "fi fi-rr-spinner"
+    } else if (estatLower.includes("finalitzat")) {
+      return "fi fi-rr-check"
+    }
+    return "fi fi-rr-info"
+  }
+
+  formatDate(dateString: Date): string {
+    if (!dateString) return "N/A"
+
+    const date = new Date(dateString)
+    return date.toLocaleDateString("ca-ES", {
+      day: "2-digit",
+      month: "2-digit",
+      year: "numeric",
+    })
+  }
+
+  getEstatClass(estat: string): string {
+    if (!estat) return ""
+
+    const estatLower = estat.toLowerCase()
+
+    if (estatLower.includes("no començat")) {
+      return "badge-no-comenzado"
+    } else if (estatLower.includes("en procés") || estatLower.includes("en procès")) {
+      return "badge-en-proces"
+    } else if (estatLower.includes("finalitzat")) {
+      return "badge-finalitzat"
+    }
+
+    return ""
+  }
 }

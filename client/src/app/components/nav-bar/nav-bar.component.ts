@@ -16,6 +16,7 @@ export class NavBarComponent implements OnInit, OnDestroy {
   user: any = {};
   isMenuOpen: boolean = false;
   isMobileMenuOpen: boolean = false;
+  isParametersMenuOpen: boolean = false;
   usuariId: number = 0;
   equips: any[] = [];
   tipusUsuariId: number = 0;
@@ -39,6 +40,10 @@ export class NavBarComponent implements OnInit, OnDestroy {
 
   toggleMobileMenu(): void {
     this.isMobileMenuOpen = !this.isMobileMenuOpen;
+  }
+
+  toogleParametersDropdown(): void {
+    this.isParametersMenuOpen = !this.isParametersMenuOpen;
   }
   
   logout(): void {

@@ -1,4 +1,5 @@
 export interface ITorneig {
+    joc_nom: string;
     id: number;
     nom: string;
     participants: number;
@@ -11,6 +12,7 @@ export interface ITorneig {
     numero_equips: number;
     joc_foto: string;
     mode_joc: string;
+    foto_mapa: string;
     nom_mapa: string;
     descripcio: string;
     premi_valor: number;

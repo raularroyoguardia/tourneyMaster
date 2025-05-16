@@ -81,13 +81,15 @@ Route::get('/modejoc/delete/{id}', [ModeDeJocController::class, 'delete'])->name
 
 //TORNEIG
 Route::get('/torneigs', [TorneigController::class, 'list']) ->name('torneigs_list');
+Route::get('/torneigs/estat/{estat}', [TorneigController::class, 'getPerEstat']);
+Route::get('/torneigs/per-usuari/{usuariId}', [TorneigController::class, 'getTorneigsPerUsuari']);
 Route::post('/torneig/new', [TorneigController::class, 'new'])->name('torneig_new');
 Route::get('/torneig/{id}', [TorneigController::class, 'show'])->name('torneig_show');
 Route::match(['get', 'post'], '/torneig/edit/{id}', [TorneigController::class, 'edit'])->name('torneig_edit');
 Route::get('/torneig/delete/{id}', [TorneigController::class, 'delete'])->name('torneig_delete');
-Route::get('/torneigs/per-usuari/{usuariId}', [TorneigController::class, 'getTorneigsPerUsuari']);
 Route::get('/torneigs/stats', [TorneigStatsController::class, 'index']);
 Route::put('/torneigs/{id}/estat', [TorneigController::class, 'updateEstat']);
+
 
 
 //PARTIDA

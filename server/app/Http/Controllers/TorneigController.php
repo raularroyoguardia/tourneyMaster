@@ -20,7 +20,8 @@ class TorneigController extends Controller
                 jocs.foto AS joc_foto, 
                 jocs.nom AS joc_nom, 
                 premis.valor AS premi_valor,
-                mapas.mapa AS nom_mapa
+                mapas.mapa AS foto_mapa,
+                mapas.nom AS nom_mapa
             FROM torneigs
             JOIN mode_jocs ON torneigs.modeJoc_id = mode_jocs.id
             JOIN jocs ON mode_jocs.joc_id = jocs.id
@@ -92,7 +93,7 @@ class TorneigController extends Controller
             'mapa_id.required' => 'Selecciona un mapa',
             // 'premi_id.required' => 'Selecciona un premi'
         ]);
-    
+
         $torneig->nom = $request->nom;
         $torneig->participants = $request->participants;
         $torneig->tipus = $request->tipus;
@@ -105,9 +106,9 @@ class TorneigController extends Controller
         $torneig->premi_id = $request->premi_id ?? 1;
         $torneig->quantitat_partides = 3;  // Asignamos el valor directamente
         $torneig->save();
-    
+
         $dataInici = \Carbon\Carbon::parse($torneig->data_inici);
-    
+
         // Crear las 3 partidas
         for ($i = 1; $i <= 3; $i++) {
             Partida::create([
@@ -116,10 +117,10 @@ class TorneigController extends Controller
                 'data_hora' => $dataInici->copy()->addWeeks($i - 1)->setTimeFromTimeString('11:00:00'),
             ]);
         }
-    
+
         return response()->json($torneig);
     }
-    
+
 
     public function show($id)
     {
@@ -189,7 +190,8 @@ class TorneigController extends Controller
                 jocs.foto AS joc_foto, 
                 jocs.nom AS joc_nom, 
                 premis.valor AS premi_valor,
-                mapas.mapa AS nom_mapa
+                mapas.mapa AS foto_mapa,
+                mapas.nom AS nom_mapa
             FROM torneigs
             JOIN mode_jocs ON torneigs.modeJoc_id = mode_jocs.id
             JOIN jocs ON mode_jocs.joc_id = jocs.id
@@ -258,15 +260,74 @@ class TorneigController extends Controller
     }
 
     public function updateEstat(Request $request, $id)
+    {
+        $request->validate([
+            'estat' => 'required|string|in:No Començat,En Procès,Finalitzat',
+        ]);
+
+        $torneig = Torneig::findOrFail($id);
+        $torneig->estat = $request->estat;
+        $torneig->save();
+
+        return response()->json(['message' => 'Estat actualitzat correctament.']);
+    }
+
+    public function getPerEstat($estat)
 {
-    $request->validate([
-        'estat' => 'required|string|in:No Començat,En Procès,Finalitzat',
-    ]);
+    // Paso 1: Obtener la info principal del torneo + mapa
+    $torneigs = DB::select("
+        SELECT 
+            torneigs.*, 
+            mode_jocs.descripcio, 
+            jocs.foto AS joc_foto, 
+            jocs.nom AS joc_nom, 
+            premis.valor AS premi_valor,
+            mapas.mapa AS nom_mapa
+        FROM torneigs
+        JOIN mode_jocs ON torneigs.modeJoc_id = mode_jocs.id
+        JOIN jocs ON mode_jocs.joc_id = jocs.id
+        LEFT JOIN premis ON torneigs.premi_id = premis.id
+        LEFT JOIN mapas ON torneigs.mapa_id = mapas.id
+        WHERE torneigs.estat = ?
+    ", [$estat]);
 
-    $torneig = Torneig::findOrFail($id);
-    $torneig->estat = $request->estat;
-    $torneig->save();
+    // Paso 2: Obtener los equipos relacionados
+    $equipsPorTorneig = DB::select("
+        SELECT 
+            equips_torneigs.torneig_id,
+            equips.*
+        FROM equips_torneigs
+        JOIN equips ON equips.id = equips_torneigs.equip_id
+    ");
 
-    return response()->json(['message' => 'Estat actualitzat correctament.']);
+    // Paso 3: Agrupar equipos por torneo
+    $mapaEquips = [];
+    foreach ($equipsPorTorneig as $equip) {
+        $mapaEquips[$equip->torneig_id][] = $equip;
+    }
+
+    // Paso 4: Añadir los equipos a cada torneo
+    foreach ($torneigs as &$torneig) {
+        $torneig->equips = $mapaEquips[$torneig->id] ?? [];
+    }
+
+    // Paso 5: Obtener las partidas de cada torneo
+    $partidesPorTorneig = DB::select("
+        SELECT * FROM partidas
+    ");
+
+    // Agrupar por torneig_id
+    $mapaPartides = [];
+    foreach ($partidesPorTorneig as $partida) {
+        $mapaPartides[$partida->torneig_id][] = $partida;
+    }
+
+    // Añadir a cada torneig
+    foreach ($torneigs as &$torneig) {
+        $torneig->partides = $mapaPartides[$torneig->id] ?? [];
+    }
+
+    return response()->json($torneigs);
 }
+
 }

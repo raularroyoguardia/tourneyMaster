@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-list-user',
   standalone: true,
-  imports: [CommonModule], 
+  imports: [CommonModule],
   templateUrl: './user-list.component.html',
   styleUrl: './user-list.component.css'
 })
@@ -14,7 +14,7 @@ export class UserListComponent implements OnInit {
   usuaris: IUser[] = [];
   usuariIdLoguejat: number | null = null;
 
-  constructor(private usuariService: DadesUsersService) {}
+  constructor(private usuariService: DadesUsersService) { }
 
   ngOnInit(): void {
     const usuariLocal = localStorage.getItem('user');
@@ -35,17 +35,11 @@ export class UserListComponent implements OnInit {
       }
     });
   }
-  getNomTipusUsuari(id: number): string {
-    switch (id) {
-      case 1:
-        return 'BOSS';
-      case 2:
-        return 'Admin del equipo';
-      case 3:
-        return 'Usuario del equipo';
-      default:
-        return 'Desconegut';
-    }
+
+  // Método para obtener las iniciales del nombre
+  getInitials(name: string): string {
+    if (!name) return "?"
+    return name.charAt(0).toUpperCase()
   }
-  
+
 }

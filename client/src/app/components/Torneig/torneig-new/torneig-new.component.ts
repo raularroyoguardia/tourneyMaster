@@ -42,100 +42,14 @@ interface Joc {
   templateUrl: './torneig-new.component.html',
   styleUrl: './torneig-new.component.css'
 })
-// export class TorneigNewComponent implements OnInit {
-//   myForm: FormGroup;
-//   errorMessage: string = '';
-//   jocs: Joc[] = [];
-//   modesJoc: ModeJoc[] = [];
-//   mapas: Mapa[] = [];
 
-//   constructor(
-//     private fb: FormBuilder,
-//     private router: Router,
-//     private dadesService: DadesTornejosService
-//   ) {
-//     this.myForm = this.fb.group({
-//       nom: ['', Validators.required],
-//       participants: [2, [Validators.required, Validators.min(2)]],
-//       tipus: ['', Validators.required],
-//       data_inici: ['', Validators.required],
-//       data_fi: ['', Validators.required],
-//       estat: ['', Validators.required],
-//       joc_id: ['', Validators.required],
-//       modeJoc_id: ['', Validators.required],
-//       mapa_id: ['', Validators.required],
-//       quantitat_partides: [{ value: 3, disabled: true }], // valor fijo
-//       numero_equips: [2, [Validators.required, Validators.min(2)]],
-//       premi_id: ['', Validators.required]
-
-//     }, { validators: this.dataFiPosteriorValidator() });
-    
-//   }
-
-//   dataFiPosteriorValidator(): ValidatorFn {
-//     return (control: AbstractControl): { [key: string]: any } | null => {
-//       const dataInici = control.get('data_inici')?.value;
-//       const dataFi = control.get('data_fi')?.value;
-  
-//       if (dataInici && dataFi && new Date(dataFi) < new Date(dataInici)) {
-//         return { dataFiAnterior: true };
-//       }
-//       return null;
-//     };
-//   }
-
-//   ngOnInit(): void {
-//     this.dadesService.getJocs().subscribe({
-//       next: (data: Joc[]) => {
-//         this.jocs = data;
-//         console.log('Jocs carregats:', this.jocs);
-//       },
-//       error: (err) => {
-//         this.errorMessage = 'Error carregant els jocs.';
-//         console.error(err);
-//       }
-//     });
-  
-//     this.myForm.get('joc_id')?.valueChanges.subscribe(jocId => {
-//       const jocSeleccionat = this.jocs.find(j => j.id === Number(jocId));
-//       if (jocSeleccionat) {
-//         this.modesJoc = jocSeleccionat.mode_jocs || [];
-//       } else {
-//         this.modesJoc = [];
-//       }
-//       this.mapas = [];
-//       this.myForm.patchValue({ modeJoc_id: '', mapa_id: '' });
-//     });
-  
-//     this.myForm.get('modeJoc_id')?.valueChanges.subscribe(modeId => {
-//       const modeSeleccionat = this.modesJoc.find(m => m.id === Number(modeId));
-//       this.mapas = modeSeleccionat ? modeSeleccionat.mapas : [];
-//       this.myForm.patchValue({ mapa_id: '' });
-//     });
-//   } 
-
-//   onSubmit(): void {
-//     console.log(this.myForm.value); 
-//     const formData = new FormData();
-//     Object.entries(this.myForm.value).forEach(([key, value]) => {
-//       formData.append(key, String(value));
-//     });
-//     formData.append('quantitat_partides', this.myForm.get('quantitat_partides')?.value);
-
-//     this.dadesService.createTorneig(formData).subscribe({
-//       next: () => this.router.navigate(['/torneig-list']),
-//       error: (err) => {
-//         this.errorMessage = 'Error en crear el torneig.';
-//       }
-//     });
-//   }
-// }
 export class TorneigNewComponent implements OnInit {
   myForm: FormGroup;
   errorMessage: string = '';
   jocs: Joc[] = [];
   modesJoc: ModeJoc[] = [];
   mapas: Mapa[] = [];
+  noComensat: string = "No començat";
 
   constructor(
     private fb: FormBuilder,
@@ -148,7 +62,7 @@ export class TorneigNewComponent implements OnInit {
       tipus: ['', Validators.required],
       data_inici: ['', Validators.required],
       data_fi: ['', Validators.required],
-      estat: ['', Validators.required],
+      estat: [{ value: this.noComensat, disabled: true }],
       joc_id: ['', Validators.required],
       modeJoc_id: ['', Validators.required],
       mapa_id: ['', Validators.required],
@@ -291,6 +205,7 @@ export class TorneigNewComponent implements OnInit {
     });
 
     formData.append('quantitat_partides', '3');
+    formData.append('estat', 'No començat');
 
     this.dadesService.createTorneig(formData).subscribe({
       next: () => this.router.navigate(['/torneig-list']),

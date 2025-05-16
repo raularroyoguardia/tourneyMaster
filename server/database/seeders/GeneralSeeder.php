@@ -19,19 +19,19 @@ class GeneralSeeder extends Seeder
     {
         //TIPUS USUARI
         DB::table('tipus_usuaris')->insert([
-            'tipus' => 'BOSS',
+            'tipus' => 'Admin',
             'permisos' => 2,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
         DB::table('tipus_usuaris')->insert([
-            'tipus' => 'AdministradorEquip',
+            'tipus' => 'Capità',
             'permisos' => 1,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
         DB::table('tipus_usuaris')->insert([
-            'tipus' => 'UsuariEquip',
+            'tipus' => 'Jugador',
             'permisos' => 0,
             'created_at' => now(),
             'updated_at' => now(),
