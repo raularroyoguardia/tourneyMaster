@@ -4,6 +4,7 @@ import { AuthService } from '../../services/auth/auth.service';
 import { TokenService } from '../../services/auth/token.service';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'app-nav-bar',
@@ -71,15 +72,41 @@ export class NavBarComponent implements OnInit, OnDestroy {
     if (userData) {
       this.user = JSON.parse(userData);
     }
-
+  
     const usuari = JSON.parse(localStorage.getItem('user') || '{}');
     this.usuariId = usuari.id;
     this.tipusUsuariId = usuari.tipus_usuari_id;
     this.trofeus = usuari.trofeus || 0;
-    
+  
     this.getUserOne();
     this.getUserEquips();
-
+  
+    // Rutas que deben cerrar el menú
+    const rutasQueCierranMenu = [
+      '/torneig-new',
+      '/equip-new',
+      '/user-edit',
+      '/user-list',
+      '/joc-new',
+      '/mode-joc-new',
+      '/mapa-new',
+      '/torneig-list',
+      '/welcome',
+      '/clasificacio-list',
+      '/equip-list'
+    ];
+  
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        const rutaActual = event.urlAfterRedirects;
+  
+        if (rutasQueCierranMenu.includes(rutaActual)) {
+          this.isMenuOpen = false;
+          this.isMobileMenuOpen = false;
+        }
+      }
+    });
+  
     // Set up interval to refresh data
     this.trofeusInterval = setInterval(() => {
       this.getUserOne();

@@ -1,1 +1,124 @@
-<p>mode-joc-new works!</p>
+<div class="cyber-container">
+    <!-- Título de la sección -->
+    <div class="section-title main-title">
+        <span>Gestió de Mode de Jocs</span>
+        <div class="title-line"></div>
+    </div>
+
+    <!-- Formulario con estilo cyberpunk -->
+    <div class="cyber-card">
+        <div class="card-content">
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <div class="form-grid">
+                    <!-- Nombre del juego -->
+                    <div class="cyber-form-group">
+                        <label for="nom" class="cyber-label">Nom</label>
+                        <div class="cyber-input-wrapper">
+                            <input type="text" class="cyber-input" id="nom" formControlName="nom" placeholder="Nom">
+                            <div class="input-glow"></div>
+                            <div *ngIf="form.get('nom')?.invalid && form.get('nom')?.touched" class="cyber-error">
+                                <span>Aquest camp és obligatori.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Categoría -->
+                    <div class="cyber-form-group">
+                        <label for="descripcio" class="cyber-label">Descripció</label>
+                        <div class="cyber-input-wrapper">
+                            <input type="text" class="cyber-input" id="descripcio" formControlName="descripcio"
+                                placeholder="Descripció">
+                            <div class="input-glow"></div>
+                            <div *ngIf="form.get('descripcio')?.invalid && form.get('descripcio')?.touched"
+                                class="cyber-error">
+                                <span>Aquest camp és obligatori.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Plataforma -->
+                    <div class="cyber-form-group">
+                        <label for="jugadors" class="cyber-label">Jugadors permesos</label>
+                        <div class="cyber-input-wrapper">
+                            <input type="number" class="cyber-input" id="jugadors" formControlName="jugadors" min="2">
+                            <div class="input-glow"></div>
+                            <div *ngIf="form.get('jugadors')?.invalid && form.get('jugadors')?.touched"
+                                class="cyber-error">
+                                <span>Aquest camp és obligatori.</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Juego-->
+                    <div class="cyber-form-group">
+                        <label for="joc_id" class="cyber-label">Joc</label>
+                        <div class="cyber-input-wrapper">
+                            <select class="cyber-input cyber-select" id="joc_id" formControlName="joc_id">
+                                <option value="">Selecciona un joc</option>
+                                <option *ngFor="let joc of jocs" [value]="joc.id">{{ joc.nom }}</option>
+                            </select>
+                            <div class="input-glow"></div>
+                            <div *ngIf="form.get('joc_id')?.invalid && form.get('joc_id')?.touched" class="cyber-error">
+                                <span>Aquest camp és obligatori.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mensaje de error general -->
+                <div *ngIf="errorMessage" class="cyber-error-message">
+                    <span>{{ errorMessage }}</span>
+                </div>
+
+                <!-- Botón de envío -->
+                <div class="button-container">
+                    <button type="submit" class="cyber-button submit-btn">
+                        <span class="btn-content">Crear Mode de Joc</span>
+                        <span class="btn-glitch"></span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Tabla de juegos con estilo cyberpunk -->
+    <div class="section-title sub-title">
+        <span>Llistat de Modes de Jocs</span>
+        <div class="title-line"></div>
+    </div>
+
+    <div class="cyber-table-container">
+        <table class="cyber-table">
+            <thead>
+                <tr>
+                    <th colspan="2">Nom</th>
+                    <th>Descripció</th>
+                    <th>Jugadors</th>
+                    <th>Joc</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let modeJoc of modesJoc" class="cyber-table-row">
+                    <td class="game-name">{{modeJoc.nom}}</td>
+                    <td class="game-category">{{modeJoc.descripcio}}</td>
+                    <td class="game-platform">{{modeJoc.jugadors}}</td>
+                    <td class="game-image-cell">
+                        <div class="game-image-frame">
+                            <img [src]="'http://127.0.0.1:8000/uploads/fotoJocs/' + modeJoc.joc.foto"
+                                alt="Imagen del juego" class="game-image">
+                        </div>
+                    </td>
+                    <td>
+                        <button class="cyber-button delete-btn" (click)="eliminar(modeJoc.id)">
+                            <span class="btn-content">
+                                <i class="fi fi-rr-trash"></i>
+                            </span>
+                            <span class="btn-glitch"></span>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

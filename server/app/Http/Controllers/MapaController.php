@@ -20,12 +20,15 @@ class MapaController extends Controller
         $mapa = new Mapa();
         $request->validate([
             'nom' => 'required|max:50',
-            'mapa' => 'required'
+            'mapa' => 'required|file|image',
+            'mode_joc_id' => 'required|exists:mode_jocs,id',
         ], [
             'nom.required' => 'Nom del mapa obligatòri',
             'nom.max' => 'Nom del mapa massa gran',
-            'mapa.required' => 'Es requereix pujar una imatge del mapa'
-        ]);
+            'mapa.required' => 'Es requereix pujar una imatge del mapa',
+            'mode_joc_id.required' => 'Es obligatori seleccionar un mode de joc',
+            'mode_joc_id.exists' => 'Mode de joc no vàlid'
+        ]);        
 
         $mapa->nom = $request->nom;
         $mapa->mapa = $request->mapa;
@@ -40,6 +43,8 @@ class MapaController extends Controller
             $mapa->mapa = $filename;
             $mapa->save();
         }
+
+        $mapa->modes()->attach($request->mode_joc_id);
 
         return response()->json($mapa);
     }

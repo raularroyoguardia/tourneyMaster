@@ -56,6 +56,7 @@ export class TorneigListComponent implements OnInit {
             );
           }
           this.torneigs = tornejos;
+          this.filtrarTorneigs('tots');
         },
         error: (error) => {
           console.error('Error carregant tornejos per usuari loguejat', error);
@@ -133,7 +134,6 @@ export class TorneigListComponent implements OnInit {
         this.torneigs = response.body || [];
       });
     } else if (filtre === 'En procès' || filtre === 'No Començat') {
-
       this.torneigService.getTorneigsPerEstat(filtre).subscribe(response => {
         this.torneigs = response;
         console.log('Tornejos filtrats:', this.torneigs);

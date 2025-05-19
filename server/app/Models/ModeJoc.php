@@ -12,11 +12,6 @@ class ModeJoc extends Model
     protected $fillable = ['nom', 'descripcio', 'jugadors', 'jocId'];
     protected $table = 'mode_jocs';
 
-    // public function joc(): BelongsTo
-    // {
-    //     return $this->belongsTo(Joc::class, 'jocId');
-    // }
-
     public function torneig(): BelongsTo
     {
         return $this->belongsTo(Torneig::class);

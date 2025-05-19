@@ -47,8 +47,31 @@ class GeneralSeeder extends Seeder
             'password' => bcrypt('123456'),
             'telefon' => 620666465,
             'foto_perfil' => 'carlos.jpg',
-            'trofeus' => 100,
+            'trofeus' => 0,
             'tipus_usuari_id' => 1,
+        ]);
+
+        $charlyUser = DB::table('users')->insertGetId([
+            'name' => 'Charly',
+            'apellido1' => 'Mariño',
+            'apellido2' => 'Senra',
+            'email' => 'charly_marinosenra@iescarlesvallbona.cat',
+            'password' => bcrypt('123456'),
+            'telefon' => 620666564,
+            'foto_perfil' => 'charly.jpg',
+            'trofeus' => 100,
+            'tipus_usuari_id' => 2,
+        ]);
+        $charly2User = DB::table('users')->insertGetId([
+            'name' => 'Charly2',
+            'apellido1' => 'Mariño',
+            'apellido2' => 'Senra',
+            'email' => 'charly2_marinosenra@iescarlesvallbona.cat',
+            'password' => bcrypt('123456'),
+            'telefon' => 620666565,
+            'foto_perfil' => 'charly.jpg',
+            'trofeus' => 1000,
+            'tipus_usuari_id' => 3,
         ]);
 
         $raulUser = DB::table('users')->insertGetId([
@@ -59,8 +82,30 @@ class GeneralSeeder extends Seeder
             'password' => bcrypt('123456'),
             'telefon' => 685324360,
             'foto_perfil' => 'raul.jpeg',
-            'trofeus' => 150,
+            'trofeus' => 0,
             'tipus_usuari_id' => 1,
+        ]);
+        $raulitoUser = DB::table('users')->insertGetId([
+            'name' => 'Raúlito',
+            'apellido1' => 'Arroyo',
+            'apellido2' => 'Guardia',
+            'email' => 'raulito_arroyoguardia@iescarlesvallbona.cat',
+            'password' => bcrypt('123456'),
+            'telefon' => 685324361,
+            'foto_perfil' => 'raulito.jpeg',
+            'trofeus' => 100,
+            'tipus_usuari_id' => 3,
+        ]);
+        $raulito2User = DB::table('users')->insertGetId([
+            'name' => 'Raúlito2',
+            'apellido1' => 'Arroyo',
+            'apellido2' => 'Guardia',
+            'email' => 'raulito2_arroyoguardia@iescarlesvallbona.cat',
+            'password' => bcrypt('123456'),
+            'telefon' => 685324362,
+            'foto_perfil' => 'raulito2.jpeg',
+            'trofeus' => 1000,
+            'tipus_usuari_id' => 2,
         ]);
 
         $pereUser = DB::table('users')->insertGetId([
@@ -72,7 +117,7 @@ class GeneralSeeder extends Seeder
             'telefon' => 684230145,
             'foto_perfil' => 'pere.png',
             'trofeus' => 50,
-            'tipus_usuari_id' => 3,
+            'tipus_usuari_id' => 2,
         ]);
 
         $franUser = DB::table('users')->insertGetId([
@@ -84,6 +129,39 @@ class GeneralSeeder extends Seeder
             'telefon' => 635098076,
             'foto_perfil' => 'fran.jpg',
             'trofeus' => 75,
+            'tipus_usuari_id' => 3,
+        ]);
+        $nicoUser = DB::table('users')->insertGetId([
+            'name' => 'Nico',
+            'apellido1' => 'Perez',
+            'apellido2' => 'Crespo',
+            'email' => 'nico_perezcrespo@iescarlesvallbona.cat',
+            'password' => bcrypt('123456'),
+            'telefon' => 635569874,
+            'foto_perfil' => 'nico.jpg',
+            'trofeus' => 50,
+            'tipus_usuari_id' => 3,
+        ]);
+        $ericUser = DB::table('users')->insertGetId([
+            'name' => 'Eric',
+            'apellido1' => 'Font',
+            'apellido2' => 'Mateo',
+            'email' => 'eric_fontmateo@iescarlesvallbona.cat',
+            'password' => bcrypt('123456'),
+            'telefon' => 635526987,
+            'foto_perfil' => 'eric.jpg',
+            'trofeus' => 100,
+            'tipus_usuari_id' => 3,
+        ]);
+        $ivanUser = DB::table('users')->insertGetId([
+            'name' => 'Ivan',
+            'apellido1' => 'Morales',
+            'apellido2' => 'Criado',
+            'email' => 'ivan_moralescriado@iescarlesvallbona.cat',
+            'password' => bcrypt('123456'),
+            'telefon' => 685352698,
+            'foto_perfil' => 'ivan.jpg',
+            'trofeus' => 150,
             'tipus_usuari_id' => 3,
         ]);
 
@@ -346,7 +424,7 @@ class GeneralSeeder extends Seeder
 
         $estadiojosézorrilla_MapaId = DB::table('mapas')->insertGetId([
             'nom' => 'Estadio José Zorrilla',
-            'mapa' => 'estadiojosézorrilla.jpg',
+            'mapa' => 'estadiojosezorrilla.jpg',
         ]);
 
         $labombonera_MapaId = DB::table('mapas')->insertGetId([
@@ -615,13 +693,13 @@ class GeneralSeeder extends Seeder
         //FORTNITE BATTLE ROYALE
         $construccion_MapaId = DB::table('mapas')->insertGetId([
             'nom' => 'Capitulo 5:Temporada 2',
-            'mapa' => 'capitulo5:temporada2.webp',
+            'mapa' => 'capitulo5_temporada2.webp',
         ]);
 
         //FORTNITE CERO CONSTRUCCIÓN
         $ceroConstruccion_MapaId = DB::table('mapas')->insertGetId([
             'nom' => 'Capitulo 5:Temporada 2',
-            'mapa' => 'capitulo5:temporada2.webp',
+            'mapa' => 'capitulo5_temporada2.webp',
         ]);
 
         //ROCKET LEAGUE 1v1 2v2 3v3 4v4
@@ -707,7 +785,7 @@ class GeneralSeeder extends Seeder
         //MARIOKART
         $copachampiñón_MapaId = DB::table('mapas')->insertGetId([
             'nom' => 'Copa Champiñón',
-            'mapa' => 'copachampiñón.webp',
+            'mapa' => 'copachampinon.webp',
         ]);
 
         $copaflor_MapaId = DB::table('mapas')->insertGetId([
@@ -727,12 +805,12 @@ class GeneralSeeder extends Seeder
 
         $copacaparazón_MapaId = DB::table('mapas')->insertGetId([
             'nom' => 'Copa Caparazón',
-            'mapa' => 'copacaparazón.webp',
+            'mapa' => 'copacaparazon.webp',
         ]);
 
         $copaplátano_MapaId = DB::table('mapas')->insertGetId([
             'nom' => 'Copa Plátano',
-            'mapa' => 'copaplátano.webp',
+            'mapa' => 'copaplatano.webp',
         ]);
 
         $copahoja_MapaId = DB::table('mapas')->insertGetId([
@@ -940,28 +1018,96 @@ class GeneralSeeder extends Seeder
         MapaMode::create(['mapa_id' => $mapalol_MapaId, 'mode_joc_id' => $modoRotativo]);
 
         //EQUIP
-        $pruebasTop = DB::table('equips')->insertGetId([
-            'nom' => 'PruebasTOP',
+        $Admins = DB::table('equips')->insertGetId([
+            'nom' => 'Admins',
             'regio' => 'Europa',
-            'foto_equip' => 'pruebastop.jpg',
+            'foto_equip' => 'admins.webp',
             'data_creacio' => now(),
             'descripcio' => 'Este es un equipo que se ha creado para hacer pruebas en el frontend al inicio del proyecto. Sus participantes son los creadores del proyecto.',
             'maxim_integrants' => 2
         ]);
 
-        $pruebas2 = DB::table('equips')->insertGetId([
-            'nom' => 'Pruebas2',
+        $LosLeones = DB::table('equips')->insertGetId([
+            'nom' => 'Los Leones',
             'regio' => 'Europa',
-            'foto_equip' => 'pruebas2.jpg',
+            'foto_equip' => 'Losleones.webq',
+            'data_creacio' => now(),
+            'descripcio' => 'Este es un equipo que se ha creado para hacer pruebas en el frontend al inicio del proyecto. Sus participantes son los creadores del proyecto.',
+            'maxim_integrants' => 2
+        ]);
+
+        $macarras = DB::table('equips')->insertGetId([
+            'nom' => 'Macarras',
+            'regio' => 'Europa',
+            'foto_equip' => 'macarras.png',
             'data_creacio' => now(),
             'descripcio' => 'Este es otro equipo que se ha creado para hacer pruebas en el frontend al inicio del proyecto. Sus participantes son los creadores del proyecto.',
             'maxim_integrants' => 2
+        ]);
+
+        $LosRaulitos = DB::table('equips')->insertGetId([
+            'nom' => 'Los Raulitos',
+            'regio' => 'Europa',
+            'foto_equip' => 'losraulitos.jpg',
+            'data_creacio' => now(),
+            'descripcio' => 'Este es otro equipo que se ha creado para hacer pruebas en el frontend al inicio del proyecto. Sus participantes son los creadores del proyecto.',
+            'maxim_integrants' => 3
+        ]);
+
+        $campeones = DB::table('equips')->insertGetId([
+            'nom' => 'Campeones',
+            'regio' => 'Europa',
+            'foto_equip' => 'campeones.jpg',
+            'data_creacio' => now(),
+            'descripcio' => 'Este es otro equipo que se ha creado para hacer pruebas en el frontend al inicio del proyecto. Sus participantes son los creadores del proyecto.',
+            'maxim_integrants' => 3
         ]);
 
         $carlos_equip = DB::table('equips')->insertGetId([
             'nom' => 'Carlos MS',
             'regio' => 'Europa',
             'foto_equip' => 'carlos_ms.jpg',
+            'data_creacio' => now(),
+            'descripcio' => 'Este es un equipo individual en el que pertenece solo un equipo.',
+            'maxim_integrants' => 1
+        ]);
+        $charly_equip = DB::table('equips')->insertGetId([
+            'nom' => 'Charly MS',
+            'regio' => 'Europa',
+            'foto_equip' => 'charly_ms.jpg',
+            'data_creacio' => now(),
+            'descripcio' => 'Este es un equipo individual en el que pertenece solo un equipo.',
+            'maxim_integrants' => 1
+        ]);
+        $charly2_equip = DB::table('equips')->insertGetId([
+            'nom' => 'Charly2 MS',
+            'regio' => 'Europa',
+            'foto_equip' => 'charly2_ms.jpg',
+            'data_creacio' => now(),
+            'descripcio' => 'Este es un equipo individual en el que pertenece solo un equipo.',
+            'maxim_integrants' => 1
+        ]);
+
+        $raul_equip = DB::table('equips')->insertGetId([
+            'nom' => 'Raúl AG',
+            'regio' => 'Europa',
+            'foto_equip' => 'raul_ag.jpeg',
+            'data_creacio' => now(),
+            'descripcio' => 'Este es un equipo individual en el que pertenece solo un equipo.',
+            'maxim_integrants' => 1
+        ]);
+        $raulito_equip = DB::table('equips')->insertGetId([
+            'nom' => 'Raúlito AG',
+            'regio' => 'Europa',
+            'foto_equip' => 'raulito_ag.jpg',
+            'data_creacio' => now(),
+            'descripcio' => 'Este es un equipo individual en el que pertenece solo un equipo.',
+            'maxim_integrants' => 1
+        ]);
+        $raulito2_equip = DB::table('equips')->insertGetId([
+            'nom' => 'Raúlito2 AG',
+            'regio' => 'Europa',
+            'foto_equip' => 'raulito2_ag.jpg',
             'data_creacio' => now(),
             'descripcio' => 'Este es un equipo individual en el que pertenece solo un equipo.',
             'maxim_integrants' => 1
@@ -976,15 +1122,6 @@ class GeneralSeeder extends Seeder
             'maxim_integrants' => 1
         ]);
 
-        $raul_equip = DB::table('equips')->insertGetId([
-            'nom' => 'Raúl AG',
-            'regio' => 'Europa',
-            'foto_equip' => 'raul_ag.jpeg',
-            'data_creacio' => now(),
-            'descripcio' => 'Este es un equipo individual en el que pertenece solo un equipo.',
-            'maxim_integrants' => 1
-        ]);
-
         $fran_equip = DB::table('equips')->insertGetId([
             'nom' => 'Fran RB',
             'regio' => 'Europa',
@@ -994,22 +1131,60 @@ class GeneralSeeder extends Seeder
             'maxim_integrants' => 1
         ]);
 
+        $nico_equip = DB::table('equips')->insertGetId([
+            'nom' => 'Nico PC',
+            'regio' => 'Europa',
+            'foto_equip' => 'nico_pc.jpg',
+            'data_creacio' => now(),
+            'descripcio' => 'Este es un equipo individual en el que pertenece solo un equipo.',
+            'maxim_integrants' => 1
+        ]);
+
+        $eric_equip = DB::table('equips')->insertGetId([
+            'nom' => 'Eric FM',
+            'regio' => 'Europa',
+            'foto_equip' => 'eric_fm.jpg',
+            'data_creacio' => now(),
+            'descripcio' => 'Este es un equipo individual en el que pertenece solo un equipo.',
+            'maxim_integrants' => 1
+        ]);
+
+        $ivan_equip = DB::table('equips')->insertGetId([
+            'nom' => 'Ivan MC',
+            'regio' => 'Europa',
+            'foto_equip' => 'ivan_mc.jpg',
+            'data_creacio' => now(),
+            'descripcio' => 'Este es un equipo individual en el que pertenece solo un equipo.',
+            'maxim_integrants' => 1
+        ]);
+
         //EQUIP-USER
-        EquipUser::create(['equip_id' => $pruebasTop, 'user_id' => $carlosUser]);
+        EquipUser::create(['equip_id' => $Admins, 'user_id' => $carlosUser]);
+        EquipUser::create(['equip_id' => $Admins, 'user_id' => $raulUser]);
 
-        EquipUser::create(['equip_id' => $pruebasTop, 'user_id' => $raulUser]);
+        EquipUser::create(['equip_id' => $LosLeones, 'user_id' => $charlyUser]);
+        EquipUser::create(['equip_id' => $LosLeones, 'user_id' => $raulitoUser]);
 
-        EquipUser::create(['equip_id' => $pruebas2, 'user_id' => $pereUser]);
+        EquipUser::create(['equip_id' => $macarras, 'user_id' => $pereUser]);
+        EquipUser::create(['equip_id' => $macarras, 'user_id' => $franUser]);
 
-        EquipUser::create(['equip_id' => $pruebas2, 'user_id' => $franUser]);
+        EquipUser::create(['equip_id' => $campeones, 'user_id' => $nicoUser]);
+        EquipUser::create(['equip_id' => $campeones, 'user_id' => $ericUser]);
+        EquipUser::create(['equip_id' => $LosRaulitos, 'user_id' => $raulito2User]);
+
 
         EquipUser::create(['equip_id' => $carlos_equip, 'user_id' => $carlosUser]);
-
-        EquipUser::create(['equip_id' => $pere_equip, 'user_id' => $pereUser]);
-
         EquipUser::create(['equip_id' => $raul_equip, 'user_id' => $raulUser]);
-
+        EquipUser::create(['equip_id' => $charly_equip, 'user_id' => $charlyUser]);
+        EquipUser::create(['equip_id' => $raulito_equip, 'user_id' => $raulitoUser]);
+        EquipUser::create(['equip_id' => $charly2_equip, 'user_id' => $charly2User]);
+        EquipUser::create(['equip_id' => $raulito2_equip, 'user_id' => $raulito2User]);
+        EquipUser::create(['equip_id' => $pere_equip, 'user_id' => $pereUser]);
         EquipUser::create(['equip_id' => $fran_equip, 'user_id' => $franUser]);
+        EquipUser::create(['equip_id' => $nico_equip, 'user_id' => $nicoUser]);
+        EquipUser::create(['equip_id' => $eric_equip, 'user_id' => $ericUser]);
+        EquipUser::create(['equip_id' => $ivan_equip, 'user_id' => $ivanUser]);
+
 
         //PREMIS
         $premiGran = DB::table('premis')->insertGetId([
@@ -1025,12 +1200,13 @@ class GeneralSeeder extends Seeder
         ]);
 
         //TORNEIGS
-        $torneigNoComençat = DB::table('torneigs')->insertGetId([
-            'nom' => 'Torneig de No Començat',
+        $torneig1 = DB::table('torneigs')->insertGetId([
+            'nom' => 'Torneig de Rocket',
             'participants' => 4,
             'tipus' => 'col·lectiu',
             'data_inici' => '2025-06-06 11:00:00',
             'data_fi' => '2025-07-15 12:00:00',
+            'estat' => 'No Començat',
             'quantitat_partides' => 3,
             'numero_equips' => 2,
             'modeJoc_id' => $rocket2,
@@ -1038,13 +1214,13 @@ class GeneralSeeder extends Seeder
             'premi_id' => $premiGran
         ]);
 
-        $torneigEnProces = DB::table('torneigs')->insertGetId([
-            'nom' => 'Torneig En Procès',
+        $torneig2 = DB::table('torneigs')->insertGetId([
+            'nom' => 'Torneig de Rocket',
             'participants' => 4,
             'tipus' => 'col·lectiu',
             'data_inici' => '2025-04-01 10:00:00',
             'data_fi' => '2025-08-22 19:00:00',
-            'estat' => 'En procès',
+            'estat' => 'En Procès',
             'quantitat_partides' => 3,
             'numero_equips' => 2,
             'modeJoc_id' => $rocket2,
@@ -1052,8 +1228,8 @@ class GeneralSeeder extends Seeder
             'premi_id' => $premiMig
         ]);
 
-        $torneigFinalitzat = DB::table('torneigs')->insertGetId([
-            'nom' => 'Torneig Finalitzat',
+        $torneig3 = DB::table('torneigs')->insertGetId([
+            'nom' => 'Torneig de Brawl Stars',
             'participants' => 4,
             'tipus' => 'col·lectiu',
             'data_inici' => '2025-01-01 10:00:00',
@@ -1061,18 +1237,18 @@ class GeneralSeeder extends Seeder
             'estat' => 'Finalitzat',
             'quantitat_partides' => 3,
             'numero_equips' => 2,
-            'modeJoc_id' => $rocket2,
-            'mapa_id' => $neotokyo_MapaId,
-            'premi_id' => $premiMig
+            'modeJoc_id' => $cazaEstelar,
+            'mapa_id' => $tiroteoestelar_MapaId,
+            'premi_id' => $premiPetit
         ]);
 
-        $torneigIndividual = DB::table('torneigs')->insertGetId([
-            'nom' => 'Torneig Individual',
+        $torneig4 = DB::table('torneigs')->insertGetId([
+            'nom' => 'Torneig de Clash Royale',
             'participants' => 2,
             'tipus' => 'individual',
             'data_inici' => '2025-04-01 10:00:00',
             'data_fi' => '2025-08-22 19:00:00',
-            'estat' => 'En procès',
+            'estat' => 'En Procès',
             'quantitat_partides' => 3,
             'numero_equips' => 2,
             'modeJoc_id' => $clashRoyale1,
@@ -1080,46 +1256,133 @@ class GeneralSeeder extends Seeder
             'premi_id' => $premiPetit
         ]);
 
+        $torneig5 = DB::table('torneigs')->insertGetId([
+            'nom' => 'Torneig de Valorant',
+            'participants' => 4,
+            'tipus' => 'col·lectiu',
+            'data_inici' => '2025-06-01 10:00:00',
+            'data_fi' => '2025-08-01 11:30:00',
+            'estat' => 'No Començat',
+            'quantitat_partides' => 3,
+            'numero_equips' => 2,
+            'modeJoc_id' => $valorant,
+            'mapa_id' => $abyss_MapaId,
+            'premi_id' => $premiGran
+        ]);
+        $torneig6 = DB::table('torneigs')->insertGetId([
+            'nom' => 'Torneig de Fortnite',
+            'participants' => 10,
+            'tipus' => 'individual',
+            'data_inici' => '2025-06-01 10:00:00',
+            'data_fi' => '2025-09-01 11:30:00',
+            'estat' => 'No Començat',
+            'quantitat_partides' => 3,
+            'numero_equips' => 10,
+            'modeJoc_id' => $battleRoyale,
+            'mapa_id' => $construccion_MapaId,
+            'premi_id' => $premiPetit
+        ]);
+
+        $torneig7 = DB::table('torneigs')->insertGetId([
+            'nom' => 'Torneig Brawl Stars',
+            'participants' => 2,
+            'tipus' => 'col·lectiu',
+            'data_inici' => '2025-05-01 10:00:00',
+            'data_fi' => '2025-07-22 19:00:00',
+            'estat' => 'En Procès',
+            'quantitat_partides' => 3,
+            'numero_equips' => 2,
+            'modeJoc_id' => $atraco,
+            'mapa_id' => $arroyocalavera_MapaId,
+            'premi_id' => $premiMig
+        ]);
+
+
         //EQUIP-TORNEIG
         EquipTorneig::create([
             'equip_id' => $carlos_equip,
-            'torneig_id' => $torneigIndividual
+            'torneig_id' => $torneig4
         ]);
-
         EquipTorneig::create([
             'equip_id' => $fran_equip,
-            'torneig_id' => $torneigIndividual
+            'torneig_id' => $torneig4
+        ]);
+
+
+        EquipTorneig::create([
+            'equip_id' => $LosLeones,
+            'torneig_id' => $torneig1
+        ]);
+        EquipTorneig::create([
+            'equip_id' => $macarras,
+            'torneig_id' => $torneig1
+        ]);
+
+
+        EquipTorneig::create([
+            'equip_id' => $LosLeones,
+            'torneig_id' => $torneig2
+        ]);
+        EquipTorneig::create([
+            'equip_id' => $macarras,
+            'torneig_id' => $torneig2
+        ]);
+
+
+        EquipTorneig::create([
+            'equip_id' => $LosLeones,
+            'torneig_id' => $torneig3
+        ]);
+        EquipTorneig::create([
+            'equip_id' => $macarras,
+            'torneig_id' => $torneig3
         ]);
 
         EquipTorneig::create([
-            'equip_id' => $pruebasTop,
-            'torneig_id' => $torneigNoComençat
+            'equip_id' => $raulito_equip,
+            'torneig_id' => $torneig4
+        ]);
+        EquipTorneig::create([
+            'equip_id' => $nico_equip,
+            'torneig_id' => $torneig4
         ]);
 
         EquipTorneig::create([
-            'equip_id' => $pruebas2,
-            'torneig_id' => $torneigNoComençat
+            'equip_id' => $campeones,
+            'torneig_id' => $torneig5
+        ]);
+        EquipTorneig::create([
+            'equip_id' => $macarras,
+            'torneig_id' => $torneig5
         ]);
 
         EquipTorneig::create([
-            'equip_id' => $pruebasTop,
-            'torneig_id' => $torneigEnProces
+            'equip_id' => $charly_equip,
+            'torneig_id' => $torneig6
+        ]);
+        EquipTorneig::create([
+            'equip_id' => $raul_equip,
+            'torneig_id' => $torneig6
+        ]);
+        EquipTorneig::create([
+            'equip_id' => $ivan_equip,
+            'torneig_id' => $torneig6
+        ]);
+        EquipTorneig::create([
+            'equip_id' => $eric_equip,
+            'torneig_id' => $torneig6
         ]);
 
         EquipTorneig::create([
-            'equip_id' => $pruebas2,
-            'torneig_id' => $torneigEnProces
+            'equip_id' => $LosLeones,
+            'torneig_id' => $torneig7
+        ]);
+        EquipTorneig::create([
+            'equip_id' => $campeones,
+            'torneig_id' => $torneig7
         ]);
 
-        EquipTorneig::create([
-            'equip_id' => $pruebasTop,
-            'torneig_id' => $torneigFinalitzat
-        ]);
 
-        EquipTorneig::create([
-            'equip_id' => $pruebas2,
-            'torneig_id' => $torneigFinalitzat
-        ]);
 
         //PARTIDA
 
@@ -1127,19 +1390,19 @@ class GeneralSeeder extends Seeder
         Partida::create([
             'data_hora' => '2025-06-06 11:00:00',
             'posicio_partida' => 1,
-            'torneig_id' => $torneigNoComençat
+            'torneig_id' => $torneig1
         ]);
 
         Partida::create([
             'data_hora' => '2025-06-20 11:00:00',
             'posicio_partida' => 2,
-            'torneig_id' => $torneigNoComençat
+            'torneig_id' => $torneig1
         ]);
 
         Partida::create([
             'data_hora' => '2025-07-12 11:00:00',
             'posicio_partida' => 3,
-            'torneig_id' => $torneigNoComençat
+            'torneig_id' => $torneig1
         ]);
 
         //TORNEIG 2
@@ -1147,19 +1410,22 @@ class GeneralSeeder extends Seeder
             'data_hora' => '2025-04-01 10:00:00',
             'posicio_partida' => 1,
             'resultat_equip_id' => 1,
-            'torneig_id' => $torneigEnProces
+            'torneig_id' => $torneig2
+
         ]);
 
         Partida::create([
             'data_hora' => '2025-05-10 11:00:00',
             'posicio_partida' => 2,
-            'torneig_id' => $torneigEnProces
+            'torneig_id' => $torneig2
+
         ]);
 
         Partida::create([
             'data_hora' => '2025-08-20 11:00:00',
             'posicio_partida' => 3,
-            'torneig_id' => $torneigEnProces
+            'torneig_id' => $torneig2
+
         ]);
 
         //TORNEIG 3
@@ -1167,41 +1433,100 @@ class GeneralSeeder extends Seeder
             'data_hora' => '2025-01-01 10:00:00',
             'posicio_partida' => 1,
             'resultat_equip_id' => 1,
-            'torneig_id' => $torneigFinalitzat
+            'torneig_id' => $torneig3
         ]);
 
         Partida::create([
             'data_hora' => '2025-01-15 10:00:00',
             'posicio_partida' => 2,
             'resultat_equip_id' => 2,
-            'torneig_id' => $torneigFinalitzat
+            'torneig_id' => $torneig3
         ]);
 
         Partida::create([
             'data_hora' => '2025-01-30 10:00:00',
             'posicio_partida' => 3,
             'resultat_equip_id' => 1,
-            'torneig_id' => $torneigFinalitzat
+            'torneig_id' => $torneig3
         ]);
 
         //TORNEIG 4
         Partida::create([
             'data_hora' => '2025-04-01 10:00:00',
             'posicio_partida' => 1,
-            'resultat_equip_id' => 6,
-            'torneig_id' => $torneigIndividual
+            'resultat_equip_id' => 2,
+            'torneig_id' => $torneig4
         ]);
 
         Partida::create([
             'data_hora' => '2025-04-01 10:00:00',
             'posicio_partida' => 2,
-            'torneig_id' => $torneigIndividual
+            'torneig_id' => $torneig4
         ]);
 
         Partida::create([
             'data_hora' => '2025-04-01 10:00:00',
             'posicio_partida' => 3,
-            'torneig_id' => $torneigIndividual
+            'torneig_id' => $torneig4
         ]);
+
+        //TORNEIG 5
+        Partida::create([
+            'data_hora' => '2025-06-02 10:00:00',
+            'posicio_partida' => 1,
+            'torneig_id' => $torneig5
+        ]);
+
+        Partida::create([
+            'data_hora' => '2025-06-10 10:00:00',
+            'posicio_partida' => 2,
+            'torneig_id' => $torneig5
+        ]);
+
+        Partida::create([
+            'data_hora' => '2025-06-20 10:00:00',
+            'posicio_partida' => 3,
+            'torneig_id' => $torneig5
+        ]);
+
+        //TORNEIG 6
+        Partida::create([
+            'data_hora' => '2025-06-02 10:00:00',
+            'posicio_partida' => 1,
+            'torneig_id' => $torneig6
+        ]);
+
+        Partida::create([
+            'data_hora' => '2025-06-15 10:00:00',
+            'posicio_partida' => 2,
+            'torneig_id' => $torneig6
+        ]);
+
+        Partida::create([
+            'data_hora' => '2025-06-20 10:00:00',
+            'posicio_partida' => 3,
+            'torneig_id' => $torneig6
+        ]);
+
+        //TORNEIG 7
+        Partida::create([
+            'data_hora' => '2025-05-05 10:00:00',
+            'posicio_partida' => 1,
+            'resultat_equip_id' => 1,
+            'torneig_id' => $torneig7
+        ]);
+
+        Partida::create([
+            'data_hora' => '2025-06-01 10:00:00',
+            'posicio_partida' => 2,
+            'torneig_id' => $torneig7
+        ]);
+
+        Partida::create([
+            'data_hora' => '2025-06-22 10:00:00',
+            'posicio_partida' => 3,
+            'torneig_id' => $torneig7
+        ]);
+
     }
 }

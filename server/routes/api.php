@@ -106,13 +106,6 @@ Route::post('/premi/new', [PremiController::class, 'new'])->name('premi_new');
 Route::get('/premi/{id}', [PremiController::class, 'show'])->name('premi_show');
 Route::get('/premi/delete/{id}', [PremiController::class, 'delete'])->name('premi_delete');
 
-//TIPUS USUARI
-// Route::get('/api/tipus_usuari', [TipusUsuariController::class, 'list'])->name('tipus_usuari_list');
-// Route::match(['get', 'post'], '/api/tipus_usuari/new', [TipusUsuariController::class, 'new'])->name('tipus_usuari_new');
-// Route::get('/api/tipus_usuari/{id}', [TipusUsuariController::class, 'show'])->name('tipus_usuari_show');
-// Route::match(['get', 'post'], '/api/tipus_usuari/edit/{id}', [TipusUsuariController::class, 'edit'])->name('tipus_usuari_edit');
-// Route::get('/api/tipus_usuari/delete/{id}', [TipusUsuariController::class, 'delete'])->name('tipus_usuari_delete');
-
 //MAPA
 Route::get('/mapas', [MapaController::class, 'list'])->name('mapas_list');
 Route::post('/mapa/new', [MapaController::class, 'new'])->name('mapa_new');

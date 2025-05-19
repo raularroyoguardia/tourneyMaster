@@ -34,16 +34,18 @@ export class JocNewComponent implements OnInit {
    }
 
   ngOnInit(): void {
-      this.jocService.getJocs().subscribe({
-        next: (res) => {
-          if(res.body) {
-            this.jocs = res.body;
-          }
-        },
-        error: (err) => {
-          console.log("Error en obtenir els jocs.", err);
+   setInterval(() => {
+    this.jocService.getJocs().subscribe({
+      next: (res) => {
+        if(res.body) {
+          this.jocs = res.body;
         }
-      });
+      },
+      error: (err) => {
+        console.log("Error en obtenir els jocs.", err);
+      }
+    });
+   }, 1000);
   }
 
   onFileSelected(event: Event): void {
@@ -62,7 +64,7 @@ export class JocNewComponent implements OnInit {
 
   onSubmit(): void {
     if(this.form.invalid || !this.selectedImage) {
-      this.errorMessage = 'Si us play, omple tots els camps correctament';
+      this.errorMessage = 'Omple tots els camps correctament';
       return;
     }
 
@@ -74,10 +76,31 @@ export class JocNewComponent implements OnInit {
     formData.append('foto', this.selectedImage);
 
     this.jocService.createJoc(formData).subscribe({
-      next: () => this.router.navigate(['/joc-new']),
+      next: () => {
+        this.router.navigate(['/joc-new']);
+        this.ngOnInit();
+        this.form = this.fb.group({
+          nom: ['', Validators.required],
+          categoria: ['', Validators.required],
+          plataforma: ['', Validators.required],
+          foto: ['', Validators.required],
+        });
+      },
       error: (err) => {
-        this.errorMessage = 'Error en crear el torneig';
+        this.errorMessage = 'Error en crear el joc';
         console.log(err);
+      }
+    })
+  }
+
+  eliminar(id: any): void {
+    this.jocService.deleteJoc(id).subscribe({
+      next: () => {
+        alert("Joc eliminat correctament!");
+        this.ngOnInit();
+      },
+      error: (error) => {
+        alert("No s\'hapogut eliminar el joc!\n" + error.message);
       }
     })
   }

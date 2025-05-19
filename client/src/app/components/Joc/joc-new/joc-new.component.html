@@ -1,92 +1,129 @@
 <div class="cyber-container">
-    <!-- Título de la sección -->
-    <div class="section-title main-title">
-      <span>Gestió de Jocs</span>
-      <div class="title-line"></div>
-    </div>
-  
-    <!-- Formulario con estilo cyberpunk -->
-    <div class="cyber-card">
-      <div class="card-content">
-        <form [formGroup]="form" (ngSubmit)="onSubmit()">
-          <div class="form-grid">
-            <!-- Nombre del juego -->
-            <div class="cyber-form-group">
-              <label for="nom" class="cyber-label">Nom</label>
-              <div class="cyber-input-wrapper">
-                <input type="text" class="cyber-input" id="nom" formControlName="nom" placeholder="Nom del joc">
-                <div class="input-glow"></div>
-              </div>
-            </div>
-  
-            <!-- Categoría -->
-            <div class="cyber-form-group">
-              <label for="categoria" class="cyber-label">Categoria</label>
-              <div class="cyber-input-wrapper">
-                <input type="text" class="cyber-input" id="categoria" formControlName="categoria" placeholder="Categoria del joc">
-                <div class="input-glow"></div>
-              </div>
-            </div>
-  
-            <!-- Plataforma -->
-            <div class="cyber-form-group">
-              <label for="plataforma" class="cyber-label">Plataforma</label>
-              <div class="cyber-input-wrapper">
-                <input type="text" class="cyber-input" id="plataforma" formControlName="plataforma" placeholder="Plataforma del joc">
-                <div class="input-glow"></div>
-              </div>
-            </div>
-  
-            <!-- Foto del juego -->
-            <div class="cyber-form-group">
-              <label for="foto" class="cyber-label">Foto</label>
-              <div class="cyber-input-wrapper">
-                <input type="file" class="cyber-input file-input" id="foto" (change)="onFileSelected($event)">
-                <div class="input-glow"></div>
+  <!-- Título de la sección -->
+  <div class="section-title main-title">
+    <span>Gestió de Jocs</span>
+    <div class="title-line"></div>
+  </div>
+
+  <!-- Formulario con estilo cyberpunk -->
+  <div class="cyber-card">
+    <div class="card-content">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="form-grid">
+          <!-- Nombre del juego -->
+          <div class="cyber-form-group">
+            <label for="nom" class="cyber-label">Nom</label>
+            <div class="cyber-input-wrapper">
+              <input type="text" class="cyber-input" id="nom" formControlName="nom" placeholder="Nom del joc">
+              <div class="input-glow"></div>
+              <div *ngIf="form.get('nom')?.invalid && form.get('nom')?.touched" class="cyber-error">
+                <span>Aquest camp és obligatori.</span>
               </div>
             </div>
           </div>
-  
-          <!-- Botón de envío -->
-          <div class="button-container">
-            <button type="submit" class="cyber-button submit-btn">
-              <span class="btn-content">Guardar Joc</span>
-              <span class="btn-glitch"></span>
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  
-    <!-- Tabla de juegos con estilo cyberpunk -->
-    <div class="section-title sub-title">
-      <span>Llistat de Jocs</span>
-      <div class="title-line"></div>
-    </div>
-  
-    <div class="cyber-table-container">
-      <table class="cyber-table">
-        <thead>
-          <tr>
-            <th>Nom</th>
-            <th>Categoria</th>
-            <th>Plataforma</th>
-            <th>Imatge</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let joc of jocs" class="cyber-table-row">
-            <td class="game-name">{{joc.nom}}</td>
-            <td class="game-category">{{joc.categoria}}</td>
-            <td class="game-platform">{{joc.plataforma}}</td>
-            <td class="game-image-cell">
-              <div class="game-image-frame">
-                <img [src]="'http://127.0.0.1:8000/uploads/fotoJocs/' + joc.foto" alt="Imagen del juego" class="game-image">
+
+          <!-- Categoría -->
+          <div class="cyber-form-group">
+            <label for="categoria" class="cyber-label">Categoria</label>
+            <div class="cyber-input-wrapper">
+              <input type="text" class="cyber-input" id="categoria" formControlName="categoria"
+                placeholder="Categoria del joc">
+              <div class="input-glow"></div>
+              <div *ngIf="form.get('categoria')?.invalid && form.get('categoria')?.touched" class="cyber-error">
+                <span>Aquest camp és obligatori.</span>
               </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+            </div>
+          </div>
+
+          <!-- Plataforma -->
+          <div class="cyber-form-group">
+            <label for="plataforma" class="cyber-label">Plataforma</label>
+            <div class="cyber-input-wrapper">
+              <input type="text" class="cyber-input" id="plataforma" formControlName="plataforma"
+                placeholder="Plataforma del joc">
+              <div class="input-glow"></div>
+              <div *ngIf="form.get('plataforma')?.invalid && form.get('plataforma')?.touched" class="cyber-error">
+                <span>Aquest camp és obligatori.</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Foto del juego -->
+          <div class="cyber-form-group">
+            <label for="foto" class="cyber-label">Foto</label>
+            <div class="cyber-input-wrapper">
+              <input type="file" class="cyber-input file-input" id="foto" (change)="onFileSelected($event)">
+              <div class="input-glow"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Imágenes -->
+        <div class="images-container">
+          <!-- Vista previa -->
+          <div *ngIf="previewImageUrl" class="image-preview new-image">
+            <div class="preview-label">Vista prèvia</div>
+            <div class="image-frame">
+              <img [src]="previewImageUrl" alt="Vista prèvia">
+              <div class="image-glow"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mensaje de error general -->
+        <div *ngIf="errorMessage" class="cyber-error-message">
+          <span>{{ errorMessage }}</span>
+        </div>
+
+        <!-- Botón de envío -->
+        <div class="button-container">
+          <button type="submit" class="cyber-button submit-btn">
+            <span class="btn-content">Crear Joc</span>
+            <span class="btn-glitch"></span>
+          </button>
+        </div>
+      </form>
     </div>
   </div>
-  
+
+  <!-- Tabla de juegos con estilo cyberpunk -->
+  <div class="section-title sub-title">
+    <span>Llistat de Jocs</span>
+    <div class="title-line"></div>
+  </div>
+
+  <div class="cyber-table-container">
+    <table class="cyber-table">
+      <thead>
+        <tr>
+          <th colspan="2">Nom</th>
+          <th>Categoria</th>
+          <th>Plataforma</th>
+          <th>Imatge</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let joc of jocs" class="cyber-table-row">
+          <td class="game-name">{{joc.nom}}</td>
+          <td class="game-category">{{joc.categoria}}</td>
+          <td class="game-platform">{{joc.plataforma}}</td>
+          <td class="game-image-cell">
+            <div class="game-image-frame">
+              <img [src]="'http://127.0.0.1:8000/uploads/fotoJocs/' + joc.foto" alt="Imagen del juego"
+                class="game-image">
+            </div>
+          </td>
+          <td>
+            <button class="cyber-button delete-btn" (click)="eliminar(joc.id)">
+              <span class="btn-content">
+                <i class="fi fi-rr-trash"></i>
+              </span>
+              <span class="btn-glitch"></span>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

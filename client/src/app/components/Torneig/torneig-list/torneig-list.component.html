@@ -6,7 +6,7 @@
 
   <div class="filter-section">
     <div class="filter-buttons">
-      <button class="cyber-toggle-btn" [ngClass]="{'active': filtreTorneigs === 'tots'}" (click)="filtrarTorneigs('tots')">
+      <button class="cyber-toggle-btn" [ngClass]="{'active': filtreTorneigs === 'tots'}" (click)="filtrarTorneigs('tots')" >
         <span class="btn-content">Mostrar Tots</span>
         <span class="btn-glow"></span>
       </button>
@@ -21,7 +21,7 @@
         <span class="btn-glow"></span>
       </button>
     
-      <button class="cyber-toggle-btn" [ngClass]="{'active': filtreTorneigs === 'per_inscrits'}" (click)="filtrarTorneigs('per_inscrits')">
+      <button class="cyber-toggle-btn" [ngClass]="{'active': filtreTorneigs === 'per_inscrits'}" (click)="filtrarTorneigs('per_inscrits')" *ngIf="tipusUsuariId !=1">
         <span class="btn-content">Per inscrits</span>
         <span class="btn-glow"></span>
       </button>
@@ -33,7 +33,6 @@
       <!-- Modificar el badge de estado en la tarjeta para hacerlo más visible -->
       <div class="card-image-container">
         <img [src]="'http://127.0.0.1:8000/uploads/fotoJocs/' + torneig.joc_foto" alt="Imagen del juego" class="card-image">
-        <div class="image-overlay"></div>
       </div>
       <div class="card-content">
         <h3 class="card-title">{{ torneig.nom }}</h3>

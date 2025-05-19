@@ -1,0 +1,623 @@
+/* Variables */
+:root {
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-card: rgba(30, 41, 59, 0.8);
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --accent-blue: #00f0ff;
+  --accent-purple: #8b5cf6;
+  --accent-pink: #d946ef;
+  --accent-green: #00ff9d;
+  --border-dark: #334155;
+  --glow-blue: 0 0 10px rgba(0, 240, 255, 0.7), 0 0 20px rgba(0, 240, 255, 0.4);
+  --glow-purple: 0 0 10px rgba(139, 92, 246, 0.7), 0 0 20px rgba(139, 92, 246, 0.4);
+  --glow-pink: 0 0 10px rgba(217, 70, 239, 0.7), 0 0 20px rgba(217, 70, 239, 0.4);
+  --cyber-gradient: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
+  --cyber-gradient-alt: linear-gradient(90deg, var(--accent-pink), var(--accent-blue));
+}
+
+/* Contenedor principal */
+.cyber-container {
+  padding: 2rem;
+  min-height: 100vh;
+  color: var(--text-primary);
+}
+
+/* Títulos de sección */
+.section-title {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.section-title span {
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--accent-blue);
+  margin-right: 1rem;
+  text-shadow: 0 0 5px rgba(0, 240, 255, 0.5);
+}
+
+.title-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, var(--accent-blue), transparent);
+}
+
+.main-title {
+  margin-bottom: 2rem;
+}
+
+.main-title span {
+  font-size: 1.75rem;
+}
+
+.sub-title {
+  margin-top: 3rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Tarjeta del formulario */
+.cyber-card {
+  background-color: var(--bg-card);
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--border-dark);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.cyber-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--cyber-gradient);
+  z-index: 1;
+}
+
+.card-content {
+  padding: 2rem;
+}
+
+/* Grid del formulario */
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.cyber-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* Etiquetas */
+.cyber-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--accent-blue);
+}
+
+/* Inputs */
+.cyber-input-wrapper {
+  position: relative;
+}
+
+.cyber-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background-color: rgba(15, 23, 42, 0.7);
+  border: 1px solid var(--border-dark);
+  border-radius: 4px;
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.cyber-input:focus {
+  outline: none;
+  border-color: var(--accent-blue);
+  background-color: rgba(15, 23, 42, 0.9);
+}
+
+.cyber-input::placeholder {
+  color: rgba(203, 213, 225, 0.4);
+}
+
+/* Estilo para el input de tipo file */
+.cyber-input[type="file"] {
+  padding: 0.6rem;
+  color: var(--text-secondary);
+}
+
+.cyber-input[type="file"]::-webkit-file-upload-button {
+  background-color: rgba(139, 92, 246, 0.1);
+  color: var(--accent-purple);
+  border: 1px solid var(--accent-purple);
+  padding: 0.5rem 1rem;
+  margin-right: 1rem;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cyber-input[type="file"]::-webkit-file-upload-button:hover {
+  background-color: rgba(139, 92, 246, 0.2);
+  box-shadow: var(--glow-purple);
+}
+
+.cyber-input[type="file"]::file-selector-button {
+  background-color: rgba(139, 92, 246, 0.1);
+  color: var(--accent-purple);
+  border: 1px solid var(--accent-purple);
+  padding: 0.5rem 1rem;
+  margin-right: 1rem;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cyber-input[type="file"]::file-selector-button:hover {
+  background-color: rgba(139, 92, 246, 0.2);
+  box-shadow: var(--glow-purple);
+}
+
+.input-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: 4px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.cyber-input:focus+.input-glow {
+  opacity: 1;
+  box-shadow: var(--glow-blue);
+}
+
+/* Estilo para el select */
+.cyber-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23cbd5e1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1rem;
+  padding-right: 2.5rem;
+}
+
+.cyber-select:focus {
+  outline: none;
+  border-color: var(--accent-blue);
+  background-color: rgba(15, 23, 42, 0.9);
+}
+
+.cyber-select option {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  padding: 0.5rem;
+}
+
+/* Efecto hover para el select */
+.cyber-select:hover {
+  border-color: var(--accent-purple);
+}
+
+/* Efecto cuando está abierto */
+.cyber-select:focus {
+  box-shadow: var(--glow-blue);
+}
+
+/* Estilo para las opciones cuando el select está abierto */
+.cyber-select option:hover,
+.cyber-select option:checked {
+  background-color: rgba(139, 92, 246, 0.2);
+}
+
+/* Botón de envío */
+.button-container {
+  display: flex;
+  justify-content: center;
+}
+
+.cyber-button {
+  position: relative;
+  padding: 0.75rem 1.5rem;
+  background-color: rgba(0, 240, 255, 0.1);
+  color: var(--accent-blue);
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: 1px solid var(--accent-blue);
+  border-radius: 2px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 200px;
+  clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+}
+
+.cyber-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 240, 255, 0.2), transparent);
+  transition: all 0.5s ease;
+}
+
+.cyber-button:hover::before {
+  left: 100%;
+}
+
+.cyber-button:hover {
+  background-color: rgba(0, 240, 255, 0.2);
+  color: white;
+  box-shadow: var(--glow-blue);
+  transform: translateY(-2px);
+}
+
+.btn-content {
+  position: relative;
+  z-index: 2;
+}
+
+.btn-glitch {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 240, 255, 0.5);
+  opacity: 0;
+  z-index: 1;
+}
+
+.cyber-button:hover .btn-glitch {
+  opacity: 0;
+  animation: glitch 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+}
+
+.submit-btn {
+  background-color: rgba(139, 92, 246, 0.1);
+  border-color: var(--accent-purple);
+  color: var(--accent-purple);
+}
+
+.submit-btn:hover {
+  background-color: rgba(139, 92, 246, 0.2);
+  box-shadow: var(--glow-purple);
+}
+
+/* Tabla cyberpunk */
+.cyber-table-container {
+  overflow-x: auto;
+  border-radius: 10px;
+  background-color: rgba(15, 23, 42, 0.5);
+  border: 1px solid var(--border-dark);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.cyber-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.cyber-table thead {
+  background: linear-gradient(to right, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.9));
+}
+
+.cyber-table th {
+  text-align: left;
+  padding: 1.25rem 1.5rem;
+  font-weight: 600;
+  color: var(--accent-blue);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px solid var(--border-dark);
+  position: relative;
+}
+
+.cyber-table th::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(to right, var(--accent-blue), transparent);
+  opacity: 0.3;
+}
+
+.cyber-table td {
+  padding: 1.25rem 1.5rem;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  border-bottom: 1px solid rgba(51, 65, 85, 0.3);
+}
+
+.cyber-table-row {
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.cyber-table-row::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 0;
+  background-color: var(--accent-blue);
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.cyber-table-row:hover::before {
+  width: 3px;
+  opacity: 0.7;
+}
+
+.cyber-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Celdas específicas */
+.game-name {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.game-category {
+  color: var(--accent-purple);
+  font-weight: 500;
+  text-align: justify;
+}
+
+.game-platform {
+  color: var(--accent-green);
+  font-weight: 500;
+}
+
+.game-image-cell {
+  width: 200px;
+}
+
+.game-image-frame {
+  position: relative;
+  width: 150px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--cyber-gradient);
+  padding: 2px;
+}
+
+.game-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.image-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  box-shadow: var(--glow-blue);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* Animaciones */
+@keyframes glitch {
+  0% {
+    transform: translate(0);
+  }
+
+  20% {
+    transform: translate(-5px, 5px);
+  }
+
+  40% {
+    transform: translate(-5px, -5px);
+  }
+
+  60% {
+    transform: translate(5px, 5px);
+  }
+
+  80% {
+    transform: translate(5px, -5px);
+  }
+
+  100% {
+    transform: translate(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .cyber-container {
+    padding: 1.5rem;
+  }
+
+  .card-content {
+    padding: 1.5rem;
+  }
+
+  .cyber-table th,
+  .cyber-table td {
+    padding: 1rem;
+  }
+
+  .game-image-frame {
+    width: 60px;
+    height: 60px;
+  }
+}
+
+@media (max-width: 576px) {
+  .cyber-container {
+    padding: 1rem;
+  }
+
+  .card-content {
+    padding: 1.25rem 1rem;
+  }
+
+  .main-title span {
+    font-size: 1.5rem;
+  }
+
+  .cyber-table th,
+  .cyber-table td {
+    padding: 0.75rem;
+  }
+
+  .cyber-table {
+    min-width: 500px;
+  }
+}
+
+/* Botón de eliminar con estilo cyberpunk */
+.delete-btn {
+  background-color: rgba(239, 68, 68, 0.1);
+  border-color: #ef4444;
+  color: #ef4444;
+  min-width: auto;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.delete-btn:hover {
+  background-color: rgba(239, 68, 68, 0.2);
+  box-shadow: 0 0 10px rgba(239, 68, 68, 0.7), 0 0 20px rgba(239, 68, 68, 0.4);
+  color: white;
+}
+
+.delete-btn .btn-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.delete-btn i {
+  font-size: 1.2rem;
+}
+
+/* Animación especial para el botón de eliminar */
+.delete-btn:hover .btn-glitch {
+  opacity: 0.1;
+  animation: deleteGlitch 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both infinite;
+}
+
+@keyframes deleteGlitch {
+  0% {
+    transform: translate(0);
+    background-color: rgba(239, 68, 68, 0.5);
+  }
+
+  20% {
+    transform: translate(-3px, 3px);
+  }
+
+  40% {
+    transform: translate(-3px, -3px);
+  }
+
+  60% {
+    transform: translate(3px, 3px);
+  }
+
+  80% {
+    transform: translate(3px, -3px);
+  }
+
+  100% {
+    transform: translate(0);
+    background-color: rgba(239, 68, 68, 0.5);
+  }
+}
+
+/*Mensajes de error*/
+.cyber-error-message {
+  background-color: rgba(239, 68, 68, 0.08);
+  border: 1px solid #ef4444;
+  border-radius: 4px;
+  padding: 1rem;
+  margin: 1.5rem 0;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: #ef4444;
+}
+
+.cyber-error-message::before {
+  content: "!";
+  color: #ef4444;
+  font-size: 1rem;
+  font-weight: bold;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background-color: rgba(239, 68, 68, 0.2);
+  border-radius: 50%;
+  border: 2px solid #ef4444;
+}
+
+.cyber-error {
+  font-size: 0.8rem;
+  color: #ef4444;
+  margin-top: 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.cyber-error::before {
+  content: "!";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  background-color: rgba(239, 68, 68, 0.2);
+  border-radius: 50%;
+  font-weight: bold;
+  font-size: 0.7rem;
+}
