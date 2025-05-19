@@ -10,6 +10,9 @@ import { isUserAutenticatedGuard } from './guards/auth.guard';
 import { EquipNewComponent } from './components/Equip/equip-new/equip-new.component';
 import { UserEditComponent } from './components/User/user-edit/user-edit.component';
 import { UserListComponent } from './components/User/user-list/user-list.component';
+import { JocNewComponent } from './components/Joc/joc-new/joc-new.component';
+import { ModeJocNewComponent } from './components/ModeJoc/mode-joc-new/mode-joc-new.component';
+import { MapaNewComponent } from './components/Mapa/mapa-new/mapa-new.component';
 
 export const routes: Routes = [
   { path: 'welcome', component: WelcomeComponent },
@@ -24,6 +27,12 @@ export const routes: Routes = [
 
   { path: 'user-edit', component: UserEditComponent, canActivate: [isUserAutenticatedGuard] },
   { path: 'user-list', component: UserListComponent, canActivate: [isUserAutenticatedGuard] },
+
+  { path: 'joc-new', component: JocNewComponent, canActivate: [isUserAutenticatedGuard] },
+
+  { path: 'mode-joc-new', component: ModeJocNewComponent, canActivate: [isUserAutenticatedGuard] },
+
+  { path: 'mapa-new', component: MapaNewComponent, canActivate: [isUserAutenticatedGuard] },
 
   //LOGIN
   { path: 'login', component: LoginComponent },

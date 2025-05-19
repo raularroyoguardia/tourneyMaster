@@ -11,12 +11,12 @@
         <span class="btn-glow"></span>
       </button>
     
-      <button class="cyber-toggle-btn" [ngClass]="{'active': filtreTorneigs === 'en_proces'}" (click)="filtrarTorneigs('en_proces')">
+      <button class="cyber-toggle-btn" [ngClass]="{'active': filtreTorneigs === 'En procès'}" (click)="filtrarTorneigs('En procès')">
         <span class="btn-content">En procés</span>
         <span class="btn-glow"></span>
       </button>
     
-      <button class="cyber-toggle-btn" [ngClass]="{'active': filtreTorneigs === 'no_comencat'}" (click)="filtrarTorneigs('no_comencat')">
+      <button class="cyber-toggle-btn" [ngClass]="{'active': filtreTorneigs === 'No Començat'}" (click)="filtrarTorneigs('No Començat')">
         <span class="btn-content">No començat</span>
         <span class="btn-glow"></span>
       </button>
@@ -114,7 +114,7 @@
           <!-- Información del torneo -->
           <div class="tournament-info">
             <div class="map-container">
-              <img [src]="'http://127.0.0.1:8000/uploads/mapes/' + selectedTorneig.nom_mapa"
+              <img [src]="'http://127.0.0.1:8000/uploads/mapes/' + selectedTorneig.foto_mapa"
                 alt="{{ selectedTorneig.nom_mapa }}" class="tournament-map" />
             </div>
             <div class="info-grid">
@@ -203,7 +203,7 @@
           <!-- Información del torneo -->
           <div class="tournament-info">
             <div class="map-container">
-              <img [src]="'http://127.0.0.1:8000/uploads/mapes/' + selectedTorneig.nom_mapa"
+              <img [src]="'http://127.0.0.1:8000/uploads/mapes/' + selectedTorneig.foto_mapa"
                 alt="{{ selectedTorneig.nom_mapa }}" class="tournament-map" />
             </div>
             <div class="info-grid">

@@ -35,6 +35,9 @@ export class NavBarComponent implements OnInit, OnDestroy {
 
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
+    if(this.isMenuOpen) {
+      this.isParametersMenuOpen = false;
+    }
     console.log('Toggling menu:', this.isMenuOpen);
   }
 
