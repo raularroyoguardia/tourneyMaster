@@ -84,7 +84,7 @@
                 <p>Crear Equip</p>
                 <span class="item-arrow">›</span>
               </a>
-              <a (click)="toogleParametersDropdown()" class="menu-item" *ngIf="trofeus >= 1000 && canCreateTeam">
+              <a (click)="toogleParametersDropdown()" class="menu-item" *ngIf="user.tipus_usuari_id === 1">
                 <div class="item-icon"><img src="/uploads/iconos/seguidores.png" /></div>
                 <p>Paràmetres</p>
                 <span class="item-arrow">›</span>
@@ -192,6 +192,35 @@
               <span>Crear Equip</span>
               <i class="fi fi-rr-angle-right"></i>
             </a>
+            <a (click)="toogleParametersDropdown()" class="mobile-menu-item" *ngIf="user.tipus_usuari_id === 1">
+              <span>Paràmetres</span>
+              <i class="fi fi-rr-angle-right"></i>
+            </a>
+
+            <!-- Submenú desplegable de Paràmetres -->
+            <div *ngIf="isParametersMenuOpen" class="dropdown-submenu">
+              <div class="submenu-header">
+                <span>Paràmetres</span>
+              </div>
+              <a routerLink="/joc-new" class="submenu-item">
+                <div class="submenu-icon">
+                  <i class="fi fi-rr-gamepad"></i>
+                </div>
+                <span>Joc</span>
+              </a>
+              <a routerLink="/mode-joc-new" class="submenu-item">
+                <div class="submenu-icon">
+                  <i class="fi fi-rr-settings-sliders"></i>
+                </div>
+                <span>Mòde de Joc</span>
+              </a>
+              <a routerLink="/mapa-new" class="submenu-item">
+                <div class="submenu-icon">
+                  <i class="fi fi-rr-map-marker"></i>
+                </div>
+                <span>Mapa</span>
+              </a>
+            </div>
             <a (click)="logout()" class="mobile-menu-item mobile-logout-item">
               <span>Tancar Sessió</span>
               <i class="fi fi-rr-angle-right"></i>

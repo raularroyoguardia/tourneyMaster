@@ -4,7 +4,6 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { IJoc } from '../../../interfaces/iJoc';
 import { DadesJocsService } from '../../../services/dades-jocs.service';
 import { DadesModeJocsService } from '../../../services/dades-mode-jocs.service';
-import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { IModeJoc } from '../../../interfaces/iModeJoc';
 
@@ -24,7 +23,6 @@ export class ModeJocNewComponent implements OnInit{
     private jocService: DadesJocsService,
     private modeJocService: DadesModeJocsService,
     private fb: FormBuilder,
-    private http: HttpClient,
     private router: Router,
   ) {
     this.form = this.fb.group({
@@ -43,6 +41,9 @@ export class ModeJocNewComponent implements OnInit{
           this.jocs = res.body;
         }
       },
+      error: (err) => {
+        console.log('Error en obtenir els modes de joc.', err);
+      }
     });
 
     setInterval(() => {
