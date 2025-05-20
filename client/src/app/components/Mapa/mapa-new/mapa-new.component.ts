@@ -6,6 +6,8 @@ import { DadesModeJocsService } from '../../../services/dades-mode-jocs.service'
 import { Router } from '@angular/router';
 import { DadesMapesService } from '../../../services/dades-mapes.service';
 import { IMapa } from '../../../interfaces/iMapa';
+import { IJoc } from '../../../interfaces/iJoc';
+import { DadesJocsService } from '../../../services/dades-jocs.service';
 
 @Component({
   selector: 'app-mapa-new',
@@ -16,6 +18,7 @@ import { IMapa } from '../../../interfaces/iMapa';
 export class MapaNewComponent implements OnInit {
 modesJocs: IModeJoc[] = [];
 mapas: IMapa[] = [];
+jocs: IJoc[] = [];
 form: FormGroup;
 errorMessage = '';
 selectedImage: File | null = null;
@@ -24,6 +27,7 @@ previewImageUrl: string | null = null;
 constructor(
   private modeJocsService: DadesModeJocsService,
   private mapaService: DadesMapesService,
+  private jocsService: DadesJocsService,
   private fb: FormBuilder,
   private router: Router,
 ) {
@@ -40,6 +44,17 @@ ngOnInit(): void {
         next: (res) => {
           if(res.body) {
             this.mapas = res.body;
+          }
+        },
+        error: (err) => {
+          console.log("Error en obtenir els mapes.", err);
+        }
+      });
+
+      this.jocsService.getJocs().subscribe({
+        next: (res) => {
+          if(res.body) {
+            this.jocs = res.body;
           }
         },
         error: (err) => {

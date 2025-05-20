@@ -1,4 +1,5 @@
 import { IJoc } from "./iJoc";
+import { IMapa } from "./iMapa";
 
 export interface IModeJoc {
     id:number;
@@ -7,4 +8,5 @@ export interface IModeJoc {
     jugadors:number;
     joc_id: number; 
     joc: IJoc;
+    mapas?: IMapa[];
 }

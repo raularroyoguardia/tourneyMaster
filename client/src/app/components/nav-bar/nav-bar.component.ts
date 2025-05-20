@@ -5,13 +5,17 @@ import { TokenService } from '../../services/auth/token.service';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { NavigationEnd } from '@angular/router';
+import { MessageService } from 'primeng/api';
+import { ButtonModule } from 'primeng/button';
+import { Toast } from 'primeng/toast';
 
 @Component({
   selector: 'app-nav-bar',
-  imports: [RouterLinkActive, RouterLink, CommonModule],
+  imports: [RouterLinkActive, RouterLink, CommonModule, ButtonModule, Toast],
   templateUrl: './nav-bar.component.html',
   standalone: true,
-  styleUrls: ['./nav-bar.component.css']
+  styleUrls: ['./nav-bar.component.css'],
+  providers: [MessageService]
 })
 export class NavBarComponent implements OnInit, OnDestroy {
   user: any = {};
@@ -31,12 +35,13 @@ export class NavBarComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     public tokenService: TokenService,
     private router: Router,
-    private http: HttpClient
+    private http: HttpClient,
+    private messageService: MessageService
   ) { }
 
   toggleMenu() {
     this.isMenuOpen = !this.isMenuOpen;
-    if(this.isMenuOpen) {
+    if (this.isMenuOpen) {
       this.isParametersMenuOpen = false;
     }
     console.log('Toggling menu:', this.isMenuOpen);
@@ -46,15 +51,20 @@ export class NavBarComponent implements OnInit, OnDestroy {
     this.isMobileMenuOpen = !this.isMobileMenuOpen;
   }
 
+  showError() {
+    this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Message Content' });
+  }
+
   toogleParametersDropdown(): void {
     this.isParametersMenuOpen = !this.isParametersMenuOpen;
   }
-  
+
   logout(): void {
     this.authService.logout().subscribe(
       response => this.handleResponse(response),
       errors => this.handleErrors(errors)
     );
+    this.messageService.add({ severity: 'error', summary: 'Sessió tancada', detail: 'Has tancat la sessió correctament' });
   }
 
   private handleResponse(response: any): void {
@@ -72,15 +82,15 @@ export class NavBarComponent implements OnInit, OnDestroy {
     if (userData) {
       this.user = JSON.parse(userData);
     }
-  
+
     const usuari = JSON.parse(localStorage.getItem('user') || '{}');
     this.usuariId = usuari.id;
     this.tipusUsuariId = usuari.tipus_usuari_id;
     this.trofeus = usuari.trofeus || 0;
-  
+
     this.getUserOne();
     this.getUserEquips();
-  
+
     // Rutas que deben cerrar el menú
     const rutasQueCierranMenu = [
       '/torneig-new',
@@ -95,18 +105,18 @@ export class NavBarComponent implements OnInit, OnDestroy {
       '/clasificacio-list',
       '/equip-list'
     ];
-  
+
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         const rutaActual = event.urlAfterRedirects;
-  
+
         if (rutasQueCierranMenu.includes(rutaActual)) {
           this.isMenuOpen = false;
           this.isMobileMenuOpen = false;
         }
       }
     });
-  
+
     // Set up interval to refresh data
     this.trofeusInterval = setInterval(() => {
       this.getUserOne();
@@ -118,7 +128,7 @@ export class NavBarComponent implements OnInit, OnDestroy {
     this.http.get(`${this.apiBaseUrl}/userOne/${this.usuariId}`)
       .subscribe({
         next: (response: any) => {
-          this.user = response;             
+          this.user = response;
           this.trofeus = response.trofeus;
           // Update localStorage with the latest user data
           localStorage.setItem('user', JSON.stringify(this.user));
@@ -143,7 +153,7 @@ export class NavBarComponent implements OnInit, OnDestroy {
         }
       });
   }
-  
+
   ngOnDestroy(): void {
     if (this.trofeusInterval) {
       clearInterval(this.trofeusInterval);

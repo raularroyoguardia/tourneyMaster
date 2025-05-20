@@ -1,3 +1,4 @@
+<p-toast />
 <div class="cyber-container">
   <div class="section-title main-title">
     <span>Torneos Disponibles</span>
@@ -6,22 +7,26 @@
 
   <div class="filter-section">
     <div class="filter-buttons">
-      <button class="cyber-toggle-btn" [ngClass]="{'active': filtreTorneigs === 'tots'}" (click)="filtrarTorneigs('tots')" >
+      <button class="cyber-toggle-btn" [ngClass]="{'active': filtreTorneigs === 'tots'}"
+        (click)="filtrarTorneigs('tots')">
         <span class="btn-content">Mostrar Tots</span>
         <span class="btn-glow"></span>
       </button>
-    
-      <button class="cyber-toggle-btn" [ngClass]="{'active': filtreTorneigs === 'En procès'}" (click)="filtrarTorneigs('En procès')">
+
+      <button class="cyber-toggle-btn" [ngClass]="{'active': filtreTorneigs === 'En procès'}"
+        (click)="filtrarTorneigs('En procès')">
         <span class="btn-content">En procés</span>
         <span class="btn-glow"></span>
       </button>
-    
-      <button class="cyber-toggle-btn" [ngClass]="{'active': filtreTorneigs === 'No Començat'}" (click)="filtrarTorneigs('No Començat')">
+
+      <button class="cyber-toggle-btn" [ngClass]="{'active': filtreTorneigs === 'No Començat'}"
+        (click)="filtrarTorneigs('No Començat')">
         <span class="btn-content">No començat</span>
         <span class="btn-glow"></span>
       </button>
-    
-      <button class="cyber-toggle-btn" [ngClass]="{'active': filtreTorneigs === 'per_inscrits'}" (click)="filtrarTorneigs('per_inscrits')" *ngIf="tipusUsuariId !=1">
+
+      <button class="cyber-toggle-btn" [ngClass]="{'active': filtreTorneigs === 'per_inscrits'}"
+        (click)="filtrarTorneigs('per_inscrits')" *ngIf="tipusUsuariId !=1">
         <span class="btn-content">Per inscrits</span>
         <span class="btn-glow"></span>
       </button>
@@ -30,14 +35,13 @@
 
   <div class="cyber-grid">
     <div *ngFor="let torneig of torneigs" class="cyber-card" (click)="mostrarDetalls(torneig)">
-      <!-- Modificar el badge de estado en la tarjeta para hacerlo más visible -->
       <div class="card-image-container">
-        <img [src]="'http://127.0.0.1:8000/uploads/fotoJocs/' + torneig.joc_foto" alt="Imagen del juego" class="card-image">
+        <img [src]="'http://127.0.0.1:8000/uploads/fotoJocs/' + torneig.joc_foto" alt="Imagen del juego"
+          class="card-image">
       </div>
       <div class="card-content">
         <h3 class="card-title">{{ torneig.nom }}</h3>
-        
-        <!-- Añadir un indicador de estado adicional en la información de la tarjeta -->
+
         <div class="card-info-compact">
           <div class="info-row">
             <div class="info-chip">
@@ -53,7 +57,7 @@
               <span>{{ torneig.tipus }}</span>
             </div>
           </div>
-          
+
           <div class="date-range">
             <div class="date-item">
               <i class="fi fi-rr-calendar-lines"></i>
@@ -92,9 +96,10 @@
     </div>
   </div>
 
-  <!-- Modal de detalles -->
-  <div class="cyber-modal-backdrop" *ngIf="selectedTorneig" (click)="tancarModal()">
-    <div class="cyber-modal" (click)="$event.stopPropagation()">
+
+  <div class="cyber-modal-backdrop2" *ngIf="selectedTorneig && selectedTorneig.numero_equips > 2"
+    (click)="tancarModal()">
+    <div class="cyber-modal2" (click)="$event.stopPropagation()">
       <button class="close-button" (click)="tancarModal()">
         <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none">
           <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -107,106 +112,16 @@
         <div class="title-underline"></div>
       </div>
 
-      <!-- Contenido para torneos de 2 equipos -->
-      <ng-container *ngIf="selectedTorneig.numero_equips === 2">
-        <div class="modal-content-grid">
-          <!-- Información del torneo -->
-          <div class="tournament-info">
+      <ng-container>
+        <div class="modal-content-grid2">
+
+          <div class="column tournament-info">
             <div class="map-container">
               <img [src]="'http://127.0.0.1:8000/uploads/mapes/' + selectedTorneig.foto_mapa"
                 alt="{{ selectedTorneig.nom_mapa }}" class="tournament-map" />
             </div>
+
             <div class="info-grid">
-              <!-- Modificar también el estado en el modal para mayor consistencia -->
-              <div class="info-item">
-                <span class="info-label">Partides</span>
-                <span class="info-value">{{ selectedTorneig.quantitat_partides }}</span>
-              </div>
-              <div class="info-item">
-                <span class="info-label">Participants</span>
-                <span class="info-value">{{ selectedTorneig.participants }}</span>
-              </div>
-              <div class="info-item">
-                <span class="info-label">Tipus</span>
-                <span class="info-value">{{ selectedTorneig.tipus }}</span>
-              </div>
-              <div class="info-item description">
-                <span class="info-label">Descripció</span>
-                <span class="info-value">{{ selectedTorneig.descripcio }}</span>
-              </div>
-              <div class="info-item reward">
-                <span class="info-label">Recompensa</span>
-                <div class="reward-value">
-                  <span>{{ selectedTorneig.premi_valor }}</span>
-                  <i class="trophy-icon fi fi-sr-trophy-star"></i>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Marcadores y partidas -->
-          <div class="tournament-matches">
-            <div class="main-scoreboard">
-              <div class="team team-left">
-                <div class="team-score">{{ getTotalPuntos(1) }}</div>
-                <div class="team-name">{{ selectedTorneig.equips[0].nom || 'Equip 1' }}</div>
-              </div>
-              <div class="vs-indicator">VS</div>
-              <div class="team team-right">
-                <div class="team-score">{{ getTotalPuntos(2) }}</div>
-                <div class="team-name">{{ selectedTorneig.equips[1].nom || 'Equip 2' }}</div>
-              </div>
-            </div>
-
-            <div class="matches-list">
-              <div *ngFor="let partida of selectedTorneig.partides; let i = index" class="match-item">
-                <ng-container *ngIf="i === 0 || selectedTorneig.partides[i - 1]?.resultat_equip_id">
-                  <div class="match-card">
-                    <div class="team-side left-side">
-                      <div class="team-result" [ngClass]="{'winner': partida.resultat_equip_id === 1}">
-                        <span *ngIf="partida.resultat_equip_id === 1" class="winner-label">Ganador</span>
-                        <button *ngIf="!partida.resultat_equip_id && tipusUsuariId === 1" 
-                          class="cyber-button small-btn" 
-                          (click)="actualitzarGuanyadorPartida(partida.id, 1)">
-                          <span class="btn-content">Assignar</span>
-                        </button>
-                      </div>
-                    </div>
-
-                    <div class="match-info">
-                      <div class="match-number">Partida {{ partida.posicio_partida || '-' }}</div>
-                      <div class="match-time">{{ partida.data_hora || 'Hora no definida' }}</div>
-                    </div>
-
-                    <div class="team-side right-side">
-                      <div class="team-result" [ngClass]="{'winner': partida.resultat_equip_id === 2}">
-                        <span *ngIf="partida.resultat_equip_id === 2" class="winner-label">Ganador</span>
-                        <button *ngIf="!partida.resultat_equip_id && tipusUsuariId === 1" 
-                          class="cyber-button small-btn" 
-                          (click)="actualitzarGuanyadorPartida(partida.id, 2)">
-                          <span class="btn-content">Assignar</span>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </ng-container>
-              </div>
-            </div>
-          </div>
-        </div>
-      </ng-container>
-
-      <!-- Contenido para torneos de más de 2 equipos -->
-      <ng-container *ngIf="selectedTorneig.numero_equips > 2">
-        <div class="modal-content-grid">
-          <!-- Información del torneo -->
-          <div class="tournament-info">
-            <div class="map-container">
-              <img [src]="'http://127.0.0.1:8000/uploads/mapes/' + selectedTorneig.foto_mapa"
-                alt="{{ selectedTorneig.nom_mapa }}" class="tournament-map" />
-            </div>
-            <div class="info-grid">
-              <!-- Modificar también el estado en el modal para mayor consistencia -->
               <div class="info-item">
                 <span class="info-label">Estat</span>
                 <div class="info-value estat-value" [ngClass]="getEstatClass(selectedTorneig.estat)">
@@ -214,22 +129,14 @@
                   <span>{{ selectedTorneig.estat }}</span>
                 </div>
               </div>
-              <div class="info-item">
-                <span class="info-label">Partides</span>
-                <span class="info-value">{{ selectedTorneig.quantitat_partides }}</span>
-              </div>
-              <div class="info-item">
-                <span class="info-label">Participants</span>
-                <span class="info-value">{{ selectedTorneig.participants }}</span>
-              </div>
-              <div class="info-item">
-                <span class="info-label">Tipus</span>
-                <span class="info-value">{{ selectedTorneig.tipus }}</span>
-              </div>
-              <div class="info-item description">
-                <span class="info-label">Descripció</span>
-                <span class="info-value">{{ selectedTorneig.mode_joc }}</span>
-              </div>
+              <div class="info-item"><span class="info-label">Partides</span><span class="info-value">{{
+                  selectedTorneig.quantitat_partides }}</span></div>
+              <div class="info-item"><span class="info-label">Participants</span><span class="info-value">{{
+                  selectedTorneig.participants }}</span></div>
+              <div class="info-item"><span class="info-label">Tipus</span><span class="info-value">{{
+                  selectedTorneig.tipus }}</span></div>
+              <div class="info-item description"><span class="info-label">Descripció</span><span class="info-value">{{
+                  selectedTorneig.mode_joc }}</span></div>
               <div class="info-item reward">
                 <span class="info-label">Recompensa</span>
                 <div class="reward-value">
@@ -240,15 +147,15 @@
             </div>
           </div>
 
-          <!-- Clasificación de equipos -->
-          <div class="tournament-ranking">
+          <div class="column tournament-ranking">
             <div class="ranking-title">
               <span>Clasificación</span>
               <div class="title-line"></div>
             </div>
-            
+
             <ul class="ranking-list">
-              <li *ngFor="let equip of equipsOrdenats; let i = index" class="ranking-item" [ngClass]="{'top-rank': i < 3}">
+              <li *ngFor="let equip of equipsOrdenats; let i = index" class="ranking-item"
+                [ngClass]="{'top-rank': i < 3}">
                 <div class="rank-position">{{ i + 1 }}</div>
                 <div class="rank-team-info">
                   <div class="team-avatar">
@@ -266,8 +173,32 @@
               </li>
             </ul>
           </div>
+          <div class="column right-side">
+            <div class="match-info" *ngFor="let partida of selectedTorneig.partides; let i = index">
+              <div>
+                <div class="match-number">Partida {{ partida.posicio_partida || '-' }}</div>
+                <div class="match-time">{{ partida.data_hora || 'Hora no definida' }}</div>
+
+                <div class="match-winner" *ngIf="partida.resultat_equip_id">
+                  <strong>Guanyador:</strong> {{ getEquipName(partida.resultat_equip_id) }}
+                </div>
+
+                <ng-container
+                  *ngIf="!partida.resultat_equip_id && tipusUsuariId === 1 && (i === 0 || selectedTorneig.partides[i - 1]?.resultat_equip_id)">
+                  <select [(ngModel)]="selectedWinnerByPartida[partida.id]">
+                    <option *ngFor="let equip of selectedTorneig.equips" [value]="equip.id">{{ equip.nom }}</option>
+                  </select>
+                  <button class="cyber-button assigna-btn" [disabled]="!selectedWinnerByPartida[partida.id]"
+                    (click)="actualitzarGuanyadorPartida(partida.id, selectedWinnerByPartida[partida.id])">
+                    <span class="btn-content">Assignar Guanyador</span>
+                  </button>
+                </ng-container>
+              </div>
+            </div>
+          </div>
         </div>
       </ng-container>
     </div>
   </div>
+
 </div>

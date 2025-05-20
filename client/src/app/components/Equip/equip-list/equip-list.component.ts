@@ -2,19 +2,26 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { IEquip } from '../../../interfaces/iEquip';
 import { DadesEquipsService } from '../../../services/dades-equips.service';
 import { CommonModule } from '@angular/common';
+import { MessageService } from 'primeng/api';
+import { Toast } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-equip-list',
-  imports: [CommonModule],
+  imports: [CommonModule, Toast, ButtonModule],
   templateUrl: './equip-list.component.html',
-  styleUrl: './equip-list.component.css'
+  styleUrl: './equip-list.component.css',
+  providers: [MessageService]
 })
 export class EquipListComponent implements OnInit, OnDestroy {
   equips: IEquip[] = []; 
   equipsDisponibles: IEquip[] = [];
   private refreshInterval: any;
 
-  constructor(private dadesEquipsService: DadesEquipsService) {}
+  constructor(
+    private dadesEquipsService: DadesEquipsService,
+    private messageService: MessageService
+  ) {}
 
   ngOnInit(): void {
     this.loadEquips();
@@ -70,12 +77,12 @@ export class EquipListComponent implements OnInit, OnDestroy {
     this.dadesEquipsService.unirseAUser(equipId).subscribe({
       next: (response) => {
         console.log(response.message);
-        alert('T\'has unit al equip correctament.');
+        this.messageService.add({ severity: 'success', summary: 'Unit amb èxit', detail: 'T\'has unit al equip correctament.' });
         this.loadEquips();
       },
       error: (err) => {
         console.error('Error al unir-se:', err);
-        alert(err.error.message || 'Error al unir-se');
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error al unir-se' });
       }
     });
   }

@@ -5,12 +5,16 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
+import { Toast } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-joc-new',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, ButtonModule,Toast],
   templateUrl: './joc-new.component.html',
-  styleUrl: './joc-new.component.css'
+  styleUrl: './joc-new.component.css',
+  providers: [MessageService]
 })
 export class JocNewComponent implements OnInit {
   jocs: IJoc[] = [];
@@ -24,6 +28,7 @@ export class JocNewComponent implements OnInit {
     private fb: FormBuilder,
     private http: HttpClient,
     private router: Router,
+    private messageService: MessageService
   ) {
     this.form = this.fb.group({
       nom: ['', Validators.required],
@@ -83,8 +88,11 @@ export class JocNewComponent implements OnInit {
           nom: ['', Validators.required],
           categoria: ['', Validators.required],
           plataforma: ['', Validators.required],
-          foto: ['', Validators.required],
+          foto: [null],
         });
+        this.messageService.add({ severity: 'success', summary: 'Joc', detail: 'Joc afegit correctament.' });
+        this.selectedImage = null;
+        this.previewImageUrl = null;
       },
       error: (err) => {
         this.errorMessage = 'Error en crear el joc';
@@ -96,11 +104,11 @@ export class JocNewComponent implements OnInit {
   eliminar(id: any): void {
     this.jocService.deleteJoc(id).subscribe({
       next: () => {
-        alert("Joc eliminat correctament!");
+        this.messageService.add({ severity: 'success', summary: 'Joc', detail: 'Joc eliminat correctament.' });
         this.ngOnInit();
       },
       error: (error) => {
-        alert("No s\'hapogut eliminar el joc!\n" + error.message);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No s\'ha pogut eliminar el joc.' });
       }
     })
   }

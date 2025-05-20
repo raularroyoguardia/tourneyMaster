@@ -7,13 +7,18 @@ import { DadesTornejosService } from '../../../services/dades-tornejos.service';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../../../services/auth/auth.service';
+import { FormsModule } from '@angular/forms';
+import { ButtonModule } from 'primeng/button';
+import { Toast } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-torneig-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule, ButtonModule, Toast],
   templateUrl: './torneig-list.component.html',
-  styleUrl: './torneig-list.component.css'
+  styleUrl: './torneig-list.component.css',
+  providers: [MessageService]
 })
 export class TorneigListComponent implements OnInit {
   torneigs: ITorneig[] = [];
@@ -22,22 +27,41 @@ export class TorneigListComponent implements OnInit {
   torneigsStats: { torneig_id: number, total_equips: number, numero_equips: number, torneig_ple: boolean }[] = [];
   tipusUsuariId: number = 0;
   filtreTorneigs: string = 'tots';
+  selectedWinnerByPartida: { [partidaId: number]: number } = {};
+
+
+  getEquipName(equipId: number): string {
+    const equip = this.selectedTorneig?.equips.find(e => e.id === equipId);
+    return equip ? equip.nom : 'Desconegut';
+  }
+
 
   constructor(
     private torneigService: DadesTornejosService,
     private http: HttpClient,
-    private authService: AuthService
+    private authService: AuthService,
+    private messageService: MessageService,
   ) { }
 
   ngOnInit(): void {
     setInterval(() => {
       this.actualitzarEstatTotsElsTorneigs();
-
       this.http.get<any[]>('/api/torneigs/stats').subscribe(stats => {
         this.torneigsStats = stats;
       });
+    
+      if (this.filtreTorneigs === 'tots') {
+        this.torneigService.getTornejos().subscribe({
+          next: tornejos => {
+            this.torneigs = tornejos.body || [];
+          },
+          error: err => {
+            console.error('Error carregant tornejos:', err);
+          }
+        });
+      }
     }, 1000);
-
+    
 
     const usuariString = localStorage.getItem('user');
     if (usuariString) {
@@ -67,19 +91,18 @@ export class TorneigListComponent implements OnInit {
     }
   }
 
-
   unirseTorneig(torneigId: number) {
     this.http.get<any[]>('/api/torneigs/stats').subscribe(stats => {
       this.torneigsStats = stats;
       const torneigStats = this.torneigsStats.find(t => t.torneig_id === torneigId);
       if (torneigStats?.numero_equips === torneigStats?.total_equips) {
-        alert('Aquest torneig ja està ple i no s\'hi poden afegir més equips.');
+        this.messageService.add({ severity: 'warn', summary: 'Torneig ple', detail: 'Aquest torneig ja està ple i no s\'hi poden afegir més equips.' });
         return;
       }
 
       const torneig = this.torneigs.find(t => t.id === torneigId);
       if (!torneig) {
-        alert('No s\'ha trobat el torneig.');
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No s\'ha trobat el torneig.' });
         return;
       }
 
@@ -104,24 +127,23 @@ export class TorneigListComponent implements OnInit {
           }
 
           if (!equipAdequat) {
-            alert('No tens un equip adequat per unir-te a aquest torneig.');
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No tens un equip adequat per unir-te a aquest torneig.' });
             return;
           }
 
           this.torneigService.unirseATorneig(torneigId, equipAdequat.id).subscribe({
             next: (response) => {
-              alert('T\'has unit correctament al torneig.');
+              this.messageService.add({ severity: 'success', summary: 'Inscrit correctament', detail: 'T\'has inscrit correctament al torneig.' });
               location.reload();
             },
             error: (err) => {
-              console.error('Error al unir-se al torneig:', err);
-              alert(err.error.message || 'Error al unir-se al torneig');
+              this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error al unir-se al torneig' });
             }
           });
         },
         error: (err) => {
           console.error('Error al obtenir equips del usuari:', err);
-          alert('No s\'han pogut obtenir els equips del teu usuari.');
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No s\'han pogut obtenir els equips del teu usuari.' });
         }
       });
     });
@@ -136,7 +158,6 @@ export class TorneigListComponent implements OnInit {
     } else if (filtre === 'En procès' || filtre === 'No Començat') {
       this.torneigService.getTorneigsPerEstat(filtre).subscribe(response => {
         this.torneigs = response;
-        console.log('Tornejos filtrats:', this.torneigs);
       });
     } else if (filtre === 'per_inscrits') {
       const currentUser = this.authService.getCurrentUser();
@@ -145,7 +166,6 @@ export class TorneigListComponent implements OnInit {
       });
     }
   }
-
 
   mostrarDetalls(torneig: ITorneig) {
     this.selectedTorneig = torneig;
@@ -195,16 +215,10 @@ export class TorneigListComponent implements OnInit {
       resultat_equip_id: equipId
     }).subscribe({
       next: (res) => {
-        const equipGuanyador = this.selectedTorneig?.equips.find(e => e.id === equipId);
-        if (!equipGuanyador) {
-          alert('No s\'ha trobat l\'equip guanyador');
-          return;
-        }
-
         this.http.get<IUser[]>(`http://localhost:8000/api/equips/${equipId}/usuaris`).subscribe({
           next: (usuaris) => {
             if (!usuaris || usuaris.length === 0) {
-              alert('No hi ha usuaris en aquest equip.');
+              this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No hi ha usuaris en aquest equip.' });
               return;
             }
 
@@ -224,20 +238,47 @@ export class TorneigListComponent implements OnInit {
               });
             });
 
-            alert(`S\'ha assignat el guanyador i s\'han repartit ${trofeusPerUsuari} trofeus per usuari.`);
-            location.reload();
+            this.messageService.add({ severity: 'success', summary: 'Guanyador assignat', detail: `S\'ha assignat el guanyador i s\'han repartit ${trofeusPerUsuari} trofeus per usuari.` });
+            this.recargarDetallsTorneig();
           },
           error: (err) => {
-            console.error('Error al obtenir usuaris del equip guanyador:', err);
-            alert('No s\'han pogut obtenir els usuaris del equip guanyador.');
+            console.log('Error al obtenir usuaris del equip guanyador:', err);
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No s\'han pogut obtenir els usuaris del equip guanyador.' });
           }
         });
       },
       error: (err) => {
         console.error('Error al actualitzar el resultat:', err);
-        alert('No s\'ha pogut assignar el guanyador.');
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No s\'ha pogut assignar el guanyador.' });
+
       }
     });
+  }
+
+  recargarDetallsTorneig() {
+    if (this.selectedTorneig && this.selectedTorneig.id) {
+      this.http.get<ITorneig>(`http://localhost:8000/api/torneig/${this.selectedTorneig.id}`).subscribe({
+        next: torneigActualitzat => {
+          this.selectedTorneig = torneigActualitzat;
+          console.log('Torneig actualitzat:', torneigActualitzat);
+        },
+        error: err => {
+          console.error('Error recarregant el torneig:', err);
+        }
+      });
+
+      // También actualizamos las estadísticas por si han cambiado las copas
+      this.http.get<any[]>('/api/torneigs/stats').subscribe(stats => {
+        this.torneigsStats = stats;
+      });
+    }
+  }
+
+
+  mostrarPartida(index: number): boolean {
+    const partides = this.selectedTorneig?.partides || [];
+    // Mostrar si és la primera, o si l'anterior ja té resultat assignat
+    return index === 0 || (partides[index - 1]?.resultat_equip_id != null);
   }
 
   actualitzarEstatTotsElsTorneigs(): void {

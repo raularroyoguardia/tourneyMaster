@@ -3,13 +3,17 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Toast } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-equip-new',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, Toast, ButtonModule],
   standalone: true,
   templateUrl: './equip-new.component.html',
-  styleUrl: './equip-new.component.css'
+  styleUrl: './equip-new.component.css',
+  providers: [MessageService]
 })
 export class EquipNewComponent implements OnInit {
 
@@ -22,7 +26,8 @@ export class EquipNewComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private messageService: MessageService
   ) {
     this.form = this.fb.group({
       nom: ['', [Validators.required, Validators.maxLength(20)]],
@@ -80,8 +85,7 @@ export class EquipNewComponent implements OnInit {
               user.tipus_usuari_id = 2;
               localStorage.setItem('user', JSON.stringify(user));
             }
-
-            alert('Equip creat i assignat com a administrador.');
+            this.messageService.add({ severity: 'success', summary: 'Equip creat', detail: 'Equip creat i assignat com a capità.' });
             this.router.navigate(['/equip-list']);
           },
           error: (err) => {

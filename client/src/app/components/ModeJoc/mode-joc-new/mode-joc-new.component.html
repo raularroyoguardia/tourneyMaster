@@ -81,7 +81,52 @@
         </div>
     </div>
 
-    <!-- Tabla de juegos con estilo cyberpunk -->
+    <!-- Modos de Juego por Juego -->
+    <div class="section-title sub-title">
+        <span>Modes de Joc per Joc</span>
+        <div class="title-line"></div>
+    </div>
+
+    <div class="cyber-card game-modes-container">
+        <div class="card-content">
+            <div *ngFor="let joc of jocs" class="game-section">
+                <div class="game-header">
+                    <div class="game-image-container">
+                        <img [src]="'http://127.0.0.1:8000/uploads/fotoJocs/' + joc.foto" alt="{{ joc.nom }}" class="game-cover-image">
+                        <div class="image-glow"></div>
+                    </div>
+                    <h2 class="game-title">{{ joc.nom }}</h2>
+                </div>
+                
+                <div class="game-modes-grid">
+                    <div *ngFor="let mode of joc.mode_jocs" class="mode-card">
+                        <div class="mode-card-header">
+                            <h3 class="mode-title">{{ mode.nom }}</h3>
+                        </div>
+                        <div class="mode-card-content">
+                            <p class="mode-description">{{ mode.descripcio }}</p>
+                        </div>
+                        <div class="mode-card-actions">
+                            <div class="mode-details">
+                                <div class="mode-detail">
+                                    <span class="detail-label">Jugadors:</span>
+                                    <span class="detail-value">{{ mode.jugadors }}</span>
+                                </div>
+                            </div>
+                            <button class="cyber-button delete-btn" (click)="eliminar(mode.id)">
+                                <span class="btn-content">
+                                    <i class="fi fi-rr-trash"></i>
+                                </span>
+                                <span class="btn-glitch"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabla de modos de juego con estilo cyberpunk -->
     <div class="section-title sub-title">
         <span>Llistat de Modes de Jocs</span>
         <div class="title-line"></div>
@@ -91,11 +136,11 @@
         <table class="cyber-table">
             <thead>
                 <tr>
-                    <th colspan="2">Nom</th>
+                    <th>Nom</th>
                     <th>Descripció</th>
                     <th>Jugadors</th>
                     <th>Joc</th>
-                    <th></th>
+                    <th>Accions</th>
                 </tr>
             </thead>
             <tbody>
@@ -107,6 +152,7 @@
                         <div class="game-image-frame">
                             <img [src]="'http://127.0.0.1:8000/uploads/fotoJocs/' + modeJoc.joc.foto"
                                 alt="Imagen del juego" class="game-image">
+                            <div class="image-glow"></div>
                         </div>
                     </td>
                     <td>
