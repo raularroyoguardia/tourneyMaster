@@ -4,12 +4,16 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { DadesUsersService } from '../../../services/dades-users.service';
 import { TokenService } from '../../../services/auth/token.service';
+import { MessageService } from 'primeng/api';
+import { Toast } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-user-edit',
-  imports: [ReactiveFormsModule, CommonModule, RouterLink],
+  imports: [ReactiveFormsModule, CommonModule, RouterLink, Toast, ButtonModule],
   templateUrl: './user-edit.component.html',
-  styleUrl: './user-edit.component.css'
+  styleUrl: './user-edit.component.css',
+  providers: [MessageService]
 })
 export class UserEditComponent implements OnInit {
   id: string | null | undefined;
@@ -22,7 +26,8 @@ export class UserEditComponent implements OnInit {
     private tokenService: TokenService,
     private userService: DadesUsersService,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private messageService: MessageService
   ) {
     this.myForm = new FormGroup({
     });
@@ -74,8 +79,15 @@ export class UserEditComponent implements OnInit {
 
     this.userService.updateUser(this.id, formData).subscribe({
       next: () => {
-        alert("Usuari actualitzar correctament");
-        this.router.navigate(['/welcome']);
+        this.router.navigate(['/welcome'], {
+          state: {
+            toast: {
+              summary: 'Actualizado',
+              detail: 'Tu perfil fue actualizado correctamente.'
+            }
+          }
+        });
+        
       },
       error: (error) => {
         alert("No s'ha pogut actualitzar el teu usuari\n" + error.message);

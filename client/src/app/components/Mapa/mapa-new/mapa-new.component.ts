@@ -39,6 +39,16 @@ constructor(
 }
 
 ngOnInit(): void {
+  this.modeJocsService.getModeJocs().subscribe({
+    next: (res) => {
+      if(res.body) {
+        this.modesJocs = res.body;
+      }
+    },
+    error: (err) => {
+      console.log("Error en obtenir els mapes.", err);
+    }
+  });
     setInterval(() => {
       this.mapaService.getMapes().subscribe({
         next: (res) => {
@@ -55,17 +65,6 @@ ngOnInit(): void {
         next: (res) => {
           if(res.body) {
             this.jocs = res.body;
-          }
-        },
-        error: (err) => {
-          console.log("Error en obtenir els mapes.", err);
-        }
-      });
-
-      this.modeJocsService.getModeJocs().subscribe({
-        next: (res) => {
-          if(res.body) {
-            this.modesJocs = res.body;
           }
         },
         error: (err) => {

@@ -34,6 +34,17 @@ export class ModeJocNewComponent implements OnInit{
   }
 
   ngOnInit(): void {
+
+    this.jocService.getJocs().subscribe({
+      next: (res) => {
+        if(res.body) {
+          this.jocs = res.body;
+        }
+      },
+      error: (err) => {
+        console.log('Error en obtenir els modes de joc.', err);
+      }
+    });
     setInterval(() => {
       this.modeJocService.getModeJocs().subscribe({
         next: (res) => {
@@ -43,17 +54,6 @@ export class ModeJocNewComponent implements OnInit{
         },
         error: (err) => {
           console.log("Error en obtenir els modes de jocs.", err);
-        }
-      });
-
-      this.jocService.getJocs().subscribe({
-        next: (res) => {
-          if(res.body) {
-            this.jocs = res.body;
-          }
-        },
-        error: (err) => {
-          console.log('Error en obtenir els modes de joc.', err);
         }
       });
     }, 1000);

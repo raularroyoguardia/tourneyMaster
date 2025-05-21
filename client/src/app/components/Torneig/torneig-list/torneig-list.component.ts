@@ -54,6 +54,7 @@ export class TorneigListComponent implements OnInit {
         this.torneigService.getTornejos().subscribe({
           next: tornejos => {
             this.torneigs = tornejos.body || [];
+            console.log('Tornejos carregats:', this.torneigs);
           },
           error: err => {
             console.error('Error carregant tornejos:', err);
@@ -155,14 +156,16 @@ export class TorneigListComponent implements OnInit {
       this.torneigService.getTornejos().subscribe(response => {
         this.torneigs = response.body || [];
       });
-    } else if (filtre === 'En procès' || filtre === 'No Començat') {
+    } else if (filtre === 'En procés' || filtre === 'No Començat') {
       this.torneigService.getTorneigsPerEstat(filtre).subscribe(response => {
         this.torneigs = response;
       });
     } else if (filtre === 'per_inscrits') {
       const currentUser = this.authService.getCurrentUser();
-      this.torneigService.getTorneigsPerUsuari(currentUser.id).subscribe(response => {
+      console.log('Usuari actual:', currentUser);
+      this.torneigService.getUserATorneig(currentUser.id).subscribe(response => {
         this.torneigs = response.body || [];
+        console.log('Tornejos filtrats per inscrits:', this.torneigs);
       });
     }
   }
@@ -201,7 +204,7 @@ export class TorneigListComponent implements OnInit {
 
   estaTorneoDeshabilitado(torneig: ITorneig): boolean {
     let estat = torneig.estat.toLowerCase();
-    return estat === 'finalitzat' || estat === 'en procès' || this.torneigPle(torneig.id);
+    return estat === 'finalitzat' || estat === 'en procés' || this.torneigPle(torneig.id);
   }
 
   torneigPle(torneigId: number): boolean {
@@ -290,7 +293,7 @@ export class TorneigListComponent implements OnInit {
       let nouEstat = '';
       if (avui < dataInici) nouEstat = 'No Començat';
       else if (avui > dataFi) nouEstat = 'Finalitzat';
-      else nouEstat = 'En Procès';
+      else nouEstat = 'En Procés';
 
       if (torneig.estat !== nouEstat) {
         this.http.put(`http://localhost:8000/api/torneigs/${torneig.id}/estat`, {
@@ -341,7 +344,7 @@ export class TorneigListComponent implements OnInit {
 
     if (estatLower.includes("no començat")) {
       return "badge-no-comenzado"
-    } else if (estatLower.includes("en procés") || estatLower.includes("en procès")) {
+    } else if (estatLower.includes("en procés") || estatLower.includes("en procés")) {
       return "badge-en-proces"
     } else if (estatLower.includes("finalitzat")) {
       return "badge-finalitzat"

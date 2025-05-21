@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Equip extends Model
 {
@@ -13,14 +14,15 @@ class Equip extends Model
         'maxim_integrants' => 'integer',
         'trofeus' => 'integer',
     ];
-    public function torneigs(): HasMany
+    public function torneig(): HasMany
     {
         return $this->hasMany(Torneig::class);
     }
-    public function torneig()
+    public function torneigs(): BelongsToMany
 {
-    return $this->belongsToMany(Torneig::class, 'torneig_equip');
+    return $this->belongsToMany(Torneig::class, 'equips_torneigs', 'equip_id', 'torneig_id');
 }
+
 
     public function usuaris(): HasMany
     {   

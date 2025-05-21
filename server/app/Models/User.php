@@ -55,9 +55,8 @@ class User extends Authenticatable
     }
 
     // User.php
-public function equips()
-{
-    return $this->belongsToMany(Equip::class, 'equips_users', 'user_id', 'equip_id'); 
-}
-
+    public function equips()
+    {
+        return $this->belongsToMany(Equip::class, 'equips_users', 'user_id', 'equip_id');
+    }
 }

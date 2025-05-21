@@ -4,12 +4,16 @@ import { AuthService } from '../../../services/auth/auth.service';
 import { TokenService } from '../../../services/auth/token.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { MessageService } from 'primeng/api';
+import { Toast } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, Toast, ButtonModule,],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrl: './login.component.css',
+  providers: [MessageService]
 })
 export default class LoginComponent {
   loginForm: FormGroup;
@@ -21,7 +25,8 @@ export default class LoginComponent {
     private authService: AuthService,
     private tokenService: TokenService,
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private messageService: MessageService,
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -58,15 +63,15 @@ export default class LoginComponent {
   
     // Si es válido, hacer la petición
     this.authService.login(this.loginForm.value).subscribe(
-      response => this.handleResponse(response),
+      response  => this.handleResponse(response),
       error => this.handleErrors(error)
     );
   }
   
   private handleResponse(response: any): void {
-    console.log(response.message);
     this.tokenService.handleToken(response.token);
     localStorage.setItem('user', JSON.stringify(response.user));
+  
     this.router.navigateByUrl('/welcome');
   }
 

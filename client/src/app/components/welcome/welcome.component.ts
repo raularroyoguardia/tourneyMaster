@@ -4,6 +4,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { IJoc } from '../../interfaces/iJoc';
 import { DadesJocsService } from '../../services/dades-jocs.service';
 import { CarouselModule } from 'primeng/carousel';
+import { Router } from '@angular/router';
+import { ToastModule } from 'primeng/toast';
+import { ToastService } from '../../services/toast.service';
 
 
 @Component({
@@ -13,6 +16,7 @@ import { CarouselModule } from 'primeng/carousel';
     CommonModule,
     HttpClientModule,
     CarouselModule,
+    ToastModule
   ],
   templateUrl: './welcome.component.html',
   styleUrl: './welcome.component.css',
@@ -24,8 +28,16 @@ export class WelcomeComponent implements OnInit {
 
   constructor(
     private jocService: DadesJocsService,
+    private router: Router,
+    private toastService: ToastService,
     @Inject(PLATFORM_ID) private platformId: Object
-  ) {}
+  ) {
+    const nav = this.router.getCurrentNavigation();
+    const toast = nav?.extras.state?.['toast'];
+    if (toast) {
+      this.toastService.showSuccess(toast.summary, toast.detail);
+    }
+  }
 
   ngOnInit(): void {
     this.jocService.getJocs().subscribe({

@@ -770,6 +770,14 @@
 }
 
 .match-info {
+  width: 200px;
+  text-align: center;
+  padding: 0 1rem;
+  border-left: 1px solid var(--border-dark);
+  border-right: 1px solid var(--border-dark);
+}
+
+.match-info2{
   width: 400px;
   text-align: center;
   padding: 0 1rem;
@@ -1147,6 +1155,14 @@
     border-bottom: 1px solid var(--border-dark);
     padding: 0.5rem 0;
   }
+  .match-info2 {
+    width: 100%;
+    border-left: none;
+    border-right: none;
+    border-top: 1px solid var(--border-dark);
+    border-bottom: 1px solid var(--border-dark);
+    padding: 0.5rem 0;
+  }
 
   .ranking-item {
     grid-template-columns: 40px 1fr;
@@ -1238,6 +1254,12 @@
 
 /* Estilo para el contenedor de información de partida */
 .match-info {
+  background-color: rgba(15, 23, 42, 0.7);
+  border-radius: 8px;
+  padding: 1rem;
+  border: 1px solid var(--border-dark);
+}
+.match-info2 {
   background-color: rgba(15, 23, 42, 0.7);
   border-radius: 8px;
   padding: 1rem;
