@@ -6,12 +6,16 @@ import { DadesJocsService } from '../../../services/dades-jocs.service';
 import { DadesModeJocsService } from '../../../services/dades-mode-jocs.service';
 import { Router } from '@angular/router';
 import { IModeJoc } from '../../../interfaces/iModeJoc';
+import { MessageService } from 'primeng/api';
+import { Toast } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-mode-joc-new',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, ButtonModule,Toast],
   templateUrl: './mode-joc-new.component.html',
-  styleUrl: './mode-joc-new.component.css'
+  styleUrl: './mode-joc-new.component.css',
+  providers: [MessageService]
 })
 export class ModeJocNewComponent implements OnInit{
   jocs: IJoc[] = [];
@@ -24,6 +28,7 @@ export class ModeJocNewComponent implements OnInit{
     private modeJocService: DadesModeJocsService,
     private fb: FormBuilder,
     private router: Router,
+    private messageService: MessageService
   ) {
     this.form = this.fb.group({
       nom: ['', Validators.required],
@@ -82,6 +87,7 @@ export class ModeJocNewComponent implements OnInit{
           jugadors: ['', Validators.required, Validators.min(2)],
           joc_id: ['', Validators.required],
         });
+        this.messageService.add({ severity: 'success', summary: 'Mode de Joc', detail: 'Mode de joc afegit correctament.' });
       },
       error: (err) => {
         this.errorMessage = 'Error en crear el mòde de joc';
@@ -93,11 +99,11 @@ export class ModeJocNewComponent implements OnInit{
   eliminar(id: any): void {
     this.modeJocService.deleteModeJoc(id).subscribe({
       next: () => {
-        alert("Joc eliminar correctament!");
+        this.messageService.add({ severity: 'warn', summary: 'Mode de Joc', detail: 'Mode de joc eliminat correctament.' });
         this.ngOnInit();
       },
       error: (error) => {
-        alert("No s \'ha pogut eliminar el mòde de joc!\n" + error.message);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No s\'ha pogut eliminar el mode de joc.' });
       }
     })
   }

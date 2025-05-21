@@ -104,7 +104,7 @@ export class JocNewComponent implements OnInit {
   eliminar(id: any): void {
     this.jocService.deleteJoc(id).subscribe({
       next: () => {
-        this.messageService.add({ severity: 'success', summary: 'Joc', detail: 'Joc eliminat correctament.' });
+        this.messageService.add({ severity: 'warn', summary: 'Joc', detail: 'Joc eliminat correctament.' });
         this.ngOnInit();
       },
       error: (error) => {

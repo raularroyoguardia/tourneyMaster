@@ -8,12 +8,16 @@ import { DadesMapesService } from '../../../services/dades-mapes.service';
 import { IMapa } from '../../../interfaces/iMapa';
 import { IJoc } from '../../../interfaces/iJoc';
 import { DadesJocsService } from '../../../services/dades-jocs.service';
+import { MessageService } from 'primeng/api';
+import { Toast } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-mapa-new',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, ButtonModule,Toast],
   templateUrl: './mapa-new.component.html',
-  styleUrl: './mapa-new.component.css'
+  styleUrl: './mapa-new.component.css',
+  providers: [MessageService]
 })
 export class MapaNewComponent implements OnInit {
 modesJocs: IModeJoc[] = [];
@@ -30,6 +34,7 @@ constructor(
   private jocsService: DadesJocsService,
   private fb: FormBuilder,
   private router: Router,
+  private messageService: MessageService
 ) {
   this.form = this.fb.group({
     nom: ['', Validators.required],
@@ -106,9 +111,12 @@ onSubmit(): void {
       this.ngOnInit();
       this.form = this.fb.group({
         nom: ['', Validators.required],
-        mapa: ['', Validators.required],
+        mapa: [null],
         mode_joc_id: ['', Validators.required]
       });
+      this.messageService.add({ severity: 'success', summary: 'Mapa', detail: 'Mapa afegit correctament.' });
+      this.selectedImage = null;
+      this.previewImageUrl = null;
     },
     error: (err) => {
       this.errorMessage = 'Error en crear el mapa';
@@ -120,11 +128,11 @@ onSubmit(): void {
 eliminar(id: any): void {
   this.mapaService.deleteMapes(id).subscribe({
     next: () => {
-      alert("Joc eliminat correctament");
+      this.messageService.add({ severity: 'warn', summary: 'Mapa', detail: 'Mapa eliminat correctament.' });
       this.ngOnInit();
     },
     error: (error) => {
-      alert("No s\'ha pogut eliminar el mapa\n" + error.message);
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No s\'ha pogut eliminar el mapa.' });
     }
   });
 }

@@ -27,6 +27,6 @@ export class DadesModeJocsService {
   }
 
   public deleteModeJoc(id: any){
-    return this._http.delete<any>(`http://127.0.0.1:8000/api/modejoc/delete/${id}`);
+    return this._http.get<any>(`http://127.0.0.1:8000/api/modejoc/delete/${id}`);
   }
 }
