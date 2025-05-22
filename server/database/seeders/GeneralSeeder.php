@@ -1051,7 +1051,7 @@ class GeneralSeeder extends Seeder
             'foto_equip' => 'losraulitos.jpg',
             'data_creacio' => now(),
             'descripcio' => 'Este es otro equipo que se ha creado para hacer pruebas en el frontend al inicio del proyecto. Sus participantes son los creadores del proyecto.',
-            'maxim_integrants' => 3
+            'maxim_integrants' => 2
         ]);
 
         $campeones = DB::table('equips')->insertGetId([
@@ -1060,7 +1060,7 @@ class GeneralSeeder extends Seeder
             'foto_equip' => 'campeones.jpg',
             'data_creacio' => now(),
             'descripcio' => 'Este es otro equipo que se ha creado para hacer pruebas en el frontend al inicio del proyecto. Sus participantes son los creadores del proyecto.',
-            'maxim_integrants' => 3
+            'maxim_integrants' => 2
         ]);
 
         $carlos_equip = DB::table('equips')->insertGetId([

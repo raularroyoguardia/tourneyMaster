@@ -49,7 +49,7 @@ export class TorneigListComponent implements OnInit {
       this.http.get<any[]>('/api/torneigs/stats').subscribe(stats => {
         this.torneigsStats = stats;
       });
-    
+
       if (this.filtreTorneigs === 'tots') {
         this.torneigService.getTornejos().subscribe({
           next: tornejos => {
@@ -62,7 +62,7 @@ export class TorneigListComponent implements OnInit {
         });
       }
     }, 1000);
-    
+
 
     const usuariString = localStorage.getItem('user');
     if (usuariString) {
@@ -129,6 +129,11 @@ export class TorneigListComponent implements OnInit {
 
           if (!equipAdequat) {
             this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No tens un equip adequat per unir-te a aquest torneig.' });
+            return;
+          }
+
+          if (esTorneigCollectiu && this.tipusUsuariId !== 2) {
+            this.messageService.add({ severity: 'error', summary: 'Accés denegat', detail: 'Només els usuaris de tipus entrenador poden unir-se a tornejos col·lectius.' });
             return;
           }
 

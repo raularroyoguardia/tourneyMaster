@@ -97,24 +97,25 @@ class Partida_Equip {
    +posicio_final: int
 }
 
-Users --> "0..1" TipusUsuari : te
-Torneig "0..*" -right-> "1" ModeDeJoc : pertany a
-Joc "1" <-- "*" ModeDeJoc : té
+Users "0..1" o-- "1" TipusUsuari : té
+Torneig "*" --> "1" ModeDeJoc : pertany a
+ModeDeJoc "*" --> "1" Joc : pertany a
 
-Torneig "1" -left-> "*" equip_torneig : te
-equip_torneig "1" --> "1" Equips : te
+Torneig "1" o-- "*" equip_torneig : inclou
+equip_torneig "*" --> "1" Equips : representa
 
-Equips "1" -right-> "*" equips_Users : te
-equips_Users "*" --> "1" Users : te
+Equips "1" o-- "*" equips_Users : inclou
+equips_Users "*" --> "1" Users : pertany a
 
-Torneig "1" --> "*" premi_torneig : te
-premi_torneig "1" --> "1" Premi : te
+Torneig "1" o-- "*" premi_torneig : conté
+premi_torneig "*" --> "1" Premi : atorga
 
-Torneig "1" --> "*" Partida : te
+Torneig "1" o-- "*" Partida : inclou
 
-Mapa "*" --> "*" mapas_modes : pertany
-mapas_modes "*" --> "*" ModeDeJoc : pertany
+Mapa "*" o-- "*" mapas_modes : està associat
+mapas_modes "*" --> "*" ModeDeJoc : disponible en
 
-Partida_Equip "*" --> "1" Partida : té
-Equips "1" --> "*" "Partida_Equip" : participa
+Partida_Equip "*" --> "1" Partida : pertany a
+Equips "1" --> "*" Partida_Equip : juga
+
 @enduml
