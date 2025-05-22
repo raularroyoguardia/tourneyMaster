@@ -58,7 +58,7 @@ class GeneralSeeder extends Seeder
             'email' => 'charly_marinosenra@iescarlesvallbona.cat',
             'password' => bcrypt('123456'),
             'telefon' => 620666564,
-            'foto_perfil' => 'charly.jpg',
+            'foto_perfil' => 'charly.png',
             'trofeus' => 100,
             'tipus_usuari_id' => 2,
         ]);
@@ -69,7 +69,7 @@ class GeneralSeeder extends Seeder
             'email' => 'charly2_marinosenra@iescarlesvallbona.cat',
             'password' => bcrypt('123456'),
             'telefon' => 620666565,
-            'foto_perfil' => 'charly.png',
+            'foto_perfil' => 'charly2.jpg',
             'trofeus' => 1000,
             'tipus_usuari_id' => 3,
         ]);
@@ -1099,7 +1099,7 @@ class GeneralSeeder extends Seeder
         $raulito_equip = DB::table('equips')->insertGetId([
             'nom' => 'Raúlito AG',
             'regio' => 'Europa',
-            'foto_equip' => 'raulito_ag.jpg',
+            'foto_equip' => 'raulito_ag.jpeg',
             'data_creacio' => now(),
             'descripcio' => 'Este es un equipo individual en el que pertenece solo un equipo.',
             'maxim_integrants' => 1
@@ -1107,7 +1107,7 @@ class GeneralSeeder extends Seeder
         $raulito2_equip = DB::table('equips')->insertGetId([
             'nom' => 'Raúlito2 AG',
             'regio' => 'Europa',
-            'foto_equip' => 'raulito2_ag.jpg',
+            'foto_equip' => 'raulito2_ag.jpeg',
             'data_creacio' => now(),
             'descripcio' => 'Este es un equipo individual en el que pertenece solo un equipo.',
             'maxim_integrants' => 1

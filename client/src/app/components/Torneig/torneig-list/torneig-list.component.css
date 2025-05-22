@@ -1261,3 +1261,80 @@ select {
   .column.right-side {
   }
 }
+
+/* Common styles for both modal backdrops */
+.cyber-modal-backdrop,
+.cyber-modal-backdrop2 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Common styles for both modals */
+.cyber-modal,
+.cyber-modal2 {
+  background-color: var(--bg-secondary);
+  border-radius: 12px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  border: 1px solid var(--border-dark);
+}
+
+/* Specific size for the first modal */
+.cyber-modal {
+  max-width: 1000px;
+}
+
+/* Larger size for the second modal with more information */
+.cyber-modal2 {
+  max-width: 1400px;
+}
+
+/* Grid layout for the first modal content */
+.modal-content-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+/* Grid layout for the second modal content with more information */
+.modal-content-grid2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+/* Responsive adjustments for both grid layouts */
+@media (max-width: 1200px) {
+  .modal-content-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .modal-content-grid2 {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .column.right-side {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 768px) {
+  .modal-content-grid2 {
+    grid-template-columns: 1fr;
+  }
+}
