@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IEquip } from '../../../interfaces/iEquip';
 import { DadesEquipsService } from '../../../services/dades-equips.service';
 import { CommonModule } from '@angular/common';
+import { environment } from '../../../../environments/environment.development';
 
 @Component({
   selector: 'app-classificacio-list',
@@ -10,26 +11,28 @@ import { CommonModule } from '@angular/common';
   styleUrl: './classificacio-list.component.css'
 })
 export class ClassificacioListComponent implements OnInit {
+  readonly BASE_URL = environment.baseURL;
   equips: IEquip[] = [];
   individualData: any[] = [];
   collectiveData: any[] = [];
-  selectedEquip: any | null = null; // Para un equipo seleccionado
-  showIndividual: boolean = true; // Alternar entre individual y colectivo
+  selectedEquip: any | null = null;
+  showIndividual: boolean = true;
 
   constructor(private equipService: DadesEquipsService) { }
 
   ngOnInit() {
-    console.log("Listat d'equips inicialitzat");
-
-    // Opcional: Cargar la lista de equipos si aún es necesaria
+    setInterval(() => {
     this.equipService.getEquips().subscribe(resp => {
       if (resp.body !== null) {
         this.equips = resp.body;
       }
-      // console.log(this.equips);
     });
 
-    // Cargar datos de clasificaciones individual y colectiva
+    this.loadIndividualData();
+    this.loadCollectiveData();
+    }, 1000);
+    console.log("Listat d'equips inicialitzat");
+
     this.loadIndividualData();
     this.loadCollectiveData();
   }
@@ -37,22 +40,20 @@ export class ClassificacioListComponent implements OnInit {
   // Cargar clasificación individual
   loadIndividualData(): void {
     this.equipService.getIndividual().subscribe(data => {
-      this.individualData = data; // Guardar los datos individuales
+      this.individualData = data;
     });
-    // console.log(this.individualData);
   }
 
   // Cargar clasificación colectiva
   loadCollectiveData(): void {
     this.equipService.getCollectiu().subscribe(data => {
-      this.collectiveData = data; // Guardar los datos colectivos
+      this.collectiveData = data;
     });
-    // console.log(this.collectiveData);
   }
 
   // Alternar vista entre individual y colectivo
   toggleView(view: string): void {
-    this.showIndividual = view === 'individual'; // Cambia la bandera para mostrar la tabla adecuada
+    this.showIndividual = view === 'individual';
   }
 
   // Método para seleccionar un equipo específico (si lo necesitas)

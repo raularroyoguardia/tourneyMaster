@@ -5,7 +5,6 @@
   <div class="glow-circle glow-circle-1"></div>
   <div class="glow-circle glow-circle-2"></div>
 </div>
-
 <!-- Contenedor principal -->
 <div class="login-container">
   <!-- Columna izquierda - Mensaje de bienvenida -->
@@ -19,7 +18,6 @@
       </p>
     </div>
   </div>
-
   <!-- Columna derecha - Formulario de login -->
   <div class="form-column">
     <div class="form-card">
@@ -31,7 +29,6 @@
           </svg>
         </a>
       </div>
-
       <!-- Encabezado del formulario -->
       <div class="form-header">
         <h3 class="form-title">Iniciar Sessió</h3>
@@ -39,7 +36,6 @@
           <a href="/signup" class="signup-link">Registra't</a>
         </p>
       </div>
-
       <!-- Formulario de login -->
       <div class="login-form-container">
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
@@ -48,22 +44,14 @@
               Email
             </label>
             <input formControlName="email" id="inputEmail" class="form-input" type="email" placeholder="Email">
-            <div class="cyber-error absolute mt-1" style="position: absolute;" *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+            <div class="cyber-error absolute mt-1" style="position: absolute;"
+              *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
               <span *ngIf="loginForm.get('email')?.errors?.['required']">El correu electronic es obligatori.</span>
               <span *ngIf="loginForm.get('email')?.errors?.['email']">El correu electronic no es valid.</span>
               <span *ngIf="loginForm.get('email')?.errors?.['server']">{{ loginForm.get('email')?.errors?.['server']
                 }}</span>
             </div>
           </div>
-
-          <!--
-          <div class="cyber-error absolute mt-1" style="position: absolute;"
-                *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
-                <span *ngIf="loginForm.get('password')?.errors?.['required']">La contrasenya es obligatoria.</span>
-                <span *ngIf="loginForm.get('password')?.errors?.['server']">{{
-                  loginForm.get('password')?.errors?.['server'] }}</span>
-              </div>-->
-
           <div class="form-group">
             <label for="inputPassword" class="form-label">
               Contrasenya
@@ -71,9 +59,6 @@
             <div class="relative">
               <input [type]="showPassword ? 'text' : 'password'" formControlName="password" id="inputPassword"
                 placeholder="Contrasenya" class="form-input pr-10" />
-              <!-- Añadido pr-10 para que el icono no se monte -->
-
-              <!-- Icono del ojo con posición absoluta fija -->
               <button type="button" (click)="togglePasswordVisibility()"
                 class="absolute right-2 top-1/2 -translate-y-1/2 text-cyberpunk-yellow z-10">
                 <ng-container *ngIf="showPassword; else hiddenIcon">
@@ -83,7 +68,6 @@
                   <i class="fas fa-eye-slash password-icon"></i>
                 </ng-template>
               </button>
-
               <!-- Mensaje de error separado -->
               <div class="cyber-error absolute mt-1" style="position: absolute;"
                 *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
@@ -93,8 +77,6 @@
               </div>
             </div>
           </div>
-
-
           <!-- Mensaje de error general -->
           <div class="cyber-error-message" *ngIf="errors?.general">
             <span>{{ errors.general }}</span>
@@ -104,7 +86,6 @@
               Has oblidat la contrasenya?
             </a>
           </div>
-
           <div class="login-button-container">
             <button type="submit" class="login-button">
               Iniciar sessió
@@ -115,7 +96,6 @@
     </div>
   </div>
 </div>
-
 <!-- Decoración inferior -->
 <div class="bottom-decoration">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" class="wave-svg">

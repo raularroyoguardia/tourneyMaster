@@ -4,7 +4,7 @@
     <!-- Logo y título -->
     <div class="flex items-center gap-3">
       <div class="logo-container">
-        <img [src]="BaseUrl + '/uploads/logo/logo.png'" class="logo" alt="TourneyMaster Logo" />
+        <img [src]="BASE_URL + '/uploads/logo/logo.png'" class="logo" alt="TourneyMaster Logo" />
       </div>
       <span class="site-title">TourneyMaster</span>
     </div>
@@ -54,39 +54,39 @@
         </div>
         <span class="username">{{ tokenService.getUserName() }}</span>
         <div class="profile-wrapper">
-          <img [src]="BaseUrl + '/uploads/fotoUsuari/' + user.foto_perfil" class="profile-img"
+          <img [src]="BASE_URL + '/uploads/fotoUsuari/' + user.foto_perfil" class="profile-img"
             [alt]="user.name || 'Usuario'" (click)="toggleMenu()" />
 
           <!-- Submenú -->
           <div class="sub-menu-wrap" [ngClass]="{ 'menu-active': isMenuOpen }" id="subMenu">
             <div class="dropdown-content">
               <div class="user-info">
-                <img [src]="BaseUrl + '/uploads/fotoUsuari/' + user.foto_perfil">
+                <img [src]="BASE_URL + '/uploads/fotoUsuari/' + user.foto_perfil">
                 <h3>{{ tokenService.getFullName() }}</h3>
               </div>
               <div class="menu-divider"></div>
               <a routerLink="/user-edit" class="menu-item">
-                <div class="item-icon"><img src="/uploads/iconos/usuario.png" /></div>
+                <div class="item-icon"><img src="http://127.0.0.1:8000/uploads/iconos/usuario.png" /></div>
                 <p>Editar Compte</p>
                 <span class="item-arrow">›</span>
               </a>
               <a routerLink="/user-list" class="menu-item" *ngIf="tipusUsuariId === 1">
-                <div class="item-icon"><img src="/uploads/iconos/ajustes.png" /></div>
+                <div class="item-icon"><img src="http://127.0.0.1:8000/uploads/iconos/ajustes.png" /></div>
                 <p>Gestionar Usuaris</p>
                 <span class="item-arrow">›</span>
               </a>
               <a routerLink="/torneig-new" class="menu-item" *ngIf="tipusUsuariId === 1">
-                <div class="item-icon"><img src="/uploads/iconos/podio-de-clasificacion.png" /></div>
+                <div class="item-icon"><img src="http://127.0.0.1:8000/uploads/iconos/podio-de-clasificacion.png" /></div>
                 <p>Crear Torneig</p>
                 <span class="item-arrow">›</span>
               </a>
               <a routerLink="/equip-new" class="menu-item" *ngIf="trofeus >= 1000 && canCreateTeam">
-                <div class="item-icon"><img src="/uploads/iconos/seguidores.png" /></div>
+                <div class="item-icon"><img src="http://127.0.0.1:8000/uploads/iconos/seguidores.png" /></div>
                 <p>Crear Equip</p>
                 <span class="item-arrow">›</span>
               </a>
               <a (click)="toogleParametersDropdown()" class="menu-item" *ngIf="user.tipus_usuari_id === 1">
-                <div class="item-icon"><img src="/uploads/iconos/seguidores.png" /></div>
+                <div class="item-icon"><img src="http://127.0.0.1:8000/uploads/iconos/aplicaciones-anadir.png" /></div>
                 <p>Paràmetres</p>
                 <span class="item-arrow">›</span>
               </a>
@@ -117,7 +117,7 @@
               </div>
 
               <a (click)="logout()" class="menu-item logout-item">
-                <div class="item-icon logout-icon"><img src="/uploads/iconos/energia-red.png" /></div>
+                <div class="item-icon logout-icon"><img src="http://127.0.0.1:8000/uploads/iconos/energia-red.png" /></div>
                 <p>Tancar Sessió</p>
                 <span class="item-arrow">›</span>
               </a>              
@@ -163,7 +163,7 @@
         <div class="mobile-user-section">
           <div class="mobile-user-header">
             <div class="mobile-user-info">
-              <img [src]="BaseUrl + '/uploads/fotoUsuari/' + user.foto_perfil" class="mobile-user-img"
+              <img [src]="BASE_URL + '/uploads/fotoUsuari/' + user.foto_perfil" class="mobile-user-img"
                 [alt]="user.name || 'Usuario'">
               <span class="mobile-username">{{ tokenService.getUserName() }}</span>
             </div>

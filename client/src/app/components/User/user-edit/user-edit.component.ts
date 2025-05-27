@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { DadesUsersService } from '../../../services/dades-users.service';
 import { TokenService } from '../../../services/auth/token.service';
+import { environment } from '../../../../environments/environment.development';
 
 @Component({
   selector: 'app-user-edit',
@@ -12,6 +13,7 @@ import { TokenService } from '../../../services/auth/token.service';
   styleUrl: './user-edit.component.css',
 })
 export class UserEditComponent implements OnInit {
+  readonly BASE_URL = environment.baseURL;
   id: string | null | undefined;
   myForm: FormGroup;
   selectedFile: File | null = null;
@@ -46,7 +48,7 @@ export class UserEditComponent implements OnInit {
         if (data.body) {
           console.log(data.body);
           this.myForm.patchValue(data.body);
-          this.imagenActualUrl = `http://127.0.0.1:8000/uploads/fotoUsuari/${data.body.foto_perfil}`;
+          this.imagenActualUrl = `${this.BASE_URL}/uploads/fotoUsuari/${data.body.foto_perfil}`;
           this.imagenActualUrl = data.body.foto_perfil;
         } else {
           alert("No s'han trobat dades del usuari");

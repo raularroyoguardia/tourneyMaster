@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { Toast } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
 import { MessageService } from 'primeng/api';
+import { environment } from '../../../../environments/environment.development';
 
 @Component({
   selector: 'app-equip-new',
@@ -16,7 +17,8 @@ import { MessageService } from 'primeng/api';
   providers: [MessageService]
 })
 export class EquipNewComponent implements OnInit {
-
+  readonly BASE_URL = environment.baseURL;
+  private readonly API_URL = environment.apiURL;
   form: FormGroup;
   errorMessage = '';
   selectedImage: File | null = null;
@@ -70,14 +72,12 @@ export class EquipNewComponent implements OnInit {
     formData.append('maxim_integrants', this.form.get('maxim_integrants')?.value.toString());
     formData.append('data_creacio', today);
     formData.append('trofeus', '0');
-
     formData.append('foto_equip', this.selectedImage);
 
-
-    this.http.post<any>('http://127.0.0.1:8000/api/equip/new', formData).subscribe({
+    this.http.post<any>(this.API_URL + '/equip/new', formData).subscribe({
       next: (response) => {
         const equipId = response.equip_id;
-        this.http.post<any>(`http://127.0.0.1:8000/api/equip/${equipId}/assignar-admin`, {}).subscribe({
+        this.http.post<any>(`${this.API_URL}/equip/${equipId}/assignar-admin`, {}).subscribe({
           next: () => {
             const storedUser = localStorage.getItem('user');
             if (storedUser) {
@@ -93,7 +93,6 @@ export class EquipNewComponent implements OnInit {
             this.errorMessage = 'Error assignant-te com a admin del equip.';
           }
         });
-
       },
       error: (err) => {
         console.error(err);
@@ -101,5 +100,4 @@ export class EquipNewComponent implements OnInit {
       }
     });
   }
-
 }

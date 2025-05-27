@@ -3,7 +3,6 @@
     <span>Llistat d'usuaris</span>
     <div class="title-line"></div>
   </div>
-
   <div class="cyber-card" *ngIf="usuaris.length > 0; else noUsuaris">
     <div class="users-grid">
       <div *ngFor="let usuari of usuaris" class="user-card">
@@ -11,7 +10,7 @@
           <div class="avatar-frame">
             <img 
               *ngIf="usuari.foto_perfil" 
-              [src]="'http://127.0.0.1:8000/uploads/fotoUsuari/' + usuari.foto_perfil" 
+              [src]="BASE_URL + '/uploads/fotoUsuari/' + usuari.foto_perfil" 
               [alt]="'Foto de ' + usuari.name" 
               class="user-avatar"
             />
@@ -26,10 +25,8 @@
             <span *ngIf="usuari.tipus_usuari_id === 3">Jugador</span>
           </div>
         </div>
-        
         <div class="user-body">
           <h3 class="user-name">{{ usuari.name }} {{ usuari.apellido1 }} {{ usuari.apellido2 }}</h3>
-          
           <div class="user-info-grid">
             <div class="info-item">
               <div class="info-label">
@@ -38,7 +35,6 @@
               </div>
               <div class="info-value">{{ usuari.email }}</div>
             </div>
-            
             <div class="info-item">
               <div class="info-label">
                 <i class="fi fi-rr-smartphone"></i>
@@ -46,7 +42,6 @@
               </div>
               <div class="info-value">{{ usuari.telefon || 'No disponible' }}</div>
             </div>
-            
             <div class="info-item trophies">
               <div class="info-label">
                 <i class="fi fi-rr-trophy-star"></i>
@@ -59,7 +54,6 @@
       </div>
     </div>
   </div>
-
   <ng-template #noUsuaris>
     <div class="empty-state">
       <div class="empty-icon">

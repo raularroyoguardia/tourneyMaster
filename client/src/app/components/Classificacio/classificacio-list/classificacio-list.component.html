@@ -1,5 +1,4 @@
 <div class="cyber-container">
-
   <!-- Botones para alternar entre Individual y Col·lectiu -->
   <div class="toggle-buttons">
     <button class="cyber-toggle-btn" [ngClass]="{'active': showIndividual}" (click)="toggleView('individual')">
@@ -11,13 +10,11 @@
       <span class="btn-glow"></span>
     </button>
   </div>
-
   <!-- Tabla de Clasificación Individual -->
   <div *ngIf="showIndividual" class="classification-section">
     <div class="section-title">
       <div class="title-line"></div>
     </div>
-
     <div class="cyber-table-container">
       <table class="cyber-table">
         <thead>
@@ -37,7 +34,7 @@
             <td class="user-cell">
               <div class="user-info">
                 <div class="avatar-frame">
-                  <img class="user-avatar" [src]="'http://127.0.0.1:8000/uploads/fotosEquips/' + item.foto_equip"
+                  <img class="user-avatar" [src]="BASE_URL + '/uploads/fotosEquips/' + item.foto_equip"
                     alt="Avatar" />
                 </div>
                 <span class="user-name">{{ item.nom }}</span>
@@ -54,13 +51,11 @@
       </table>
     </div>
   </div>
-
   <!-- Tabla de Clasificación Col·lectiva -->
   <div *ngIf="!showIndividual" class="classification-section">
     <div class="section-title">
       <div class="title-line"></div>
     </div>
-
     <div class="cyber-table-container">
       <table class="cyber-table">
         <thead>
@@ -81,7 +76,7 @@
             <td class="team-cell">
               <div class="team-info">
                 <div class="team-logo-frame">
-                  <img class="team-logo" [src]="'http://127.0.0.1:8000/uploads/fotosEquips/' + item.foto_equip"
+                  <img class="team-logo" [src]="BASE_URL + '/uploads/fotosEquips/' + item.foto_equip"
                     alt="Logo" />
                 </div>
                 <span class="team-name">{{item.nom}}</span>

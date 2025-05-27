@@ -11,6 +11,7 @@ import { DadesJocsService } from '../../../services/dades-jocs.service';
 import { MessageService } from 'primeng/api';
 import { Toast } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
+import { environment } from '../../../../environments/environment.development';
 
 @Component({
   selector: 'app-mapa-new',
@@ -20,6 +21,7 @@ import { ButtonModule } from 'primeng/button';
   providers: [MessageService]
 })
 export class MapaNewComponent implements OnInit {
+  readonly BASE_URL = environment.baseURL;
 modesJocs: IModeJoc[] = [];
 mapas: IMapa[] = [];
 jocs: IJoc[] = [];

@@ -1,7 +1,8 @@
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ITorneig } from '../interfaces/iTorneig';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment.development';
 
 interface Mapa {
   id: number;
@@ -38,45 +39,80 @@ interface Joc {
   providedIn: 'root'
 })
 export class DadesTornejosService {
+  private readonly API_URL = environment.apiURL;
+
   constructor(private _http: HttpClient) { }
 
+  private getAuthHeaders(): HttpHeaders {
+    return new HttpHeaders({
+      'Authorization': 'Basic ' + btoa('tourne347:UOrC8oX5')
+    });
+  }
+
   public getTornejos(): Observable<HttpResponse<ITorneig[]>> {
-    return this._http.get<ITorneig[]>('http://127.0.0.1:8000/api/torneigs', { observe: 'response' });
+    return this._http.get<ITorneig[]>(`${this.API_URL}/torneigs`, {
+      headers: this.getAuthHeaders(),
+      observe: 'response'
+    });
   }
 
   public getTorneigsPerEstat(estat: string) {
-    return this._http.get<ITorneig[]>(`http://127.0.0.1:8000/api/torneigs/estat/${estat}`);
+    return this._http.get<ITorneig[]>(`${this.API_URL}/torneigs/estat/${estat}`, {
+      headers: this.getAuthHeaders()
+    });
   }
   
   public getTorneigsPerUsuari(usuariId: number): Observable<HttpResponse<ITorneig[]>> {
-    return this._http.get<ITorneig[]>(`http://localhost:8000/api/torneigs/per-usuari/${usuariId}`, { observe: 'response' });
+    return this._http.get<ITorneig[]>(`${this.API_URL}/torneigs/per-usuari/${usuariId}`, {
+      headers: this.getAuthHeaders(),
+      observe: 'response'
+    });
   }
+
   public getUserATorneig(usuariId: number): Observable<HttpResponse<ITorneig[]>> {
-    return this._http.get<ITorneig[]>(`http://localhost:8000/api/torneigs/user/${usuariId}`, { observe: 'response' });
+    return this._http.get<ITorneig[]>(`${this.API_URL}/torneigs/user/${usuariId}`, {
+      headers: this.getAuthHeaders(),
+      observe: 'response'
+    });
   }
   
   public getTorneig(id: any): Observable<HttpResponse<ITorneig>> {
-    return this._http.get<ITorneig>(`http://127.0.0.1:8000/api/torneig/${id}`, { observe: 'response' });
+    return this._http.get<ITorneig>(`${this.API_URL}/torneig/${id}`, {
+      headers: this.getAuthHeaders(),
+      observe: 'response'
+    });
   }
 
   public createTorneig(torneig: any): Observable<HttpResponse<any>> {
-    return this._http.post<any>('http://127.0.0.1:8000/api/torneig/new', torneig, { observe: 'response' });
+    return this._http.post<any>(`${this.API_URL}/torneig/new`, torneig, {
+      headers: this.getAuthHeaders(),
+      observe: 'response'
+    });
   }
 
   public updateTorneig(id: any, torneig: any): Observable<HttpResponse<any>> {
-    return this._http.put<any>(`http://127.0.0.1:8000/api/torneig/edit/${id}`, torneig, { observe: 'response' });
+    return this._http.put<any>(`${this.API_URL}/torneig/edit/${id}`, torneig, {
+      headers: this.getAuthHeaders(),
+      observe: 'response'
+    });
   }
 
   public deleteTorneig(id: any) {
-    return this._http.delete<any>(`http://127.0.0.1:8000/api/torneig/delete/${id}`);
+    return this._http.delete<any>(`${this.API_URL}/torneig/delete/${id}`, {
+      headers: this.getAuthHeaders()
+    });
   }
 
   public getJocs() {
-    return this._http.get<Joc[]>('http://localhost:8000/api/jocs');
+    return this._http.get<Joc[]>(`${this.API_URL}/jocs`, {
+      headers: this.getAuthHeaders()
+    });
   }
 
   public unirseATorneig(torneig_id: number, equip_id: number): Observable<any> {
-    return this._http.post('http://127.0.0.1:8000/api/equip/unirse', {torneig_id: torneig_id, equip_id: equip_id });
+    return this._http.post(`${this.API_URL}/equip/unirse`, 
+      { torneig_id, equip_id }, 
+      { headers: this.getAuthHeaders() }
+    );
   }
-  
 }

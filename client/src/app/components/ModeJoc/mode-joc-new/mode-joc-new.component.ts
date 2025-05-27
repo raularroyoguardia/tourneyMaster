@@ -9,6 +9,7 @@ import { IModeJoc } from '../../../interfaces/iModeJoc';
 import { MessageService } from 'primeng/api';
 import { Toast } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
+import { environment } from '../../../../environments/environment.development';
 
 @Component({
   selector: 'app-mode-joc-new',
@@ -18,6 +19,7 @@ import { ButtonModule } from 'primeng/button';
   providers: [MessageService]
 })
 export class ModeJocNewComponent implements OnInit{
+  readonly BASE_URL = environment.baseURL;
   jocs: IJoc[] = [];
   modesJoc: IModeJoc[] = [];
   form: FormGroup;
@@ -39,7 +41,6 @@ export class ModeJocNewComponent implements OnInit{
   }
 
   ngOnInit(): void {
-
     this.jocService.getJocs().subscribe({
       next: (res) => {
         if(res.body) {

@@ -22,6 +22,7 @@ return array(
     'App\\Http\\Controllers\\PremiController' => $baseDir . '/app/Http/Controllers/PremiController.php',
     'App\\Http\\Controllers\\TipusUsuariController' => $baseDir . '/app/Http/Controllers/TipusUsuariController.php',
     'App\\Http\\Controllers\\TorneigController' => $baseDir . '/app/Http/Controllers/TorneigController.php',
+    'App\\Http\\Controllers\\TorneigStatsController' => $baseDir . '/app/Http/Controllers/TorneigStatsController.php',
     'App\\Http\\Controllers\\UserController' => $baseDir . '/app/Http/Controllers/UserController.php',
     'App\\Http\\Requests\\LoginRequest' => $baseDir . '/app/Http/Requests/LoginRequest.php',
     'App\\Http\\Requests\\RegisterRequest' => $baseDir . '/app/Http/Requests/RegisterRequest.php',

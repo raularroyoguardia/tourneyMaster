@@ -5,7 +5,6 @@
   <div class="glow-circle glow-circle-2"></div>
   <div class="glow-circle glow-circle-3"></div>
 </div>
-
 <!-- Contenedor principal -->
 <div class="register-container">
   <!-- Columna izquierda - Mensaje de bienvenida -->
@@ -18,7 +17,6 @@
       </p>
     </div>
   </div>
-
   <!-- Columna derecha - Formulario de registro -->
   <div class="form-column">
     <div class="form-card">
@@ -30,7 +28,6 @@
           </svg>
         </a>
       </div>
-
       <!-- Encabezado del formulario -->
       <div class="form-header">
         <h3 class="form-title">Crear compte</h3>
@@ -38,7 +35,6 @@
           <a href="/login" class="login-link">Inicia sessió</a>
         </p>
       </div>
-
       <!-- Mensajes de error -->
       <div class="error-container">
         <div class="error-alert" *ngIf="errors?.name">
@@ -66,7 +62,6 @@
           {{errors.foto_perfil}}
         </div>
       </div>
-
       <!-- Indicador de pasos -->
       <div class="steps-indicator">
         <div class="step" [ngClass]="{'active-step': active === 0}">
@@ -83,7 +78,6 @@
           <span class="step-label">Detalls d'accés</span>
         </div>
       </div>
-
       <!-- Formulario de registro -->
       <div class="register-form-container">
         <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
@@ -103,8 +97,6 @@
             <div class="form-group">
               <input id="inputTel" formControlName="telefon" class="form-input" type="tel" placeholder="Telèfon">
             </div>
-
-            <!-- Botón siguiente -->
             <div class="next-button-container">
               <button type="button" (click)="active = 1" class="next-button">
                 <span>Següent</span>
@@ -115,7 +107,6 @@
               </button>
             </div>
           </div>
-
           <!-- Paso 1: Detalles de acceso -->
           <div *ngIf="active === 1" class="form-step">
             <div class="form-group">
@@ -172,7 +163,6 @@
                 </div>
               </div>
             </div>
-
             <!-- Navegación paso anterior y enviar -->
             <div class="form-navigation">
               <button type="button" (click)="active = 0" class="prev-button">
@@ -182,7 +172,6 @@
                 </svg>
                 <span>Anterior</span>
               </button>
-
               <button type="submit" class="submit-button">
                 Crear compte
               </button>
@@ -193,8 +182,6 @@
     </div>
   </div>
 </div>
-
-<!-- Decoración inferior -->
 <div class="bottom-decoration">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" class="wave-svg">
     <path fill="rgba(30, 41, 59, 0.8)" fill-opacity="1"

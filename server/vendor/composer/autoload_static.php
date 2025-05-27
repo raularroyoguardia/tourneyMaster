@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitadb4b680144df947b976ddb89b6572b1
+class ComposerStaticInit64079ca3796833dde8bdf0eba65cc8be
 {
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
@@ -224,8 +224,8 @@ class ComposerStaticInitadb4b680144df947b976ddb89b6572b1
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
-            1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
-            2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
+            1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
+            2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
         ),
         'Whoops\\' => 
         array (
@@ -417,8 +417,8 @@ class ComposerStaticInitadb4b680144df947b976ddb89b6572b1
         ),
         'Psr\\Http\\Message\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-factory/src',
-            1 => __DIR__ . '/..' . '/psr/http-message/src',
+            0 => __DIR__ . '/..' . '/psr/http-message/src',
+            1 => __DIR__ . '/..' . '/psr/http-factory/src',
         ),
         'Psr\\Http\\Client\\' => 
         array (
@@ -490,8 +490,8 @@ class ComposerStaticInitadb4b680144df947b976ddb89b6572b1
         ),
         'League\\Uri\\' => 
         array (
-            0 => __DIR__ . '/..' . '/league/uri',
-            1 => __DIR__ . '/..' . '/league/uri-interfaces',
+            0 => __DIR__ . '/..' . '/league/uri-interfaces',
+            1 => __DIR__ . '/..' . '/league/uri',
         ),
         'League\\MimeTypeDetection\\' => 
         array (
@@ -677,6 +677,7 @@ class ComposerStaticInitadb4b680144df947b976ddb89b6572b1
         'App\\Http\\Controllers\\PremiController' => __DIR__ . '/../..' . '/app/Http/Controllers/PremiController.php',
         'App\\Http\\Controllers\\TipusUsuariController' => __DIR__ . '/../..' . '/app/Http/Controllers/TipusUsuariController.php',
         'App\\Http\\Controllers\\TorneigController' => __DIR__ . '/../..' . '/app/Http/Controllers/TorneigController.php',
+        'App\\Http\\Controllers\\TorneigStatsController' => __DIR__ . '/../..' . '/app/Http/Controllers/TorneigStatsController.php',
         'App\\Http\\Controllers\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserController.php',
         'App\\Http\\Requests\\LoginRequest' => __DIR__ . '/../..' . '/app/Http/Requests/LoginRequest.php',
         'App\\Http\\Requests\\RegisterRequest' => __DIR__ . '/../..' . '/app/Http/Requests/RegisterRequest.php',
@@ -7813,9 +7814,9 @@ class ComposerStaticInitadb4b680144df947b976ddb89b6572b1
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitadb4b680144df947b976ddb89b6572b1::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitadb4b680144df947b976ddb89b6572b1::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitadb4b680144df947b976ddb89b6572b1::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit64079ca3796833dde8bdf0eba65cc8be::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit64079ca3796833dde8bdf0eba65cc8be::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit64079ca3796833dde8bdf0eba65cc8be::$classMap;
 
         }, null, ClassLoader::class);
     }

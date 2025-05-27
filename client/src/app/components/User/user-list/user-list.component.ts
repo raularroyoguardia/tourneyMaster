@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IUser } from '../../../interfaces/iUser';
 import { DadesUsersService } from '../../../services/dades-users.service';
 import { CommonModule } from '@angular/common';
+import { environment } from '../../../../environments/environment.development';
 
 @Component({
   selector: 'app-list-user',
@@ -11,6 +12,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './user-list.component.css'
 })
 export class UserListComponent implements OnInit {
+  readonly BASE_URL = environment.baseURL;
   usuaris: IUser[] = [];
   usuariIdLoguejat: number | null = null;
 
@@ -41,5 +43,4 @@ export class UserListComponent implements OnInit {
     if (!name) return "?"
     return name.charAt(0).toUpperCase()
   }
-
 }

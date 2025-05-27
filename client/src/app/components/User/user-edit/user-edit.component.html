@@ -3,12 +3,10 @@
       <span>Actualitzar Usuari</span>
       <div class="title-line"></div>
     </div>
-  
     <div class="cyber-card">
       <div class="card-content">
         <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
           <div class="form-grid">
-            <!-- ID (readonly) -->
             <div class="cyber-form-group">
               <label for="id" class="cyber-label">Id:</label>
               <div class="cyber-input-wrapper">
@@ -16,7 +14,6 @@
                 <div class="input-glow"></div>
               </div>
             </div>
-  
             <!-- Nombre -->
             <div class="cyber-form-group">
               <label for="name" class="cyber-label">Nom:</label>
@@ -25,7 +22,6 @@
                 <div class="input-glow"></div>
               </div>
             </div>
-  
             <!-- Primer Apellido -->
             <div class="cyber-form-group">
               <label for="apellido1" class="cyber-label">Primer Apellido:</label>
@@ -34,7 +30,6 @@
                 <div class="input-glow"></div>
               </div>
             </div>
-  
             <!-- Segundo Apellido -->
             <div class="cyber-form-group">
               <label for="apellido2" class="cyber-label">Segundo Apellido:</label>
@@ -43,7 +38,6 @@
                 <div class="input-glow"></div>
               </div>
             </div>
-  
             <!-- Email -->
             <div class="cyber-form-group">
               <label for="email" class="cyber-label">Email:</label>
@@ -52,7 +46,6 @@
                 <div class="input-glow"></div>
               </div>
             </div>
-  
             <!-- Teléfono -->
             <div class="cyber-form-group">
               <label for="telefon" class="cyber-label">Teléfon:</label>
@@ -61,7 +54,6 @@
                 <div class="input-glow"></div>
               </div>
             </div>
-  
             <!-- Foto de Perfil -->
             <div class="cyber-form-group full-width">
               <label for="foto_perfil" class="cyber-label">Foto Pèrfil:</label>
@@ -71,19 +63,15 @@
               </div>
             </div>
           </div>
-  
           <!-- Imágenes -->
           <div class="images-container">
-            <!-- Imagen actual -->
             <div *ngIf="imagenActualUrl && !previewImageUrl" class="image-preview current-image">
               <div class="preview-label">Imatge actual</div>
               <div class="image-frame">
-                <img [src]="'http://127.0.0.1:8000/uploads/fotoUsuari/' + imagenActualUrl" alt="Imatge actual">
+                <img [src]="`${BASE_URL}/uploads/fotoUsuari/` + imagenActualUrl" alt="Imatge actual">
                 <div class="image-glow"></div>
               </div>
             </div>
-            
-            <!-- Vista previa -->
             <div *ngIf="previewImageUrl" class="image-preview new-image">
               <div class="preview-label">Vista prèvia</div>
               <div class="image-frame">
@@ -92,8 +80,6 @@
               </div>
             </div>
           </div>
-  
-          <!-- Botones -->
           <div class="button-group"> 
             <button type="submit" class="cyber-button submit-btn">
               <span class="btn-content">Actualitzar</span>
@@ -108,4 +94,3 @@
       </div>
     </div>
   </div>
-  

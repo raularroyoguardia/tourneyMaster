@@ -5,8 +5,6 @@
     <span>Gestió de Mapes</span>
     <div class="title-line"></div>
   </div>
-
-  <!-- Formulario con estilo cyberpunk -->
   <div class="cyber-card">
     <div class="card-content">
       <form [formGroup]="form" (ngSubmit)="onSubmit()">
@@ -22,7 +20,6 @@
               </div>
             </div>
           </div>
-
           <!--Modo de Juego-->
           <div class="cyber-form-group">
             <label for="mode_joc_id" class="cyber-label">Joc</label>
@@ -37,7 +34,6 @@
               </div>
             </div>
           </div>
-
           <!-- Foto del juego -->
           <div class="cyber-form-group">
             <label for="mapa" class="cyber-label">Mapa</label>
@@ -47,10 +43,8 @@
             </div>
           </div>
         </div>
-
         <!-- Imágenes -->
         <div class="images-container">
-          <!-- Vista previa -->
           <div *ngIf="previewImageUrl" class="image-preview new-image">
             <div class="preview-label">Vista prèvia</div>
             <div class="image-frame">
@@ -59,13 +53,10 @@
             </div>
           </div>
         </div>
-
         <!-- Mensaje de error general -->
         <div *ngIf="errorMessage" class="cyber-error-message">
           <span>{{ errorMessage }}</span>
         </div>
-
-        <!-- Botón de envío -->
         <div class="button-container">
           <button type="submit" class="cyber-button submit-btn">
             <span class="btn-content">Crear Mapa</span>
@@ -75,26 +66,22 @@
       </form>
     </div>
   </div>
-
   <!-- Mapas por Juego -->
   <div class="section-title sub-title">
     <span>Mapes per Joc</span>
     <div class="title-line"></div>
   </div>
-
   <div class="cyber-card game-maps-container">
     <div class="card-content">
       <div *ngFor="let joc of jocs" class="game-section">
         <h2 class="game-title">{{ joc.nom }}</h2>
-        
         <div class="game-modes">
           <div *ngFor="let mode of joc.mode_jocs" class="game-mode">
             <h3 class="mode-title">{{ mode.nom }}</h3>
-            
             <div class="mode-maps">
               <div *ngFor="let mapa of mode.mapas" class="map-card">
                 <div class="map-image-container">
-                  <img [src]="'http://127.0.0.1:8000/uploads/mapes/' + mapa.mapa" alt="{{ mapa.nom }}" class="map-image">
+                  <img [src]="BASE_URL + '/uploads/mapes/' + mapa.mapa" alt="{{ mapa.nom }}" class="map-image">
                 </div>
                 <div class="map-info">
                   <span class="map-name">{{ mapa.nom }}</span>

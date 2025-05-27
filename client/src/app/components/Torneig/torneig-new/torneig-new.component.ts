@@ -181,7 +181,6 @@ export class TorneigNewComponent implements OnInit {
           }
         }
       }
-
       return Object.keys(errors).length ? errors : null;
     };
   }

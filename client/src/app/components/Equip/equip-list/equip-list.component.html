@@ -4,7 +4,7 @@
     <div *ngFor="let equip of equips" class="cyber-team-card">
       <div class="card-header">
         <div class="team-image-container">
-          <img [src]="'http://127.0.0.1:8000/uploads/fotosEquips/' + equip.foto_equip" alt="{{ equip.nom }} foto" class="team-image">
+          <img [src]="BASE_URL + '/uploads/fotosEquips/' + equip.foto_equip" alt="{{ equip.nom }} foto" class="team-image">
           <div class="image-glow"></div>
         </div>
         <div class="team-info">
@@ -26,7 +26,6 @@
           </div>
         </div>
       </div>
-
       <div *ngIf="equip.users && equip.users.length > 0" class="team-members">
         <div class="section-title">
           <span>Membres del Equip</span>
@@ -50,7 +49,7 @@
                 </td>
                 <td class="avatar-cell">
                   <div class="avatar-frame">
-                    <img [src]="'http://127.0.0.1:8000/uploads/fotoUsuari/' + user.foto_perfil" [alt]="user.name + ' foto'" class="user-avatar" />
+                    <img [src]="BASE_URL + '/uploads/fotoUsuari/' + user.foto_perfil" [alt]="user.name + ' foto'" class="user-avatar" />
                   </div>
                 </td>
               </tr>
@@ -60,14 +59,12 @@
       </div>
     </div>
   </div>
-
   <ng-template #noData>
     <div class="cyber-container" *ngIf="equips.length === 0">
       <div class="section-title main-title">
         <span>Equips Disponibles</span>
         <div class="title-line"></div>
       </div>
-      
       <div class="available-teams-card" *ngIf="equipsDisponibles.length > 0; else noDisponibles">
         <div class="cyber-table-container">
           <table class="cyber-table available-teams-table">
@@ -83,7 +80,7 @@
               <tr *ngFor="let equip of equipsDisponibles" class="cyber-table-row">
                 <td class="avatar-cell">
                   <div class="team-logo-frame">
-                    <img [src]="'http://127.0.0.1:8000/uploads/fotosEquips/' + equip.foto_equip" alt="Foto equipo" class="team-logo" />
+                    <img [src]="BASE_URL + '/uploads/fotosEquips/' + equip.foto_equip" alt="Foto equipo" class="team-logo" />
                   </div>
                 </td>
                 <td class="name-cell">{{ equip.nom }}</td>
@@ -106,7 +103,6 @@
           </table>
         </div>
       </div>
-
       <ng-template #noDisponibles>
         <div class="no-teams-message">
           <div class="message-icon">

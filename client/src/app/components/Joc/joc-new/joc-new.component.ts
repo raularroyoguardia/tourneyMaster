@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { Toast } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
+import { environment } from '../../../../environments/environment.development';
 
 @Component({
   selector: 'app-joc-new',
@@ -17,6 +18,7 @@ import { ButtonModule } from 'primeng/button';
   providers: [MessageService]
 })
 export class JocNewComponent implements OnInit {
+  readonly BASE_URL = environment.baseURL;
   jocs: IJoc[] = [];
   form: FormGroup;
   errorMessage = '';

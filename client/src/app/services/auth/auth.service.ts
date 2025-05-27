@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment.development';
 import { AuthCredentials } from '../../interfaces/auth-credentials.model';
 import { UserRegister } from '../../interfaces/user-register.model';
@@ -15,9 +15,17 @@ import { TokenService } from './token.service';
 export class AuthService {
   private readonly API_URL = environment.apiURL;
 
-  constructor(private http: HttpClient,
+  constructor(
+    private http: HttpClient,
     public tokenService: TokenService
   ) {}
+
+  // Genera los headers con autenticación básica
+  private getAuthHeaders(): HttpHeaders {
+    return new HttpHeaders({
+      'Authorization': 'Basic ' + btoa('tourne347:UOrC8oX5')
+    });
+  }
 
   login(credentials: AuthCredentials): Observable<any> {
     return this.http.post(`${this.API_URL}/login`, credentials);
@@ -28,32 +36,26 @@ export class AuthService {
   }
 
   logout(): Observable<any> {
-    return this.http.delete(`${this.API_URL}/logout`);
+    return this.http.delete(`${this.API_URL}/logout`, {
+      headers: this.getAuthHeaders()
+    });
   }
 
   setCurrentUser(user: any) {
     localStorage.setItem('currentUser', JSON.stringify(user));
   }
 
-  // Recupera el usuario actual
   getCurrentUser() {
     const user = localStorage.getItem('user');
     return user ? JSON.parse(user) : null;
   }
-  // Devuelve el ID del usuario actual
+
   getCurrentUserId(): number | null {
     const user = this.getCurrentUser();
     return user?.id || null;
-  } 
+  }
 
-  // Para logout
   clearUser() {
     localStorage.removeItem('currentUser');
   }
-
-
-}
-
-function of(usuari: any): Observable<IUser> {
-  throw new Error('Function not implemented.');
 }

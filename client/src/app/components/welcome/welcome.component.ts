@@ -5,6 +5,7 @@ import { IJoc } from '../../interfaces/iJoc';
 import { DadesJocsService } from '../../services/dades-jocs.service';
 import { CarouselModule } from 'primeng/carousel';
 import { Router } from '@angular/router';
+import { environment } from '../../../environments/environment.development';
 
 
 @Component({
@@ -20,6 +21,7 @@ import { Router } from '@angular/router';
 })
 
 export class WelcomeComponent implements OnInit {
+  readonly BASE_URL = environment.baseURL;
   jocs: IJoc[] = [];
   activeIndex: number = -1;
 

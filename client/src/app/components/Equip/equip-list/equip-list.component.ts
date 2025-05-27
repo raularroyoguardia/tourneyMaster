@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { MessageService } from 'primeng/api';
 import { Toast } from 'primeng/toast';
 import { ButtonModule } from 'primeng/button';
+import { environment } from '../../../../environments/environment.development';
 
 @Component({
   selector: 'app-equip-list',
@@ -14,14 +15,15 @@ import { ButtonModule } from 'primeng/button';
   providers: [MessageService]
 })
 export class EquipListComponent implements OnInit, OnDestroy {
-  equips: IEquip[] = []; 
+  readonly BASE_URL = environment.baseURL;
+  equips: IEquip[] = [];
   equipsDisponibles: IEquip[] = [];
   private refreshInterval: any;
 
   constructor(
     private dadesEquipsService: DadesEquipsService,
     private messageService: MessageService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.loadEquips();
@@ -34,7 +36,9 @@ export class EquipListComponent implements OnInit, OnDestroy {
   loadEquips(): void {
     this.dadesEquipsService.getUserEquips().subscribe({
       next: (response) => {
-        const userEquips = response
+        const equips = response.body as IEquip[];
+
+        const userEquips = equips
           .filter((equip: IEquip) => equip.maxim_integrants >= 2)
           .sort((a: IEquip, b: IEquip) => b.trofeus - a.trofeus);
 

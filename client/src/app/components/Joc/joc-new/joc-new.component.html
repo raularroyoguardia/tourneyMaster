@@ -4,7 +4,6 @@
     <span>Gestió de Jocs</span>
     <div class="title-line"></div>
   </div>
-
   <div class="cyber-card">
     <div class="card-content">
       <form [formGroup]="form" (ngSubmit)="onSubmit()">
@@ -19,7 +18,6 @@
               </div>
             </div>
           </div>
-
           <div class="cyber-form-group">
             <label for="categoria" class="cyber-label">Categoria</label>
             <div class="cyber-input-wrapper">
@@ -31,7 +29,6 @@
               </div>
             </div>
           </div>
-
           <div class="cyber-form-group">
             <label for="plataforma" class="cyber-label">Plataforma</label>
             <div class="cyber-input-wrapper">
@@ -43,7 +40,6 @@
               </div>
             </div>
           </div>
-
           <div class="cyber-form-group">
             <label for="foto" class="cyber-label">Foto</label>
             <div class="cyber-input-wrapper">
@@ -52,7 +48,6 @@
             </div>
           </div>
         </div>
-
         <div class="images-container">
           <div *ngIf="previewImageUrl" class="image-preview new-image">
             <div class="preview-label">Vista prèvia</div>
@@ -62,11 +57,9 @@
             </div>
           </div>
         </div>
-
         <div *ngIf="errorMessage" class="cyber-error-message">
           <span>{{ errorMessage }}</span>
         </div>
-
         <div class="button-container">
           <button type="submit" class="cyber-button submit-btn">
             <span class="btn-content">Crear Joc</span>
@@ -76,12 +69,10 @@
       </form>
     </div>
   </div>
-
   <div class="section-title sub-title">
     <span>Llistat de Jocs</span>
     <div class="title-line"></div>
   </div>
-
   <div class="cyber-table-container">
     <table class="cyber-table">
       <thead>
@@ -100,7 +91,7 @@
           <td class="game-platform">{{joc.plataforma}}</td>
           <td class="game-image-cell">
             <div class="game-image-frame">
-              <img [src]="'http://127.0.0.1:8000/uploads/fotoJocs/' + joc.foto" alt="Imagen del juego"
+              <img [src]="BASE_URL + '/uploads/fotoJocs/' + joc.foto" alt="Imagen del juego"
                 class="game-image">
             </div>
           </td>

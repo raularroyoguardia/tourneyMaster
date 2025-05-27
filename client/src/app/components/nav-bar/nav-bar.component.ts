@@ -8,6 +8,7 @@ import { NavigationEnd } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { Toast } from 'primeng/toast';
+import { environment } from '../../../environments/environment.development';
 
 @Component({
   selector: 'app-nav-bar',
@@ -18,6 +19,8 @@ import { Toast } from 'primeng/toast';
   providers: [MessageService]
 })
 export class NavBarComponent implements OnInit, OnDestroy {
+  private readonly API_URL = environment.apiURL;
+  readonly BASE_URL = environment.baseURL;
   user: any = {};
   isMenuOpen: boolean = false;
   isMobileMenuOpen: boolean = false;
@@ -28,8 +31,6 @@ export class NavBarComponent implements OnInit, OnDestroy {
   trofeus: number = 0;
   private trofeusInterval: any;
   canCreateTeam: boolean = true;
-  apiBaseUrl: string = 'http://localhost:8000/api';
-  BaseUrl: string = 'http://localhost:8000';
 
   constructor(
     private authService: AuthService,
@@ -125,7 +126,7 @@ export class NavBarComponent implements OnInit, OnDestroy {
   }
 
   public getUserOne() {
-    this.http.get(`${this.apiBaseUrl}/userOne/${this.usuariId}`)
+    this.http.get(`${this.API_URL}/userOne/${this.usuariId}`)
       .subscribe({
         next: (response: any) => {
           this.user = response;
@@ -140,7 +141,7 @@ export class NavBarComponent implements OnInit, OnDestroy {
   }
 
   public getUserEquips() {
-    this.http.get<any[]>(`${this.apiBaseUrl}/user/${this.usuariId}/equips`)
+    this.http.get<any[]>(`${this.API_URL}/user/${this.usuariId}/equips`)
       .subscribe({
         next: (response: any[]) => {
           this.equips = response;

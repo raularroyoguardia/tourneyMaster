@@ -4,7 +4,6 @@
     <span>Crear Equip</span>
     <div class="title-line"></div>
   </div>
-
   <div class="cyber-card">
     <div class="card-content">
       <form [formGroup]="form" (ngSubmit)="onSubmit()">
@@ -20,7 +19,6 @@
               <span>Aquest camp és obligatori.</span>
             </div>
           </div>
-
           <!-- Región -->
           <div class="cyber-form-group">
             <label for="regio" class="cyber-label">Regió</label>
@@ -35,7 +33,6 @@
               <span>Selecciona una regió.</span>
             </div>
           </div>
-
           <!-- Descripción -->
           <div class="cyber-form-group full-width">
             <label for="descripcio" class="cyber-label">Descripció</label>
@@ -44,7 +41,6 @@
               <div class="input-glow"></div>
             </div>
           </div>
-
           <!-- Máximo Integrantes -->
           <div class="cyber-form-group">
             <label for="maxim_integrants" class="cyber-label">Màxim Integrants (2 - 5)</label>
@@ -56,7 +52,6 @@
               <span>Ha de ser un número entre 2 i 5.</span>
             </div>
           </div>
-
           <!-- Foto del Equipo -->
           <div class="cyber-form-group">
             <label for="foto_equip" class="cyber-label">Foto del Equip</label>
@@ -66,7 +61,6 @@
             </div>
           </div>
         </div>
-
         <!-- Imágenes -->
         <div class="images-container">
           <!-- Vista previa -->
@@ -78,12 +72,10 @@
             </div>
           </div>
         </div>
-
         <!-- Mensaje de error general -->
         <div *ngIf="errorMessage" class="cyber-error-message">
           <span>{{ errorMessage }}</span>
         </div>
-
         <!-- Botón de envío -->
         <div class="button-container">
           <button type="submit" class="cyber-button submit-btn">

@@ -3,7 +3,6 @@
         <span>Crear Torneig</span>
         <div class="title-line"></div>
     </div>
-
     <div class="cyber-card">
         <div class="card-content">
             <form [formGroup]="myForm" (ngSubmit)="onSubmit()">
@@ -13,7 +12,6 @@
                         <span>Informació Bàsica</span>
                         <div class="section-line"></div>
                     </div>
-
                     <div class="form-grid">
                         <!-- Nombre del torneo -->
                         <div class="cyber-form-group">
@@ -23,7 +21,6 @@
                                 <div class="input-glow"></div>
                             </div>
                         </div>
-
                         <!-- Tipo de torneo -->
                         <div class="cyber-form-group">
                             <label for="tipus" class="cyber-label">Tipus</label>
@@ -36,7 +33,6 @@
                                 <div class="input-glow"></div>
                             </div>
                         </div>
-
                         <!-- Participantes -->
                         <div class="cyber-form-group">
                             <label for="participants" class="cyber-label">Participants</label>
@@ -50,7 +46,6 @@
                                 Mínim de participants: 2
                             </div>
                         </div>
-
                         <!-- Número de equipos -->
                         <div class="cyber-form-group">
                             <label for="numero_equips" class="cyber-label">Nombre Equips</label>
@@ -64,7 +59,6 @@
                                 Mínim de numero de equips: 2
                             </div>
                         </div>
-
                         <!-- Estado del torneo -->
                         <div class="cyber-form-group">
                             <label for="estat" class="cyber-label">Estat</label>
@@ -73,7 +67,6 @@
                                 <div class="input-glow"></div>
                             </div>
                         </div>
-
                         <!-- Premio -->
                         <div class="cyber-form-group">
                             <label for="premi_id" class="cyber-label">Premi (Trofeus)</label>
@@ -89,14 +82,12 @@
                         </div>
                     </div>
                 </div>
-
                 <!-- Fechas del torneo -->
                 <div class="form-section">
                     <div class="section-header">
                         <span>Dates del Torneig</span>
                         <div class="section-line"></div>
                     </div>
-
                     <div class="form-grid">
                         <!-- Fecha de inicio -->
                         <div class="cyber-form-group">
@@ -106,7 +97,6 @@
                                 <div class="input-glow"></div>
                             </div>
                         </div>
-
                         <!-- Fecha de fin -->
                         <div class="cyber-form-group">
                             <label for="data_fi" class="cyber-label">Data Fi</label>
@@ -116,7 +106,6 @@
                             </div>
                         </div>
                     </div>
-
                     <!-- Error de fechas -->
                     <div *ngIf="myForm.errors?.['dataFiAnterior']" class="cyber-error-message">
                         <div class="error-icon">
@@ -125,14 +114,12 @@
                         <span>La data de finalització no pot ser anterior a la data d'inici.</span>
                     </div>
                 </div>
-
                 <!-- Configuración del juego -->
                 <div class="form-section">
                     <div class="section-header">
                         <span>Configuració del Joc</span>
                         <div class="section-line"></div>
                     </div>
-
                     <div class="form-grid">
                         <!-- Juego -->
                         <div class="cyber-form-group">
@@ -145,7 +132,6 @@
                                 <div class="input-glow"></div>
                             </div>
                         </div>
-
                         <!-- Modo de juego -->
                         <div class="cyber-form-group">
                             <label for="modeJoc_id" class="cyber-label">Mode Joc</label>
@@ -158,7 +144,6 @@
                                 <div class="input-glow"></div>
                             </div>
                         </div>
-
                         <!-- Mapa -->
                         <div class="cyber-form-group">
                             <label for="mapa_id" class="cyber-label">Mapa</label>
@@ -171,7 +156,6 @@
                                 <div class="input-glow"></div>
                             </div>
                         </div>
-
                         <!-- Cantidad de partidas -->
                         <div class="cyber-form-group">
                             <label for="quantitat_partides" class="cyber-label">Quantitat Partides</label>
@@ -183,14 +167,12 @@
                         </div>
                     </div>
                 </div>
-
                 <!-- Horarios de partidas -->
                 <div class="form-section" formArrayName="partides">
                     <div class="section-header">
                         <span>Horaris de les Partides</span>
                         <div class="section-line"></div>
                     </div>
-
                     <div class="matches-grid">
                         <div *ngFor="let partida of partides.controls; let i = index" [formGroupName]="i"
                             class="match-item">
@@ -201,7 +183,6 @@
                                         formControlName="hora">
                                     <div class="input-glow"></div>
                                 </div>
-                                <!-- Error individual de fora de rang -->
                                 <div *ngIf="partida.get('hora')?.errors?.['foraDeRang'] && partida.get('hora')?.touched"
                                     class="cyber-error">
                                     La data de la partida {{ i + 1 }} ha d'estar dins del rang seleccionat.
@@ -210,7 +191,6 @@
                         </div>
                     </div>
                 </div>
-
                 <!-- Mensaje de error general -->
                 <div *ngIf="errorMessage" class="cyber-error-message">
                     <div class="error-icon">
@@ -218,8 +198,6 @@
                     </div>
                     <span>{{ errorMessage }}</span>
                 </div>
-
-                <!-- Botón de envío -->
                 <div class="button-container">
                     <button type="submit" class="cyber-button submit-btn">
                         <span class="btn-content">Crear Torneig</span>

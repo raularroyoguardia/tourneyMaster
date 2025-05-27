@@ -3,64 +3,88 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IEquip } from '../interfaces/iEquip';
 import { TokenService } from './auth/token.service';
-import { map } from 'rxjs/operators';
-
+import { environment } from '../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DadesEquipsService {
+  private readonly API_URL = environment.apiURL;
 
-  constructor(private _http: HttpClient, private tokenService: TokenService) { }
+  constructor(
+    private _http: HttpClient,
+    private tokenService: TokenService
+  ) {}
+
+  // 🔐 Método reutilizable para añadir cabecera Authorization
+  private getAuthHeaders(): HttpHeaders {
+    return new HttpHeaders({
+      'Authorization': 'Basic ' + btoa('tourne347:UOrC8oX5')
+    });
+  }
 
   public getEquips(): Observable<HttpResponse<IEquip[]>> {
-    return this._http.get<IEquip[]>('http://127.0.0.1:8000/api/equips', { observe: 'response' });
+    return this._http.get<IEquip[]>(`${this.API_URL}/equips`, {
+      headers: this.getAuthHeaders(),
+      observe: 'response'
+    });
   }
 
   public getEquip(id: any): Observable<HttpResponse<IEquip>> {
-    return this._http.get<IEquip>(`http://127.0.0.1:8000/api/equip/${id}`, { observe: 'response' });
+    return this._http.get<IEquip>(`${this.API_URL}/equip/${id}`, {
+      headers: this.getAuthHeaders(),
+      observe: 'response'
+    });
   }
 
   public getUserEquips(): Observable<any> {
-    const token = this.tokenService.getToken();
-    // console.log('Token:', token);
-    const headers = new HttpHeaders().set('Authorization', 'Bearer ' + token);
-
-    // return this._http.get<any[]>(`http://127.0.0.1:8000/api/equips/user`, { headers }).pipe(
-    //   map((equips: any[]) => {
-    //     return equips.filter(equip => equip.maxim_integrants >= 2);
-    //   })
-    // );
-    return this._http.get<any[]>(`http://127.0.0.1:8000/api/equips/user`, { headers });
-
+    return this._http.get<any[]>(`${this.API_URL}/equips/user`, {
+      headers: this.getAuthHeaders(),
+      observe: 'response'
+    });
   }
 
   public getEquipsDisponibles(): Observable<any> {
-    return this._http.get(`http://127.0.0.1:8000/api/equips/disponibles`);
+    return this._http.get(`${this.API_URL}/equips/disponibles`, {
+      headers: this.getAuthHeaders()
+    });
   }
-  
 
   public createEquip(equip: any): Observable<HttpResponse<any>> {
-    return this._http.post<any>('http://127.0.0.1:8000/api/equip/new', equip, { observe: 'response' });
+    return this._http.post<any>(`${this.API_URL}/equip/new`, equip, {
+      headers: this.getAuthHeaders(),
+      observe: 'response'
+    });
   }
 
   public updateEquip(id: any, equip: any): Observable<HttpResponse<any>> {
-    return this._http.put<any>(`http://127.0.0.1:8000/api/equip/edit/${id}`, equip, { observe: 'response' });
-  } 
+    return this._http.put<any>(`${this.API_URL}/equip/edit/${id}`, equip, {
+      headers: this.getAuthHeaders(),
+      observe: 'response'
+    });
+  }
 
   public deleteEquip(id: any) {
-    return this._http.delete<any>(`http://127.0.0.1:8000/api/equip/delete/${id}`);
+    return this._http.delete<any>(`${this.API_URL}/equip/delete/${id}`, {
+      headers: this.getAuthHeaders()
+    });
   }
 
   public getIndividual(): Observable<any> {
-    return this._http.get(`http://127.0.0.1:8000/api/classification/individual`);
+    return this._http.get(`${this.API_URL}/classification/individual`, {
+      headers: this.getAuthHeaders()
+    });
   }
 
   public getCollectiu(): Observable<any> {
-    return this._http.get(`http://127.0.0.1:8000/api/classification/collectiu`);
+    return this._http.get(`${this.API_URL}/classification/collectiu`, {
+      headers: this.getAuthHeaders()
+    });
   }
-  
+
   public unirseAUser(equipId: number): Observable<any> {
-    return this._http.post('http://127.0.0.1:8000/api/user/unirse', { equip_id: equipId });
+    return this._http.post(`${this.API_URL}/user/unirse`, { equip_id: equipId }, {
+      headers: this.getAuthHeaders()
+    });
   }
 }

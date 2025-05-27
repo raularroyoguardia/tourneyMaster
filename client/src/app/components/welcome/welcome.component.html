@@ -1,4 +1,3 @@
-<!-- Hero Section -->
 <section class="hero-section">
   <div class="hero-content">
     <h1 class="hero-title">TourneyMaster: Domina el Torneig</h1>
@@ -8,39 +7,28 @@
     </p>
   </div>
 </section>
-
 <!-- Carrusel de juegos -->
 <section class="carousel-section">
   <div class="section-header">
     <h2 class="section-title">Jocs Disponibles</h2>
   </div>
-
   <div class="carousel-container">
-    <p-carousel 
-  [value]="jocs" 
-  [numVisible]="1" 
-  [numScroll]="1" 
-  [circular]="true" 
-  [autoplayInterval]="2000"
-  [showIndicators]="false"
-  [showNavigators]="false"
-  class="custom-carousel">
-
-  <ng-template pTemplate="item" let-joc>
-    <div class="carousel-item-container" [@fadeIn]>
-      <div class="carousel-item-fade">
-        <img [src]="'http://127.0.0.1:8000/uploads/fotoJocs/' + joc.foto" [alt]="joc.nom" class="carousel-img" />
-        <div class="carousel-overlay">
-          <div class="carousel-content">
-            <h3 class="carousel-title">{{joc.nom}}</h3>
+    <p-carousel [value]="jocs" [numVisible]="1" [numScroll]="1" [circular]="true" [autoplayInterval]="2000"
+      [showIndicators]="false" [showNavigators]="false" class="custom-carousel">
+      <ng-template pTemplate="item" let-joc>
+        <div class="carousel-item-container" [@fadeIn]>
+          <div class="carousel-item-fade">
+            <img [src]="BASE_URL + '/uploads/fotoJocs/' + joc.foto" [alt]="joc.nom"
+              class="carousel-img" />
+            <div class="carousel-overlay">
+              <div class="carousel-content">
+                <h3 class="carousel-title">{{joc.nom}}</h3>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-  </ng-template>
-</p-carousel>
-
-
+      </ng-template>
+    </p-carousel>
   </div>
 </section>
 
